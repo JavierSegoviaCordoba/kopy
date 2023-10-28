@@ -1,0 +1,54 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v3.13.0
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Build
+        uses: gradle/gradle-build-action@v2.9.0
+        with:
+          arguments: |
+            build
+            -Proot.project.name=javiersc-kotlin-template
+            -Psemver.stage=snapshot
+            -Psemver.scope=patch
+
+      - name: Find Pull Request
+        if: ${{ (github.event_name == 'pull_request') && (inputs.auto-approve == 'true' || inputs.auto-approve == true) }}
+        id: find-pull-request
+        uses: juliangruber/find-pull-request-action@v1.8.0
+        with:
+          branch: renovate/hubdle
+
+      - name: Auto Approve
+        if: ${{ (github.event_name == 'pull_request') && (inputs.auto-approve == 'true' || inputs.auto-approve == true) }}
+        uses: hmarr/auto-approve-action@v3.2.1
+        with:
+          github-token: '${{ secrets.TOKEN_GITHUB_ACTION }}'
+          pull-request-number: ${{ steps.find-pull-request.outputs.number }}
+          review-message: "Auto approved"

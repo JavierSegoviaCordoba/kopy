@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "github>JavierSegoviaCordoba/reusable-workflows//.github/renovate-reusable.json"
+  ]
+}

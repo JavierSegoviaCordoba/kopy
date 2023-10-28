@@ -1,0 +1,11 @@
+name: build-changelog-renovate-bot
+
+on:
+  push:
+    branches:
+      - 'renovate/**'
+
+jobs:
+  add-updated-dependencies-to-changelog:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/build-changelog-renovate-bot.yaml@main
+    secrets: inherit

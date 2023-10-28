@@ -1,0 +1,24 @@
+name: build-kotlin-dispatcher
+
+on:
+  workflow_dispatch:
+    inputs:
+      gradle-args:
+        description: 'Gradle args for every step'
+        default: ''
+        required: false
+      publish-all-docs:
+        description: 'Publish all docs instead of only API docs and reports'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/build-kotlin.yaml@main
+    with:
+      gradle-args: '${{ github.event.inputs.gradle-args }}'
+      allow-github-actor-bots: false
+      publish-snapshot: true
+      publish-all-docs: '${{ github.event.inputs.publish-all-docs }}'
+    secrets: inherit

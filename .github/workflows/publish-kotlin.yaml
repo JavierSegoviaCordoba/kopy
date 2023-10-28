@@ -1,0 +1,17 @@
+name: publish-kotlin
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  publish:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/publish-kotlin.yaml@main
+    with:
+      publish-maven-central: true
+      #TODO: publish-gradle-plugin-portal: "{{ publish-gradle-plugin-portal }}"
+      #TODO: publish-jetbrains-marketplace: "{{ publish-jetbrains-marketplace }}"
+      publish-docs: true
+      publish-github-release: true
+    secrets: inherit

@@ -1,0 +1,57 @@
+site_name: '"{{ name }}"'
+site_description: '"{{ description }}"'
+site_author: 'Javier Segovia Córdoba'
+remote_branch: gh-pages
+
+repo_name: '"{{ repo }}"'
+repo_url: 'https://github.com/JavierSegoviaCordoba/"{{ repo }}"'
+
+copyright: 'Copyright &copy; 2021 Javier Segovia Córdoba'
+
+theme:
+  name: 'material'
+  language: 'en'
+  # TODO favicon: 'assets/favicon.png'
+  # TODO logo: 'assets/logo.svg'
+  palette:
+    primary: 'white'
+    accent: 'white'
+  font:
+    text: 'Fira Sans'
+    code: 'JetBrains Mono'
+
+nav:
+  - Overview: index.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - codehilite:
+      guess_lang: false
+      linenums: True
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - tables
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/JavierSegoviaCordoba
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/JavierSegoviaCo
+
+extra_css:
+  - css/all.css

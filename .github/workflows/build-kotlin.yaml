@@ -1,0 +1,22 @@
+name: build-kotlin
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/build-kotlin.yaml@main
+    with:
+      allow-github-actor-bots: false
+      publish-snapshot: true
+    secrets: inherit

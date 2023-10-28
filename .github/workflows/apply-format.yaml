@@ -1,0 +1,9 @@
+name: apply-format
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply-format:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/apply-format.yaml@main
+    secrets: inherit
