@@ -1,0 +1,4 @@
+public final class Empty {
+	public fun <init> ()V
+}
+

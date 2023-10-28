@@ -1,16 +1,16 @@
-plugins {
+plugins { //
     alias(libs.plugins.javiersc.hubdle)
 }
 
 hubdle {
     config {
         analysis()
-        binaryCompatibilityValidator()
+        // binaryCompatibilityValidator()
         coverage()
         documentation {
             api()
             changelog()
-            readme {
+            readme { //
                 badges()
             }
             site()

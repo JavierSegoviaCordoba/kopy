@@ -11,11 +11,11 @@ pluginManagement {
         google()
     }
 
-    plugins {
+    plugins { //
         id("com.javiersc.hubdle") version hubdleVersion
     }
 }
 
-plugins {
+plugins { //
     id("com.javiersc.hubdle")
 }
