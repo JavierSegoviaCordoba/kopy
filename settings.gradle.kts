@@ -9,6 +9,10 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         google()
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        maven("https://oss.sonatype.org/content/repositories/snapshots")
+        // mavenLocal()
     }
 
     plugins { //
@@ -18,4 +22,34 @@ pluginManagement {
 
 plugins { //
     id("com.javiersc.hubdle")
+}
+
+dependencyResolutionManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        sonatypeSnapshot()
+        // mavenLocal()
+    }
+}
+
+val catalogFile = file("$rootDir/gradle/libs.versions.toml").readLines()
+
+val hubdleCatalogVersion: String = catalogFile.first { it.contains("hubdleCatalog") }.split("\"")[1]
+val kotlinCompilerExtensionsVersion: String =
+    catalogFile.first { it.contains("javiersc-kotlin-kotlinCompilerExtensions") }.split("\"")[1]
+val kotlinStdlibAndTestVersion: String =
+    catalogFile.first { it.contains("javiersc-kotlin-kotlinStdlibAndTest") }.split("\"")[1]
+
+hubdleSettings {
+    catalog { //
+        version(hubdleCatalogVersion)
+        replaceVersion(
+            "javiersc-kotlin-kotlinCompilerExtensions" to kotlinCompilerExtensionsVersion,
+            "javiersc-kotlin-kotlinStdlibAndTest" to kotlinStdlibAndTestVersion,
+        )
+    }
 }

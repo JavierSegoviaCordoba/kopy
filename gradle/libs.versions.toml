@@ -1,5 +1,13 @@
 [versions]
-hubdle = "0.5.0-beta.13"
+hubdle = "0.5.0+2.0.0-dev-5387-SNAPSHOT"
+hubdleCatalog = "0.1.14+2.0.0-dev-5387-SNAPSHOT"
+javiersc-kotlin-kotlinCompilerExtensions = "0.1.1+2.0.0-dev-5387-SNAPSHOT"
+javiersc-kotlin-kotlinStdlibAndTest = "0.1.0-SNAPSHOT"
+
+[libraries]
+hubdle-catalog = { module = "com.javiersc.hubdle:hubdle-version-catalog", version.ref = "hubdleCatalog" }
+javiersc-kotlinCompilerExtensions = { module = "com.javiersc.kotlin:kotlin-compiler-extensions", version.ref = "javiersc-kotlin-kotlinCompilerExtensions" }
+javiersc-kotlinStdlib = { module = "com.javiersc.kotlin:kotlin-stdlib", version.ref = "javiersc-kotlin-kotlinStdlibAndTest" }
 
 [plugins]
 javiersc-hubdle = { id = "com.javiersc.hubdle", version.ref = "hubdle" }
