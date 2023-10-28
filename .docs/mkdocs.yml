@@ -1,10 +1,10 @@
-site_name: '"{{ name }}"'
-site_description: '"{{ description }}"'
+site_name: 'Kopy'
+site_description: 'A compiler plugin to improve how to copy data classes with a nice DSL in Kotlin.'
 site_author: 'Javier Segovia Córdoba'
 remote_branch: gh-pages
 
-repo_name: '"{{ repo }}"'
-repo_url: 'https://github.com/JavierSegoviaCordoba/"{{ repo }}"'
+repo_name: 'kopy'
+repo_url: 'https://github.com/JavierSegoviaCordoba/kopy'
 
 copyright: 'Copyright &copy; 2021 Javier Segovia Córdoba'
 
