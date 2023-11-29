@@ -1,23 +1,27 @@
-* text eol=lf
+gradlew text    eol=lf
 
-*.webp binary
-*.webm binary
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.mov binary
-*.mp4 binary
-*.mp3 binary
-*.flv binary
-*.fla binary
-*.swf binary
-*.gz binary
-*.zip binary
-*.7z binary
-*.ttf binary
-*.eot binary
-*.woff binary
-*.pyc binary
-*.pdf binary
+* text  eol=lf
+
+*.7z    binary
+*.bat   text    eol=crlf
+*.eot   binary
+*.fla   binary
+*.flv   binary
+*.gif   binary
+*.gz    binary
+*.ico   binary
+*.jar   binary
+*.jpeg  binary
+*.jpg   binary
+*.mov   binary
+*.mp3   binary
+*.mp4   binary
+*.pdf   binary
+*.png   binary
+*.pyc   binary
+*.swf   binary
+*.ttf   binary
+*.webm  binary
+*.webp  binary
+*.woff  binary
+*.zip   binary
