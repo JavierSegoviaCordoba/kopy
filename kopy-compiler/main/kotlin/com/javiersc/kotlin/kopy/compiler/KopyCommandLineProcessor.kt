@@ -1,7 +1,7 @@
 package com.javiersc.kotlin.kopy.compiler
 
-import com.javiersc.kotlin.kopy.kopy.compiler.KopyCompilerProjectData.Group
-import com.javiersc.kotlin.kopy.kopy.compiler.KopyCompilerProjectData.Name
+import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Group
+import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Name
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CommandLineProcessor
 import org.jetbrains.kotlin.config.CompilerConfiguration

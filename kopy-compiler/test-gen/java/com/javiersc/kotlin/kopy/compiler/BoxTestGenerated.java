@@ -21,4 +21,10 @@ public class BoxTestGenerated extends AbstractBoxTest {
     public void testAllFilesPresentInBox() throws Exception {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
+
+    @Test
+    @TestMetadata("no-nest-update-no-it.kt")
+    public void testNo_nest_update_no_it() throws Exception {
+        runTest("test-data/box/no-nest-update-no-it.kt");
+    }
 }

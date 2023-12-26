@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 hubdle {
     config {
         analysis()
@@ -9,8 +11,10 @@ hubdle {
         publishing()
     }
     kotlin {
-        multiplatform { //
-            jvm()
+        jvm {
+            features {
+                contextReceivers()
+            }
         }
     }
 }

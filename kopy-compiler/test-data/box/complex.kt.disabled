@@ -1,0 +1,28 @@
+package com.javiersc.kotlin.kopy.playground
+
+import com.javiersc.kotlin.kopy.Kopy
+
+fun box(): String {
+    val house0 =
+        House(
+            kitchen =
+                Kitchen(
+                    cat =
+                        Cat(
+                            name = "Garfield",
+                            age = 5,
+                        ),
+                    squareMeters = 30,
+                ),
+            squareMeters = 100,
+        )
+    val house1 = house0 { kitchen.cat.age.update { 2 } }
+    val house2 = house0.copy(kitchen = house0.kitchen.copy(cat = house0.kitchen.cat.copy(age = 2)))
+    return if (house1 == house2) "OK" else "ERROR"
+}
+
+internal data class Cat(val name: String, val age: Int)
+
+internal data class Kitchen(val cat: Cat, val squareMeters: Int)
+
+@Kopy internal data class House(val kitchen: Kitchen, val squareMeters: Int)
