@@ -33,4 +33,10 @@ public class BoxTestGenerated extends AbstractBoxTest {
     public void testNo_nest_invoke_update_no_it() throws Exception {
         runTest("test-data/box/no-nest-invoke-update-no-it.kt");
     }
+
+    @Test
+    @TestMetadata("no-nest-invoke-update-with-it.kt")
+    public void testNo_nest_invoke_update_with_it() throws Exception {
+        runTest("test-data/box/no-nest-invoke-update-with-it.kt");
+    }
 }

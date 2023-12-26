@@ -6,9 +6,12 @@ import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.filterIrIsInstance
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
+import com.javiersc.kotlin.compiler.extensions.ir.treeNode
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.builtins.StandardNames
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.builders.IrBlockBodyBuilder
@@ -86,13 +89,14 @@ internal class UpdateCallTransformer(
                 .apply {
                     parent = declarationParent
                     addValueParameter {
-                        this.name = "it".toName()
+                        this.name = StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
                         this.type = type
                     }
                 }
 
         val letBlockBody: IrBlockBody =
             pluginContext.declarationIrBuilder(letBlockFunction).irBlockBody {
+                replaceUpdateBlockItWithLetBlockIt(updateCall, letBlockFunction)
                 for (statement in updateBlockStatements) {
                     +processUpdateBlockStatement(statement)
                 }
@@ -130,9 +134,40 @@ internal class UpdateCallTransformer(
         return letCall
     }
 
+    private fun replaceUpdateBlockItWithLetBlockIt(
+        updateCall: IrCall,
+        letBlockFunction: IrSimpleFunction,
+    ) {
+        val updateItValueParameter: IrValueParameter =
+            updateCall
+                .getValueArgument(0)
+                ?.asIrOrNull<IrFunctionExpression>()
+                ?.function
+                ?.valueParameters
+                ?.firstOrNull() ?: return
+        val its: List<IrGetValue> =
+            updateCall
+                .getValueArgument(0)
+                ?.treeNode
+                ?.asSequence()
+                ?.filterIrIsInstance<IrGetValue>()
+                ?.filter { it.symbol.owner == updateItValueParameter }
+                .orEmpty()
+                .toList()
+
+        val letItValueParameter: IrValueParameter = letBlockFunction.valueParameters.first()
+
+        for (it in its) {
+            it.symbol = letItValueParameter.symbol
+        }
+    }
+
     private fun IrBlockBodyBuilder.processUpdateBlockStatement(
         statement: IrStatement
-    ): IrStatement = if (statement is IrReturn) irReturn(statement.value) else statement
+    ): IrStatement {
+
+        return if (statement is IrReturn) irReturn(statement.value) else statement
+    }
 
     private fun createCopyCall(updateCall: IrCall, letCall: IrCall): IrCall {
         val tempVarGet: IrGetValue =

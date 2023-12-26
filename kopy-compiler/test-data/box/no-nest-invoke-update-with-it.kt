@@ -1,9 +1,10 @@
+// !DIAGNOSTICS: -MISSING_DEPENDENCY_SUPERCLASS
+
 package com.javiersc.kotlin.kopy.playground
 
 import com.javiersc.kotlin.kopy.Kopy
-import com.javiersc.kotlin.kopy.runtime.Kopyable
 
-internal fun box(): String {
+fun box(): String {
     val house0 = House(street = "Street", squareMeters = 20)
     val house1 = house0 { squareMeters.update { it + 20 } }
     val house2 =
@@ -15,4 +16,4 @@ internal fun box(): String {
     return if (house1 == house2) "OK" else "Fail: \nHouse1: $house1 \nHouse2: $house2"
 }
 
-@Kopy internal data class House(val street: String, val squareMeters: Int) : Kopyable<House>
+@Kopy internal data class House(val street: String, val squareMeters: Int)
