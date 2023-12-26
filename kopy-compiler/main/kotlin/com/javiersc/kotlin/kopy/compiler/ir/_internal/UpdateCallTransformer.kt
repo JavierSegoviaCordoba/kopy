@@ -7,7 +7,6 @@ import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
-import com.javiersc.kotlin.compiler.extensions.ir.toIrExpression
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
@@ -50,7 +49,7 @@ internal class UpdateCallTransformer(
         fun originalCall(): IrExpression = super.visitCall(expression)
         if (!expression.isKopyUpdate) return originalCall()
 
-        val letCall: IrCall = createLetCall(expression) ?: return originalCall()
+        val letCall: IrCall = createLetCall(expression)
 
         val copyCall: IrCall = createCopyCall(expression, letCall)
 
@@ -127,16 +126,6 @@ internal class UpdateCallTransformer(
                     )
                     this.type = type
                 }
-
-        val letCall2: IrCall =
-            pluginContext.declarationIrBuilder(letFunction).irCall(letFunction.symbol).apply {
-                this.extensionReceiver = updateCall.extensionReceiver
-                putTypeArgument(0, type)
-                putTypeArgument(1, type)
-                this.dispatchReceiver = null
-                putValueArgument(0, letFunction.toIrExpression())
-                this.type = type
-            }
 
         return letCall
     }

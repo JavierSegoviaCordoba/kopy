@@ -152,8 +152,11 @@ internal class InvokeCallTransformer(
         val operatorType = operator.type
         val operatorName = operator.symbol.descriptor.name
 
+        val originalThisName = "${'$'}this${'$'}$originalName"
+        val originalThisCopyName = "${'$'}this${'$'}copy"
         val hasSameReceiver =
-            originalType == operatorType && "${'$'}this${'$'}$originalName" == "$operatorName"
+            originalType == operatorType &&
+                (originalThisName == "$operatorName" || originalThisCopyName == "$operatorName")
 
         if (!hasSameReceiver) return this
 

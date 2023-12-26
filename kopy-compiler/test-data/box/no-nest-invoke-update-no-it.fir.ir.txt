@@ -1,4 +1,4 @@
-FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-update-no-it.kt
+FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-invoke-update-no-it.kt
   FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
     BLOCK_BODY
       VAR name:house0 type:com.javiersc.kotlin.kopy.playground.House [val]

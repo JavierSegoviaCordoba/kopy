@@ -23,8 +23,14 @@ public class BoxTestGenerated extends AbstractBoxTest {
     }
 
     @Test
-    @TestMetadata("no-nest-update-no-it.kt")
-    public void testNo_nest_update_no_it() throws Exception {
-        runTest("test-data/box/no-nest-update-no-it.kt");
+    @TestMetadata("no-nest-copy-update-no-it.kt")
+    public void testNo_nest_copy_update_no_it() throws Exception {
+        runTest("test-data/box/no-nest-copy-update-no-it.kt");
+    }
+
+    @Test
+    @TestMetadata("no-nest-invoke-update-no-it.kt")
+    public void testNo_nest_invoke_update_no_it() throws Exception {
+        runTest("test-data/box/no-nest-invoke-update-no-it.kt");
     }
 }
