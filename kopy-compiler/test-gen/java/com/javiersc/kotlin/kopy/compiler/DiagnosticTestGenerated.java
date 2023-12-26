@@ -20,4 +20,76 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     public void testAllFilesPresentInDiagnostics() throws Exception {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
+
+    @Nested
+    @TestMetadata("test-data/diagnostics/invalid-call-chain")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Invalid_call_chain {
+        @Test
+        public void testAllFilesPresentInInvalid_call_chain() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/invalid-call-chain"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("complex-1.kt")
+        public void testComplex_1() throws Exception {
+            runTest("test-data/diagnostics/invalid-call-chain/complex-1.kt");
+        }
+    }
+
+    @Nested
+    @TestMetadata("test-data/diagnostics/missing-data-class")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Missing_data_class {
+        @Test
+        public void testAllFilesPresentInMissing_data_class() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/missing-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("complex-1.kt")
+        public void testComplex_1() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/complex-1.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-1.kt")
+        public void testSimple_1() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-1.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-2.kt")
+        public void testSimple_2() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-2.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-3.kt")
+        public void testSimple_3() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-3.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-4.kt")
+        public void testSimple_4() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-4.kt");
+        }
+    }
+
+    @Nested
+    @TestMetadata("test-data/diagnostics/valid")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Valid {
+        @Test
+        public void testAllFilesPresentInValid() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/valid"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("complex-1.kt")
+        public void testComplex_1() throws Exception {
+            runTest("test-data/diagnostics/valid/complex-1.kt");
+        }
+    }
 }

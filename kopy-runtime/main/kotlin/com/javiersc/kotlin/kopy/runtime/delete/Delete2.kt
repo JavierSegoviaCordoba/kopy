@@ -1,26 +1,31 @@
+@file:Suppress("DEPRECATION_ERROR")
+
 package com.javiersc.kotlin.kopy.runtime.delete
 
-import com.javiersc.kotlin.kopy.Kopy
-import com.javiersc.kotlin.kopy.runtime.Kopyable
+import com.javiersc.kotlin.kopy.runtime.KopyableScope
 
-public fun box(): String {
-    val house0 = House(street = "Street", squareMeters = 20)
-    val house1 = house0.copy()
-    val house2 = house1 { squareMeters.update { 40 } }
-    val house3 = house1.copy(squareMeters = house1.squareMeters.let { 40 })
-    return if (house2 == house3) "OK" else "ERROR"
+internal fun box() {
+    val d = D(num = 0)
+    val c = C(d = d, text = "Text")
+    val b = B(c = c, isValid = true)
+    val a = A(b = b, letter = 'A')
+
+    val a1 = a kopy {
+        b.isValid.set(false)
+        b.c.text.update { "$it Random 2" }
+    }
 }
 
-@Kopy internal data class House(val street: String, val squareMeters: Int) : Kopyable<House>
+//@Kopy data class House(val street: String, val squareMeters: Int)
 
-internal fun delete() {
-    val house0 = House(street = "Street", squareMeters = 20)
-    val house1 = house0 { squareMeters.update { 2 } }
+internal data class A(val b: B, val letter: Char) {
+
+    infix fun kopy(kopy: context(KopyableScope<A>) A.() -> Unit): A {
+        val scope: KopyableScope<A> = KopyableScope(this)
+        kopy(scope, scope.getKopyableReference())
+        return scope.getKopyableReference()
+    }
 }
-
-// internal fun House.hello() {
-//    squareMeters.update { 2 }
-//    val house = this {
-//        squareMeters.update { 2 }
-//    }
-// }
+internal data class B(val c: C, val isValid: Boolean)
+internal data class C(val d: D, val text: String)
+internal data class D(val num: Int)

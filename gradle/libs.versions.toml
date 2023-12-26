@@ -1,13 +1,14 @@
 [versions]
-hubdle = "0.5.0+2.0.0-dev-10501-SNAPSHOT"
-hubdleCatalog = "0.1.18+2.0.0-dev-10501-SNAPSHOT"
-javiersc-kotlin-kotlinCompilerExtensions = "0.1.1+2.0.0-dev-10501-SNAPSHOT"
-javiersc-kotlin-kotlinStdlibAndTest = "0.1.0-SNAPSHOT"
+hubdle = "0.6.4+2.0.0-dev-15455-SNAPSHOT"
+hubdleCatalog = "0.2.5+2.0.0-dev-15455-SNAPSHOT"
+javiersc-kotlin-compiler-extensions = "0.1.1+2.0.0-dev-15455-SNAPSHOT"
+javiersc-kotlin = "0.1.0-SNAPSHOT"
 
 [libraries]
 hubdle-catalog = { module = "com.javiersc.hubdle:hubdle-version-catalog", version.ref = "hubdleCatalog" }
-javiersc-kotlinCompilerExtensions = { module = "com.javiersc.kotlin:kotlin-compiler-extensions", version.ref = "javiersc-kotlin-kotlinCompilerExtensions" }
-javiersc-kotlinStdlib = { module = "com.javiersc.kotlin:kotlin-stdlib", version.ref = "javiersc-kotlin-kotlinStdlibAndTest" }
+javiersc-kotlin-compiler-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
+javiersc-kotlin-compiler-test-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-test-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
+javiersc-kotlin-stdlib = { module = "com.javiersc.kotlin:kotlin-stdlib", version.ref = "javiersc-kotlin" }
 
 [plugins]
 javiersc-hubdle = { id = "com.javiersc.hubdle", version.ref = "hubdle" }

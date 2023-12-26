@@ -1,0 +1,17 @@
+// !DIAGNOSTICS: -MISSING_DEPENDENCY_SUPERCLASS -INVISIBLE_REFERENCE
+
+@file:Suppress("DEPRECATION_ERROR")
+
+package com.javiersc.kotlin.kopy.playground
+
+import com.javiersc.kotlin.kopy.Kopy
+import com.javiersc.kotlin.kopy.runtime.KopyableScope
+
+fun box(): String {
+    val house: House = House(street = "Street", squareMeters = 20)
+    val house1: House = house kopy { squareMeters.set(30) }
+    val house2: House = house.copy(squareMeters = 30)
+    return if (house1 == house2) "OK" else "Fail: $house1 | $house2"
+}
+
+@Kopy data class House(val street: String, val squareMeters: Int)

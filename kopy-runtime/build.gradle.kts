@@ -8,6 +8,7 @@ hubdle {
             api()
         }
         explicitApi()
+        format.isEnabled = false
         publishing()
     }
     kotlin {

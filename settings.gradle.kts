@@ -38,18 +38,19 @@ dependencyResolutionManagement {
 
 val catalogFile = file("$rootDir/gradle/libs.versions.toml").readLines()
 
-val hubdleCatalogVersion: String = catalogFile.first { it.contains("hubdleCatalog") }.split("\"")[1]
+val hubdleCatalogVersion: String =
+    catalogFile.first { it.contains("hubdleCatalog =") }.split("\"")[1]
 val kotlinCompilerExtensionsVersion: String =
-    catalogFile.first { it.contains("javiersc-kotlin-kotlinCompilerExtensions") }.split("\"")[1]
+    catalogFile.first { it.contains("javiersc-kotlin-compiler-extensions =") }.split("\"")[1]
 val kotlinStdlibAndTestVersion: String =
-    catalogFile.first { it.contains("javiersc-kotlin-kotlinStdlibAndTest") }.split("\"")[1]
+    catalogFile.first { it.contains("javiersc-kotlin =") }.split("\"")[1]
 
 hubdleSettings {
     catalog { //
         version(hubdleCatalogVersion)
         replaceVersion(
-            "javiersc-kotlin-kotlinCompilerExtensions" to kotlinCompilerExtensionsVersion,
-            "javiersc-kotlin-kotlinStdlibAndTest" to kotlinStdlibAndTestVersion,
+            "javiersc-kotlin-compiler-extensions" to kotlinCompilerExtensionsVersion,
+            "javiersc-kotlin" to kotlinStdlibAndTestVersion,
         )
     }
 }

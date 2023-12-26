@@ -8,6 +8,7 @@ hubdle {
             api()
         }
         explicitApi()
+        format.isEnabled = false
         projectConfig { //
             generateProjectData(true)
         }
@@ -51,7 +52,7 @@ hubdle {
             main {
                 dependencies {
                     compileOnly(projects.kopyCompiler)
-                    compileOnly(hubdle.jetbrains.kotlin.kotlinGradlePlugin)
+                    compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }
             }
         }

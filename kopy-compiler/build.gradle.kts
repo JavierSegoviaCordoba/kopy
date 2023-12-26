@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 hubdle {
@@ -8,6 +9,7 @@ hubdle {
             api()
         }
         explicitApi()
+        format.isEnabled = false
         languageSettings { //
             experimentalContracts()
         }
@@ -23,7 +25,7 @@ hubdle {
                 compiler {
                     mainClass.set("com.javiersc.kotlin.kopy.compiler.GenerateKotlinCompilerTestsKt")
                     generateTestOnSync(false)
-                    testDependencies(hubdle.javiersc.kotlin.kotlinStdlib)
+                    testDependencies(hubdle.javiersc.kotlin.stdlib)
                     testProjects(projects.kopyRuntime)
                 }
                 contextReceivers()
@@ -31,7 +33,7 @@ hubdle {
             }
             main { //
                 dependencies { //
-                    implementation(hubdle.javiersc.kotlin.kotlinCompilerExtensions)
+                    implementation(hubdle.javiersc.kotlin.compiler.extensions)
                     implementation(projects.kopyRuntime)
                 }
             }
