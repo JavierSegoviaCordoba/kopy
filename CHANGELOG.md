@@ -13,3 +13,5 @@
 ### Fixed
 
 ### Updated
+
+- `gradle -> 8.5`
