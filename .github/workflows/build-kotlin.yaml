@@ -18,7 +18,7 @@ jobs:
     uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/build-kotlin.yaml@main
     with:
       allow-github-actor-bots: false
-      assemble: true
       deploy-docs: false
       publish-snapshot: true
+      run_before_args: ./gradlew assemble
     secrets: inherit
