@@ -14,25 +14,25 @@ fun diagnostics() {
     val foo10 = foo0 {}
     val foo11 = foo0 copy {}
 
-    val house20 = foo0 { bar.baz.qux.number.set(10) }
-    val house21 = foo0 copy { bar.baz.qux.number.set(10) }
+    val foo20 = foo0 { bar.baz.qux.number.set(10) }
+    val foo21 = foo0 copy { bar.baz.qux.number.set(10) }
 
-    val house30 = foo0 { bar.baz.qux.number.update { it + 10 } }
-    val house31 = foo0 copy { bar.baz.qux.number.update { it + 10 } }
+    val foo30 = foo0 { bar.baz.qux.number.update { it + 10 } }
+    val foo31 = foo0 copy { bar.baz.qux.number.update { it + 10 } }
 
-    val house40 = foo0 { bar.baz.text.set("Random 2") }
-    val house41 = foo0 copy { bar.baz.text.set("Random 2") }
+    val foo40 = foo0 { bar.baz.text.set("Random 2") }
+    val foo41 = foo0 copy { bar.baz.text.set("Random 2") }
 
-    val house50 = foo0 { bar.baz.text.update { it + " 2" } }
-    val house51 = foo0 copy { bar.baz.text.update { it + " 2" } }
+    val foo50 = foo0 { bar.baz.text.update { it + " 2" } }
+    val foo51 = foo0 copy { bar.baz.text.update { it + " 2" } }
 
-    val house60 = foo0 {
+    val foo60 = foo0 {
         bar.baz.qux.number.set(10)
         bar.baz.text.update { "$it Random 2" }
         bar.isValid.set(false)
     }
 
-    val house61 = foo0 {
+    val foo61 = foo0 {
         bar.baz.qux.number.update { it + 10 }
         bar.baz.text.set("Random 2")
         bar.isValid.update { !it }

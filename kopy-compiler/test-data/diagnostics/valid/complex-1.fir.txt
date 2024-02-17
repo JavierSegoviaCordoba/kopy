@@ -14,51 +14,51 @@ FILE: complex-1.kt
             ^@copy Unit
         }
         )
-        lval house20: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo20: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(10))
         }
         )
-        lval house21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(10))
         }
         )
-        lval house30: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo30: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = update@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/Int.plus|(Int(10))
             }
             )
         }
         )
-        lval house31: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo31: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = update@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/Int.plus|(Int(10))
             }
             )
         }
         )
-        lval house40: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo40: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.text|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/String|>(String(Random 2))
         }
         )
-        lval house41: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo41: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.text|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/String|>(String(Random 2))
         }
         )
-        lval house50: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo50: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.text|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/String|>(<L> = update@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/String.plus|(String( 2))
             }
             )
         }
         )
-        lval house51: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo51: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.text|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/String|>(<L> = update@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/String.plus|(String( 2))
             }
             )
         }
         )
-        lval house60: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo60: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(10))
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.text|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/String|>(<L> = update@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
                 ^ <strcat>(R|<local>/it|, String( Random 2))
@@ -67,7 +67,7 @@ FILE: complex-1.kt
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.isValid|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/Boolean|>(Boolean(false))
         }
         )
-        lval house61: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+        lval foo61: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.invoke|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.update: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = update@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/Int.plus|(Int(10))
             }
