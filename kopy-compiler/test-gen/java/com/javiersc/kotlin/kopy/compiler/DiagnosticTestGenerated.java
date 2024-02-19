@@ -22,6 +22,22 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Nested
+    @TestMetadata("test-data/diagnostics/edge")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Edge {
+        @Test
+        public void testAllFilesPresentInEdge() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/edge"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("no-nest-copy-set.kt")
+        public void testNo_nest_copy_set() throws Exception {
+            runTest("test-data/diagnostics/edge/no-nest-copy-set.kt");
+        }
+    }
+
+    @Nested
     @TestMetadata("test-data/diagnostics/invalid-call-chain")
     @TestDataPath("$PROJECT_ROOT")
     public class Invalid_call_chain {

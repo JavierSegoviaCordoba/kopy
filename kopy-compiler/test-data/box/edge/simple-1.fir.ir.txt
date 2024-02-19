@@ -1,0 +1,415 @@
+FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      VAR name:roni type:com.javiersc.kotlin.kopy.playground.Pet [val]
+        CONSTRUCTOR_CALL 'public constructor <init> (name: kotlin.String, age: kotlin.Int) declared in com.javiersc.kotlin.kopy.playground.Pet' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+          name: CONST String type=kotlin.String value="Roni"
+          age: CONST Int type=kotlin.Int value=7
+      VAR name:house type:com.javiersc.kotlin.kopy.playground.House [val]
+        CONSTRUCTOR_CALL 'public constructor <init> (street: kotlin.String, pet: com.javiersc.kotlin.kopy.playground.Pet) declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          street: CONST String type=kotlin.String value="House"
+          pet: GET_VAR 'val roni: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+      VAR name:house1 type:com.javiersc.kotlin.kopy.playground.House [val]
+        CALL 'public final fun copy (street: kotlin.String, pet: com.javiersc.kotlin.kopy.playground.Pet): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          $this: GET_VAR 'val house: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          pet: CALL 'public final fun copy (name: kotlin.String, age: kotlin.Int): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            $this: CALL 'public final fun <get-pet> (): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.Pet origin=GET_PROPERTY
+              $this: GET_VAR 'val house: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            name: CONST String type=kotlin.String value="Roni 2"
+      VAR name:house2 type:com.javiersc.kotlin.kopy.playground.House [val]
+        CALL 'public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          $this: GET_VAR 'val house: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          copy: FUN_EXPR type=@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> ($receiver:com.javiersc.kotlin.kopy.playground.House, $context_receiver_0:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>) returnType:kotlin.Unit
+              contextReceiverParametersCount: 1
+              $receiver: VALUE_PARAMETER name:$this$copy type:com.javiersc.kotlin.kopy.playground.House
+              VALUE_PARAMETER name:$context_receiver_0 index:0 type:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>
+              BLOCK_BODY
+                CALL 'public final fun set <D> (other: D of com.javiersc.kotlin.kopy.runtime.KopyableScope.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=kotlin.Unit origin=null
+                  <D>: kotlin.String
+                  $this: GET_VAR '$context_receiver_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+                  $receiver: CALL 'public final fun <get-name> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet' type=kotlin.String origin=GET_PROPERTY
+                    $this: CALL 'public final fun <get-pet> (): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.Pet origin=GET_PROPERTY
+                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                  other: CALL 'public final fun also <T> (block: kotlin.Function1<T of kotlin.also, kotlin.Unit>): T of kotlin.also declared in kotlin' type=kotlin.String origin=null
+                    <T>: kotlin.String
+                    $receiver: CONST String type=kotlin.String value="Roni 2"
+                    block: FUN_EXPR type=kotlin.Function1<kotlin.String, kotlin.Unit> origin=LAMBDA
+                      FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
+                        VALUE_PARAMETER name:it index:0 type:kotlin.String
+                        BLOCK_BODY
+                          CALL 'public final fun setKopyableReference (other: M of com.javiersc.kotlin.kopy.runtime.KopyableScope): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=kotlin.Unit origin=null
+                            $this: GET_VAR '$context_receiver_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+                            other: CALL 'public final fun copy (street: kotlin.String, pet: com.javiersc.kotlin.kopy.playground.Pet): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                              $this: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                                $this: GET_VAR '$context_receiver_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+                              pet: CALL 'public final fun copy (name: kotlin.String, age: kotlin.Int): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                                $this: CALL 'public final fun <get-pet> (): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.Pet origin=GET_PROPERTY
+                                  $this: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                                    $this: GET_VAR '$context_receiver_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+                                name: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
+      VAR name:isOk type:kotlin.Boolean [val]
+        CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+          arg0: GET_VAR 'val house1: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+          arg1: GET_VAR 'val house2: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in com.javiersc.kotlin.kopy.playground'
+        WHEN type=kotlin.String origin=IF
+          BRANCH
+            if: GET_VAR 'val isOk: kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.box' type=kotlin.Boolean origin=null
+            then: CONST String type=kotlin.String value="OK"
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: STRING_CONCATENATION type=kotlin.String
+              CONST String type=kotlin.String value="Fail: "
+              GET_VAR 'val house1: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+              CONST String type=kotlin.String value=" is not equal to "
+              GET_VAR 'val house2: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
+  CLASS CLASS name:House modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
+    annotations:
+      Kopy
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+    CONSTRUCTOR visibility:public <> (street:kotlin.String, pet:com.javiersc.kotlin.kopy.playground.Pet) returnType:com.javiersc.kotlin.kopy.playground.House [primary]
+      VALUE_PARAMETER name:street index:0 type:kotlin.String
+      VALUE_PARAMETER name:pet index:1 type:com.javiersc.kotlin.kopy.playground.Pet
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:House modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+    PROPERTY name:street visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'street: kotlin.String declared in com.javiersc.kotlin.kopy.playground.House.<init>' type=kotlin.String origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-street> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:kotlin.String
+        correspondingProperty: PROPERTY name:street visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-street> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.House'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.<get-street>' type=com.javiersc.kotlin.kopy.playground.House origin=null
+    PROPERTY name:pet visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'pet: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House.<init>' type=com.javiersc.kotlin.kopy.playground.Pet origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-pet> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:com.javiersc.kotlin.kopy.playground.Pet
+        correspondingProperty: PROPERTY name:pet visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-pet> (): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.<get-pet>' type=com.javiersc.kotlin.kopy.playground.House origin=null
+    FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House, copy:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.House [infix]
+      annotations:
+        KopyFunctionKopy
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>
+      BLOCK_BODY
+        VAR IR_TEMPORARY_VARIABLE name:tmp_0 type:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> [val]
+          CONSTRUCTOR_CALL 'internal constructor <init> (data: M of com.javiersc.kotlin.kopy.runtime.KopyableScope) declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+            <class: M>: com.javiersc.kotlin.kopy.playground.House
+            data: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.playground.House origin=null
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 declared in kotlin.Function2' type=R of kotlin.Function2 origin=null
+          $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.House.copy' type=@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit> origin=null
+          p1: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+          p2: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+        RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House'
+          CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+    FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House, copy:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.House [operator,infix]
+      annotations:
+        KopyFunctionInvoke
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>
+      BLOCK_BODY
+        VAR IR_TEMPORARY_VARIABLE name:tmp_1 type:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> [val]
+          CONSTRUCTOR_CALL 'internal constructor <init> (data: M of com.javiersc.kotlin.kopy.runtime.KopyableScope) declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+            <class: M>: com.javiersc.kotlin.kopy.playground.House
+            data: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.invoke' type=com.javiersc.kotlin.kopy.playground.House origin=null
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 declared in kotlin.Function2' type=R of kotlin.Function2 origin=null
+          $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.House.invoke' type=@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit> origin=null
+          p1: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+          p2: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+        RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House>, com.javiersc.kotlin.kopy.playground.House, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House'
+          CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> declared in com.javiersc.kotlin.kopy.playground.House.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.House> origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:kotlin.String [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component1 (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.House'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.component1' type=com.javiersc.kotlin.kopy.playground.House origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component2 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:com.javiersc.kotlin.kopy.playground.Pet [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component2 (): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.component2' type=com.javiersc.kotlin.kopy.playground.House origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.House, street:kotlin.String, pet:com.javiersc.kotlin.kopy.playground.Pet) returnType:com.javiersc.kotlin.kopy.playground.House
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      VALUE_PARAMETER name:street index:0 type:kotlin.String
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.playground.House origin=null
+      VALUE_PARAMETER name:pet index:1 type:com.javiersc.kotlin.kopy.playground.Pet
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.playground.House origin=null
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun copy (street: kotlin.String, pet: com.javiersc.kotlin.kopy.playground.Pet): com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House'
+          CONSTRUCTOR_CALL 'public constructor <init> (street: kotlin.String, pet: com.javiersc.kotlin.kopy.playground.Pet) declared in com.javiersc.kotlin.kopy.playground.House' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            street: GET_VAR 'street: kotlin.String declared in com.javiersc.kotlin.kopy.playground.House.copy' type=kotlin.String origin=null
+            pet: GET_VAR 'pet: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.House.copy' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.House'
+          STRING_CONCATENATION type=kotlin.String
+            CONST String type=kotlin.String value="House("
+            CONST String type=kotlin.String value="street="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.toString' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="pet="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.toString' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            CONST String type=kotlin.String value=")"
+    FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.House) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      BLOCK_BODY
+        VAR name:result type:kotlin.Int [var]
+          CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.String' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.hashCode' type=com.javiersc.kotlin.kopy.playground.House origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.House.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.House.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.hashCode' type=com.javiersc.kotlin.kopy.playground.House origin=null
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.House'
+          GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.House.hashCode' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.House, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.House
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun EQEQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQEQ
+              arg0: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.equals' type=com.javiersc.kotlin.kopy.playground.House origin=null
+              arg1: GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.House.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
+              CONST Boolean type=kotlin.Boolean value=true
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=com.javiersc.kotlin.kopy.playground.House
+              GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.House.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:com.javiersc.kotlin.kopy.playground.House [val]
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.House origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.House
+            GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.House.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.equals' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:street type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR 'val tmp_2: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.equals' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.equals' type=com.javiersc.kotlin.kopy.playground.House origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:pet type:com.javiersc.kotlin.kopy.playground.Pet visibility:private [final]' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                  receiver: GET_VAR 'val tmp_2: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.House.equals' type=com.javiersc.kotlin.kopy.playground.House origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
+          CONST Boolean type=kotlin.Boolean value=true
+  CLASS CLASS name:Pet modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
+    annotations:
+      Kopy
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+    CONSTRUCTOR visibility:public <> (name:kotlin.String, age:kotlin.Int) returnType:com.javiersc.kotlin.kopy.playground.Pet [primary]
+      VALUE_PARAMETER name:name index:0 type:kotlin.String
+      VALUE_PARAMETER name:age index:1 type:kotlin.Int
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Pet modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+    PROPERTY name:name visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'name: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet.<init>' type=kotlin.String origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-name> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.String
+        correspondingProperty: PROPERTY name:name visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-name> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.<get-name>' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+    PROPERTY name:age visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'age: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-age> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:age visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-age> (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.<get-age>' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+    FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet, copy:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Pet [infix]
+      annotations:
+        KopyFunctionKopy
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>
+      BLOCK_BODY
+        VAR IR_TEMPORARY_VARIABLE name:tmp_3 type:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> [val]
+          CONSTRUCTOR_CALL 'internal constructor <init> (data: M of com.javiersc.kotlin.kopy.runtime.KopyableScope) declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+            <class: M>: com.javiersc.kotlin.kopy.playground.Pet
+            data: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 declared in kotlin.Function2' type=R of kotlin.Function2 origin=null
+          $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit> origin=null
+          p1: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+          p2: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+        RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet'
+          CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+    FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet, copy:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Pet [operator,infix]
+      annotations:
+        KopyFunctionInvoke
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>
+      BLOCK_BODY
+        VAR IR_TEMPORARY_VARIABLE name:tmp_4 type:com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> [val]
+          CONSTRUCTOR_CALL 'internal constructor <init> (data: M of com.javiersc.kotlin.kopy.runtime.KopyableScope) declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+            <class: M>: com.javiersc.kotlin.kopy.playground.Pet
+            data: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.invoke' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 declared in kotlin.Function2' type=R of kotlin.Function2 origin=null
+          $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Pet.invoke' type=@[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit> origin=null
+          p1: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+          p2: CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+        RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function2<com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet>, com.javiersc.kotlin.kopy.playground.Pet, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet'
+          CALL 'public final fun getKopyableReference (): M of com.javiersc.kotlin.kopy.runtime.KopyableScope declared in com.javiersc.kotlin.kopy.runtime.KopyableScope' type=M of com.javiersc.kotlin.kopy.runtime.KopyableScope origin=null
+            $this: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> declared in com.javiersc.kotlin.kopy.playground.Pet.invoke' type=com.javiersc.kotlin.kopy.runtime.KopyableScope<com.javiersc.kotlin.kopy.playground.Pet> origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.String [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component1 (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.component1' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component2 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component2 (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.component2' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Pet, name:kotlin.String, age:kotlin.Int) returnType:com.javiersc.kotlin.kopy.playground.Pet
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      VALUE_PARAMETER name:name index:0 type:kotlin.String
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+      VALUE_PARAMETER name:age index:1 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun copy (name: kotlin.String, age: kotlin.Int): com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet'
+          CONSTRUCTOR_CALL 'public constructor <init> (name: kotlin.String, age: kotlin.Int) declared in com.javiersc.kotlin.kopy.playground.Pet' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            name: GET_VAR 'name: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=kotlin.String origin=null
+            age: GET_VAR 'age: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet.copy' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Pet'
+          STRING_CONCATENATION type=kotlin.String
+            CONST String type=kotlin.String value="Pet("
+            CONST String type=kotlin.String value="name="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.toString' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="age="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.toString' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            CONST String type=kotlin.String value=")"
+    FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Pet) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      BLOCK_BODY
+        VAR name:result type:kotlin.Int [var]
+          CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.String' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.hashCode' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.hashCode' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet'
+          GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Pet.hashCode' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Pet, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Pet
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun EQEQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQEQ
+              arg0: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+              arg1: GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
+              CONST Boolean type=kotlin.Boolean value=true
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=com.javiersc.kotlin.kopy.playground.Pet
+              GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_5 type:com.javiersc.kotlin.kopy.playground.Pet [val]
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Pet origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Pet
+            GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:name type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+                  receiver: GET_VAR 'val tmp_5: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:age type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_5: com.javiersc.kotlin.kopy.playground.Pet declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=com.javiersc.kotlin.kopy.playground.Pet origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
+          CONST Boolean type=kotlin.Boolean value=true
+FILE fqName:<root> fileName:/SomeFile.kt

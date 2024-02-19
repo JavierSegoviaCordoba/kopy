@@ -1,0 +1,106 @@
+FILE: no-nest-copy-set.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun box(): R|kotlin/String| {
+        lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(number = Int(7), letter = Char(W))
+        lval foo02: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|com/javiersc/kotlin/kopy/playground/Foo2.Foo2|(number = Int(7), letter = Char(W))
+        lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/runtime/KopyableScope.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(42))
+        }
+        )
+        lval foo22: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|<local>/foo02|.R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo2|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/KopyableScope2.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(42).R|kotlin/also|<R|kotlin/Int|>(<L> = also@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <inline=Inline, kind=EXACTLY_ONCE>  {
+                this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/KopyableScope2.setKopyableReference: R|kotlin/Unit|>|(this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/KopyableScope2.getKopyableReference: R|com/javiersc/kotlin/kopy/playground/Foo2|>|().R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(number = R|<local>/it|))
+            }
+            ))
+        }
+        )
+        lval isOk: R|kotlin/Boolean| = ==(R|<local>/foo21|.R|com/javiersc/kotlin/kopy/playground/Foo.number|, Int(42))
+        ^box when () {
+            R|<local>/isOk| ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Fail: number is ), R|<local>/foo21|.R|com/javiersc/kotlin/kopy/playground/Foo.number|, String( instead of 42))
+            }
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any| {
+        public constructor(number: R|kotlin/Int|, letter: R|kotlin/Char|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val number: R|kotlin/Int| = R|<local>/number|
+            public get(): R|kotlin/Int|
+
+        public final val letter: R|kotlin/Char| = R|<local>/letter|
+            public get(): R|kotlin/Char|
+
+        public final operator fun component1(): R|kotlin/Int|
+
+        public final operator fun component2(): R|kotlin/Char|
+
+        public final fun copy(number: R|kotlin/Int| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.number|, letter: R|kotlin/Char| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.letter|): R|com/javiersc/kotlin/kopy/playground/Foo|
+
+        @R|com/javiersc/kotlin/kopy/KopyFunctionKopy|() public final infix fun copy(copy: R|@ContextFunctionTypeParams com/javiersc/kotlin/kopy/runtime/KopyableScope<com/javiersc/kotlin/kopy/playground/Foo>.(com/javiersc/kotlin/kopy/playground/Foo) -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|@ContextFunctionTypeParams com/javiersc/kotlin/kopy/runtime/KopyableScope<com/javiersc/kotlin/kopy/playground/Foo>.(com/javiersc/kotlin/kopy/playground/Foo) -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
+
+    }
+    public final data class Foo2 : R|kotlin/Any| {
+        public constructor(number: R|kotlin/Int|, letter: R|kotlin/Char|): R|com/javiersc/kotlin/kopy/playground/Foo2| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val number: R|kotlin/Int| = R|<local>/number|
+            public get(): R|kotlin/Int|
+
+        public final val letter: R|kotlin/Char| = R|<local>/letter|
+            public get(): R|kotlin/Char|
+
+        public final operator infix fun invoke(copy: R|@ContextFunctionTypeParams com/javiersc/kotlin/kopy/playground/KopyableScope2<com/javiersc/kotlin/kopy/playground/Foo2>.(com/javiersc/kotlin/kopy/playground/Foo2) -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo2| {
+            lval scope: R|com/javiersc/kotlin/kopy/playground/KopyableScope2<com/javiersc/kotlin/kopy/playground/Foo2>| = R|com/javiersc/kotlin/kopy/playground/KopyableScope2.KopyableScope2|<R|com/javiersc/kotlin/kopy/playground/Foo2|>(this@R|com/javiersc/kotlin/kopy/playground/Foo2|)
+            R|<local>/copy|.R|SubstitutionOverride<kotlin/Function2.invoke: R|kotlin/Unit|>|(R|<local>/scope|, R|<local>/scope|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/KopyableScope2.getKopyableReference: R|com/javiersc/kotlin/kopy/playground/Foo2|>|())
+            ^invoke R|<local>/scope|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/KopyableScope2.getKopyableReference: R|com/javiersc/kotlin/kopy/playground/Foo2|>|()
+        }
+
+        public final infix fun copy(copy: R|@ContextFunctionTypeParams com/javiersc/kotlin/kopy/playground/KopyableScope2<com/javiersc/kotlin/kopy/playground/Foo2>.(com/javiersc/kotlin/kopy/playground/Foo2) -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo2| {
+            ^copy this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.invoke|(R|<local>/copy|)
+        }
+
+        public final operator fun component1(): R|kotlin/Int|
+
+        public final operator fun component2(): R|kotlin/Char|
+
+        public final fun copy(number: R|kotlin/Int| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.number|, letter: R|kotlin/Char| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.letter|): R|com/javiersc/kotlin/kopy/playground/Foo2|
+
+    }
+    public final class KopyableScope2<M> : R|kotlin/Any| {
+        internal constructor<M>(data: R|M|): R|com/javiersc/kotlin/kopy/playground/KopyableScope2<M>| {
+            super<R|kotlin/Any|>()
+        }
+
+        private final var _data: R|M| = R|<local>/data|
+            private get(): R|M|
+            private set(value: R|M|): R|kotlin/Unit|
+
+        public final fun getKopyableReference(): R|M| {
+            ^getKopyableReference this@R|com/javiersc/kotlin/kopy/playground/KopyableScope2|.R|com/javiersc/kotlin/kopy/playground/KopyableScope2._data|
+        }
+
+        public final fun setKopyableReference(other: R|M|): R|kotlin/Unit| {
+            this@R|com/javiersc/kotlin/kopy/playground/KopyableScope2|.R|com/javiersc/kotlin/kopy/playground/KopyableScope2._data| = R|<local>/other|
+        }
+
+        public final infix fun <D> R|D|.set(other: R|D|): R|kotlin/Unit| {
+            ^set Q|kotlin/Unit|
+        }
+
+        public final infix fun <D> R|D|.update(other: R|(D) -> D|): R|kotlin/Unit| {
+            R|<local>/other|.R|SubstitutionOverride<kotlin/Function1.invoke: R|D|>|(this@R|com/javiersc/kotlin/kopy/playground/KopyableScope2.update|)
+        }
+
+    }

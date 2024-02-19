@@ -2,7 +2,6 @@ package com.javiersc.kotlin.kopy.compiler.fir.checker
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
-import com.javiersc.kotlin.kopy.Kopy
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.compiler.fir.checker.BreakingCallsChecker.CheckerResult.Failure
@@ -27,15 +26,11 @@ import org.jetbrains.kotlin.fir.expressions.FirFunctionCall
 import org.jetbrains.kotlin.fir.expressions.FirPropertyAccessExpression
 import org.jetbrains.kotlin.fir.expressions.FirResolvable
 import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
-import org.jetbrains.kotlin.fir.getOwnerLookupTag
 import org.jetbrains.kotlin.fir.references.symbol
 import org.jetbrains.kotlin.fir.render
-import org.jetbrains.kotlin.fir.resolve.dfa.symbol
-import org.jetbrains.kotlin.fir.resolve.toFirRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.types.resolvedType
 import org.jetbrains.kotlin.fir.types.toRegularClassSymbol
-import org.jetbrains.kotlin.name.ClassId
 
 internal class FirKopyCheckerExtension(
     session: FirSession,
@@ -104,15 +99,15 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         val extensionReceiver: FirPropertyAccessExpression =
             setOrUpdateCall.extensionReceiver?.asFirOrNull<FirPropertyAccessExpression>()
                 ?: return Failure.BrokenChain(setOrUpdateCall)
-        val extensionReceiverOwnerAnnotations: List<ClassId> =
-            extensionReceiver.symbol
-                ?.getOwnerLookupTag()
-                ?.toFirRegularClassSymbol(session)
-                ?.resolvedAnnotationClassIds
-                .orEmpty()
-        if (!extensionReceiverOwnerAnnotations.any { it == classId<Kopy>() }) {
-            return Failure.MissingKopyAnnotation(extensionReceiver)
-        }
+        // val extensionReceiverOwnerAnnotations: List<ClassId> =
+        //     extensionReceiver.symbol
+        //         ?.getOwnerLookupTag()
+        //         ?.toFirRegularClassSymbol(session)
+        //         ?.resolvedAnnotationClassIds
+        //         .orEmpty()
+        // if (!extensionReceiverOwnerAnnotations.any { it == classId<Kopy>() }) {
+        //     return Failure.MissingKopyAnnotation(extensionReceiver)
+        // }
         val updateOrSetThisBoundSymbol: FirBasedSymbol<*> =
             setOrUpdateCall.dispatchReceiver
                 ?.asFirOrNull<FirThisReceiverExpression>()

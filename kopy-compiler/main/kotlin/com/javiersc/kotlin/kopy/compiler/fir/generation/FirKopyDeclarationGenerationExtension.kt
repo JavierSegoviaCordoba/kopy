@@ -25,6 +25,7 @@ import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.extensions.predicate.DeclarationPredicate
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
 import org.jetbrains.kotlin.fir.resolve.defaultType
+import org.jetbrains.kotlin.fir.resolve.fqName
 import org.jetbrains.kotlin.fir.resolve.providers.getClassDeclaredFunctionSymbols
 import org.jetbrains.kotlin.fir.resolve.providers.getRegularClassSymbolByClassId
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
@@ -134,6 +135,10 @@ internal class FirKopyDeclarationGenerationExtension(
         classSymbol: FirClassSymbol<*>,
         context: MemberGenerationContext
     ): Set<Name> {
+        val hasKopyAnnotation = classSymbol.annotations.any { it.fqName(session) == fqName<Kopy>() }
+
+        if (!hasKopyAnnotation) return emptySet()
+
         val names: Set<Name> =
             setOf(
                 invokeName,

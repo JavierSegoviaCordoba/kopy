@@ -34,7 +34,7 @@ import org.jetbrains.kotlin.ir.util.getSimpleFunction
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.primaryConstructor
 
-internal class InvokeOrKopyFunctionTransformer(
+internal class InvokeOrCopyFunctionTransformer(
     private val moduleFragment: IrModuleFragment,
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {

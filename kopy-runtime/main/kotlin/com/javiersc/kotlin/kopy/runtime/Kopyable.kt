@@ -31,11 +31,9 @@ public class KopyableScope<M> internal constructor(data: M) {
         atomic.set(other)
     }
 
-    context(KopyableScope<M>)
     @KopyFunctionSet
     public infix fun <D> D.set(other: D): Unit = Unit
 
-    context(KopyableScope<M>)
     @KopyFunctionUpdate
     public infix fun <D> D.update(other: (D) -> D) {
         other(this)

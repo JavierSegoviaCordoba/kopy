@@ -1,10 +1,19 @@
 package com.javiersc.kotlin.kopy.compiler.ir._internal
 
+import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.common.toCallableId
+import com.javiersc.kotlin.compiler.extensions.common.toName
+import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.filterIrIsInstance
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
+import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
+import com.javiersc.kotlin.compiler.extensions.ir.name
+import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
+import com.javiersc.kotlin.compiler.extensions.ir.type
+import com.javiersc.kotlin.kopy.KopyFunctionKopy
 import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isKopySetOrUpdate
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
@@ -20,19 +29,27 @@ import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
+import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.expressions.IrDeclarationReference
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrFunctionExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
+import org.jetbrains.kotlin.ir.expressions.IrMemberAccessExpression
 import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
+import org.jetbrains.kotlin.ir.symbols.IrSymbol
+import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classOrFail
 import org.jetbrains.kotlin.ir.types.typeWith
+import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
+import org.jetbrains.kotlin.ir.util.functions
+import org.jetbrains.kotlin.ir.util.getArguments
 import org.jetbrains.kotlin.ir.util.getSimpleFunction
+import org.jetbrains.kotlin.ir.util.indexOrMinusOne
 import org.jetbrains.kotlin.name.SpecialNames
 
 internal class SetOrUpdateCallTransformer(
@@ -76,17 +93,21 @@ internal class SetOrUpdateCallTransformer(
                         this.type = setOrUpdateType
                     }
 
-                    body =
+                    val alsoBodyBlock: IrBlockBody =
                         pluginContext.declarationIrBuilder(this.symbol).irBlockBody {
                             val itValueParameter: IrValueParameter = valueParameters.first()
                             val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
+                            val copyChainCall: IrCall =
+                                expression.createCopyChainCall(alsoItValueParameterGetValue)
+                                    ?: return null
                             val setKopyableReferenceCall: IrCall? =
-                                createSetKopyableReferenceCall(
-                                    originalExpression = expression,
-                                    alsoItValueParameterGetValue = alsoItValueParameterGetValue
+                                expression.createSetKopyableReferenceCall(
+                                    copyChainCall = copyChainCall
                                 )
                             if (setKopyableReferenceCall != null) +setKopyableReferenceCall
                         }
+
+                    body = alsoBodyBlock
                 }
 
         val alsoCall: IrCall =
@@ -115,46 +136,139 @@ internal class SetOrUpdateCallTransformer(
         return alsoCall
     }
 
-    private fun createSetKopyableReferenceCall(
-        originalExpression: IrCall,
-        alsoItValueParameterGetValue: IrGetValue,
-    ): IrCall? {
-        val kopyClassType: IrType = originalExpression.dispatchReceiver?.type ?: return null
+    private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
+        val getKopyableRefCall: IrCall = createGetKopyableReferenceCall()
+        val getKopyableRefType: IrSimpleType = getKopyableRefCall.type.asIr()
+
+        val chain: List<IrMemberAccessExpression<*>> = dispatchersChain().reversed()
+        if (chain.isEmpty()) return null
+
+        val dispatchers: List<IrMemberAccessExpression<*>> = listOf(getKopyableRefCall) + chain
+
+        val calls: List<IrCall> =
+            dispatchers
+                .zipWithNext { current, next ->
+                    val dataClass: IrClassSymbol =
+                        if (current.type == getKopyableRefType) getKopyableRefType.classOrFail
+                        else current.type.classOrFail
+
+                    val getFun: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
+                    val isLast: Boolean = next == dispatchers.last()
+                    val argumentValue: IrDeclarationReference =
+                        if (isLast) alsoItValueParameterGetValue
+                        else next.apply { this.dispatchReceiver = current }
+
+                    current.symbol.createCopyCall(
+                        dataClass = dataClass,
+                        dispatchReceiver = current,
+                        propertyGetFunction = getFun,
+                        argumentValue = argumentValue,
+                    ) ?: return null
+                }
+                .reversed()
+
+        val copyCall: IrCall =
+            calls.reduce { acc, irCall ->
+                val argumentIndex: Int =
+                    irCall.getArguments().firstNotNullOfOrNull {
+                        val index = it.first.indexOrMinusOne
+                        if (index != -1) index else null
+                    } ?: return null
+                irCall.putValueArgument(argumentIndex, acc)
+                irCall
+            }
+
+        copyCall
+            .toIrTreeNode()
+            .filterIrIsInstance<IrCall>()
+            .filter { call ->
+                val dispatcherName = call.dispatchReceiver.asIrOrNull<IrCall>()?.name
+                dispatcherName in dispatchers.mapNotNull { it.asIrOrNull<IrCall>()?.name }
+            }
+            .forEach { it.dispatchReceiver = it.dispatchReceiver?.deepCopyWithSymbols() }
+
+        return copyCall
+    }
+
+    private fun IrCall.createGetKopyableReferenceCall(): IrCall {
+        val kopyClassType: IrSimpleType =
+            dispatchReceiver?.type?.asIrOrNull<IrSimpleType>() ?: error("No type found")
         val kopyableGetValue: IrGetValue =
-            originalExpression.asIrOrNull<IrCall>()?.getValueArgument(0)?.asIrOrNull<IrGetValue>()
-                ?: return null
-        val kopyableValueDeclaration: IrValueDeclaration = kopyableGetValue.symbol.owner
+            dispatchReceiver?.asIrOrNull<IrGetValue>() ?: error("No value found")
 
         val kopyableScopeClass: IrClassSymbol = kopyableGetValue.type.classOrFail
         val getKopyableReferenceFunction: IrSimpleFunctionSymbol =
-            kopyableScopeClass.getSimpleFunction("getKopyableReference")!!
+            kopyableScopeClass.getSimpleFunction("getKopyableReference")
+                ?: error("No function found")
 
         val getKopyableReferenceCall: IrCall =
             pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
                 irCall(getKopyableReferenceFunction).apply {
-                    dispatchReceiver = irGet(kopyableValueDeclaration)
-                    type = kopyClassType
+                    dispatchReceiver = kopyableGetValue
+                    type = kopyClassType.arguments.first().type
                 }
             }
+        return getKopyableReferenceCall
+    }
 
-        val propertyGetFunction: IrSimpleFunction =
-            originalExpression.extensionReceiver.asIrOrNull<IrCall>()?.symbol?.owner ?: return null
+    private fun IrMemberAccessExpression<*>.dispatchersChain(): List<IrMemberAccessExpression<*>> =
+        buildList {
+            val extensionReceiver: IrMemberAccessExpression<*> =
+                runCatching {
+                        extensionReceiver
+                            ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                            ?.deepCopyWithSymbols()
+                    }
+                    .getOrNull() ?: return@buildList
 
-        val kopyClass = kopyClassType.classOrFail
-        val kopyClassCopyFunctionSymbol = kopyClass.owner.getSimpleFunction("copy")!!
+            add(extensionReceiver)
+            fun extract(expression: IrMemberAccessExpression<*>) {
+                val expressionCopy: IrMemberAccessExpression<*> = expression.deepCopyWithSymbols()
+                val dispatcher: IrMemberAccessExpression<*>? =
+                    expressionCopy.dispatchReceiver.asIrOrNull<IrMemberAccessExpression<*>>()
+                if (dispatcher == null) {
+                    onEach { it.dispatchReceiver = null }
+                    return
+                }
+                add(dispatcher.deepCopyWithSymbols())
+                extract(dispatcher)
+            }
+            extract(extensionReceiver)
+        }
 
-        val copyCall: IrCall =
-            pluginContext.declarationIrBuilder(originalExpression.symbol).run {
-                irCall(kopyClassCopyFunctionSymbol).apply {
-                    dispatchReceiver = getKopyableReferenceCall
+    private fun IrSymbol.createCopyCall(
+        dataClass: IrClassSymbol,
+        dispatchReceiver: IrExpression,
+        propertyGetFunction: IrSimpleFunction,
+        argumentValue: IrExpression,
+    ): IrCall? {
+        val copyCall: IrCall? =
+            pluginContext.declarationIrBuilder(this).run {
+                val kotlinCopyFunctionSymbol: IrSimpleFunctionSymbol =
+                    dataClass.owner.functions
+                        .firstOrNull {
+                            it.name == "copy".toName() &&
+                                !it.hasAnnotation(fqName<KopyFunctionKopy>())
+                        }
+                        ?.symbol ?: return null
+                irCall(kotlinCopyFunctionSymbol).apply {
+                    this.dispatchReceiver = dispatchReceiver
 
                     val copyParamIndex: Int =
-                        kopyClassCopyFunctionSymbol.owner.valueParameters.indexOfFirst {
+                        kotlinCopyFunctionSymbol.owner.valueParameters.indexOfFirst {
                             it.name == propertyGetFunction.correspondingPropertySymbol?.owner?.name
                         }
-                    putValueArgument(copyParamIndex, alsoItValueParameterGetValue)
+                    if (copyParamIndex == -1) return@run null
+                    putValueArgument(copyParamIndex, argumentValue)
                 }
             }
+        return copyCall
+    }
+
+    private fun IrCall.createSetKopyableReferenceCall(copyChainCall: IrCall): IrCall? {
+        val kopyableGetValue: IrGetValue = dispatchReceiver?.asIrOrNull<IrGetValue>() ?: return null
+
+        val kopyableScopeClass: IrClassSymbol = kopyableGetValue.type.classOrFail
 
         val setKopyableReferenceFunction: IrSimpleFunctionSymbol =
             kopyableScopeClass.getSimpleFunction("setKopyableReference")!!
@@ -162,8 +276,8 @@ internal class SetOrUpdateCallTransformer(
         val setKopyableReferenceCall: IrCall =
             pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
                 irCall(setKopyableReferenceFunction).apply {
-                    dispatchReceiver = irGet(kopyableValueDeclaration)
-                    putValueArgument(0, copyCall)
+                    dispatchReceiver = kopyableGetValue.deepCopyWithSymbols()
+                    putValueArgument(0, copyChainCall)
                 }
             }
 
