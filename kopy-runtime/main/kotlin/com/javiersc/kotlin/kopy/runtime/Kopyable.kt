@@ -1,45 +1,45 @@
-@file:Suppress("DEPRECATION_ERROR")
-
 package com.javiersc.kotlin.kopy.runtime
 
 import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
-import java.util.concurrent.atomic.AtomicReference
+import kotlinx.atomicfu.AtomicRef
 
-public interface Kopyable<M> {
+public interface Kopyable<T> {
 
-    @KopyFunctionInvoke
-    public infix operator fun invoke(copy: context(KopyableScope<M>) M.() -> Unit): M {
-        val scope = KopyableScope<M>(kopyError())
-        copy(scope, scope.getKopyableReference())
-        return scope.getKopyableReference()
+    @Suppress("PropertyName", "VariableNaming")
+    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
+    public val _atomic: AtomicRef<T>
+        get() = TODO()
+
+    @Suppress("FunctionName")
+    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
+    public fun _initKopyable(): Kopyable<T> = TODO()
+
+    @Suppress("DEPRECATION_ERROR")
+    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
+    public fun getKopyableReference(): T = _atomic.value
+
+    @Suppress("DEPRECATION_ERROR")
+    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
+    public fun setKopyableReference(value: T) {
+        _atomic.lazySet(value)
     }
 
+    @Suppress("DEPRECATION_ERROR")
     @KopyFunctionInvoke
-    public infix fun copy(copy: context(KopyableScope<M>) M.() -> Unit): M = invoke(copy)
-}
-
-@Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
-public class KopyableScope<M> internal constructor(data: M) {
-
-    private val atomic = AtomicReference(data)
-
-    public fun getKopyableReference(): M = atomic.get()
-
-    public fun setKopyableReference(other: M) {
-        atomic.set(other)
+    public infix fun copy(copy: T.() -> Unit): T {
+        val kopyable: Kopyable<T> = _initKopyable()
+        copy(kopyable._atomic.value)
+        return kopyable._atomic.value
     }
 
-    @KopyFunctionSet
-    public infix fun <D> D.set(other: D): Unit = Unit
+    @KopyFunctionInvoke public infix operator fun invoke(copy: T.() -> Unit): T = copy(copy = copy)
+
+    @KopyFunctionSet public infix fun <D> D.set(other: D): Unit = Unit
 
     @KopyFunctionUpdate
     public infix fun <D> D.update(other: (D) -> D) {
         other(this)
     }
 }
-
-private fun <T> kopyError(): T = TODO(error)
-
-private const val error = "Kopy plugin is not applied"

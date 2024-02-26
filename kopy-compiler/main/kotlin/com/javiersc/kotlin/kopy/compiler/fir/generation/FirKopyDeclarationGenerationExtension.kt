@@ -1,44 +1,34 @@
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.common.toClassId
 import com.javiersc.kotlin.compiler.extensions.common.toName
-import com.javiersc.kotlin.compiler.extensions.fir.coneKotlinType
-import com.javiersc.kotlin.compiler.extensions.fir.createFirAnnotation
-import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeParameter
-import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
 import com.javiersc.kotlin.kopy.Kopy
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
-import com.javiersc.kotlin.kopy.KopyFunctionKopy
 import com.javiersc.kotlin.kopy.compiler.fir.Key
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.declarations.FirProperty
 import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
-import org.jetbrains.kotlin.fir.declarations.FirTypeParameter
-import org.jetbrains.kotlin.fir.declarations.FirTypeParameterRef
-import org.jetbrains.kotlin.fir.declarations.utils.isInfix
-import org.jetbrains.kotlin.fir.expressions.builder.buildBlock
+import org.jetbrains.kotlin.fir.expressions.builder.buildEmptyExpressionBlock
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.extensions.predicate.DeclarationPredicate
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
+import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.resolve.defaultType
 import org.jetbrains.kotlin.fir.resolve.fqName
-import org.jetbrains.kotlin.fir.resolve.providers.getClassDeclaredFunctionSymbols
 import org.jetbrains.kotlin.fir.resolve.providers.getRegularClassSymbolByClassId
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutor
 import org.jetbrains.kotlin.fir.resolve.substitution.substitutorByMap
-import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirTypeParameterSymbol
-import org.jetbrains.kotlin.fir.symbols.impl.FirValueParameterSymbol
+import org.jetbrains.kotlin.fir.types.ConeClassLikeType
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
-import org.jetbrains.kotlin.fir.types.ConeTypeProjection
-import org.jetbrains.kotlin.fir.types.FirTypeRef
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.Name
@@ -48,101 +38,100 @@ internal class FirKopyDeclarationGenerationExtension(
 ) : FirDeclarationGenerationExtension(session) {
 
     private val kopyableClassId: ClassId = "com.javiersc.kotlin.kopy.runtime.Kopyable".toClassId()
-    private val invokeName = "invoke".toName()
-    private val copyName = "copy".toName()
+    private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
+    private val atomicName = "_atomic".toName()
+    private val initKopyableName = "_initKopyable".toName()
+
+    override fun generateProperties(
+        callableId: CallableId,
+        context: MemberGenerationContext?
+    ): List<FirPropertySymbol> {
+        if (callableId.callableName != atomicName) return emptyList()
+        val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
+
+        val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
+
+        val atomicProperty: FirProperty =
+            createMemberProperty(
+                owner = context.owner,
+                key = Key,
+                name = callableId.callableName,
+                returnType = atomicRefType,
+                config = {
+                    status { isOverride = true }
+                    modality = Modality.OPEN
+                },
+            )
+        return listOf(atomicProperty.symbol)
+    }
 
     override fun generateFunctions(
         callableId: CallableId,
         context: MemberGenerationContext?
     ): List<FirNamedFunctionSymbol> {
-        val kopyFunctions: List<FirNamedFunctionSymbol> =
-            createKopyInvokeFunctions(callableId, context)
-
-        return kopyFunctions
-    }
-
-    private fun createKopyInvokeFunctions(
-        callableId: CallableId,
-        context: MemberGenerationContext?
-    ): List<FirNamedFunctionSymbol> {
-        val callableName: Name = callableId.callableName
-        if (callableName != invokeName && callableName != copyName) return emptyList()
-
+        if (callableId.callableName != initKopyableName) return emptyList()
         val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
 
-        val invokeFunction: FirSimpleFunction = createInvokeOrCopy(callableId, owner)
-        return listOf(invokeFunction.symbol)
-    }
+        val kopyableType: ConeKotlinType = createKopyableType(owner)
 
-    private fun createInvokeOrCopy(
-        callableId: CallableId,
-        owner: FirClassSymbol<*>
-    ): FirSimpleFunction {
-        val invokeFunction: FirNamedFunctionSymbol =
-            session.symbolProvider
-                .getClassDeclaredFunctionSymbols(kopyableClassId, callableId.callableName)
-                .first()
-        val invokeValueParameter: FirValueParameterSymbol =
-            invokeFunction.valueParameterSymbols.first()
-
-        val type: ConeKotlinType =
-            owner.kopyableSubstitutor.substituteOrSelf(invokeValueParameter.coneKotlinType)
-
-        val function: FirSimpleFunction =
+        val initKopyableFunction: FirSimpleFunction =
             createMemberFunction(
-                    owner = owner,
+                    owner = context.owner,
                     key = Key,
                     name = callableId.callableName,
-                    returnType = owner.fir.defaultType(),
+                    returnType = kopyableType,
                     config = {
-                        status {
-                            isInfix = invokeFunction.isInfix
-                            isOperator = callableId.callableName == invokeName
-                        }
-                        modality = Modality.FINAL
-                        valueParameter(name = copyName, type = type)
+                        status { isOverride = true }
+                        modality = Modality.OPEN
                     },
                 )
-                .apply {
-                    val annotationClassId =
-                        when (callableId.callableName) {
-                            invokeName -> classId<KopyFunctionInvoke>()
-                            copyName -> classId<KopyFunctionKopy>()
-                            else -> error("This should never happen")
-                        }
-                    val kopyInvokeTypeRef: FirTypeRef =
-                        session.symbolProvider
-                            .getRegularClassSymbolByClassId(annotationClassId)
-                            ?.toFirTypeRef() ?: return@apply
-                    replaceAnnotations(listOf(createFirAnnotation(kopyInvokeTypeRef)))
-                    replaceBody(buildBlock())
-                }
-
-        return function
+                .apply { replaceBody(buildEmptyExpressionBlock()) }
+        return listOf(initKopyableFunction.symbol)
     }
 
-    private val kopyableTypeParameterSymbols: List<FirTypeParameterSymbol>
-        get() =
-            session.symbolProvider
-                .getClassLikeSymbolByClassId(kopyableClassId)
-                ?.typeParameterSymbols
-                .orEmpty()
+    private fun createAtomicRefType(owner: FirClassSymbol<*>): ConeKotlinType {
+        val atomicRefSymbol: FirRegularClassSymbol =
+            session.symbolProvider.getRegularClassSymbolByClassId(atomicRefClassId)!!
 
-    private val FirClassSymbol<*>.kopyableSubstitutor: ConeSubstitutor
-        get() = session.substitutor(kopyableTypeParameterSymbols, listOf(defaultType()))
+        val fromTypeParameterSymbols: List<FirTypeParameterSymbol> =
+            atomicRefSymbol.typeParameterSymbols.takeIf(List<FirTypeParameterSymbol>::isNotEmpty)!!
+        val toTypes: List<ConeClassLikeType> = listOf(owner.defaultType())
+
+        val substitutor: ConeSubstitutor = session.substitutor(fromTypeParameterSymbols, toTypes)
+
+        val atomicRefType: ConeKotlinType =
+            substitutor.substituteOrNull(atomicRefSymbol.defaultType())!!
+        return atomicRefType
+    }
+
+    private fun createKopyableType(owner: FirClassSymbol<*>): ConeKotlinType {
+        val kopyableSymbol: FirRegularClassSymbol =
+            session.symbolProvider.getRegularClassSymbolByClassId(kopyableClassId)!!
+
+        val fromTypeParameterSymbols: List<FirTypeParameterSymbol> =
+            kopyableSymbol.typeParameterSymbols.takeIf(List<FirTypeParameterSymbol>::isNotEmpty)!!
+        val toTypes: List<ConeClassLikeType> = listOf(owner.defaultType())
+
+        val substitutor: ConeSubstitutor = session.substitutor(fromTypeParameterSymbols, toTypes)
+
+        val kopyableType: ConeKotlinType =
+            substitutor.substituteOrNull(kopyableSymbol.defaultType())!!
+        return kopyableType
+    }
 
     override fun getCallableNamesForClass(
         classSymbol: FirClassSymbol<*>,
         context: MemberGenerationContext
     ): Set<Name> {
-        val hasKopyAnnotation = classSymbol.annotations.any { it.fqName(session) == fqName<Kopy>() }
+        val hasKopyAnnotation: Boolean =
+            classSymbol.annotations.any { it.fqName(session) == fqName<Kopy>() }
 
         if (!hasKopyAnnotation) return emptySet()
 
         val names: Set<Name> =
             setOf(
-                invokeName,
-                copyName,
+                atomicName,
+                initKopyableName,
             )
         return names
     }
@@ -160,50 +149,4 @@ private fun FirSession.substitutor(
         fromTypeParameters.zip(toTypeParameters) { from, to -> from to to }.toMap()
 
     return substitutorByMap(substitutionMap, this)
-}
-
-@JvmName("substitutor1")
-private fun FirSession.substitutor(
-    fromTypeParameters: List<FirTypeParameter>,
-    toTypeParameters: List<ConeKotlinType>,
-): ConeSubstitutor = substitutor(fromTypeParameters.map(FirTypeParameter::symbol), toTypeParameters)
-
-@JvmName("substitutor2")
-private fun FirSession.substitutor(
-    fromTypeParameters: List<FirTypeParameterSymbol>,
-    toTypeParameters: List<FirTypeParameterSymbol>,
-): ConeSubstitutor =
-    substitutor(fromTypeParameters, toTypeParameters.map(FirTypeParameterSymbol::coneKotlinType))
-
-@JvmName("substitutor3")
-private fun FirSession.substitutor(
-    fromTypeParameters: List<FirTypeParameterRef>,
-    toTypeParameters: List<FirTypeParameterSymbol>,
-): ConeSubstitutor =
-    substitutor(
-        fromTypeParameters.map(FirTypeParameterRef::symbol),
-        toTypeParameters.map(FirTypeParameterSymbol::coneKotlinType)
-    )
-
-@JvmName("substitutor4")
-private fun FirSession.substitutor(
-    fromTypeParameters: List<FirTypeParameterRef>,
-    toTypeParameters: List<ConeKotlinType>,
-): ConeSubstitutor =
-    substitutor(fromTypeParameters.map(FirTypeParameterRef::symbol), toTypeParameters)
-
-@JvmName("substitutor5")
-private fun FirSession.substitutor(
-    fromTypeParameters: Map<ConeTypeProjection, FirBasedSymbol<*>>,
-    toTypeParameters: List<ConeKotlinType>,
-): ConeSubstitutor {
-    val params: List<FirTypeParameterRef> =
-        fromTypeParameters.map { (projection: ConeTypeProjection, container: FirBasedSymbol<*>) ->
-            projection.toFirTypeParameter(
-                session = this,
-                key = Key,
-                containingDeclarationSymbol = container
-            )
-        }
-    return substitutor(params, toTypeParameters)
 }

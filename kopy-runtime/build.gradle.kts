@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 hubdle {
     config {
         analysis()
@@ -13,8 +11,14 @@ hubdle {
     }
     kotlin {
         jvm {
-            features {
+            features { //
                 contextReceivers()
+            }
+
+            main {
+                dependencies { //
+                    implementation(hubdle.jetbrains.kotlinx.atomicfu)
+                }
             }
         }
     }

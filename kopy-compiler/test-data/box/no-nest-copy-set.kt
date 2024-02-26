@@ -4,6 +4,8 @@
 package com.javiersc.kotlin.kopy.playground
 
 import com.javiersc.kotlin.kopy.Kopy
+import kotlinx.atomicfu.AtomicRef
+import kotlinx.atomicfu.atomic
 
 fun box(): String {
     val foo0 = Foo(number = 7, letter = 'W')
@@ -11,8 +13,8 @@ fun box(): String {
 
     val foo21 = foo0 copy { number.set(42) }
 
-    val foo22 = foo02 copy {
-        number.set(42.also { setKopyableReference(getKopyableReference().copy(number = it)) })
+    val foo22 = foo02 copy2 {
+        number.set2(42.also { setKopyableReference2(getKopyableReference2().copy(number = it)) })
     }
 
     val isOk = foo21.number == 42
@@ -22,30 +24,34 @@ fun box(): String {
 
 @Kopy data class Foo(val number: Int, val letter: Char)
 
-data class Foo2(val number: Int, val letter: Char) {
+data class Foo2(val number: Int, val letter: Char) : Kopyable2<Foo2> {
 
-    public infix operator fun invoke(copy: context(KopyableScope2<Foo2>) Foo2.() -> Unit): Foo2 {
-        val scope = KopyableScope2<Foo2>(this)
-        copy(scope, scope.getKopyableReference())
-        return scope.getKopyableReference()
-    }
+    override val _atomic2: AtomicRef<Foo2> = atomic(this)
 
-    public infix fun copy(copy: context(KopyableScope2<Foo2>) Foo2.() -> Unit): Foo2 = invoke(copy)
+    override fun _initKopyable2(): Kopyable2<Foo2> = this.copy()
 }
 
-public class KopyableScope2<M> internal constructor(data: M) {
+public interface Kopyable2<T> {
 
-    private var _data: M = data
+    public val _atomic2: AtomicRef<T>
 
-    public fun getKopyableReference(): M = _data
+    public fun _initKopyable2(): Kopyable2<T>
 
-    public fun setKopyableReference(other: M) {
-        _data = other
+    public fun getKopyableReference2(): T = _atomic2.value
+
+    public fun setKopyableReference2(value: T) {
+        _atomic2.lazySet(value)
     }
 
-    public infix fun <D> D.set(other: D): Unit = Unit
+    public infix fun copy2(copy2: T.() -> Unit): T {
+        val kopyable: Kopyable2<T> = _initKopyable2()
+        copy2(kopyable._atomic2.value)
+        return kopyable._atomic2.value
+    }
 
-    public infix fun <D> D.update(other: (D) -> D) {
+    public infix fun <D> D.set2(other: D): Unit = Unit
+
+    public infix fun <D> D.update2(other: (D) -> D) {
         other(this)
     }
 }

@@ -12,7 +12,6 @@ import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
-import com.javiersc.kotlin.compiler.extensions.ir.type
 import com.javiersc.kotlin.kopy.KopyFunctionKopy
 import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isKopySetOrUpdate
@@ -158,16 +157,18 @@ internal class SetOrUpdateCallTransformer(
                         if (isLast) alsoItValueParameterGetValue
                         else next.apply { this.dispatchReceiver = current }
 
-                    current.symbol.createCopyCall(
-                        dataClass = dataClass,
-                        dispatchReceiver = current,
-                        propertyGetFunction = getFun,
-                        argumentValue = argumentValue,
-                    ) ?: return null
+                    val copyCall: IrCall? =
+                        current.symbol.createCopyCall(
+                            dataClass = dataClass,
+                            dispatchReceiver = current,
+                            propertyGetFunction = getFun,
+                            argumentValue = argumentValue,
+                        )
+                    copyCall ?: return null
                 }
                 .reversed()
 
-        val copyCall: IrCall =
+        val copyChainCall: IrCall =
             calls.reduce { acc, irCall ->
                 val argumentIndex: Int =
                     irCall.getArguments().firstNotNullOfOrNull {
@@ -178,7 +179,7 @@ internal class SetOrUpdateCallTransformer(
                 irCall
             }
 
-        copyCall
+        copyChainCall
             .toIrTreeNode()
             .filterIrIsInstance<IrCall>()
             .filter { call ->
@@ -187,25 +188,22 @@ internal class SetOrUpdateCallTransformer(
             }
             .forEach { it.dispatchReceiver = it.dispatchReceiver?.deepCopyWithSymbols() }
 
-        return copyCall
+        return copyChainCall
     }
 
     private fun IrCall.createGetKopyableReferenceCall(): IrCall {
-        val kopyClassType: IrSimpleType =
-            dispatchReceiver?.type?.asIrOrNull<IrSimpleType>() ?: error("No type found")
         val kopyableGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>() ?: error("No value found")
 
-        val kopyableScopeClass: IrClassSymbol = kopyableGetValue.type.classOrFail
+        val kopyableClass: IrClassSymbol = kopyableGetValue.type.classOrFail
         val getKopyableReferenceFunction: IrSimpleFunctionSymbol =
-            kopyableScopeClass.getSimpleFunction("getKopyableReference")
-                ?: error("No function found")
+            kopyableClass.getSimpleFunction("getKopyableReference") ?: error("No function found")
 
         val getKopyableReferenceCall: IrCall =
             pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
                 irCall(getKopyableReferenceFunction).apply {
                     dispatchReceiver = kopyableGetValue
-                    type = kopyClassType.arguments.first().type
+                    type = kopyableGetValue.type
                 }
             }
         return getKopyableReferenceCall
@@ -268,10 +266,10 @@ internal class SetOrUpdateCallTransformer(
     private fun IrCall.createSetKopyableReferenceCall(copyChainCall: IrCall): IrCall? {
         val kopyableGetValue: IrGetValue = dispatchReceiver?.asIrOrNull<IrGetValue>() ?: return null
 
-        val kopyableScopeClass: IrClassSymbol = kopyableGetValue.type.classOrFail
+        val kopyableClass: IrClassSymbol = kopyableGetValue.type.classOrFail
 
         val setKopyableReferenceFunction: IrSimpleFunctionSymbol =
-            kopyableScopeClass.getSimpleFunction("setKopyableReference")!!
+            kopyableClass.getSimpleFunction("setKopyableReference")!!
 
         val setKopyableReferenceCall: IrCall =
             pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {

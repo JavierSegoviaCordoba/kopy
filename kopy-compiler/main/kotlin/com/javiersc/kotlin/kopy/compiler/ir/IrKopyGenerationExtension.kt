@@ -1,6 +1,7 @@
 package com.javiersc.kotlin.kopy.compiler.ir
 
-import com.javiersc.kotlin.kopy.compiler.ir._internal.InvokeOrCopyFunctionTransformer
+import com.javiersc.kotlin.kopy.compiler.ir._internal.AtomicPropertyTransformer
+import com.javiersc.kotlin.kopy.compiler.ir._internal.InitKopyableFunctionTransformer
 import com.javiersc.kotlin.kopy.compiler.ir._internal.SetOrUpdateCallTransformer
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -18,7 +19,8 @@ internal class IrKopyGenerationExtension(
 
     @JvmName("generate2")
     private fun IrModuleFragment.generate(pluginContext: IrPluginContext) {
-        transform(InvokeOrCopyFunctionTransformer(this, pluginContext))
+        transform(AtomicPropertyTransformer(this, pluginContext))
+        transform(InitKopyableFunctionTransformer(this, pluginContext))
         transform(SetOrUpdateCallTransformer(this, pluginContext))
 
         println("FINISHED")

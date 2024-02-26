@@ -91,6 +91,40 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         public void testSimple_4() throws Exception {
             runTest("test-data/diagnostics/missing-data-class/simple-4.kt");
         }
+
+        @Test
+        @TestMetadata("simple-5.kt")
+        public void testSimple_5() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-5.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-6.kt")
+        public void testSimple_6() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-6.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-7.kt")
+        public void testSimple_7() throws Exception {
+            runTest("test-data/diagnostics/missing-data-class/simple-7.kt");
+        }
+    }
+
+    @Nested
+    @TestMetadata("test-data/diagnostics/non-data-class")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Non_data_class {
+        @Test
+        public void testAllFilesPresentInNon_data_class() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/non-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("simple-1.kt")
+        public void testSimple_1() throws Exception {
+            runTest("test-data/diagnostics/non-data-class/simple-1.kt");
+        }
     }
 
     @Nested
@@ -106,6 +140,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         @TestMetadata("complex-1.kt")
         public void testComplex_1() throws Exception {
             runTest("test-data/diagnostics/valid/complex-1.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-1.kt")
+        public void testSimple_1() throws Exception {
+            runTest("test-data/diagnostics/valid/simple-1.kt");
         }
     }
 }

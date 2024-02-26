@@ -1,7 +1,10 @@
 package com.javiersc.kotlin.kopy.compiler.fir.checker
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
+import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
+import com.javiersc.kotlin.compiler.extensions.fir.name
+import com.javiersc.kotlin.kopy.Kopy
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.compiler.fir.checker.BreakingCallsChecker.CheckerResult.Failure
@@ -16,10 +19,16 @@ import org.jetbrains.kotlin.fir.FirElement
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
 import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
+import org.jetbrains.kotlin.fir.analysis.checkers.declaration.DeclarationCheckers
+import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirClassLikeChecker
+import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirDeclarationChecker
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.ExpressionCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallChecker
 import org.jetbrains.kotlin.fir.analysis.extensions.FirAdditionalCheckersExtension
+import org.jetbrains.kotlin.fir.declarations.FirClassLikeDeclaration
+import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
+import org.jetbrains.kotlin.fir.expressions.FirAnnotation
 import org.jetbrains.kotlin.fir.expressions.FirCall
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirFunctionCall
@@ -28,15 +37,26 @@ import org.jetbrains.kotlin.fir.expressions.FirResolvable
 import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
 import org.jetbrains.kotlin.fir.references.symbol
 import org.jetbrains.kotlin.fir.render
+import org.jetbrains.kotlin.fir.resolve.fqName
 import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.types.resolvedType
 import org.jetbrains.kotlin.fir.types.toRegularClassSymbol
+import org.jetbrains.kotlin.renderer.render
 
 internal class FirKopyCheckerExtension(
     session: FirSession,
 ) : FirAdditionalCheckersExtension(session) {
 
+    override val declarationCheckers: DeclarationCheckers = FirKopyDeclarationCheckers
+
     override val expressionCheckers: ExpressionCheckers = FirKopyExpressionCheckers
+}
+
+private object FirKopyDeclarationCheckers : DeclarationCheckers() {
+    override val classLikeCheckers: Set<FirClassLikeChecker> =
+        setOf(
+            DataClassKopyAnnotationChecker,
+        )
 }
 
 private object FirKopyExpressionCheckers : ExpressionCheckers() {
@@ -44,6 +64,30 @@ private object FirKopyExpressionCheckers : ExpressionCheckers() {
         setOf(
             BreakingCallsChecker,
         )
+}
+
+private object DataClassKopyAnnotationChecker :
+    FirDeclarationChecker<FirClassLikeDeclaration>(MppCheckerKind.Common) {
+
+    override fun check(
+        declaration: FirClassLikeDeclaration,
+        context: CheckerContext,
+        reporter: DiagnosticReporter
+    ) {
+        val isKopy: Boolean = declaration.hasAnnotation(classId<Kopy>(), context.session)
+        val isDataClass: Boolean = declaration.symbol.isData
+        if (isKopy && !isDataClass) {
+            val kopyAnnotation: FirAnnotation =
+                declaration.annotations.first { it.fqName(context.session) == fqName<Kopy>() }
+            reporter.reportOn(
+                source = kopyAnnotation.source,
+                factory = FirKopyError.NON_DATA_CLASS_KOPY_ANNOTATED,
+                a = declaration.name.render(),
+                context = context,
+                positioningStrategy = DEFAULT,
+            )
+        }
+    }
 }
 
 private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
@@ -99,15 +143,6 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         val extensionReceiver: FirPropertyAccessExpression =
             setOrUpdateCall.extensionReceiver?.asFirOrNull<FirPropertyAccessExpression>()
                 ?: return Failure.BrokenChain(setOrUpdateCall)
-        // val extensionReceiverOwnerAnnotations: List<ClassId> =
-        //     extensionReceiver.symbol
-        //         ?.getOwnerLookupTag()
-        //         ?.toFirRegularClassSymbol(session)
-        //         ?.resolvedAnnotationClassIds
-        //         .orEmpty()
-        // if (!extensionReceiverOwnerAnnotations.any { it == classId<Kopy>() }) {
-        //     return Failure.MissingKopyAnnotation(extensionReceiver)
-        // }
         val updateOrSetThisBoundSymbol: FirBasedSymbol<*> =
             setOrUpdateCall.dispatchReceiver
                 ?.asFirOrNull<FirThisReceiverExpression>()
@@ -143,13 +178,13 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         val hasSameBoundSymbol: Boolean = dispatcherBoundSymbol == updateOrSetThisBoundSymbol
 
         return when {
+            !isDataClass -> Failure.MissingDataClass(this.calleeReference)
             hasSameBoundSymbol -> Success
             receiver == null -> Failure.BrokenChain(this)
             receiver !is FirPropertyAccessExpression -> {
                 val element = receiver.asFirOrNull<FirResolvable>()?.calleeReference ?: receiver
                 Failure.BrokenChain(element)
             }
-            !isDataClass -> Failure.MissingDataClass(this.calleeReference)
             else -> receiver.isBreakingChainCall(session, updateOrSetThisBoundSymbol)
         }
     }
@@ -175,3 +210,21 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         }
     }
 }
+
+/*
+
+val setOrUpdateCallLambdaAnonymousFunction =
+    setOrUpdateCall.dispatchReceiver
+        .asFir<FirThisReceiverExpression>()
+        .calleeReference
+        .boundSymbol
+        .fir
+
+context.callsOrAssignments
+    .asSequence()
+    .filterIsInstance<FirFunctionCall>()
+    .flatMap { it.argumentList.arguments }
+    .filterIsInstance<FirAnonymousFunctionExpression>()
+    .firstOrNull { it.anonymousFunction == setOrUpdateCallLambdaAnonymousFunction }
+
+*/

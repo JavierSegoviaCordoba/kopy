@@ -1,6 +1,8 @@
 package com.javiersc.kotlin.kopy.compiler.fir
 
 import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyCheckerExtension
+import com.javiersc.kotlin.kopy.compiler.fir.generation.FirCopySupertypeGenerationExtension
+import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyAssignExpressionAltererExtension
 import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyDeclarationGenerationExtension
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -20,6 +22,8 @@ internal class FirKopyExtension(
     }
 
     private fun ExtensionRegistrarContext.registerGenerators() {
+        +::FirKopyAssignExpressionAltererExtension
+        +::FirCopySupertypeGenerationExtension
         +::FirKopyDeclarationGenerationExtension
     }
 }

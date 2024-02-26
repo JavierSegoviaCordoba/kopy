@@ -1,0 +1,18 @@
+FILE: simple-1.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final class Foo : R|kotlin/Any|, R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        public constructor(value: R|kotlin/String|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val value: R|kotlin/String| = R|<local>/value|
+            public get(): R|kotlin/String|
+
+        public open override fun _initKopyable(): R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        }
+
+        public open override val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+
+    }

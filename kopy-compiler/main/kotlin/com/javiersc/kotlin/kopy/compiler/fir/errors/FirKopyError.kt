@@ -14,6 +14,8 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
         RootDiagnosticRendererFactory.registerFactory(FirKopyError)
     }
 
+    val NON_DATA_CLASS_KOPY_ANNOTATED: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
+
     val INVALID_CALL_CHAIN: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
     val MISSING_DATA_CLASS: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
@@ -21,6 +23,11 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
     val MISSING_KOPY_ANNOTATION: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
     override val MAP: KtDiagnosticFactoryToRendererMap = rendererMap { map ->
+        map.put(
+            factory = NON_DATA_CLASS_KOPY_ANNOTATED,
+            message = "The class `{0}` must be a data class",
+            rendererA = Renderer { t: String -> t },
+        )
         map.put(
             factory = INVALID_CALL_CHAIN,
             message = "Call chain broken at `{0}`",

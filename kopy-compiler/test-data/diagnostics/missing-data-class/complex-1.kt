@@ -40,6 +40,6 @@ fun diagnostics() {
 }
 
 @Kopy data class Qux(val number: Int)
-@Kopy class Baz(val qux: Qux, val text: String)
+<!NON_DATA_CLASS_KOPY_ANNOTATED!>@Kopy<!> class Baz(val qux: Qux, val text: String)
 @Kopy data class Bar(val baz: Baz, val isValid: Boolean)
 @Kopy data class Foo(val bar: Bar, val letter: Char)

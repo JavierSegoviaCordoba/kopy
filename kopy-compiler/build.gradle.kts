@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 hubdle {
@@ -25,7 +24,10 @@ hubdle {
                 compiler {
                     mainClass.set("com.javiersc.kotlin.kopy.compiler.GenerateKotlinCompilerTestsKt")
                     generateTestOnSync(false)
-                    testDependencies(hubdle.javiersc.kotlin.stdlib)
+                    testDependencies(
+                        hubdle.javiersc.kotlin.stdlib,
+                        hubdle.jetbrains.kotlinx.atomicfu,
+                    )
                     testProjects(projects.kopyRuntime)
                 }
                 contextReceivers()
