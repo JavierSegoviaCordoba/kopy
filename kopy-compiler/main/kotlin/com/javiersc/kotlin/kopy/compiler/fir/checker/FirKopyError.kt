@@ -1,4 +1,4 @@
-package com.javiersc.kotlin.kopy.compiler.fir.errors
+package com.javiersc.kotlin.kopy.compiler.fir.checker
 
 import com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.diagnostics.KtDiagnosticFactory1
@@ -16,9 +16,11 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
 
     val NON_DATA_CLASS_KOPY_ANNOTATED: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
-    val INVALID_CALL_CHAIN: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
+    val NO_KOPY_PARENT_CLASS: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
     val MISSING_DATA_CLASS: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
+
+    val INVALID_CALL_CHAIN: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
     val MISSING_KOPY_ANNOTATION: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
@@ -26,6 +28,11 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
         map.put(
             factory = NON_DATA_CLASS_KOPY_ANNOTATED,
             message = "The class `{0}` must be a data class",
+            rendererA = Renderer { t: String -> t },
+        )
+        map.put(
+            factory = NO_KOPY_PARENT_CLASS,
+            message = "The parent class of the property `{0}` must be annotated with `@Kopy`",
             rendererA = Renderer { t: String -> t },
         )
         map.put(

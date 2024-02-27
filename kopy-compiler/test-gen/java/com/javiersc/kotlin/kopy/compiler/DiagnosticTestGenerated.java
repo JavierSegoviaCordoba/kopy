@@ -112,6 +112,22 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Nested
+    @TestMetadata("test-data/diagnostics/missing-kopy-annotation-parent-class")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Missing_kopy_annotation_parent_class {
+        @Test
+        public void testAllFilesPresentInMissing_kopy_annotation_parent_class() throws Exception {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/missing-kopy-annotation-parent-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
+        }
+
+        @Test
+        @TestMetadata("simple-1.kt")
+        public void testSimple_1() throws Exception {
+            runTest("test-data/diagnostics/missing-kopy-annotation-parent-class/simple-1.kt");
+        }
+    }
+
+    @Nested
     @TestMetadata("test-data/diagnostics/non-data-class")
     @TestDataPath("$PROJECT_ROOT")
     public class Non_data_class {
@@ -146,6 +162,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         @TestMetadata("simple-1.kt")
         public void testSimple_1() throws Exception {
             runTest("test-data/diagnostics/valid/simple-1.kt");
+        }
+
+        @Test
+        @TestMetadata("simple-2.kt")
+        public void testSimple_2() throws Exception {
+            runTest("test-data/diagnostics/valid/simple-2.kt");
         }
     }
 }

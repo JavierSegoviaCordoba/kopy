@@ -1,0 +1,589 @@
+FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
+  FUN name:box visibility:public modality:FINAL <> () returnType:kotlin.String
+    BLOCK_BODY
+      VAR name:foo0 type:com.javiersc.kotlin.kopy.playground.Foo2 [val]
+        CONSTRUCTOR_CALL 'public constructor <init> (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String) declared in com.javiersc.kotlin.kopy.playground.Foo2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+          number: CONST Int type=kotlin.Int value=7
+          letter: CONST Char type=kotlin.Char value='W'
+          text: CONST String type=kotlin.String value="Random"
+      VAR name:foo1 type:com.javiersc.kotlin.kopy.playground.Foo [val]
+        CONSTRUCTOR_CALL 'public constructor <init> (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String) declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+          number: CONST Int type=kotlin.Int value=7
+          letter: CONST Char type=kotlin.Char value='W'
+          text: CONST String type=kotlin.String value="Random"
+      VAR name:foo01 type:com.javiersc.kotlin.kopy.playground.Foo2 [val]
+        CALL 'public open fun copy2 (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo2, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+          $this: GET_VAR 'val foo0: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+          copy: FUN_EXPR type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo2, kotlin.Unit> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> ($receiver:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Unit
+              $receiver: VALUE_PARAMETER name:$this$copy2 type:com.javiersc.kotlin.kopy.playground.Foo2
+              BLOCK_BODY
+                CALL 'public open fun set2 <D> (other: D of com.javiersc.kotlin.kopy.playground.Foo2.set2): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo2' type=kotlin.Unit origin=null
+                  <D>: kotlin.String
+                  $this: GET_VAR '$this$copy2: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                  $receiver: CALL 'public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2' type=kotlin.String origin=GET_PROPERTY
+                    $this: GET_VAR '$this$copy2: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                  other: CALL 'public final fun also <T> (block: kotlin.Function1<T of kotlin.also, kotlin.Unit>): T of kotlin.also declared in kotlin' type=kotlin.String origin=null
+                    <T>: kotlin.String
+                    $receiver: CONST String type=kotlin.String value="Replaced"
+                    block: FUN_EXPR type=kotlin.Function1<kotlin.String, kotlin.Unit> origin=LAMBDA
+                      FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
+                        VALUE_PARAMETER name:it index:0 type:kotlin.String
+                        BLOCK_BODY
+                          CALL 'public final fun <set-text> (<set-?>: kotlin.String): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo2' type=kotlin.Unit origin=EQ
+                            $this: GET_VAR '$this$copy2: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                            <set-?>: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
+      VAR name:foo11 type:com.javiersc.kotlin.kopy.playground.Foo [val]
+        CALL 'public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+          $this: GET_VAR 'val foo1: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+          copy: FUN_EXPR type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> origin=LAMBDA
+            FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> ($receiver:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Unit
+              $receiver: VALUE_PARAMETER name:$this$copy type:com.javiersc.kotlin.kopy.playground.Foo
+              BLOCK_BODY
+                CALL 'public open fun set <D> (other: D of com.javiersc.kotlin.kopy.playground.Foo.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
+                  <D>: kotlin.String
+                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                  $receiver: CALL 'public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.String origin=GET_PROPERTY
+                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                  other: CALL 'public final fun also <T> (block: kotlin.Function1<T of kotlin.also, kotlin.Unit>): T of kotlin.also declared in kotlin' type=kotlin.String origin=null
+                    <T>: kotlin.String
+                    $receiver: CONST String type=kotlin.String value="Replaced"
+                    block: FUN_EXPR type=kotlin.Function1<kotlin.String, kotlin.Unit> origin=LAMBDA
+                      FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
+                        VALUE_PARAMETER name:it index:0 type:kotlin.String
+                        BLOCK_BODY
+                          CALL 'public final fun <set-text> (<set-?>: kotlin.String): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=EQ
+                            $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                            <set-?>: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
+      VAR name:isOk type:kotlin.Boolean [val]
+        CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
+          arg0: CALL 'public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.String origin=GET_PROPERTY
+            $this: GET_VAR 'val foo11: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+          arg1: CONST String type=kotlin.String value="Replaced"
+      RETURN type=kotlin.Nothing from='public final fun box (): kotlin.String declared in com.javiersc.kotlin.kopy.playground'
+        WHEN type=kotlin.String origin=IF
+          BRANCH
+            if: GET_VAR 'val isOk: kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.box' type=kotlin.Boolean origin=null
+            then: CONST String type=kotlin.String value="OK"
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: STRING_CONCATENATION type=kotlin.String
+              CONST String type=kotlin.String value="Fail: text is "
+              CALL 'public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.String origin=GET_PROPERTY
+                $this: GET_VAR 'val foo11: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+              CONST String type=kotlin.String value=" instead of `Replaced`"
+  CLASS CLASS name:Foo modality:FINAL visibility:public [data] superTypes:[kotlin.Any; com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>]
+    annotations:
+      Kopy
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+    CONSTRUCTOR visibility:public <> (number:kotlin.Int, letter:kotlin.Char, text:kotlin.String) returnType:com.javiersc.kotlin.kopy.playground.Foo [primary]
+      VALUE_PARAMETER name:number index:0 type:kotlin.Int
+      VALUE_PARAMETER name:letter index:1 type:kotlin.Char
+      VALUE_PARAMETER name:text index:2 type:kotlin.String
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Foo modality:FINAL visibility:public [data] superTypes:[kotlin.Any; com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>]'
+    PROPERTY name:number visibility:public modality:FINAL [var]
+      FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'number: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-number> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:number visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-number> (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<get-number>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      FUN name:<set-number> visibility:private modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo, <set-?>:kotlin.Int) returnType:kotlin.Unit
+        correspondingProperty: PROPERTY name:number visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        VALUE_PARAMETER name:<set-?> index:0 type:kotlin.Int
+        BLOCK_BODY
+          SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Unit origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<set-number>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            value: GET_VAR '<set-?>: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.<set-number>' type=kotlin.Int origin=null
+    PROPERTY name:letter visibility:public modality:FINAL [var]
+      FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'letter: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo.<init>' type=kotlin.Char origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-letter> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Char
+        correspondingProperty: PROPERTY name:letter visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-letter> (): kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<get-letter>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      FUN name:<set-letter> visibility:private modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo, <set-?>:kotlin.Char) returnType:kotlin.Unit
+        correspondingProperty: PROPERTY name:letter visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        VALUE_PARAMETER name:<set-?> index:0 type:kotlin.Char
+        BLOCK_BODY
+          SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Unit origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<set-letter>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            value: GET_VAR '<set-?>: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo.<set-letter>' type=kotlin.Char origin=null
+    PROPERTY name:text visibility:public modality:FINAL [var]
+      FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private
+        EXPRESSION_BODY
+          GET_VAR 'text: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo.<init>' type=kotlin.String origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-text> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.String
+        correspondingProperty: PROPERTY name:text visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<get-text>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<set-text> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo, <set-?>:kotlin.String) returnType:kotlin.Unit
+        correspondingProperty: PROPERTY name:text visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+        VALUE_PARAMETER name:<set-?> index:0 type:kotlin.String
+        BLOCK_BODY
+          SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.Unit origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<set-text>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            value: GET_VAR '<set-?>: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo.<set-text>' type=kotlin.String origin=null
+    FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_kopy_init visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:com.javiersc.kotlin.kopy.playground.Foo
+      overridden:
+        public open fun _kopy_init (): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun _kopy_init (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
+          CALL 'public final fun copy (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            $this: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo._kopy_init' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component1 (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.component1' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component2 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Char [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component2 (): kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.component2' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component3 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.String [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component3 (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.component3' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo, number:kotlin.Int, letter:kotlin.Char, text:kotlin.String) returnType:com.javiersc.kotlin.kopy.playground.Foo
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      VALUE_PARAMETER name:number index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      VALUE_PARAMETER name:letter index:1 type:kotlin.Char
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      VALUE_PARAMETER name:text index:2 type:kotlin.String
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun copy (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
+          CONSTRUCTOR_CALL 'public constructor <init> (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String) declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            number: GET_VAR 'number: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=kotlin.Int origin=null
+            letter: GET_VAR 'letter: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=kotlin.Char origin=null
+            text: GET_VAR 'text: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=kotlin.String origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo'
+          STRING_CONCATENATION type=kotlin.String
+            CONST String type=kotlin.String value="Foo("
+            CONST String type=kotlin.String value="number="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.toString' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="letter="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.toString' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="text="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.toString' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            CONST String type=kotlin.String value=")"
+    FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      BLOCK_BODY
+        VAR name:result type:kotlin.Int [var]
+          CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Char' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.String' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo'
+          GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo.hashCode' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun EQEQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQEQ
+              arg0: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+              arg1: GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+              CONST Boolean type=kotlin.Boolean value=true
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=com.javiersc.kotlin.kopy.playground.Foo
+              GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_0 type:com.javiersc.kotlin.kopy.playground.Foo [val]
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Foo origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Foo
+            GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                  receiver: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                  receiver: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
+          CONST Boolean type=kotlin.Boolean value=true
+    FUN FAKE_OVERRIDE name:copy visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override,infix]
+      annotations:
+        KopyFunctionInvoke
+      overridden:
+        public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
+      VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>
+    FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override,operator,infix]
+      annotations:
+        KopyFunctionInvoke
+      overridden:
+        public open fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
+      VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>
+    FUN FAKE_OVERRIDE name:set visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo.set, other:D of com.javiersc.kotlin.kopy.playground.Foo.set) returnType:kotlin.Unit [fake_override,infix]
+      annotations:
+        KopyFunctionSet
+      overridden:
+        public open fun set <D> (other: D of com.javiersc.kotlin.kopy.runtime.Kopyable.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Foo.set
+      VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Foo.set
+    FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo.update, D of com.javiersc.kotlin.kopy.playground.Foo.update>) returnType:kotlin.Unit [fake_override,infix]
+      annotations:
+        KopyFunctionUpdate
+      overridden:
+        public open fun update <D> (other: kotlin.Function1<D of com.javiersc.kotlin.kopy.runtime.Kopyable.update, D of com.javiersc.kotlin.kopy.runtime.Kopyable.update>): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Foo.update
+      VALUE_PARAMETER name:other index:0 type:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo.update, D of com.javiersc.kotlin.kopy.playground.Foo.update>
+  CLASS CLASS name:Foo2 modality:FINAL visibility:public [data] superTypes:[com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>]
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+    CONSTRUCTOR visibility:public <> (number:kotlin.Int, letter:kotlin.Char, text:kotlin.String) returnType:com.javiersc.kotlin.kopy.playground.Foo2 [primary]
+      VALUE_PARAMETER name:number index:0 type:kotlin.Int
+      VALUE_PARAMETER name:letter index:1 type:kotlin.Char
+      VALUE_PARAMETER name:text index:2 type:kotlin.String
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Foo2 modality:FINAL visibility:public [data] superTypes:[com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>]'
+    PROPERTY name:number visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'number: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.<init>' type=kotlin.Int origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-number> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Int
+        correspondingProperty: PROPERTY name:number visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-number> (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.<get-number>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    PROPERTY name:letter visibility:public modality:FINAL [val]
+      FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]
+        EXPRESSION_BODY
+          GET_VAR 'letter: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo2.<init>' type=kotlin.Char origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-letter> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Char
+        correspondingProperty: PROPERTY name:letter visibility:public modality:FINAL [val]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-letter> (): kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo2'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.<get-letter>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    PROPERTY name:text visibility:public modality:FINAL [var]
+      FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private
+        EXPRESSION_BODY
+          GET_VAR 'text: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2.<init>' type=kotlin.String origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-text> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.String
+        correspondingProperty: PROPERTY name:text visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+        BLOCK_BODY
+          RETURN type=kotlin.Nothing from='public final fun <get-text> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.<get-text>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<set-text> visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2, <set-?>:kotlin.String) returnType:kotlin.Unit
+        correspondingProperty: PROPERTY name:text visibility:public modality:FINAL [var]
+        $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+        VALUE_PARAMETER name:<set-?> index:0 type:kotlin.String
+        BLOCK_BODY
+          SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.Unit origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.<set-text>' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            value: GET_VAR '<set-?>: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2.<set-text>' type=kotlin.String origin=null
+    FUN name:_kopy_init2 visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:com.javiersc.kotlin.kopy.playground.Foo2
+      overridden:
+        public open fun _kopy_init2 (): T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun _kopy_init2 (): com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          CALL 'public final fun copy (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String): com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            $this: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2._kopy_init2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Int [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component1 (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.component1' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component2 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Char [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component2 (): kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.component2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:component3 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.String [operator]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun component3 (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.component3' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo2, number:kotlin.Int, letter:kotlin.Char, text:kotlin.String) returnType:com.javiersc.kotlin.kopy.playground.Foo2
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      VALUE_PARAMETER name:number index:0 type:kotlin.Int
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+      VALUE_PARAMETER name:letter index:1 type:kotlin.Char
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+      VALUE_PARAMETER name:text index:2 type:kotlin.String
+        EXPRESSION_BODY
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+            receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun copy (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String): com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          CONSTRUCTOR_CALL 'public constructor <init> (number: kotlin.Int, letter: kotlin.Char, text: kotlin.String) declared in com.javiersc.kotlin.kopy.playground.Foo2' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            number: GET_VAR 'number: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=kotlin.Int origin=null
+            letter: GET_VAR 'letter: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=kotlin.Char origin=null
+            text: GET_VAR 'text: kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=kotlin.String origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.String
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          STRING_CONCATENATION type=kotlin.String
+            CONST String type=kotlin.String value="Foo2("
+            CONST String type=kotlin.String value="number="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.toString' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="letter="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.toString' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            CONST String type=kotlin.String value=", "
+            CONST String type=kotlin.String value="text="
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.toString' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            CONST String type=kotlin.String value=")"
+    FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Int
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      BLOCK_BODY
+        VAR name:result type:kotlin.Int [var]
+          CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+              receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.Char' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+        SET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Unit origin=EQ
+          CALL 'public final fun plus (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: CALL 'public final fun times (other: kotlin.Int): kotlin.Int declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=31
+            other: CALL 'public open fun hashCode (): kotlin.Int declared in kotlin.String' type=kotlin.Int origin=null
+              $this: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+        RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Int origin=null
+    FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+      BLOCK_BODY
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun EQEQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQEQ
+              arg0: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+              arg1: GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+              CONST Boolean type=kotlin.Boolean value=true
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: TYPE_OP type=kotlin.Boolean origin=NOT_INSTANCEOF typeOperand=com.javiersc.kotlin.kopy.playground.Foo2
+              GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=kotlin.Any? origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+              CONST Boolean type=kotlin.Boolean value=false
+        VAR IR_TEMPORARY_VARIABLE name:tmp_1 type:com.javiersc.kotlin.kopy.playground.Foo2 [val]
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Foo2 origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Foo2
+            GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=kotlin.Any? origin=null
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
+                  receiver: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
+                  receiver: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+              CONST Boolean type=kotlin.Boolean value=false
+        WHEN type=kotlin.Unit origin=null
+          BRANCH
+            if: CALL 'public final fun not (): kotlin.Boolean declared in kotlin.Boolean' type=kotlin.Boolean origin=EXCLEQ
+              $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EXCLEQ
+                arg0: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                  receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+                arg1: GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private' type=kotlin.String origin=null
+                  receiver: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Foo2 declared in com.javiersc.kotlin.kopy.playground.Foo2.equals' type=com.javiersc.kotlin.kopy.playground.Foo2 origin=null
+            then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+              CONST Boolean type=kotlin.Boolean value=false
+        RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo2'
+          CONST Boolean type=kotlin.Boolean value=true
+    FUN FAKE_OVERRIDE name:copy2 visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo2, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo2 [fake_override,infix]
+      overridden:
+        public open fun copy2 (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit>): T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>
+      VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo2, kotlin.Unit>
+    FUN FAKE_OVERRIDE name:set2 visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo2.set2, other:D of com.javiersc.kotlin.kopy.playground.Foo2.set2) returnType:kotlin.Unit [fake_override,infix]
+      overridden:
+        public open fun set2 <D> (other: D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Kopyable2
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Foo2.set2
+      VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Foo2.set2
+    FUN FAKE_OVERRIDE name:update2 visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo2.update2, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo2.update2, D of com.javiersc.kotlin.kopy.playground.Foo2.update2>) returnType:kotlin.Unit [fake_override,infix]
+      overridden:
+        public open fun update2 <D> (other: kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2>): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Kopyable2
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<com.javiersc.kotlin.kopy.playground.Foo2>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Foo2.update2
+      VALUE_PARAMETER name:other index:0 type:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo2.update2, D of com.javiersc.kotlin.kopy.playground.Foo2.update2>
+  CLASS INTERFACE name:Kopyable2 modality:ABSTRACT visibility:public superTypes:[kotlin.Any]
+    $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>
+    TYPE_PARAMETER name:T index:0 variance: superTypes:[kotlin.Any?] reified:false
+    FUN name:_kopy_init2 visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>) returnType:T of com.javiersc.kotlin.kopy.playground.Kopyable2
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun _kopy_init2 (): T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2'
+          CALL 'public final fun TODO (): kotlin.Nothing declared in kotlin' type=kotlin.Nothing origin=null
+    FUN name:copy2 visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>, copy:@[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit>) returnType:T of com.javiersc.kotlin.kopy.playground.Kopyable2 [infix]
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>
+      VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit>
+      BLOCK_BODY
+        VAR name:t type:T of com.javiersc.kotlin.kopy.playground.Kopyable2 [val]
+          CALL 'public open fun _kopy_init2 (): T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2' type=T of com.javiersc.kotlin.kopy.playground.Kopyable2 origin=null
+            $this: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2> declared in com.javiersc.kotlin.kopy.playground.Kopyable2.copy2' type=com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2> origin=null
+        CALL 'public abstract fun invoke (p1: P1 of kotlin.Function1): R of kotlin.Function1 declared in kotlin.Function1' type=kotlin.Unit origin=INVOKE
+          $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Kopyable2.copy2' type=@[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
+          p1: GET_VAR 'val t: T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2.copy2' type=T of com.javiersc.kotlin.kopy.playground.Kopyable2 origin=null
+        RETURN type=kotlin.Nothing from='public open fun copy2 (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.playground.Kopyable2, kotlin.Unit>): T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2'
+          GET_VAR 'val t: T of com.javiersc.kotlin.kopy.playground.Kopyable2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2.copy2' type=T of com.javiersc.kotlin.kopy.playground.Kopyable2 origin=null
+    FUN name:set2 visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>, $receiver:D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2, other:D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2) returnType:kotlin.Unit [infix]
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2
+      VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public open fun set2 <D> (other: D of com.javiersc.kotlin.kopy.playground.Kopyable2.set2): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Kopyable2'
+          GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+    FUN name:update2 visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>, $receiver:D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2>) returnType:kotlin.Unit [infix]
+      TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
+      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Kopyable2<T of com.javiersc.kotlin.kopy.playground.Kopyable2>
+      $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2
+      VALUE_PARAMETER name:other index:0 type:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2>
+      BLOCK_BODY
+        TYPE_OP type=kotlin.Unit origin=IMPLICIT_COERCION_TO_UNIT typeOperand=kotlin.Unit
+          CALL 'public abstract fun invoke (p1: P1 of kotlin.Function1): R of kotlin.Function1 declared in kotlin.Function1' type=D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2 origin=INVOKE
+            $this: GET_VAR 'other: kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2> declared in com.javiersc.kotlin.kopy.playground.Kopyable2.update2' type=kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2, D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2> origin=VARIABLE_AS_FUNCTION
+            p1: GET_VAR '<this>: D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2 declared in com.javiersc.kotlin.kopy.playground.Kopyable2.update2' type=D of com.javiersc.kotlin.kopy.playground.Kopyable2.update2 origin=null
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN <> ($this:kotlin.Any, other:kotlin.Any?) returnType:kotlin.Boolean [fake_override,operator]
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+      VALUE_PARAMETER name:other index:0 type:kotlin.Any?
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.Int [fake_override]
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN <> ($this:kotlin.Any) returnType:kotlin.String [fake_override]
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+      $this: VALUE_PARAMETER name:<this> type:kotlin.Any
+FILE fqName:<root> fileName:/SomeFile.kt

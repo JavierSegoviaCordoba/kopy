@@ -50,11 +50,17 @@ internal class FirKopyAssignExpressionAltererExtension(
                 ?.asFirOrNull<FirThisReceiverExpression>()
                 ?.resolvedType
                 ?.classId ?: return null
+
         val kopyClass: FirRegularClassSymbol =
             session.symbolProvider.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
 
         if (!kopyClass.hasAnnotation(classId = classId<Kopy>(), session = session)) return null
 
+        val setFunctionCall: FirStatement = createSetFunctionCall(variableAssignment)
+        return setFunctionCall
+    }
+
+    private fun createSetFunctionCall(variableAssignment: FirVariableAssignment): FirStatement {
         val leftArgument: FirReference = variableAssignment.calleeReference!!
         val leftSymbol: FirVariableSymbol<*> = leftArgument.toResolvedVariableSymbol()!!
         val leftResolvedType: FirResolvedTypeRef = leftSymbol.resolvedReturnTypeRef
@@ -82,7 +88,6 @@ internal class FirKopyAssignExpressionAltererExtension(
             }
             origin = FirFunctionCallOrigin.Regular
         }
-
         return setFunCall
     }
 

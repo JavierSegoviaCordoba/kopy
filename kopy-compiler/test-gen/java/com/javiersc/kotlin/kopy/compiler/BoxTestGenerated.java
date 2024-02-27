@@ -34,6 +34,18 @@ public class BoxTestGenerated extends AbstractBoxTest {
         runTest("test-data/box/no-nest-copy-set.kt");
     }
 
+    @Test
+    @TestMetadata("simple-1.kt")
+    public void testSimple_1() throws Exception {
+        runTest("test-data/box/simple-1.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-2.kt")
+    public void testSimple_2() throws Exception {
+        runTest("test-data/box/simple-2.kt");
+    }
+
     @Nested
     @TestMetadata("test-data/box/edge")
     @TestDataPath("$PROJECT_ROOT")

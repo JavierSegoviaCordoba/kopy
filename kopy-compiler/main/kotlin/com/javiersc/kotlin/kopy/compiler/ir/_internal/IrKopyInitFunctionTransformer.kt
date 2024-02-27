@@ -7,7 +7,7 @@ import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.kopy.KopyFunctionKopy
-import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isInitKopyable
+import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isKopyInit
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
@@ -18,9 +18,10 @@ import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.builders.irReturn
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
+import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.util.parentAsClass
 
-internal class InitKopyableFunctionTransformer(
+internal class IrKopyInitFunctionTransformer(
     private val moduleFragment: IrModuleFragment,
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
@@ -28,30 +29,29 @@ internal class InitKopyableFunctionTransformer(
     override fun visitSimpleFunction(declaration: IrSimpleFunction): IrStatement {
         fun originalFunction(): IrStatement = super.visitSimpleFunction(declaration)
 
-        if (!declaration.isInitKopyable) return originalFunction()
+        if (!declaration.isKopyInit) return originalFunction()
         if (!declaration.parentAsClass.isData) return originalFunction()
 
-        val function: IrSimpleFunction =
-            declaration.apply {
-                body =
-                    pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
-                        val copyFun: IrSimpleFunction =
-                            declaration.parentAsClass.declarations
-                                .filterIsInstance<IrSimpleFunction>()
-                                .first {
-                                    val element = it.asIrOrNull<IrElement>() ?: return@first false
-                                    val isKopyCopyFun: Boolean =
-                                        element.hasAnnotation<KopyFunctionKopy>()
-                                    it.name == "copy".toName() && !isKopyCopyFun
-                                }
-                        val copyCall =
-                            irCall(copyFun).apply {
-                                dispatchReceiver = irGet(declaration.dispatchReceiverParameter!!)
-                            }
-                        val irReturn = irReturn(copyCall)
-                        +irReturn
-                    }
-            }
+        val function: IrSimpleFunction = createKopyInitFunction(declaration)
         return function
     }
+
+    private fun createKopyInitFunction(declaration: IrSimpleFunction): IrSimpleFunction =
+        declaration.apply { body = createKopyInitFunctionBody(declaration) }
+
+    private fun createKopyInitFunctionBody(declaration: IrSimpleFunction): IrBlockBody =
+        pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
+            val copyFun: IrSimpleFunction =
+                declaration.parentAsClass.declarations.filterIsInstance<IrSimpleFunction>().first {
+                    val element = it.asIrOrNull<IrElement>() ?: return@first false
+                    val isKopyCopyFun: Boolean = element.hasAnnotation<KopyFunctionKopy>()
+                    it.name == "copy".toName() && !isKopyCopyFun
+                }
+            val copyCall =
+                irCall(copyFun).apply {
+                    dispatchReceiver = irGet(declaration.dispatchReceiverParameter!!)
+                }
+            val irReturn = irReturn(copyCall)
+            +irReturn
+        }
 }
