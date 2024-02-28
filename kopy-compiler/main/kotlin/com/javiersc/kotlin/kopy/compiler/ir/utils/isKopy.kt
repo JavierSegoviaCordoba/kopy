@@ -1,4 +1,4 @@
-package com.javiersc.kotlin.kopy.compiler.ir._internal.utils
+package com.javiersc.kotlin.kopy.compiler.ir.utils
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.common.fqName

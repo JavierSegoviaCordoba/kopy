@@ -1,6 +1,4 @@
-@file:Suppress("DEPRECATION_ERROR")
-
-package com.javiersc.kotlin.kopy.compiler.ir._internal
+package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
 import com.javiersc.kotlin.compiler.extensions.common.toCallableId
 import com.javiersc.kotlin.compiler.extensions.common.toClassId
@@ -29,7 +27,7 @@ import org.jetbrains.kotlin.ir.util.defaultType
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.substitute
 
-internal class AtomicPropertyTransformer(
+internal class IrAtomicPropertyTransformer(
     private val moduleFragment: IrModuleFragment,
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {

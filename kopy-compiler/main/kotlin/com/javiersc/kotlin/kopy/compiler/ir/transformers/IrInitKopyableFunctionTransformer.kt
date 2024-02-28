@@ -1,13 +1,13 @@
-@file:Suppress("DEPRECATION_ERROR")
+@file:Suppress("ReturnCount")
 
-package com.javiersc.kotlin.kopy.compiler.ir._internal
+package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
 import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.kopy.KopyFunctionKopy
-import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isInitKopyable
+import com.javiersc.kotlin.kopy.compiler.ir.utils.isInitKopyable
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
@@ -20,7 +20,7 @@ import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.util.parentAsClass
 
-internal class InitKopyableFunctionTransformer(
+internal class IrInitKopyableFunctionTransformer(
     private val moduleFragment: IrModuleFragment,
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {

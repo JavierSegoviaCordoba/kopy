@@ -1,4 +1,6 @@
-package com.javiersc.kotlin.kopy.compiler.ir._internal
+@file:Suppress("ReturnCount")
+
+package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
 import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.common.toCallableId
@@ -13,8 +15,8 @@ import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
 import com.javiersc.kotlin.kopy.KopyFunctionKopy
-import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.findDeclarationParent
-import com.javiersc.kotlin.kopy.compiler.ir._internal.utils.isKopySetOrUpdate
+import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
+import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames
@@ -51,7 +53,7 @@ import org.jetbrains.kotlin.ir.util.getSimpleFunction
 import org.jetbrains.kotlin.ir.util.indexOrMinusOne
 import org.jetbrains.kotlin.name.SpecialNames
 
-internal class SetOrUpdateCallTransformer(
+internal class IrSetOrUpdateCallTransformer(
     private val moduleFragment: IrModuleFragment,
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
@@ -71,68 +73,97 @@ internal class SetOrUpdateCallTransformer(
             expression.getValueArgument((expression.valueArgumentsCount - 1).coerceAtLeast(0))
                 ?: return null
         val expressionParent: IrDeclarationParent =
-            expression.findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
-                ?: return null
+            expression.findDeclarationParent() ?: return null
         val setOrUpdateType: IrType = expression.extensionReceiver?.type ?: return null
+
+        val alsoBlockFunction: IrSimpleFunction =
+            createAlsoBlockFunction(
+                expressionParent = expressionParent,
+                setOrUpdateType = setOrUpdateType,
+                expression = expression
+            ) ?: return null
+
+        val alsoCall: IrCall =
+            createAlsoCall(
+                alsoItValueParameter = alsoItValueParameter,
+                expression = expression,
+                setOrUpdateType = setOrUpdateType,
+                alsoBlockFunction = alsoBlockFunction
+            )
+
+        return alsoCall
+    }
+
+    private fun IrCall.findDeclarationParent(): IrDeclarationParent? =
+        findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
+
+    private fun createAlsoCall(
+        alsoItValueParameter: IrExpression,
+        expression: IrCall,
+        setOrUpdateType: IrType,
+        alsoBlockFunction: IrSimpleFunction
+    ): IrCall {
         val alsoFunction: IrSimpleFunction =
             pluginContext.firstIrSimpleFunction("kotlin.also".toCallableId())
 
-        val alsoBlockFunction: IrSimpleFunction =
-            pluginContext.irFactory
-                .buildFun {
-                    name = SpecialNames.ANONYMOUS
-                    visibility = DescriptorVisibilities.LOCAL
-                    returnType = pluginContext.irBuiltIns.unitType
-                    origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
+        return pluginContext.declarationIrBuilder(alsoFunction.symbol).run {
+            irCall(alsoFunction.symbol).apply {
+                type = alsoItValueParameter.type
+
+                extensionReceiver = run {
+                    val index: Int = (expression.valueArgumentsCount - 1).coerceAtLeast(0)
+                    expression.getValueArgument(index)
                 }
-                .apply {
-                    parent = expressionParent
-                    addValueParameter {
-                        this.name = StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
-                        this.type = setOrUpdateType
-                    }
-
-                    val alsoBodyBlock: IrBlockBody =
-                        pluginContext.declarationIrBuilder(this.symbol).irBlockBody {
-                            val itValueParameter: IrValueParameter = valueParameters.first()
-                            val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
-                            val copyChainCall: IrCall =
-                                expression.createCopyChainCall(alsoItValueParameterGetValue)
-                                    ?: return null
-                            val setKopyableReferenceCall: IrCall? =
-                                expression.createSetKopyableReferenceCall(
-                                    copyChainCall = copyChainCall
-                                )
-                            if (setKopyableReferenceCall != null) +setKopyableReferenceCall
-                        }
-
-                    body = alsoBodyBlock
-                }
-
-        val alsoCall: IrCall =
-            pluginContext.declarationIrBuilder(alsoFunction.symbol).run {
-                irCall(alsoFunction.symbol).apply {
-                    type = alsoItValueParameter.type
-
-                    extensionReceiver = run {
-                        val index: Int = (expression.valueArgumentsCount - 1).coerceAtLeast(0)
-                        expression.getValueArgument(index)
-                    }
-                    putTypeArgument(0, setOrUpdateType)
-                    val alsoBlockFunctionExpression: IrFunctionExpression =
-                        createIrFunctionExpression(
-                            type =
-                                pluginContext.irBuiltIns.run {
-                                    functionN(1).typeWith(setOrUpdateType, unitType)
-                                },
-                            function = alsoBlockFunction,
-                            origin = IrStatementOrigin.LAMBDA,
-                        )
-                    putValueArgument(index = 0, valueArgument = alsoBlockFunctionExpression)
-                }
+                putTypeArgument(0, setOrUpdateType)
+                val alsoBlockFunctionExpression: IrFunctionExpression =
+                    createIrFunctionExpression(
+                        type =
+                            pluginContext.irBuiltIns.run {
+                                functionN(1).typeWith(setOrUpdateType, unitType)
+                            },
+                        function = alsoBlockFunction,
+                        origin = IrStatementOrigin.LAMBDA,
+                    )
+                putValueArgument(index = 0, valueArgument = alsoBlockFunctionExpression)
             }
+        }
+    }
 
-        return alsoCall
+    private fun createAlsoBlockFunction(
+        expressionParent: IrDeclarationParent,
+        setOrUpdateType: IrType,
+        expression: IrCall
+    ): IrSimpleFunction? {
+        return pluginContext.irFactory
+            .buildFun {
+                name = SpecialNames.ANONYMOUS
+                visibility = DescriptorVisibilities.LOCAL
+                returnType = pluginContext.irBuiltIns.unitType
+                origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
+            }
+            .apply {
+                parent = expressionParent
+                addValueParameter {
+                    this.name = StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
+                    this.type = setOrUpdateType
+                }
+
+                val alsoBodyBlock: IrBlockBody =
+                    pluginContext.declarationIrBuilder(this.symbol).irBlockBody {
+                        val itValueParameter: IrValueParameter = valueParameters.first()
+                        val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
+                        val copyChainCall: IrCall =
+                            expression.createCopyChainCall(alsoItValueParameterGetValue)
+                                ?: return null
+                        val setKopyableReferenceCall: IrCall? =
+                            expression.createSetKopyableReferenceCall(
+                                copyChainCall = copyChainCall,
+                            )
+                        if (setKopyableReferenceCall != null) +setKopyableReferenceCall
+                    }
+
+                body = alsoBodyBlock
+            }
     }
 
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
@@ -181,6 +212,7 @@ internal class SetOrUpdateCallTransformer(
 
         copyChainCall
             .toIrTreeNode()
+            .asSequence()
             .filterIrIsInstance<IrCall>()
             .filter { call ->
                 val dispatcherName = call.dispatchReceiver.asIrOrNull<IrCall>()?.name

@@ -1,4 +1,4 @@
-package com.javiersc.kotlin.kopy.compiler.ir._internal.utils
+package com.javiersc.kotlin.kopy.compiler.ir.utils
 
 import com.javiersc.kotlin.compiler.extensions.ir.treeNode
 import com.javiersc.kotlin.stdlib.tree.TreeNode
