@@ -51,6 +51,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         public void testComplex_1() throws Exception {
             runTest("test-data/diagnostics/invalid-call-chain/complex-1.kt");
         }
+
+        @Test
+        @TestMetadata("simple-1.kt")
+        public void testSimple_1() throws Exception {
+            runTest("test-data/diagnostics/invalid-call-chain/simple-1.kt");
+        }
     }
 
     @Nested

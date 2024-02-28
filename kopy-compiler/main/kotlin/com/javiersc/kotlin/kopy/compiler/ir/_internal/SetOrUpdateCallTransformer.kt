@@ -24,6 +24,8 @@ import org.jetbrains.kotlin.ir.builders.declarations.buildFun
 import org.jetbrains.kotlin.ir.builders.irBlockBody
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
+import org.jetbrains.kotlin.ir.builders.parent
+import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
@@ -43,6 +45,7 @@ import org.jetbrains.kotlin.ir.symbols.IrSymbol
 import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classOrFail
+import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
 import org.jetbrains.kotlin.ir.util.functions
@@ -65,6 +68,43 @@ internal class SetOrUpdateCallTransformer(
             expression.apply { putValueArgument(valueArgumentsCount - 1, alsoCall) }
         return originalCallCallWithAlsoCall
     }
+
+    private fun IrExpression.createCopyChainCall(): IrExpression? {
+        val expressions: Sequence<IrExpression> = extensionOrDispatchReceiverChain.drop(2)
+        if (expressions.any { it.parentClassOrNull?.isData == false }) return null
+
+        val copiedExpressions: Sequence<IrDeclarationReference> =
+            expressions.filterIsInstance<IrDeclarationReference>().map {
+                val parent: IrDeclarationParent =
+                    pluginContext.declarationIrBuilder(it.symbol).parent
+                it.deepCopyWithSymbols(parent).also {
+                    it.asIrOrNull<IrCall>()?.dispatchReceiver = null
+                }
+            }
+
+        return null
+    }
+
+    private val IrExpression.parentClassOrNull: IrClass?
+        get() =
+            when (this) {
+                is IrCall -> type.classOrNull?.owner
+                is IrGetValue -> type.classOrNull?.owner
+                else -> null
+            }
+
+    private val IrExpression.extensionOrDispatchReceiverChain: Sequence<IrExpression>
+        get() {
+            val receiversChain: Sequence<IrExpression> =
+                generateSequence(this) { it.getExtensionOrDispatchReceiver() }
+            return receiversChain
+        }
+
+    private fun IrExpression.getExtensionOrDispatchReceiver(): IrExpression? =
+        when (this) {
+            is IrMemberAccessExpression<*> -> extensionReceiver ?: dispatchReceiver
+            else -> null
+        }
 
     private fun createAlsoCall(expression: IrCall): IrCall? {
         val alsoItValueParameter: IrExpression =
