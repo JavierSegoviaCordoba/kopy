@@ -1,4 +1,4 @@
-package com.javiersc.kotlin.kopy.compiler.fir.errors
+package com.javiersc.kotlin.kopy.compiler.fir.checker
 
 import com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.diagnostics.KtDiagnosticFactory1
