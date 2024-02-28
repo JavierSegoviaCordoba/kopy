@@ -14,7 +14,7 @@ import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
-import com.javiersc.kotlin.kopy.KopyFunctionKopy
+import com.javiersc.kotlin.kopy.KopyFunctionCopy
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
@@ -278,7 +278,7 @@ internal class IrSetOrUpdateCallTransformer(
                     dataClass.owner.functions
                         .firstOrNull {
                             it.name == "copy".toName() &&
-                                !it.hasAnnotation(fqName<KopyFunctionKopy>())
+                                !it.hasAnnotation(fqName<KopyFunctionCopy>())
                         }
                         ?.symbol ?: return null
                 irCall(kotlinCopyFunctionSymbol).apply {

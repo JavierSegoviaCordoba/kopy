@@ -1,6 +1,7 @@
 package com.javiersc.kotlin.kopy.runtime
 
 import com.javiersc.kotlin.kopy.KopyFunctionInvoke
+import com.javiersc.kotlin.kopy.KopyFunctionCopy
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import kotlinx.atomicfu.AtomicRef
@@ -27,7 +28,7 @@ public interface Kopyable<T> {
     }
 
     @Suppress("DEPRECATION_ERROR")
-    @KopyFunctionInvoke
+    @KopyFunctionCopy
     public infix fun copy(copy: T.() -> Unit): T {
         val kopyable: Kopyable<T> = _initKopyable()
         copy(kopyable._atomic.value)

@@ -3,7 +3,7 @@ package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers
 import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
 import com.javiersc.kotlin.kopy.KopyFunctionInvoke
-import com.javiersc.kotlin.kopy.KopyFunctionKopy
+import com.javiersc.kotlin.kopy.KopyFunctionCopy
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Failure
@@ -149,7 +149,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                         functionCall.calleeReference.toResolvedFunctionSymbol()
                             ?: return@mapNotNull null
                     val isKopyInvoke = symbol.hasAnnotation(classId<KopyFunctionInvoke>(), session)
-                    val isKopyCopy = symbol.hasAnnotation(classId<KopyFunctionKopy>(), session)
+                    val isKopyCopy = symbol.hasAnnotation(classId<KopyFunctionCopy>(), session)
                     if (isKopyInvoke || isKopyCopy) arguments else null
                 }
                 .flatMap { arguments ->

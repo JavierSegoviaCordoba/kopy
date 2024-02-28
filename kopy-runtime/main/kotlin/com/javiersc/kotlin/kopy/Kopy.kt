@@ -16,7 +16,7 @@ public annotation class KopyFunctionInvoke {
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.BINARY)
-public annotation class KopyFunctionKopy {
+public annotation class KopyFunctionCopy {
 
     public companion object
 }
