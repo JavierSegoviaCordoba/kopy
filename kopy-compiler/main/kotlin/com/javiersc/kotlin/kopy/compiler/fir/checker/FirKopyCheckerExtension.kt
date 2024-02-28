@@ -5,6 +5,8 @@ import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
 import com.javiersc.kotlin.compiler.extensions.fir.name
 import com.javiersc.kotlin.kopy.Kopy
+import com.javiersc.kotlin.kopy.KopyFunctionInvoke
+import com.javiersc.kotlin.kopy.KopyFunctionKopy
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.compiler.fir.checker.BreakingCallsChecker.CheckerResult.Failure
@@ -25,20 +27,26 @@ import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirDeclarationChec
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.ExpressionCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallChecker
 import org.jetbrains.kotlin.fir.analysis.extensions.FirAdditionalCheckersExtension
+import org.jetbrains.kotlin.fir.declarations.FirAnonymousFunction
 import org.jetbrains.kotlin.fir.declarations.FirClassLikeDeclaration
+import org.jetbrains.kotlin.fir.declarations.FirDeclaration
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
+import org.jetbrains.kotlin.fir.expressions.FirAnonymousFunctionExpression
 import org.jetbrains.kotlin.fir.expressions.FirCall
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirFunctionCall
+import org.jetbrains.kotlin.fir.expressions.FirLambdaArgumentExpression
 import org.jetbrains.kotlin.fir.expressions.FirPropertyAccessExpression
 import org.jetbrains.kotlin.fir.expressions.FirResolvable
 import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
 import org.jetbrains.kotlin.fir.references.symbol
+import org.jetbrains.kotlin.fir.references.toResolvedFunctionSymbol
 import org.jetbrains.kotlin.fir.render
 import org.jetbrains.kotlin.fir.resolve.fqName
 import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
 import org.jetbrains.kotlin.fir.types.resolvedType
 import org.jetbrains.kotlin.fir.types.toRegularClassSymbol
 import org.jetbrains.kotlin.renderer.render
@@ -123,6 +131,15 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                     positioningStrategy = DEFAULT,
                 )
             }
+            is Failure.NoCopyScope -> {
+                reporter.reportOn(
+                    source = checkerResult.source,
+                    factory = FirKopyError.NO_COPY_SCOPE,
+                    a = checkerResult.element.render(),
+                    context = context,
+                    positioningStrategy = DEFAULT,
+                )
+            }
         }
     }
 
@@ -140,6 +157,47 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
         val session: FirSession = context.session
         val setOrUpdateCall: FirFunctionCall = asFirOrNull() ?: return Failure.BrokenChain(this)
+
+        val setOrUpdateCallLambdaAnonymousFunction: FirDeclaration =
+            setOrUpdateCall.dispatchReceiver
+                ?.asFirOrNull<FirThisReceiverExpression>()
+                ?.calleeReference
+                ?.boundSymbol
+                ?.fir ?: return Failure.NoCopyScope(setOrUpdateCall)
+
+        val isCopySope: Boolean =
+            context.callsOrAssignments
+                .asSequence()
+                .filterIsInstance<FirFunctionCall>()
+                .map { it to it.argumentList.arguments }
+                .mapNotNull { (functionCall, arguments) ->
+                    val symbol: FirFunctionSymbol<*> =
+                        functionCall.calleeReference.toResolvedFunctionSymbol()
+                            ?: return@mapNotNull null
+                    val isKopyInvoke = symbol.hasAnnotation(classId<KopyFunctionInvoke>(), session)
+                    val isKopyCopy = symbol.hasAnnotation(classId<KopyFunctionKopy>(), session)
+                    if (isKopyInvoke || isKopyCopy) arguments else null
+                }
+                .flatMap { arguments ->
+                    val args: Sequence<FirExpression> = arguments.asSequence()
+                    val copyArgs: Sequence<FirAnonymousFunction> =
+                        args
+                            .filterIsInstance<FirAnonymousFunctionExpression>()
+                            .map(FirAnonymousFunctionExpression::anonymousFunction)
+                    val invokeArgs: Sequence<FirAnonymousFunction> =
+                        args
+                            .filterIsInstance<FirLambdaArgumentExpression>()
+                            .map(FirLambdaArgumentExpression::expression)
+                            .filterIsInstance<FirAnonymousFunctionExpression>()
+                            .map(FirAnonymousFunctionExpression::anonymousFunction)
+                    copyArgs + invokeArgs
+                }
+                .any { it == setOrUpdateCallLambdaAnonymousFunction }
+
+        if (!isCopySope) {
+            return Failure.NoCopyScope(setOrUpdateCall.calleeReference)
+        }
+
         val extensionReceiver: FirPropertyAccessExpression =
             setOrUpdateCall.extensionReceiver?.asFirOrNull<FirPropertyAccessExpression>()
                 ?: return Failure.BrokenChain(setOrUpdateCall)
@@ -207,24 +265,8 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
             data class MissingDataClass(override val element: FirElement) : Failure
 
             data class MissingKopyAnnotation(override val element: FirElement) : Failure
+
+            data class NoCopyScope(override val element: FirElement) : Failure
         }
     }
 }
-
-/*
-
-val setOrUpdateCallLambdaAnonymousFunction =
-    setOrUpdateCall.dispatchReceiver
-        .asFir<FirThisReceiverExpression>()
-        .calleeReference
-        .boundSymbol
-        .fir
-
-context.callsOrAssignments
-    .asSequence()
-    .filterIsInstance<FirFunctionCall>()
-    .flatMap { it.argumentList.arguments }
-    .filterIsInstance<FirAnonymousFunctionExpression>()
-    .firstOrNull { it.anonymousFunction == setOrUpdateCallLambdaAnonymousFunction }
-
-*/

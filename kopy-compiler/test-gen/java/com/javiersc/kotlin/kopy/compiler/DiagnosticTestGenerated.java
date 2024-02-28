@@ -31,6 +31,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         }
 
         @Test
+        @TestMetadata("no-copy-scope.kt")
+        public void testNo_copy_scope() throws Exception {
+            runTest("test-data/diagnostics/edge/no-copy-scope.kt");
+        }
+
+        @Test
+        @TestMetadata("no-immediate-copy-scope.kt")
+        public void testNo_immediate_copy_scope() throws Exception {
+            runTest("test-data/diagnostics/edge/no-immediate-copy-scope.kt");
+        }
+
+        @Test
         @TestMetadata("no-nest-copy-set.kt")
         public void testNo_nest_copy_set() throws Exception {
             runTest("test-data/diagnostics/edge/no-nest-copy-set.kt");
@@ -140,6 +152,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
         @TestMetadata("complex-1.kt")
         public void testComplex_1() throws Exception {
             runTest("test-data/diagnostics/valid/complex-1.kt");
+        }
+
+        @Test
+        @TestMetadata("nested-copy-simple-1.kt")
+        public void testNested_copy_simple_1() throws Exception {
+            runTest("test-data/diagnostics/valid/nested-copy-simple-1.kt");
         }
 
         @Test
