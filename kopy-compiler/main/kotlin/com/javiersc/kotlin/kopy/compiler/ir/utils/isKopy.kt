@@ -36,6 +36,10 @@ internal val IrSimpleFunction.isInitKopyable: Boolean
 internal val IrSimpleFunction.isKopyInvokeOrKopy: Boolean
     get() = hasAnnotation(fqName<KopyFunctionInvoke>()) || hasAnnotation(fqName<KopyFunctionCopy>())
 
+internal val IrCall.isKopySet: Boolean
+    get() = hasAnnotation(fqName<KopyFunctionSet>())
+
+
 internal val IrCall.isKopyUpdate: Boolean
     get() = hasAnnotation(fqName<KopyFunctionUpdate>())
 
