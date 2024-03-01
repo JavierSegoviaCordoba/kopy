@@ -165,5 +165,17 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     public void testSimple_1() {
       runTest("test-data/diagnostics/valid/simple-1.kt");
     }
+
+    @Test
+    @TestMetadata("simple-deep-1.kt")
+    public void testSimple_deep_1() {
+      runTest("test-data/diagnostics/valid/simple-deep-1.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-deep-2.kt")
+    public void testSimple_deep_2() {
+      runTest("test-data/diagnostics/valid/simple-deep-2.kt");
+    }
   }
 }

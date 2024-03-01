@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirFunctionCallOrigin
 import org.jetbrains.kotlin.fir.expressions.FirQualifiedAccessExpression
 import org.jetbrains.kotlin.fir.expressions.FirStatement
-import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
 import org.jetbrains.kotlin.fir.expressions.FirVariableAssignment
 import org.jetbrains.kotlin.fir.expressions.buildUnaryArgumentList
 import org.jetbrains.kotlin.fir.expressions.builder.buildFunctionCall
@@ -45,11 +44,10 @@ internal class FirKopyAssignExpressionAltererExtension(
     override fun transformVariableAssignment(
         variableAssignment: FirVariableAssignment
     ): FirStatement? {
-        val kopyClassClassId: ClassId =
-            variableAssignment.dispatchReceiver
-                ?.asFirOrNull<FirThisReceiverExpression>()
-                ?.resolvedType
-                ?.classId ?: return null
+        val variableDispatchReceiver: FirQualifiedAccessExpression =
+            variableAssignment.dispatchReceiver?.asFirOrNull() ?: return null
+
+        val kopyClassClassId: ClassId = variableDispatchReceiver.resolvedType.classId ?: return null
         val kopyClass: FirRegularClassSymbol =
             session.symbolProvider.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
 
