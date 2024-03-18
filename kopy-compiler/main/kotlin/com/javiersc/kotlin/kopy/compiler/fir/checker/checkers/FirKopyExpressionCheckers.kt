@@ -2,14 +2,14 @@ package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionCopy
+import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Failure
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Ignore
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Success
-import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
 import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
 import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.ExpressionCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallChecker
-import org.jetbrains.kotlin.fir.declarations.FirAnonymousFunction
 import org.jetbrains.kotlin.fir.declarations.FirDeclaration
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
@@ -28,7 +27,6 @@ import org.jetbrains.kotlin.fir.expressions.FirAnonymousFunctionExpression
 import org.jetbrains.kotlin.fir.expressions.FirCall
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirFunctionCall
-import org.jetbrains.kotlin.fir.expressions.FirLambdaArgumentExpression
 import org.jetbrains.kotlin.fir.expressions.FirPropertyAccessExpression
 import org.jetbrains.kotlin.fir.expressions.FirResolvable
 import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
@@ -153,18 +151,10 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                     if (isKopyInvoke || isKopyCopy) arguments else null
                 }
                 .flatMap { arguments ->
-                    val args: Sequence<FirExpression> = arguments.asSequence()
-                    val copyArgs: Sequence<FirAnonymousFunction> =
-                        args
-                            .filterIsInstance<FirAnonymousFunctionExpression>()
-                            .map(FirAnonymousFunctionExpression::anonymousFunction)
-                    val invokeArgs: Sequence<FirAnonymousFunction> =
-                        args
-                            .filterIsInstance<FirLambdaArgumentExpression>()
-                            .map(FirLambdaArgumentExpression::expression)
-                            .filterIsInstance<FirAnonymousFunctionExpression>()
-                            .map(FirAnonymousFunctionExpression::anonymousFunction)
-                    copyArgs + invokeArgs
+                    arguments
+                        .asSequence()
+                        .filterIsInstance<FirAnonymousFunctionExpression>()
+                        .map(FirAnonymousFunctionExpression::anonymousFunction)
                 }
                 .any { it == setOrUpdateCallLambdaAnonymousFunction }
 

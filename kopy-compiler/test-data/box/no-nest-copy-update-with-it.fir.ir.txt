@@ -131,6 +131,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -175,6 +176,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Int
       overridden:
         public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       BLOCK_BODY
         VAR name:result type:kotlin.Int [var]
@@ -194,6 +196,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo'
@@ -311,7 +314,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
             letter: GET_VAR 'letter: kotlin.Char declared in com.javiersc.kotlin.kopy.playground.Foo2.copy' type=kotlin.Char origin=null
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
-        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Kopyable2
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -355,7 +358,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
           CONST Boolean type=kotlin.Boolean value=true
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.Int
       overridden:
-        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Kopyable2
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
       BLOCK_BODY
         VAR name:result type:kotlin.Int [var]
@@ -374,7 +377,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-wi
           GET_VAR 'var result: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo2.hashCode' type=kotlin.Int origin=null
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo2) returnType:kotlin.String
       overridden:
-        public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Kopyable2
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo2
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo2'

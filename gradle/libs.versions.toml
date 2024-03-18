@@ -1,7 +1,7 @@
 [versions]
-hubdle = "0.6.4+2.0.0-dev-17175-SNAPSHOT"
-hubdleCatalog = "0.2.5+2.0.0-dev-17175-SNAPSHOT"
-javiersc-kotlin-compiler-extensions = "0.1.1+2.0.0-dev-17175-SNAPSHOT"
+hubdle = "0.6.4+2.0.0-dev-18803-SNAPSHOT"
+hubdleCatalog = "0.2.5+2.0.0-dev-18803-SNAPSHOT"
+javiersc-kotlin-compiler-extensions = "0.1.1+2.0.0-dev-18803-SNAPSHOT"
 javiersc-kotlin = "0.1.0-SNAPSHOT"
 
 [libraries]
