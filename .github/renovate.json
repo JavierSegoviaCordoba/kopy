@@ -4,7 +4,10 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["gradle"],
+      "matchManagers": [
+        "gradle",
+        "maven"
+      ],
       "registryUrls": [
          "https://plugins.gradle.org/m2/",
          "https://repo.maven.apache.org/maven2",
