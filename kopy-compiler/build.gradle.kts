@@ -31,7 +31,6 @@ hubdle {
                     testProjects(projects.kopyRuntime)
                 }
                 contextReceivers()
-                serialization()
             }
             main { //
                 dependencies { //

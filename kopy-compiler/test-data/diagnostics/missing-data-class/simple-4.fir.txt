@@ -2,10 +2,10 @@ FILE: simple-4.kt
     package com.javiersc.kotlin.kopy.playground
 
     public final fun diagnostics(): R|kotlin/Unit| {
-        lval qux0: R|com/javiersc/kotlin/kopy/playground/Qux| = R|com/javiersc/kotlin/kopy/playground/Qux.Qux|(number = Int(7))
-        lval baz0: R|com/javiersc/kotlin/kopy/playground/Baz| = R|com/javiersc/kotlin/kopy/playground/Baz.Baz|(qux = R|<local>/qux0|, text = String(Random))
-        lval bar0: R|com/javiersc/kotlin/kopy/playground/Bar| = R|com/javiersc/kotlin/kopy/playground/Bar.Bar|(baz = R|<local>/baz0|, isValid = Boolean(true))
-        lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(bar = R|<local>/bar0|, letter = Char(W))
+        lval qux0: R|com/javiersc/kotlin/kopy/playground/Qux| = R|com/javiersc/kotlin/kopy/playground/Qux.Qux|(Int(7))
+        lval baz0: R|com/javiersc/kotlin/kopy/playground/Baz| = R|com/javiersc/kotlin/kopy/playground/Baz.Baz|(R|<local>/qux0|, String(Random))
+        lval bar0: R|com/javiersc/kotlin/kopy/playground/Bar| = R|com/javiersc/kotlin/kopy/playground/Bar.Bar|(R|<local>/baz0|, Boolean(true))
+        lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(R|<local>/bar0|, Char(W))
         lval foo60: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.invoke: R|com/javiersc/kotlin/kopy/playground/Foo|>|(<L> = foo0@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(10))
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.isValid|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.set: R|kotlin/Unit|>|<R|kotlin/Boolean|>(Boolean(false))

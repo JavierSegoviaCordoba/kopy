@@ -131,6 +131,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Bar, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Bar
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -175,6 +176,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Bar) returnType:kotlin.Int
       overridden:
         public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Bar
       BLOCK_BODY
         VAR name:result type:kotlin.Int [var]
@@ -194,6 +196,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Bar) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Bar
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Bar'
@@ -339,6 +342,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Baz, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Baz
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -383,6 +387,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Baz) returnType:kotlin.Int
       overridden:
         public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Baz
       BLOCK_BODY
         VAR name:result type:kotlin.Int [var]
@@ -402,6 +407,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Baz) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Baz
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Baz'
@@ -570,6 +576,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -624,6 +631,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Int
       overridden:
         public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       BLOCK_BODY
         VAR name:result type:kotlin.Int [var]
@@ -651,6 +659,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Foo'
@@ -777,6 +786,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:equals visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Quz, other:kotlin.Any?) returnType:kotlin.Boolean [operator]
       overridden:
         public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Quz
       VALUE_PARAMETER name:other index:0 type:kotlin.Any?
       BLOCK_BODY
@@ -811,6 +821,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:hashCode visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Quz) returnType:kotlin.Int
       overridden:
         public open fun hashCode (): kotlin.Int declared in kotlin.Any
+        public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Quz
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun hashCode (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Quz'
@@ -820,6 +831,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-2.kt
     FUN GENERATED_DATA_CLASS_MEMBER name:toString visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.playground.Quz) returnType:kotlin.String
       overridden:
         public open fun toString (): kotlin.String declared in kotlin.Any
+        public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Quz
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public open fun toString (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.Quz'
