@@ -16,6 +16,17 @@
          "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev",
          "https://oss.sonatype.org/content/repositories/snapshots"
       ]
-    }
+    },
+    {
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+      ],
+      "matchPackagePatterns": [
+        "*",
+      ],
+      "groupName": "all dependencies"
+    },
   ]
 }
