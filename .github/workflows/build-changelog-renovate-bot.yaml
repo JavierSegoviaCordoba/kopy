@@ -8,4 +8,6 @@ on:
 jobs:
   add-updated-dependencies-to-changelog:
     uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/build-changelog-renovate-bot.yaml@main
+    with:
+      renovate-branch: 'renovate/all-dependencies'
     secrets: inherit
