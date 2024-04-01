@@ -1,7 +1,12 @@
+.DS_Store
+**/DS_Store
+
 .gradle
 **/.gradle/**/*
 
 .idea/
+
+.kotlin/
 
 build
 **/build/**/*
