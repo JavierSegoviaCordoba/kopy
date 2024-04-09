@@ -21,10 +21,10 @@ internal class FirCopySupertypeGenerationExtension(
     session: FirSession,
 ) : FirSupertypeGenerationExtension(session) {
 
-    context(TypeResolveServiceContainer)
     override fun computeAdditionalSupertypes(
         classLikeDeclaration: FirClassLikeDeclaration,
-        resolvedSupertypes: List<FirResolvedTypeRef>
+        resolvedSupertypes: List<FirResolvedTypeRef>,
+        typeResolver: TypeResolveService
     ): List<FirResolvedTypeRef> {
         val typeArgument: ConeClassLikeType = classLikeDeclaration.classId.toConeType()
         val type: ConeClassLikeType = classId<Kopyable<*>>().toConeType(typeArgument)
