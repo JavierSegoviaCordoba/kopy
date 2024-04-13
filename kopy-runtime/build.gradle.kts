@@ -22,16 +22,15 @@ hubdle {
         }
     }
     kotlin {
-        jvm {
-            features { //
-                contextReceivers()
-            }
-
-            main {
-                dependencies { //
-                    implementation(hubdle.jetbrains.kotlinx.atomicfu)
+        multiplatform {
+            common {
+                main {
+                    dependencies { //
+                        implementation(hubdle.jetbrains.kotlinx.atomicfu)
+                    }
                 }
             }
+            jvm()
         }
     }
 }

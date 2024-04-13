@@ -1,9 +1,10 @@
 package com.javiersc.kotlin.kopy.runtime
 
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionCopy
+import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
+import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import kotlinx.atomicfu.AtomicRef
 
 public interface Kopyable<T> {
@@ -42,5 +43,10 @@ public interface Kopyable<T> {
     @KopyFunctionUpdate
     public infix fun <D> D.update(other: (D) -> D) {
         other(this)
+    }
+
+    @KopyFunctionUpdateEach
+    public infix fun <D> Iterable<D>.updateEach(other: (D) -> D) {
+        map(other)
     }
 }

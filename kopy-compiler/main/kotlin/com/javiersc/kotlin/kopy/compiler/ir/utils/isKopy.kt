@@ -4,10 +4,11 @@ import com.javiersc.kotlin.compiler.extensions.common.classId
 import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionCopy
+import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
+import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import com.javiersc.kotlin.kopy.runtime.Kopyable
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
@@ -39,7 +40,6 @@ internal val IrSimpleFunction.isKopyInvokeOrKopy: Boolean
 internal val IrCall.isKopySet: Boolean
     get() = hasAnnotation(fqName<KopyFunctionSet>())
 
-
 internal val IrCall.isKopyUpdate: Boolean
     get() = hasAnnotation(fqName<KopyFunctionUpdate>())
 
@@ -48,3 +48,6 @@ internal val IrCall.isKopySetOrUpdate: Boolean
 
 internal val IrSimpleFunction.isKopySetOrUpdate: Boolean
     get() = hasAnnotation(fqName<KopyFunctionSet>()) || hasAnnotation(fqName<KopyFunctionUpdate>())
+
+internal val IrCall.isKopyUpdateEach: Boolean
+    get() = hasAnnotation(fqName<KopyFunctionUpdateEach>())

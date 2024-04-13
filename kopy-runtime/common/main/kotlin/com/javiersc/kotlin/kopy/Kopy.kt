@@ -34,3 +34,10 @@ public annotation class KopyFunctionUpdate {
 
     public companion object
 }
+
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.BINARY)
+public annotation class KopyFunctionUpdateEach {
+
+    public companion object
+}

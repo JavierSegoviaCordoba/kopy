@@ -35,6 +35,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
   }
 
   @Test
+  @TestMetadata("no-nest-copy-update-each.kt")
+  public void testNo_nest_copy_update_each() {
+    runTest("test-data/box/no-nest-copy-update-each.kt");
+  }
+
+  @Test
   @TestMetadata("no-nest-copy-update-no-it.kt")
   public void testNo_nest_copy_update_no_it() {
     runTest("test-data/box/no-nest-copy-update-no-it.kt");
