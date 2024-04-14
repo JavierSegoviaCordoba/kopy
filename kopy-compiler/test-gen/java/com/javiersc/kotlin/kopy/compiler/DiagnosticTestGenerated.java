@@ -22,34 +22,6 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   }
 
   @Nested
-  @TestMetadata("test-data/diagnostics/edge")
-  @TestDataPath("$PROJECT_ROOT")
-  public class Edge {
-    @Test
-    public void testAllFilesPresentInEdge() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/edge"), Pattern.compile("^(.+)\\.kt$"), null, true);
-    }
-
-    @Test
-    @TestMetadata("no-copy-scope.kt")
-    public void testNo_copy_scope() {
-      runTest("test-data/diagnostics/edge/no-copy-scope.kt");
-    }
-
-    @Test
-    @TestMetadata("no-immediate-copy-scope.kt")
-    public void testNo_immediate_copy_scope() {
-      runTest("test-data/diagnostics/edge/no-immediate-copy-scope.kt");
-    }
-
-    @Test
-    @TestMetadata("no-nest-copy-set.kt")
-    public void testNo_nest_copy_set() {
-      runTest("test-data/diagnostics/edge/no-nest-copy-set.kt");
-    }
-  }
-
-  @Nested
   @TestMetadata("test-data/diagnostics/invalid-call-chain")
   @TestDataPath("$PROJECT_ROOT")
   public class Invalid_call_chain {
@@ -118,6 +90,28 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   }
 
   @Nested
+  @TestMetadata("test-data/diagnostics/no-copy-scope")
+  @TestDataPath("$PROJECT_ROOT")
+  public class No_copy_scope {
+    @Test
+    public void testAllFilesPresentInNo_copy_scope() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/no-copy-scope"), Pattern.compile("^(.+)\\.kt$"), null, true);
+    }
+
+    @Test
+    @TestMetadata("simple-no-copy-scope-deep-set.kt")
+    public void testSimple_no_copy_scope_deep_set() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-set.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-no-immediate-copy-scope-deep-set.kt")
+    public void testSimple_no_immediate_copy_scope_deep_set() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-set.kt");
+    }
+  }
+
+  @Nested
   @TestMetadata("test-data/diagnostics/non-data-class")
   @TestDataPath("$PROJECT_ROOT")
   public class Non_data_class {
@@ -170,6 +164,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @TestMetadata("simple-nested-copy.kt")
     public void testSimple_nested_copy() {
       runTest("test-data/diagnostics/valid/simple-nested-copy.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-no-nest-copy-deep-set.kt")
+    public void testSimple_no_nest_copy_deep_set() {
+      runTest("test-data/diagnostics/valid/simple-no-nest-copy-deep-set.kt");
     }
   }
 }
