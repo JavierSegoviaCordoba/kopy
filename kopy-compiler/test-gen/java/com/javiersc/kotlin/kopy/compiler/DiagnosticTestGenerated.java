@@ -149,6 +149,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("simple-copy-update-custom-parameter.kt")
+    public void testSimple_copy_update_custom_parameter() {
+      runTest("test-data/diagnostics/valid/simple-copy-update-custom-parameter.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-copy-update-each-custom-parameter.kt")
+    public void testSimple_copy_update_each_custom_parameter() {
+      runTest("test-data/diagnostics/valid/simple-copy-update-each-custom-parameter.kt");
+    }
+
+    @Test
     @TestMetadata("simple-deep-copy.kt")
     public void testSimple_deep_copy() {
       runTest("test-data/diagnostics/valid/simple-deep-copy.kt");
