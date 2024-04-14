@@ -133,9 +133,9 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
-    @TestMetadata("simple-1.kt")
-    public void testSimple_1() {
-      runTest("test-data/diagnostics/non-data-class/simple-1.kt");
+    @TestMetadata("simple.kt")
+    public void testSimple() {
+      runTest("test-data/diagnostics/non-data-class/simple.kt");
     }
   }
 
