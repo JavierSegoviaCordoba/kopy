@@ -47,6 +47,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
   }
 
   @Test
+  @TestMetadata("no-nest-copy-update-each-with-custom-parameter.kt")
+  public void testNo_nest_copy_update_each_with_custom_parameter() {
+    runTest("test-data/box/no-nest-copy-update-each-with-custom-parameter.kt");
+  }
+
+  @Test
   @TestMetadata("no-nest-copy-update-each-with-it.kt")
   public void testNo_nest_copy_update_each_with_it() {
     runTest("test-data/box/no-nest-copy-update-each-with-it.kt");
@@ -56,6 +62,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
   @TestMetadata("no-nest-copy-update-no-it.kt")
   public void testNo_nest_copy_update_no_it() {
     runTest("test-data/box/no-nest-copy-update-no-it.kt");
+  }
+
+  @Test
+  @TestMetadata("no-nest-copy-update-with-custom-parameter.kt")
+  public void testNo_nest_copy_update_with_custom_parameter() {
+    runTest("test-data/box/no-nest-copy-update-with-custom-parameter.kt");
   }
 
   @Test
