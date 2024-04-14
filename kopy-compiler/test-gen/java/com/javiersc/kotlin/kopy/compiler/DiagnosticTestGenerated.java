@@ -75,51 +75,45 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
-    @TestMetadata("complex-1.kt")
-    public void testComplex_1() {
-      runTest("test-data/diagnostics/missing-data-class/complex-1.kt");
+    @TestMetadata("multiple-scenarios-in-a-row.kt")
+    public void testMultiple_scenarios_in_a_row() {
+      runTest("test-data/diagnostics/missing-data-class/multiple-scenarios-in-a-row.kt");
     }
 
     @Test
-    @TestMetadata("simple-1.kt")
-    public void testSimple_1() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1.kt");
+    @TestMetadata("simple-1-level-deep-missing-and-deep-set.kt")
+    public void testSimple_1_level_deep_missing_and_deep_set() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-set.kt");
     }
 
     @Test
-    @TestMetadata("simple-2.kt")
-    public void testSimple_2() {
-      runTest("test-data/diagnostics/missing-data-class/simple-2.kt");
+    @TestMetadata("simple-1-level-deep-missing-and-deep-set-and-valid-set.kt")
+    public void testSimple_1_level_deep_missing_and_deep_set_and_valid_set() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-set-and-valid-set.kt");
     }
 
     @Test
-    @TestMetadata("simple-3.kt")
-    public void testSimple_3() {
-      runTest("test-data/diagnostics/missing-data-class/simple-3.kt");
+    @TestMetadata("simple-1-level-deep-missing-and-deep-update.kt")
+    public void testSimple_1_level_deep_missing_and_deep_update() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-update.kt");
     }
 
     @Test
-    @TestMetadata("simple-4.kt")
-    public void testSimple_4() {
-      runTest("test-data/diagnostics/missing-data-class/simple-4.kt");
+    @TestMetadata("simple-1-level-deep-set.kt")
+    public void testSimple_1_level_deep_set() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-set.kt");
     }
 
     @Test
-    @TestMetadata("simple-5.kt")
-    public void testSimple_5() {
-      runTest("test-data/diagnostics/missing-data-class/simple-5.kt");
+    @TestMetadata("simple-deep-update.kt")
+    public void testSimple_deep_update() {
+      runTest("test-data/diagnostics/missing-data-class/simple-deep-update.kt");
     }
 
     @Test
-    @TestMetadata("simple-6.kt")
-    public void testSimple_6() {
-      runTest("test-data/diagnostics/missing-data-class/simple-6.kt");
-    }
-
-    @Test
-    @TestMetadata("simple-7.kt")
-    public void testSimple_7() {
-      runTest("test-data/diagnostics/missing-data-class/simple-7.kt");
+    @TestMetadata("simple-multiple-deep-set.kt")
+    public void testSimple_multiple_deep_set() {
+      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-set.kt");
     }
   }
 

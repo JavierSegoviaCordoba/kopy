@@ -1,4 +1,4 @@
-FILE: simple-6.kt
+FILE: simple-multiple-deep-set.kt
     package com.javiersc.kotlin.kopy.playground
 
     public final fun diagnostics(): R|kotlin/Unit| {
