@@ -1,4 +1,4 @@
-FILE: complex-1.kt
+FILE: simple-deep-invalid-call-chain-deep-set.kt
     package com.javiersc.kotlin.kopy.playground
 
     public final fun diagnostics(): R|kotlin/Unit| {

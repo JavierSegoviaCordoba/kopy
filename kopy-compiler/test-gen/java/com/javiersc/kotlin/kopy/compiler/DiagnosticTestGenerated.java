@@ -59,9 +59,9 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
-    @TestMetadata("complex-1.kt")
-    public void testComplex_1() {
-      runTest("test-data/diagnostics/invalid-call-chain/complex-1.kt");
+    @TestMetadata("simple-deep-invalid-call-chain-deep-set.kt")
+    public void testSimple_deep_invalid_call_chain_deep_set() {
+      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-set.kt");
     }
   }
 
