@@ -2,13 +2,11 @@
 hubdle = "0.6.6+2.0.0-RC1"
 hubdleCatalog = "0.2.6+2.0.0-RC1"
 javiersc-kotlin-compiler-extensions = "0.1.1+2.0.0-RC1"
-javiersc-kotlin = "0.1.0-SNAPSHOT"
 
 [libraries]
 hubdle-catalog = { module = "com.javiersc.hubdle:hubdle-version-catalog", version.ref = "hubdleCatalog" }
 javiersc-kotlin-compiler-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
 javiersc-kotlin-compiler-test-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-test-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
-javiersc-kotlin-stdlib = { module = "com.javiersc.kotlin:kotlin-stdlib", version.ref = "javiersc-kotlin" }
 
 [plugins]
 javiersc-hubdle = { id = "com.javiersc.hubdle", version.ref = "hubdle" }
