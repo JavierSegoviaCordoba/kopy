@@ -149,33 +149,33 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
-    @TestMetadata("complex-1.kt")
-    public void testComplex_1() {
-      runTest("test-data/diagnostics/valid/complex-1.kt");
+    @TestMetadata("multiple-scenarios-in-a-row.kt")
+    public void testMultiple_scenarios_in_a_row() {
+      runTest("test-data/diagnostics/valid/multiple-scenarios-in-a-row.kt");
     }
 
     @Test
-    @TestMetadata("nested-copy-simple-1.kt")
-    public void testNested_copy_simple_1() {
-      runTest("test-data/diagnostics/valid/nested-copy-simple-1.kt");
+    @TestMetadata("simple-copy.kt")
+    public void testSimple_copy() {
+      runTest("test-data/diagnostics/valid/simple-copy.kt");
     }
 
     @Test
-    @TestMetadata("simple-1.kt")
-    public void testSimple_1() {
-      runTest("test-data/diagnostics/valid/simple-1.kt");
+    @TestMetadata("simple-deep-copy.kt")
+    public void testSimple_deep_copy() {
+      runTest("test-data/diagnostics/valid/simple-deep-copy.kt");
     }
 
     @Test
-    @TestMetadata("simple-deep-1.kt")
-    public void testSimple_deep_1() {
-      runTest("test-data/diagnostics/valid/simple-deep-1.kt");
+    @TestMetadata("simple-deep-copy-with-multiple-scenarios.kt")
+    public void testSimple_deep_copy_with_multiple_scenarios() {
+      runTest("test-data/diagnostics/valid/simple-deep-copy-with-multiple-scenarios.kt");
     }
 
     @Test
-    @TestMetadata("simple-deep-2.kt")
-    public void testSimple_deep_2() {
-      runTest("test-data/diagnostics/valid/simple-deep-2.kt");
+    @TestMetadata("simple-nested-copy.kt")
+    public void testSimple_nested_copy() {
+      runTest("test-data/diagnostics/valid/simple-nested-copy.kt");
     }
   }
 }

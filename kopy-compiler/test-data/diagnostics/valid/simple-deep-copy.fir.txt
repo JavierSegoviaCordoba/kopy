@@ -1,4 +1,4 @@
-FILE: simple-deep-1.kt
+FILE: simple-deep-copy.kt
     package com.javiersc.kotlin.kopy.playground
 
     public final fun diagnostics(): R|kotlin/Unit| {
