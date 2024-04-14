@@ -1,0 +1,129 @@
+FILE: no-nest-copy-update-each-with-it.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun box(): R|kotlin/String| {
+        lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(7), Int(3))), R|kotlin/collections/listOf|<R|kotlin/Char|>(Char(W)))
+        lval foo02: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|com/javiersc/kotlin/kopy/playground/Foo2.Foo2|(R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(7), Int(3))), R|kotlin/collections/listOf|<R|kotlin/Char|>(Char(W)))
+        lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.copy: R|com/javiersc/kotlin/kopy/playground/Foo|>|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.numbers|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.updateEach: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
+                ^ R|<local>/it|.R|kotlin/Int.plus|(Int(42))
+            }
+            )
+        }
+        )
+        lval foo22: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|<local>/foo02|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.copy2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|(copy2@fun R|com/javiersc/kotlin/kopy/playground/Foo2|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2.numbers|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.update2: R|kotlin/Unit|>|<R|kotlin/collections/List<kotlin/Int>|>(<L> = update2@fun <anonymous>(it: R|kotlin/collections/List<kotlin/Int>|): R|kotlin/collections/List<kotlin/Int>| <inline=NoInline>  {
+                ^ R|<local>/it|.R|kotlin/collections/map|<R|kotlin/Int|, R|kotlin/Int|>(<L> = map@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=Inline, kind=UNKNOWN>  {
+                    ^ R|<local>/it|.R|kotlin/Int.plus|(Int(42))
+                }
+                )
+            }
+            )
+        }
+        )
+        lval foo23: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|<local>/foo02|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.copy2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|(copy2@fun R|com/javiersc/kotlin/kopy/playground/Foo2|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2.numbers|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.update2: R|kotlin/Unit|>|<R|kotlin/collections/List<kotlin/Int>|>(<L> = update2@fun <anonymous>(it: R|kotlin/collections/List<kotlin/Int>|): R|kotlin/collections/List<kotlin/Int>| <inline=NoInline>  {
+                ^ R|<local>/it|.R|kotlin/collections/map|<R|kotlin/Int|, R|kotlin/Int|>(<L> = map@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=Inline, kind=UNKNOWN>  {
+                    ^ R|<local>/it|.R|kotlin/Int.plus|(Int(42))
+                }
+                ).R|kotlin/also|<R|kotlin/collections/List<kotlin/Int>|>(<L> = also@fun <anonymous>(it: R|kotlin/collections/List<kotlin/Int>|): R|kotlin/Unit| <inline=Inline, kind=EXACTLY_ONCE>  {
+                    this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.setKopyableReference2: R|kotlin/Unit|>|(this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.getKopyableReference2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|().R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(R|<local>/it|))
+                }
+                )
+            }
+            )
+        }
+        )
+        lval isOk: R|kotlin/Boolean| = ==(R|<local>/foo21|.R|com/javiersc/kotlin/kopy/playground/Foo.numbers|, R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(49), Int(45))))
+        ^box when () {
+            R|<local>/isOk| ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Fail: numbers are ), R|<local>/foo21|.R|com/javiersc/kotlin/kopy/playground/Foo.numbers|, String( instead of 49 and 45))
+            }
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any|, R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        public constructor(numbers: R|kotlin/collections/List<kotlin/Int>|, letters: R|kotlin/collections/List<kotlin/Char>|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val numbers: R|kotlin/collections/List<kotlin/Int>| = R|<local>/numbers|
+            public get(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final val letters: R|kotlin/collections/List<kotlin/Char>| = R|<local>/letters|
+            public get(): R|kotlin/collections/List<kotlin/Char>|
+
+        public final operator fun component1(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final operator fun component2(): R|kotlin/collections/List<kotlin/Char>|
+
+        public final fun copy(numbers: R|kotlin/collections/List<kotlin/Int>| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.numbers|, letters: R|kotlin/collections/List<kotlin/Char>| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.letters|): R|com/javiersc/kotlin/kopy/playground/Foo|
+
+        public open override fun _initKopyable(): R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        }
+
+        public open override val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+
+    }
+    public final data class Foo2 : R|com/javiersc/kotlin/kopy/playground/Kopyable2<com/javiersc/kotlin/kopy/playground/Foo2>| {
+        public constructor(numbers: R|kotlin/collections/List<kotlin/Int>|, letters: R|kotlin/collections/List<kotlin/Char>|): R|com/javiersc/kotlin/kopy/playground/Foo2| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val numbers: R|kotlin/collections/List<kotlin/Int>| = R|<local>/numbers|
+            public get(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final val letters: R|kotlin/collections/List<kotlin/Char>| = R|<local>/letters|
+            public get(): R|kotlin/collections/List<kotlin/Char>|
+
+        public open override val _atomic2: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>| = R|kotlinx/atomicfu/atomic|<R|com/javiersc/kotlin/kopy/playground/Foo2|>(this@R|com/javiersc/kotlin/kopy/playground/Foo2|)
+            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
+
+        public open override fun _initKopyable2(): R|com/javiersc/kotlin/kopy/playground/Kopyable2<com/javiersc/kotlin/kopy/playground/Foo2>| {
+            ^_initKopyable2 this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.copy|()
+        }
+
+        public final operator fun component1(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final operator fun component2(): R|kotlin/collections/List<kotlin/Char>|
+
+        public final fun copy(numbers: R|kotlin/collections/List<kotlin/Int>| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.numbers|, letters: R|kotlin/collections/List<kotlin/Char>| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.letters|): R|com/javiersc/kotlin/kopy/playground/Foo2|
+
+    }
+    public abstract interface Kopyable2<T> : R|kotlin/Any| {
+        public abstract val _atomic2: R|kotlinx/atomicfu/AtomicRef<T>|
+            public get(): R|kotlinx/atomicfu/AtomicRef<T>|
+
+        public abstract fun _initKopyable2(): R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>|
+
+        public open fun getKopyableReference2(): R|T| {
+            ^getKopyableReference2 this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|
+        }
+
+        public open fun setKopyableReference2(value: R|T|): R|kotlin/Unit| {
+            this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.lazySet: R|kotlin/Unit|>|(R|<local>/value|)
+        }
+
+        public open infix fun copy2(copy2: R|T.() -> kotlin/Unit|): R|T| {
+            lval kopyable: R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>| = this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._initKopyable2|()
+            R|<local>/copy2|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Unit|>|(R|<local>/kopyable|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|)
+            ^copy2 R|<local>/kopyable|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|
+        }
+
+        public open infix fun <D> R|D|.set2(other: R|D|): R|kotlin/Unit| {
+            ^set2 Q|kotlin/Unit|
+        }
+
+        public open infix fun <D> R|D|.update2(other: R|(D) -> D|): R|kotlin/Unit| {
+            R|<local>/other|.R|SubstitutionOverride<kotlin/Function1.invoke: R|D|>|(this@R|com/javiersc/kotlin/kopy/playground/Kopyable2.update2|)
+        }
+
+        public open infix fun <D> R|kotlin/collections/Iterable<D>|.updateEach2(other: R|(D) -> D|): R|kotlin/Unit| {
+            this@R|com/javiersc/kotlin/kopy/playground/Kopyable2.updateEach2|.R|kotlin/collections/map|<R|D|, R|D|>(R|<local>/other|)
+        }
+
+    }
