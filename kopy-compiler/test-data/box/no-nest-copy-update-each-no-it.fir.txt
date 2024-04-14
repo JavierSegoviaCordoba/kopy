@@ -1,4 +1,4 @@
-FILE: no-nest-copy-update-each.kt
+FILE: no-nest-copy-update-each-no-it.kt
     package com.javiersc.kotlin.kopy.playground
 
     public final fun box(): R|kotlin/String| {

@@ -1,4 +1,4 @@
-FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-each.kt
+FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-each-no-it.kt
   CLASS CLASS name:Foo modality:FINAL visibility:public [data] superTypes:[kotlin.Any; com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>]
     annotations:
       Kopy
