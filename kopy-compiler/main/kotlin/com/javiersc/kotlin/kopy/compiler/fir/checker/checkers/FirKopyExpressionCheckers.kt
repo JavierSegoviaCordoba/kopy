@@ -6,6 +6,7 @@ import com.javiersc.kotlin.kopy.KopyFunctionCopy
 import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
+import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Failure
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.BreakingCallsChecker.CheckerResult.Ignore
@@ -37,6 +38,7 @@ import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
 import org.jetbrains.kotlin.fir.types.resolvedType
 import org.jetbrains.kotlin.fir.types.toRegularClassSymbol
+import org.jetbrains.kotlin.name.ClassId
 
 internal object FirKopyExpressionCheckers : ExpressionCheckers() {
     override val callCheckers: Set<FirCallChecker> =
@@ -90,17 +92,23 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         }
     }
 
-    private val FirCall.isKopyFunctionSetOrUpdateCall: Boolean
+    private val FirCall.isKopyFunctionSetOrUpdateOrUpdateEachCall: Boolean
         get() =
             asFirOrNull<FirFunctionCall>()
                 ?.calleeReference
                 ?.symbol
                 ?.resolvedAnnotationClassIds
                 ?.firstOrNull()
-                .let { it == classId<KopyFunctionSet>() || it == classId<KopyFunctionUpdate>() }
+                .isKopyFunctionSetOrUpdateOrUpdateEach
+
+    private val ClassId?.isKopyFunctionSetOrUpdateOrUpdateEach: Boolean
+        get() =
+            this == classId<KopyFunctionSet>() ||
+                this == classId<KopyFunctionUpdate>() ||
+                this == classId<KopyFunctionUpdateEach>()
 
     private fun FirCall.isBreakingCallsChain(context: CheckerContext): CheckerResult {
-        if (!isKopyFunctionSetOrUpdateCall) return Ignore
+        if (!isKopyFunctionSetOrUpdateOrUpdateEachCall) return Ignore
 
         val session: FirSession = context.session
         val setOrUpdateCall: FirFunctionCall = asFirOrNull() ?: return Failure.BrokenChain(this)

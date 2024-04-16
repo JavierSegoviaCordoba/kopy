@@ -105,9 +105,33 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("simple-no-copy-scope-deep-update.kt")
+    public void testSimple_no_copy_scope_deep_update() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-update.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-no-copy-scope-deep-update-each.kt")
+    public void testSimple_no_copy_scope_deep_update_each() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-update-each.kt");
+    }
+
+    @Test
     @TestMetadata("simple-no-immediate-copy-scope-deep-set.kt")
     public void testSimple_no_immediate_copy_scope_deep_set() {
       runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-set.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-no-immediate-copy-scope-deep-update.kt")
+    public void testSimple_no_immediate_copy_scope_deep_update() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-update.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-no-immediate-copy-scope-deep-update-each.kt")
+    public void testSimple_no_immediate_copy_scope_deep_update_each() {
+      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-update-each.kt");
     }
   }
 
