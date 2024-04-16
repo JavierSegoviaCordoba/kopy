@@ -45,7 +45,22 @@ internal object FirKopyExpressionCheckers : ExpressionCheckers() {
         setOf(
             BreakingCallsChecker,
         )
+    //    override val variableAssignmentCheckers: Set<FirVariableAssignmentChecker> =
+    //        setOf(
+    //            BreakingVariableAssignmentChecker,
+    //        )
 }
+
+// private object BreakingVariableAssignmentChecker :
+// FirVariableAssignmentChecker(MppCheckerKind.Common) {
+//    override fun check(
+//        expression: FirVariableAssignment,
+//        context: CheckerContext,
+//        reporter: DiagnosticReporter
+//    ) {
+//        TODO("Report assignments issues (same way we report `set` function issues")
+//    }
+// }
 
 private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 

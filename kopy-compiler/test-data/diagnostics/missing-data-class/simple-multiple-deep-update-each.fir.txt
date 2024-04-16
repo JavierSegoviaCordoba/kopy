@@ -1,0 +1,71 @@
+FILE: simple-multiple-deep-update-each.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun diagnostics(): R|kotlin/Unit| {
+        lval house: R|com/javiersc/kotlin/kopy/playground/House| = R|com/javiersc/kotlin/kopy/playground/House.House|(Int(100), R|com/javiersc/kotlin/kopy/playground/Kitchen.Kitchen|(R|com/javiersc/kotlin/kopy/playground/Cat.Cat|(String(Garfield), R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(5), Int(7)))), R|kotlin/collections/listOf|<R|kotlin/Int|>(vararg(Int(10), Int(13)))))
+        lval house2: R|com/javiersc/kotlin/kopy/playground/House| = R|<local>/house|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/House.copy: R|com/javiersc/kotlin/kopy/playground/House|>|(copy@fun R|com/javiersc/kotlin/kopy/playground/House|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.kitchen|.R|com/javiersc/kotlin/kopy/playground/Kitchen.cat|.R|com/javiersc/kotlin/kopy/playground/Cat.ages|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/House.updateEach: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
+                ^ R|<local>/it|.R|kotlin/Int.plus|(Int(6))
+            }
+            )
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.kitchen|.R|com/javiersc/kotlin/kopy/playground/Kitchen.squareMeters|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/House.updateEach: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
+                ^ R|<local>/it|.R|kotlin/Int.plus|(Int(45))
+            }
+            )
+        }
+        )
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class House : R|kotlin/Any|, R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/House>| {
+        public constructor(squareMeters: R|kotlin/Int|, kitchen: R|com/javiersc/kotlin/kopy/playground/Kitchen|): R|com/javiersc/kotlin/kopy/playground/House| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val squareMeters: R|kotlin/Int| = R|<local>/squareMeters|
+            public get(): R|kotlin/Int|
+
+        public final val kitchen: R|com/javiersc/kotlin/kopy/playground/Kitchen| = R|<local>/kitchen|
+            public get(): R|com/javiersc/kotlin/kopy/playground/Kitchen|
+
+        public final operator fun component1(): R|kotlin/Int|
+
+        public final operator fun component2(): R|com/javiersc/kotlin/kopy/playground/Kitchen|
+
+        public final fun copy(squareMeters: R|kotlin/Int| = this@R|com/javiersc/kotlin/kopy/playground/House|.R|com/javiersc/kotlin/kopy/playground/House.squareMeters|, kitchen: R|com/javiersc/kotlin/kopy/playground/Kitchen| = this@R|com/javiersc/kotlin/kopy/playground/House|.R|com/javiersc/kotlin/kopy/playground/House.kitchen|): R|com/javiersc/kotlin/kopy/playground/House|
+
+        public open override fun _initKopyable(): R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/House>| {
+        }
+
+        public open override val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/House>|
+            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/House>|
+
+    }
+    public final class Kitchen : R|kotlin/Any| {
+        public constructor(cat: R|com/javiersc/kotlin/kopy/playground/Cat|, squareMeters: R|kotlin/collections/List<kotlin/Int>|): R|com/javiersc/kotlin/kopy/playground/Kitchen| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val cat: R|com/javiersc/kotlin/kopy/playground/Cat| = R|<local>/cat|
+            public get(): R|com/javiersc/kotlin/kopy/playground/Cat|
+
+        public final val squareMeters: R|kotlin/collections/List<kotlin/Int>| = R|<local>/squareMeters|
+            public get(): R|kotlin/collections/List<kotlin/Int>|
+
+    }
+    public final data class Cat : R|kotlin/Any| {
+        public constructor(name: R|kotlin/String|, ages: R|kotlin/collections/List<kotlin/Int>|): R|com/javiersc/kotlin/kopy/playground/Cat| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val name: R|kotlin/String| = R|<local>/name|
+            public get(): R|kotlin/String|
+
+        public final val ages: R|kotlin/collections/List<kotlin/Int>| = R|<local>/ages|
+            public get(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final operator fun component1(): R|kotlin/String|
+
+        public final operator fun component2(): R|kotlin/collections/List<kotlin/Int>|
+
+        public final fun copy(name: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Cat|.R|com/javiersc/kotlin/kopy/playground/Cat.name|, ages: R|kotlin/collections/List<kotlin/Int>| = this@R|com/javiersc/kotlin/kopy/playground/Cat|.R|com/javiersc/kotlin/kopy/playground/Cat.ages|): R|com/javiersc/kotlin/kopy/playground/Cat|
+
+    }

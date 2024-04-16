@@ -77,6 +77,24 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     }
 
     @Test
+    @TestMetadata("simple-1-level-deep-update.kt")
+    public void testSimple_1_level_deep_update() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-update.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-1-level-deep-update-each.kt")
+    public void testSimple_1_level_deep_update_each() {
+      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-update-each.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-deep-set.kt")
+    public void testSimple_deep_set() {
+      runTest("test-data/diagnostics/missing-data-class/simple-deep-set.kt");
+    }
+
+    @Test
     @TestMetadata("simple-deep-update.kt")
     public void testSimple_deep_update() {
       runTest("test-data/diagnostics/missing-data-class/simple-deep-update.kt");
@@ -86,6 +104,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @TestMetadata("simple-multiple-deep-set.kt")
     public void testSimple_multiple_deep_set() {
       runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-set.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-multiple-deep-update.kt")
+    public void testSimple_multiple_deep_update() {
+      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-update.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-multiple-deep-update-each.kt")
+    public void testSimple_multiple_deep_update_each() {
+      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-update-each.kt");
     }
   }
 
@@ -200,6 +230,12 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @TestMetadata("simple-nested-copy.kt")
     public void testSimple_nested_copy() {
       runTest("test-data/diagnostics/valid/simple-nested-copy.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-nested-copy-assign.kt")
+    public void testSimple_nested_copy_assign() {
+      runTest("test-data/diagnostics/valid/simple-nested-copy-assign.kt");
     }
 
     @Test
