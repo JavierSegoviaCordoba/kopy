@@ -35,6 +35,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     public void testSimple_deep_invalid_call_chain_deep_set() {
       runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-set.kt");
     }
+
+    @Test
+    @TestMetadata("simple-deep-invalid-call-chain-deep-update.kt")
+    public void testSimple_deep_invalid_call_chain_deep_update() {
+      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-update.kt");
+    }
+
+    @Test
+    @TestMetadata("simple-deep-invalid-call-chain-deep-update-each.kt")
+    public void testSimple_deep_invalid_call_chain_deep_update_each() {
+      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-update-each.kt");
+    }
   }
 
   @Nested
