@@ -14,8 +14,8 @@
 
 ### Updated
 
-- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.1.1+2.0.0-RC1`
-- `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.1.1+2.0.0-RC1`
-- `com.javiersc.hubdle:hubdle-version-catalog -> 0.2.6+2.0.0-RC1`
-- `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.6.6+2.0.0-RC1`
-- `gradle -> 8.7`
+- `gradle -> 8.10`
+- `com.javiersc.hubdle:hubdle-version-catalog -> 0.3.4`
+- `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.7.4`
+- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
+- `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`

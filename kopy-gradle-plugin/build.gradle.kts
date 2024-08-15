@@ -14,16 +14,6 @@ hubdle {
             generateProjectData(true)
         }
         publishing()
-        versioning {
-            semver {
-                mapVersion { gradleVersion ->
-                    val kotlinVersion = getKotlinPluginVersion()
-                    val metadata =
-                        gradleVersion.metadata?.let { "$kotlinVersion-$it" } ?: kotlinVersion
-                    "${gradleVersion.copy(metadata = metadata)}"
-                }
-            }
-        }
     }
     kotlin {
         compilerOptions { //
