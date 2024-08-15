@@ -1,3 +1,6 @@
+import com.javiersc.semver.project.gradle.plugin.SemverExtension
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
+
 pluginManagement {
     val hubdleVersion: String =
         file("$rootDir/gradle/libs.versions.toml")
@@ -49,5 +52,17 @@ hubdleSettings {
         replaceVersion(
             "javiersc-kotlin-compiler-extensions" to kotlinCompilerExtensionsVersion,
         )
+    }
+}
+
+settings.gradle.beforeProject {
+    pluginManager.withPlugin("com.javiersc.semver") {
+        val kotlinVersion = getKotlinPluginVersion(logger)
+        project.configure<SemverExtension> {
+            mapVersion { gradleVersion ->
+                val metadata = gradleVersion.metadata?.let { "$kotlinVersion-$it" } ?: kotlinVersion
+                "${gradleVersion.copy(metadata = metadata)}"
+            }
+        }
     }
 }
