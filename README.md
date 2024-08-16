@@ -8,3 +8,176 @@
 [![Tech debt](https://img.shields.io/sonar/tech_debt/com.javiersc.kotlin.kopy?label=Tech%20debt&logo=SonarCloud&logoColor=white&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=com.javiersc.kotlin.kopy)
 
 # Kopy
+
+## Usage
+
+### IntelliJ IDEA or Android Studio configuration
+
+#### Enable K2 compiler in the IDE settings:
+
+```
+File > Settings > Language & Frameworks > Kotlin > Enable K2 mode
+```
+
+You need to restart the IDE to do the next step.
+
+<img src=".docs/images/k2.png" width="649" alt="k2"/>
+
+#### Allow third party K2 plugins:
+
+Popup the quick search with `shift + shift` and type `Registry...`, then search for:
+
+```
+kotlin.k2.only.bundled.compiler.plugins.enabled
+```
+
+And uncheck it.
+
+<img src=".docs/images/registry.png" width="1089" alt="registry"/>
+
+### Download
+
+Apply the plugin and add the next dependencies:
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version $version
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlinx:atomicfu:$version")
+    implementation("com.javiersc.kotlin:kopy-runtime:$version")
+}
+```
+
+### Example
+
+```kotlin
+import com.javiersc.kotlin.kopy.Kopy
+
+fun main() {
+    val house = House(
+        squareMeters = 100,
+        kitchen = Kitchen(
+            cat = Cat(
+                name = "Garfield",
+                age = 5,
+                numbers = listOf(1, 2, 3),
+            ),
+            squareMeters = 10,
+        ),
+    )
+    val house2: House = house.copy {
+        squareMeters = 200
+        kitchen.cat.name = "Felix"
+        kitchen.cat.age = 7
+        kitchen.cat.numbers.updateEach { it + 1 }
+        kitchen.squareMeters = 20
+    }
+
+    // House(squareMeters=200, kitchen=Kitchen(cat=Cat(name=Felix, age=7, numbers=[2, 3, 4]), squareMeters=20))
+    println(house2)
+}
+
+@Kopy
+data class House(val squareMeters: Int, val kitchen: Kitchen)
+
+@Kopy
+data class Kitchen(val cat: Cat, val squareMeters: Int)
+
+@Kopy
+data class Cat(val name: String, val age: Int)
+```
+
+## Features
+
+### `copy` or `invoke`
+
+`copy` and `invoke` creates a new instance of your data class with the content you specify. There is
+no difference between both functions.
+
+### `set` or `=`
+
+`set` and `=` do the same, assigning a value.
+
+```kotlin
+val house2: House = house.copy {
+    kitchen.cat.name = "Felix"
+}
+
+val house3: House = house.copy {
+    kitchen.cat.name.set("Felix")
+}
+```
+
+### `update`
+
+`update` is a lambda which allows updating the value of the property while having access to the
+current value.
+
+```kotlin
+val house2: House = house.copy {
+    kitchen.cat.name.update { name -> "$name Jr." }
+}
+```
+
+### `update`
+
+`update` is a lambda that allows updating the value of the property while having access to the
+current value.
+
+```kotlin
+val house2: House = house.copy {
+    kitchen.cat.name.update { name -> "$name Jr." }
+}
+```
+
+### `updateEach`
+
+`updateEach` is a lambda that allows updating the values of an `Iterable` while having access to the
+current value of each element.
+
+```kotlin
+val house2: House = house.copy {
+    kitchen.cat.numbers.updateEach { it + 1 }
+}
+```
+
+## How it works
+
+The plugin transform the lambda into what you would do manually with `copy` functions, that means
+the `copy` or `invoke` lambda can only work if the plugin is applied on the project it is being
+called.
+
+There is no reflection or mutability, your class will have some new functions and properties added,
+as it will extend under the hood the `Kopyable` interface.
+
+The number is limited to 9 independently of the number of properties your data class has:
+
+- `copy` function
+- `invoke` function
+- `_initKopyable` function
+- `_atomic` property
+- `getKopyableReference` function
+- `setKopyableReference` function
+- `set` function
+- `update` function
+- `updateEach` function
+
+When the Context Parameters feature is available, the `Kopyable` interface will not be necessary and
+the number of properties and methods added to your data class will be reduced to only 2:
+
+- `copy` function
+- `invoke` function
+
+A new `KopyableScope` will be created, and it will be used to store the rest of properties, and it
+will be added as context parameter to the `copy` and `invoke` lambdas:
+
+```kotlin
+data class House(val squareMeters: Int, val kitchen: Kitchen) {
+
+    fun copy(block: KopyableScope.() -> Unit): T = ...
+
+    fun invoke(block: KopyableScope.() -> Unit): T = ...
+}
+```
