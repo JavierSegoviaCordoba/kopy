@@ -19,8 +19,7 @@ jobs:
     with:
       gradle-args: '${{ github.event.inputs.gradle-args }}'
       allow-github-actor-bots: false
-      assemble: true
-      deploy-docs: false
       publish-snapshot: true
+      run_before_args: ./gradlew assemble
       publish-all-docs: '${{ github.event.inputs.publish-all-docs }}'
     secrets: inherit
