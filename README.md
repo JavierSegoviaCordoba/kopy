@@ -9,6 +9,8 @@
 
 # Kopy
 
+<img src=".docs/images/example.gif" alt="example animation">
+
 ## Usage
 
 ### IntelliJ IDEA or Android Studio configuration
