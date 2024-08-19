@@ -4,6 +4,8 @@
 
 ### Added
 
+- `kopy` and `invoke` calls are now marked as errors if the plugin is not applied to the project.
+
 ### Changed
 
 ### Deprecated

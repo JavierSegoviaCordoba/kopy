@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 hubdle {
     config {
@@ -42,7 +41,7 @@ hubdle {
                                             "data",
                                             "copy",
                                             "kopy",
-                                        )
+                                        ),
                                     )
                                 }
                             }
@@ -53,6 +52,7 @@ hubdle {
 
             main {
                 dependencies {
+                    implementation(gradleKotlinDsl())
                     compileOnly(projects.kopyCompiler)
                     compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }

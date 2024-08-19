@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 hubdle {
     config {

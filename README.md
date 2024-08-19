@@ -95,7 +95,7 @@ data class Cat(val name: String, val age: Int)
 
 ### `copy` or `invoke`
 
-`copy` and `invoke` creates a new instance of your data class with the content you specify. There is
+`copy` and `invoke` create a new instance of your data class with the content you specify. There is
 no difference between both functions.
 
 ### `set` or `=`
@@ -147,9 +147,14 @@ val house2: House = house.copy {
 
 ## How it works
 
-The plugin transform the lambda into what you would do manually with `copy` functions, that means
-the `copy` or `invoke` lambda can only work if the plugin is applied on the project it is being
+The plugin transforms the lambda into what you would do manually with `copy` functions, that means
+the `copy` or `invoke` lambda can only work if the plugin is applied to the project it is being
 called.
+
+If the plugin is not applied, the `copy` and `invoke` function calls will be marked as
+errors. Don't suppress them without applying the plugin as they will not work.
+
+You don't need to suppress them, the Gradle plugin will suppress them for you.
 
 There is no reflection or mutability, your class will have some new functions and properties added,
 as it will extend under the hood the `Kopyable` interface.
@@ -173,7 +178,7 @@ the number of properties and methods added to your data class will be reduced to
 - `invoke` function
 
 A new `KopyableScope` will be created, and it will be used to store the rest of properties, and it
-will be added as context parameter to the `copy` and `invoke` lambdas:
+will be added as a context parameter to the `copy` and `invoke` lambdas:
 
 ```kotlin
 data class House(val squareMeters: Int, val kitchen: Kitchen) {

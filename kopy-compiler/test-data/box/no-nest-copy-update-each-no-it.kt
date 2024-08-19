@@ -1,5 +1,5 @@
-// !LANGUAGE: +ContextReceivers
 // !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
+// OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
 
 package com.javiersc.kotlin.kopy.playground
 
