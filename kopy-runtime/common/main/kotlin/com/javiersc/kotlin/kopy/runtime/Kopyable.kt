@@ -5,6 +5,7 @@ import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
+import com.javiersc.kotlin.kopy.KopyOptIn
 import kotlinx.atomicfu.AtomicRef
 
 public interface Kopyable<T> {
@@ -29,6 +30,7 @@ public interface Kopyable<T> {
     }
 
     @Suppress("DEPRECATION_ERROR")
+    @KopyOptIn
     @KopyFunctionCopy
     public infix fun copy(copy: T.() -> Unit): T {
         val kopyable: Kopyable<T> = _initKopyable()
@@ -36,16 +38,20 @@ public interface Kopyable<T> {
         return kopyable._atomic.value
     }
 
-    @KopyFunctionInvoke public infix operator fun invoke(copy: T.() -> Unit): T = copy(copy = copy)
+    @KopyFunctionInvoke
+    @KopyOptIn
+    public infix operator fun invoke(copy: T.() -> Unit): T = copy(copy = copy)
 
-    @KopyFunctionSet public infix fun <D> D.set(other: D): Unit = Unit
+    @KopyFunctionSet @KopyOptIn public infix fun <D> D.set(other: D): Unit = Unit
 
     @KopyFunctionUpdate
+    @KopyOptIn
     public infix fun <D> D.update(other: (D) -> D) {
         other(this)
     }
 
     @KopyFunctionUpdateEach
+    @KopyOptIn
     public infix fun <D> Iterable<D>.updateEach(other: (D) -> D) {
         map(other)
     }

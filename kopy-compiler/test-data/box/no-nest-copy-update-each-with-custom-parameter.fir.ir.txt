@@ -50,6 +50,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
         INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Foo modality:FINAL visibility:public [data] superTypes:[kotlin.Any; com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>]'
     FUN FAKE_OVERRIDE name:copy visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override,infix]
       annotations:
+        KopyOptIn
         KopyFunctionCopy
       overridden:
         public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
@@ -64,6 +65,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
     FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override,operator,infix]
       annotations:
         KopyFunctionInvoke
+        KopyOptIn
       overridden:
         public open fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
@@ -71,6 +73,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
     FUN FAKE_OVERRIDE name:set visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo.set, other:D of com.javiersc.kotlin.kopy.playground.Foo.set) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionSet
+        KopyOptIn
       overridden:
         public open fun set <D> (other: D of com.javiersc.kotlin.kopy.runtime.Kopyable.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
@@ -87,6 +90,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
     FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo.update, D of com.javiersc.kotlin.kopy.playground.Foo.update>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdate
+        KopyOptIn
       overridden:
         public open fun update <D> (other: kotlin.Function1<D of com.javiersc.kotlin.kopy.runtime.Kopyable.update, D of com.javiersc.kotlin.kopy.runtime.Kopyable.update>): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
@@ -96,6 +100,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
     FUN FAKE_OVERRIDE name:updateEach visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:kotlin.collections.Iterable<D of com.javiersc.kotlin.kopy.playground.Foo.updateEach>, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo.updateEach, D of com.javiersc.kotlin.kopy.playground.Foo.updateEach>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdateEach
+        KopyOptIn
       overridden:
         public open fun updateEach <D> (other: kotlin.Function1<D of com.javiersc.kotlin.kopy.runtime.Kopyable.updateEach, D of com.javiersc.kotlin.kopy.runtime.Kopyable.updateEach>): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       TYPE_PARAMETER name:D index:0 variance: superTypes:[kotlin.Any?] reified:false
