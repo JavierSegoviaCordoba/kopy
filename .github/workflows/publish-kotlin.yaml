@@ -10,8 +10,9 @@ jobs:
     uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/publish-kotlin.yaml@main
     with:
       publish-maven-central: true
-      #TODO: publish-gradle-plugin-portal: "{{ publish-gradle-plugin-portal }}"
+      publish-gradle-plugin-portal: true
       #TODO: publish-jetbrains-marketplace: "{{ publish-jetbrains-marketplace }}"
       publish-docs: true
       publish-github-release: true
+      run_before_args: './gradlew assemble'
     secrets: inherit
