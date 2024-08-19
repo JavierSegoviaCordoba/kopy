@@ -12,13 +12,20 @@ import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
+import com.javiersc.kotlin.kopy.args.KopyVisibility
+import com.javiersc.kotlin.kopy.compiler.KopyKey
 import com.javiersc.kotlin.kopy.compiler.fir.Key
+import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.descriptors.Modality
+import org.jetbrains.kotlin.descriptors.Visibilities
+import org.jetbrains.kotlin.descriptors.Visibility
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.analysis.checkers.declaration.primaryConstructorSymbol
 import org.jetbrains.kotlin.fir.declarations.FirProperty
 import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
+import org.jetbrains.kotlin.fir.declarations.utils.visibility
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
 import org.jetbrains.kotlin.fir.expressions.builder.buildEmptyExpressionBlock
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
@@ -28,7 +35,6 @@ import org.jetbrains.kotlin.fir.extensions.predicate.DeclarationPredicate
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
 import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.resolve.defaultType
-import org.jetbrains.kotlin.fir.resolve.fqName
 import org.jetbrains.kotlin.fir.resolve.providers.getRegularClassSymbolByClassId
 import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutor
@@ -55,7 +61,11 @@ import org.jetbrains.kotlin.name.StandardClassIds
 
 internal class FirKopyDeclarationGenerationExtension(
     session: FirSession,
+    private val configuration: CompilerConfiguration,
 ) : FirDeclarationGenerationExtension(session) {
+
+    private val kopyVisibility: KopyVisibility
+        get() = configuration.get(KopyKey.Visibility, KopyVisibility.Auto)
 
     private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
     private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
@@ -120,6 +130,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 config = {
                     status { isOverride = false }
                     modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
                 },
             )
         return listOf(atomicProperty.symbol)
@@ -197,6 +208,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         isInfix = true
                     }
                     modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
                     this.extensionReceiverType { typeParameters ->
                         typeParameters.first().toConeType()
                     }
@@ -238,6 +250,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         isInfix = true
                     }
                     modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
                     this.extensionReceiverType { typeParameters ->
                         typeParameters.first().toConeType()
                     }
@@ -297,6 +310,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         isInfix = true
                     }
                     modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
                     this.extensionReceiverType { typeParameters ->
                         val typeParamsAsConeType: List<ConeTypeParameterType> =
                             typeParameters.map { it.toConeType() }
@@ -356,6 +370,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         isOperator = callableId.callableName == invokeName
                     }
                     modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
                     valueParameter(copyName, copyValueParameterType)
                 },
             )
@@ -386,6 +401,35 @@ internal class FirKopyDeclarationGenerationExtension(
             ?.fir
             ?.symbol
             ?.toFirTypeRef()?.let(::createFirAnnotation)
+
+    private fun calculateVisibility(classSymbol: FirClassSymbol<*>): Visibility {
+        val visibility: Visibility =
+            classSymbol.primaryConstructorSymbol(session)?.visibility ?: return Visibilities.Public
+        val isMoreRestrictive: Boolean = kopyVisibility.isMoreRestrictedThan(visibility)
+        return if (isMoreRestrictive) kopyVisibility.toVisibility(visibility)
+        else visibility
+    }
+
+    private fun KopyVisibility.toVisibility(defaultVisibility: Visibility): Visibility =
+        when (this) {
+            KopyVisibility.Auto -> defaultVisibility
+            KopyVisibility.Public -> Visibilities.Public
+            KopyVisibility.Internal -> Visibilities.Internal
+            KopyVisibility.Protected -> Visibilities.Protected
+            KopyVisibility.Private -> Visibilities.Private
+        }
+
+    private fun KopyVisibility.isMoreRestrictedThan(visibility: Visibility): Boolean =
+        this.restrictive > visibility.restrictive
+
+    private val Visibility.restrictive: Int
+        get() = when (this) {
+            Visibilities.Public -> 1
+            Visibilities.Internal -> 2
+            Visibilities.Protected -> 3
+            Visibilities.Private -> 4
+            else -> 5
+        }
 }
 
 private fun FirSession.substitutor(

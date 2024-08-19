@@ -4,6 +4,8 @@
 
 ### Added
 
+- `KopyVisibility` to set the visibility of the generated functions
+
 ### Changed
 
 ### Deprecated

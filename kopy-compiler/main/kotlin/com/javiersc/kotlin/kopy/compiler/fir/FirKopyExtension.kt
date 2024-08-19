@@ -5,6 +5,7 @@ import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyAssignExpressionA
 import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyDeclarationGenerationExtension
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.config.CompilerConfiguration
+import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrar
 
 internal class FirKopyExtension(
@@ -22,7 +23,7 @@ internal class FirKopyExtension(
 
     private fun ExtensionRegistrarContext.registerGenerators() {
         +::FirKopyAssignExpressionAltererExtension
-        +::FirKopyDeclarationGenerationExtension
+        +{ session: FirSession -> FirKopyDeclarationGenerationExtension(session, configuration) }
     }
 }
 

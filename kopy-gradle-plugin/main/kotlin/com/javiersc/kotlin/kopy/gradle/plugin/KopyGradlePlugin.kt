@@ -1,5 +1,6 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
+import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import javax.inject.Inject
 import org.gradle.api.Project
@@ -8,6 +9,7 @@ import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
@@ -30,7 +32,17 @@ constructor(
 
     override fun applyToCompilation(
         kotlinCompilation: KotlinCompilation<*>
-    ): Provider<List<SubpluginOption>> = providers.provider { emptyList() }
+    ): Provider<List<SubpluginOption>> {
+        val kopy: KopyExtension = kotlinCompilation.project.the<KopyExtension>()
+        return providers.provider {
+            listOf(
+                SubpluginOption(
+                    key = KopyVisibility.NAME,
+                    value = kopy.visibility.get().value,
+                ),
+            )
+        }
+    }
 
     override fun getCompilerPluginId(): String =
         "${KopyCompilerProjectData.Group}.${KopyCompilerProjectData.Name}"
@@ -45,9 +57,7 @@ constructor(
     override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
 
     private fun Project.createExtension() {
-        extensions.create<KopyExtension>(
-            KopyExtension.NAME,
-        )
+        extensions.create<KopyExtension>(KopyExtension.NAME)
     }
 
     private fun Project.withKotlinAndroid(action: Project.() -> Unit) {

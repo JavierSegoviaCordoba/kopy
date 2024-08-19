@@ -60,6 +60,7 @@ hubdle {
             main {
                 dependencies {
                     implementation(gradleKotlinDsl())
+                    implementation(projects.kopyArgs)
                     compileOnly(projects.kopyCompiler)
                     compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }

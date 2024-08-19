@@ -256,4 +256,38 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
       runTest("test-data/diagnostics/valid/simple-no-nest-copy-deep-set.kt");
     }
   }
+
+  @Nested
+  @TestMetadata("test-data/diagnostics/visibility")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Visibility {
+    @Test
+    public void testAllFilesPresentInVisibility() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/visibility"), Pattern.compile("^(.+)\\.kt$"), null, true);
+    }
+
+    @Test
+    @TestMetadata("internal.kt")
+    public void testInternal() {
+      runTest("test-data/diagnostics/visibility/internal.kt");
+    }
+
+    @Test
+    @TestMetadata("private.kt")
+    public void testPrivate() {
+      runTest("test-data/diagnostics/visibility/private.kt");
+    }
+
+    @Test
+    @TestMetadata("protected.kt")
+    public void testProtected() {
+      runTest("test-data/diagnostics/visibility/protected.kt");
+    }
+
+    @Test
+    @TestMetadata("public.kt")
+    public void testPublic() {
+      runTest("test-data/diagnostics/visibility/public.kt");
+    }
+  }
 }

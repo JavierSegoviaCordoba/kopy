@@ -43,7 +43,49 @@ Apply the plugin in the `build.gradle.kts` or `build.gradle`:
 
 ```kotlin
 plugins {
-    id("com.javiersc.kotlin.kopy") version $version
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+```
+
+### Plugin configurations
+
+The extension `kopy` is available to configure the plugin:
+
+#### Visibility
+
+The `visibility` option allows changing the visibility of the `copy` and `invoke` functions. The
+default value is `Auto`, which uses the same visibility the primary constructor has, as the original
+`copy` function does after Kotlin 2.0.20.
+
+Possible values:
+
+- `KopyVisibility.Auto`
+- `KopyVisibility.Public`
+- `KopyVisibility.Internal`
+- `KopyVisibility.Protected`
+- `KopyVisibility.Private`
+
+It is possible to have a more restrictive Kopy `copy` and `invoke` functions than the original one,
+for example by providing the `KopyVisiblity.Private` and the primary constructor being `public` or
+`internal`. The original `copy` function would be `public` or `internal` respectively, and the Kopy
+functions would be `private`.
+
+> **Note**
+>
+> If the primary constructor visibility is more restrictive than the specified visibility, the
+> primary constructor one is used.
+
+##### Example
+
+```kotlin
+import com.javiersc.kotlin.kopy.args.KopyVisibility
+
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    visibility = KopyVisibility.Private
 }
 ```
 
