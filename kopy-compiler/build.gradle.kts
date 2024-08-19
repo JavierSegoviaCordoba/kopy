@@ -42,6 +42,7 @@ hubdle {
             main { //
                 dependencies { //
                     implementation(hubdle.javiersc.kotlin.compiler.extensions)
+                    implementation(projects.kopyArgs)
                     implementation(projects.kopyRuntime)
                 }
             }
