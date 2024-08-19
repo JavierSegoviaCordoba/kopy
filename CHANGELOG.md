@@ -4,8 +4,6 @@
 
 ### Added
 
-- `kopy` and `invoke` calls are now marked as errors if the plugin is not applied to the project.
-
 ### Changed
 
 ### Deprecated
@@ -13,6 +11,14 @@
 ### Fixed
 
 ### Removed
+
+### Updated
+
+## [0.2.0+2.0.10] - 2024-08-19
+
+### Added
+
+- `kopy` and `invoke` calls are now marked as errors if the plugin is not applied to the project.
 
 ### Updated
 
@@ -29,6 +35,8 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.1.1+2.0.10...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.2.0+2.0.10...HEAD
+
+[0.2.0+2.0.10]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.1.1+2.0.10...0.2.0+2.0.10
 
 [0.1.1+2.0.10]: https://github.com/JavierSegoviaCordoba/kopy/commits/0.1.1+2.0.10
