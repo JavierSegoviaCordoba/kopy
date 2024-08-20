@@ -9,7 +9,7 @@
 
 # Kopy
 
-<img src=".docs/images/example.gif" alt="example animation">
+<img src=".docs/docs/assets/images/example.gif" alt="example animation">
 
 ## Usage
 
@@ -23,7 +23,7 @@ File > Settings > Language & Frameworks > Kotlin > Enable K2 mode
 
 You need to restart the IDE to do the next step.
 
-<img src=".docs/images/k2.png" width="649" alt="k2"/>
+<img src=".docs/docs/assets/images/k2.png" width="649" alt="k2"/>
 
 #### Allow third party K2 plugins:
 
@@ -35,7 +35,7 @@ kotlin.k2.only.bundled.compiler.plugins.enabled
 
 And uncheck it.
 
-<img src=".docs/images/registry.png" width="1089" alt="registry"/>
+<img src=".docs/docs/assets/images/registry.png" width="1089" alt="registry"/>
 
 ### Download
 
@@ -115,17 +115,6 @@ val house3: House = house.copy {
 ### `update`
 
 `update` is a lambda which allows updating the value of the property while having access to the
-current value.
-
-```kotlin
-val house2: House = house.copy {
-    kitchen.cat.name.update { name -> "$name Jr." }
-}
-```
-
-### `update`
-
-`update` is a lambda that allows updating the value of the property while having access to the
 current value.
 
 ```kotlin
