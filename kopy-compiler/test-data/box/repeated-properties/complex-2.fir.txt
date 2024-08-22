@@ -24,7 +24,8 @@ FILE: complex-2.kt
                 String(OK)
             }
             else ->  {
-                <strcat>(String(Fail:), Char(10), R|<local>/foo2|)
+                <strcat>(String(Fail:), String(
+), R|<local>/foo2|)
             }
         }
 

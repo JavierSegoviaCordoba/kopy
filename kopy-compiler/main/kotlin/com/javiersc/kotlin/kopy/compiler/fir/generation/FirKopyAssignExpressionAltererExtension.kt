@@ -5,7 +5,7 @@ import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
 import com.javiersc.kotlin.kopy.Kopy
-import org.jetbrains.kotlin.KtFakeSourceElementKind.DesugaredCompoundAssignment
+import org.jetbrains.kotlin.KtFakeSourceElementKind.AssignmentPluginAltered
 import org.jetbrains.kotlin.fakeElement
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
@@ -58,7 +58,7 @@ internal class FirKopyAssignExpressionAltererExtension(
         val leftResolvedType: FirResolvedTypeRef = leftSymbol.resolvedReturnTypeRef
         val rightArgument: FirExpression = variableAssignment.rValue
         val setFunCall: FirStatement = buildFunctionCall {
-            source = variableAssignment.source?.fakeElement(DesugaredCompoundAssignment)
+            source = variableAssignment.source?.fakeElement(AssignmentPluginAltered)
             explicitReceiver = buildPropertyAccessExpression {
                 source = leftArgument.source
                 coneTypeOrNull = leftResolvedType.type
