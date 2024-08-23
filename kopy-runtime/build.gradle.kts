@@ -7,7 +7,13 @@ hubdle {
         }
         explicitApi()
         format.isEnabled = false
-        publishing()
+        publishing {
+            maven {
+                repositories { //
+                    mavenLocalTest()
+                }
+            }
+        }
     }
     kotlin {
         multiplatform {

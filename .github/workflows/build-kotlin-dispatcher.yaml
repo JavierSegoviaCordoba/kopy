@@ -20,6 +20,6 @@ jobs:
       gradle-args: '${{ github.event.inputs.gradle-args }}'
       allow-github-actor-bots: false
       publish-snapshot: true
-      run_before_args: ./gradlew assemble
+      run_before_args: './gradlew assemble publishToMavenLocalTest'
       publish-all-docs: '${{ github.event.inputs.publish-all-docs }}'
     secrets: inherit
