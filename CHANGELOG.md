@@ -12,6 +12,9 @@
 
 ### Removed
 
+- `getKopyableReference` function from Kopyable interface
+- `setKopyableReference` function from Kopyable interface
+
 ### Updated
 
 - `com.javiersc.hubdle:hubdle-version-catalog -> 0.3.6`

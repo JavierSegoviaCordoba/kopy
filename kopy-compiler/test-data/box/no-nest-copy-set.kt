@@ -14,7 +14,7 @@ fun box(): String {
     val foo21 = foo0 copy { number.set(42) }
 
     val foo22 = foo02 copy2 {
-        number.set2(42.also { setKopyableReference2(getKopyableReference2().copy(number = it)) })
+        number.set2(42.also { _atomic2.lazySet(_atomic2.value.copy(number = it)) })
     }
 
     val isOk = foo21.number == 42
@@ -36,12 +36,6 @@ public interface Kopyable2<T> {
     public val _atomic2: AtomicRef<T>
 
     public fun _initKopyable2(): Kopyable2<T>
-
-    public fun getKopyableReference2(): T = _atomic2.value
-
-    public fun setKopyableReference2(value: T) {
-        _atomic2.lazySet(value)
-    }
 
     public infix fun copy2(copy2: T.() -> Unit): T {
         val kopyable: Kopyable2<T> = _initKopyable2()

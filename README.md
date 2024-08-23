@@ -148,14 +148,12 @@ You don't need to suppress them, the Gradle plugin will suppress them for you.
 There is no reflection or mutability, your class will have some new functions and properties added,
 as it will extend under the hood the `Kopyable` interface.
 
-The number is limited to 9 independently of the number of properties your data class has:
+The number is limited to 7 independently of the number of properties your data class has:
 
 - `copy` function
 - `invoke` function
 - `_initKopyable` function
 - `_atomic` property
-- `getKopyableReference` function
-- `setKopyableReference` function
 - `set` function
 - `update` function
 - `updateEach` function

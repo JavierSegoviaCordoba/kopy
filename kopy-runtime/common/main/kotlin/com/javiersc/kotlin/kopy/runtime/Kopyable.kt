@@ -20,16 +20,6 @@ public interface Kopyable<T> {
     public fun _initKopyable(): Kopyable<T> = TODO()
 
     @Suppress("DEPRECATION_ERROR")
-    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
-    public fun getKopyableReference(): T = _atomic.value
-
-    @Suppress("DEPRECATION_ERROR")
-    @Deprecated("This is deprecated", level = DeprecationLevel.ERROR)
-    public fun setKopyableReference(value: T) {
-        _atomic.lazySet(value)
-    }
-
-    @Suppress("DEPRECATION_ERROR")
     @KopyOptIn
     @KopyFunctionCopy
     public infix fun copy(copy: T.() -> Unit): T {
