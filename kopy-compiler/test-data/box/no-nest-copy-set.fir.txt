@@ -10,7 +10,7 @@ FILE: no-nest-copy-set.kt
         )
         lval foo22: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|<local>/foo02|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.copy2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|(copy2@fun R|com/javiersc/kotlin/kopy/playground/Foo2|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
             (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.set2: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(42).R|kotlin/also|<R|kotlin/Int|>(<L> = also@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <inline=Inline, kind=EXACTLY_ONCE>  {
-                this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.setKopyableReference2: R|kotlin/Unit|>|(this@R|special/anonymous|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.getKopyableReference2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|().R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(R|<local>/it|))
+                this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.lazySet: R|kotlin/Unit|>|(this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|com/javiersc/kotlin/kopy/playground/Foo2|>|.R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(R|<local>/it|))
             }
             ))
         }
@@ -80,14 +80,6 @@ FILE: no-nest-copy-set.kt
             public get(): R|kotlinx/atomicfu/AtomicRef<T>|
 
         public abstract fun _initKopyable2(): R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>|
-
-        public open fun getKopyableReference2(): R|T| {
-            ^getKopyableReference2 this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|
-        }
-
-        public open fun setKopyableReference2(value: R|T|): R|kotlin/Unit| {
-            this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.lazySet: R|kotlin/Unit|>|(R|<local>/value|)
-        }
 
         public open infix fun copy2(copy2: R|T.() -> kotlin/Unit|): R|T| {
             lval kopyable: R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>| = this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._initKopyable2|()

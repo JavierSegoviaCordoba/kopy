@@ -56,12 +56,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
         public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>
       VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>
-    FUN FAKE_OVERRIDE name:getKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>) returnType:com.javiersc.kotlin.kopy.playground.Bar [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun getKopyableReference (): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>
     FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Bar [fake_override,operator,infix]
       annotations:
         KopyFunctionInvoke
@@ -80,13 +74,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>
       $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Bar.set
       VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Bar.set
-    FUN FAKE_OVERRIDE name:setKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>, value:com.javiersc.kotlin.kopy.playground.Bar) returnType:kotlin.Unit [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun setKopyableReference (value: T of com.javiersc.kotlin.kopy.runtime.Kopyable): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>
-      VALUE_PARAMETER name:value index:0 type:com.javiersc.kotlin.kopy.playground.Bar
     FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Bar>, $receiver:D of com.javiersc.kotlin.kopy.playground.Bar.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Bar.update, D of com.javiersc.kotlin.kopy.playground.Bar.update>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdate
@@ -281,12 +268,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
         public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>
       VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit>
-    FUN FAKE_OVERRIDE name:getKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>) returnType:com.javiersc.kotlin.kopy.playground.Baz [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun getKopyableReference (): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>
     FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Baz [fake_override,operator,infix]
       annotations:
         KopyFunctionInvoke
@@ -305,13 +286,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>
       $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Baz.set
       VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Baz.set
-    FUN FAKE_OVERRIDE name:setKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>, value:com.javiersc.kotlin.kopy.playground.Baz) returnType:kotlin.Unit [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun setKopyableReference (value: T of com.javiersc.kotlin.kopy.runtime.Kopyable): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>
-      VALUE_PARAMETER name:value index:0 type:com.javiersc.kotlin.kopy.playground.Baz
     FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Baz>, $receiver:D of com.javiersc.kotlin.kopy.playground.Baz.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Baz.update, D of com.javiersc.kotlin.kopy.playground.Baz.update>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdate
@@ -518,12 +492,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
         public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
       VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>
-    FUN FAKE_OVERRIDE name:getKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun getKopyableReference (): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
     FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [fake_override,operator,infix]
       annotations:
         KopyFunctionInvoke
@@ -542,13 +510,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
       $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Foo.set
       VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Foo.set
-    FUN FAKE_OVERRIDE name:setKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, value:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.Unit [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun setKopyableReference (value: T of com.javiersc.kotlin.kopy.runtime.Kopyable): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>
-      VALUE_PARAMETER name:value index:0 type:com.javiersc.kotlin.kopy.playground.Foo
     FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Foo>, $receiver:D of com.javiersc.kotlin.kopy.playground.Foo.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Foo.update, D of com.javiersc.kotlin.kopy.playground.Foo.update>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdate
@@ -764,12 +725,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
         public open fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<T of com.javiersc.kotlin.kopy.runtime.Kopyable, kotlin.Unit>): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>
       VALUE_PARAMETER name:copy index:0 type:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Quz, kotlin.Unit>
-    FUN FAKE_OVERRIDE name:getKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>) returnType:com.javiersc.kotlin.kopy.playground.Quz [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun getKopyableReference (): T of com.javiersc.kotlin.kopy.runtime.Kopyable declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>
     FUN FAKE_OVERRIDE name:invoke visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Quz, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Quz [fake_override,operator,infix]
       annotations:
         KopyFunctionInvoke
@@ -788,13 +743,6 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>
       $receiver: VALUE_PARAMETER name:<this> type:D of com.javiersc.kotlin.kopy.playground.Quz.set
       VALUE_PARAMETER name:other index:0 type:D of com.javiersc.kotlin.kopy.playground.Quz.set
-    FUN FAKE_OVERRIDE name:setKopyableReference visibility:public modality:OPEN <> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>, value:com.javiersc.kotlin.kopy.playground.Quz) returnType:kotlin.Unit [fake_override]
-      annotations:
-        Deprecated(message = "This is deprecated", replaceWith = <null>, level = GET_ENUM 'ENUM_ENTRY name:ERROR' type=kotlin.DeprecationLevel)
-      overridden:
-        public open fun setKopyableReference (value: T of com.javiersc.kotlin.kopy.runtime.Kopyable): kotlin.Unit declared in com.javiersc.kotlin.kopy.runtime.Kopyable
-      $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>
-      VALUE_PARAMETER name:value index:0 type:com.javiersc.kotlin.kopy.playground.Quz
     FUN FAKE_OVERRIDE name:update visibility:public modality:OPEN <D> ($this:com.javiersc.kotlin.kopy.runtime.Kopyable<com.javiersc.kotlin.kopy.playground.Quz>, $receiver:D of com.javiersc.kotlin.kopy.playground.Quz.update, other:kotlin.Function1<D of com.javiersc.kotlin.kopy.playground.Quz.update, D of com.javiersc.kotlin.kopy.playground.Quz.update>) returnType:kotlin.Unit [fake_override,infix]
       annotations:
         KopyFunctionUpdate
@@ -936,20 +884,24 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
                       FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
                         VALUE_PARAMETER name:it index:0 type:kotlin.String
                         BLOCK_BODY
-                          CALL 'public open fun setKopyableReference (value: com.javiersc.kotlin.kopy.playground.Foo): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
-                            $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                          CALL 'public final fun lazySet (value: T of kotlinx.atomicfu.AtomicRef): kotlin.Unit declared in kotlinx.atomicfu.AtomicRef' type=kotlin.Unit origin=null
+                            $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                             value: CALL 'public final fun copy (bar: com.javiersc.kotlin.kopy.playground.Bar, baz: com.javiersc.kotlin.kopy.playground.Baz, quz: com.javiersc.kotlin.kopy.playground.Quz): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                              $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                              $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                               bar: CALL 'public final fun copy (baz: com.javiersc.kotlin.kopy.playground.Baz, quz: com.javiersc.kotlin.kopy.playground.Quz): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
                                 $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                  $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                  $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                    $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                 quz: CALL 'public final fun copy (text: kotlin.String): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Quz' type=com.javiersc.kotlin.kopy.playground.Quz origin=null
                                   $this: CALL 'public final fun <get-quz> (): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Quz origin=GET_PROPERTY
                                     $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                      $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                        $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                      $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                        $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                          $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                   text: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
                 CALL 'public open fun set <D> (other: D of com.javiersc.kotlin.kopy.playground.Foo.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
                   <D>: kotlin.String
@@ -964,15 +916,18 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
                       FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
                         VALUE_PARAMETER name:it index:0 type:kotlin.String
                         BLOCK_BODY
-                          CALL 'public open fun setKopyableReference (value: com.javiersc.kotlin.kopy.playground.Foo): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
-                            $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                          CALL 'public final fun lazySet (value: T of kotlinx.atomicfu.AtomicRef): kotlin.Unit declared in kotlinx.atomicfu.AtomicRef' type=kotlin.Unit origin=null
+                            $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                             value: CALL 'public final fun copy (bar: com.javiersc.kotlin.kopy.playground.Bar, baz: com.javiersc.kotlin.kopy.playground.Baz, quz: com.javiersc.kotlin.kopy.playground.Quz): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                              $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                              $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                               quz: CALL 'public final fun copy (text: kotlin.String): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Quz' type=com.javiersc.kotlin.kopy.playground.Quz origin=null
                                 $this: CALL 'public final fun <get-quz> (): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Quz origin=GET_PROPERTY
-                                  $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                  $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                    $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                 text: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
                 CALL 'public open fun set <D> (other: D of com.javiersc.kotlin.kopy.playground.Foo.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
                   <D>: kotlin.String
@@ -989,26 +944,31 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
                       FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.String) returnType:kotlin.Unit
                         VALUE_PARAMETER name:it index:0 type:kotlin.String
                         BLOCK_BODY
-                          CALL 'public open fun setKopyableReference (value: com.javiersc.kotlin.kopy.playground.Foo): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
-                            $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                          CALL 'public final fun lazySet (value: T of kotlinx.atomicfu.AtomicRef): kotlin.Unit declared in kotlinx.atomicfu.AtomicRef' type=kotlin.Unit origin=null
+                            $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                             value: CALL 'public final fun copy (bar: com.javiersc.kotlin.kopy.playground.Bar, baz: com.javiersc.kotlin.kopy.playground.Baz, quz: com.javiersc.kotlin.kopy.playground.Quz): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                              $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                              $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                               bar: CALL 'public final fun copy (baz: com.javiersc.kotlin.kopy.playground.Baz, quz: com.javiersc.kotlin.kopy.playground.Quz): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
                                 $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                  $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                  $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                    $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                 baz: CALL 'public final fun copy (quz: com.javiersc.kotlin.kopy.playground.Quz, number: kotlin.Int): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
                                   $this: CALL 'public final fun <get-baz> (): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Baz origin=GET_PROPERTY
                                     $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                      $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                        $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                      $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                        $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                          $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                   quz: CALL 'public final fun copy (text: kotlin.String): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Quz' type=com.javiersc.kotlin.kopy.playground.Quz origin=null
                                     $this: CALL 'public final fun <get-quz> (): com.javiersc.kotlin.kopy.playground.Quz declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Quz origin=GET_PROPERTY
                                       $this: CALL 'public final fun <get-baz> (): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Baz origin=GET_PROPERTY
                                         $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                          $this: CALL 'public open fun getKopyableReference (): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                            $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                          $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                            $this: CALL 'public open fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                                     text: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
       VAR name:isOneOk type:kotlin.Boolean [val]
         CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ
