@@ -47,7 +47,6 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:atomicfu:$version")
     implementation("com.javiersc.kotlin:kopy-runtime:$version")
 }
 ```

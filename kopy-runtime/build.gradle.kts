@@ -14,7 +14,7 @@ hubdle {
             common {
                 main {
                     dependencies { //
-                        implementation(hubdle.jetbrains.kotlinx.atomicfu)
+                        api(hubdle.jetbrains.kotlinx.atomicfu)
                     }
                 }
             }

@@ -32,7 +32,9 @@ public interface Kopyable<T> {
     @KopyOptIn
     public infix operator fun invoke(copy: T.() -> Unit): T = copy(copy = copy)
 
-    @KopyFunctionSet @KopyOptIn public infix fun <D> D.set(other: D): Unit = Unit
+    @KopyFunctionSet
+    @KopyOptIn
+    public infix fun <D> D.set(other: D): Unit = Unit
 
     @KopyFunctionUpdate
     @KopyOptIn
