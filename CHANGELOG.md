@@ -5,6 +5,7 @@
 ### Added
 
 - Atomic library is added automatically to the project when the plugin is applied
+- Kopy runtime library is added automatically to the project when the plugin is applied
 
 ### Changed
 

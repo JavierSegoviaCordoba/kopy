@@ -21,7 +21,7 @@
 File > Settings > Language & Frameworks > Kotlin > Enable K2 mode
 ```
 
-You need to restart the IDE to do the next step.
+It is necessary to restart the IDE to do the next step.
 
 <img src=".docs/docs/assets/images/k2.png" width="649" alt="k2"/>
 
@@ -39,15 +39,11 @@ And uncheck it.
 
 ### Download
 
-Apply the plugin and add the next dependencies:
+Apply the plugin in the `build.gradle.kts` or `build.gradle`:
 
 ```kotlin
 plugins {
     id("com.javiersc.kotlin.kopy") version $version
-}
-
-dependencies {
-    implementation("com.javiersc.kotlin:kopy-runtime:$version")
 }
 ```
 
@@ -94,8 +90,8 @@ data class Cat(val name: String, val age: Int)
 
 ### `copy` or `invoke`
 
-`copy` and `invoke` create a new instance of your data class with the content you specify. There is
-no difference between both functions.
+`copy` and `invoke` create a new instance of the data class with the content specified. There is no
+difference between both functions.
 
 ### `set` or `=`
 
@@ -135,19 +131,19 @@ val house2: House = house.copy {
 
 ## How it works
 
-The plugin transforms the lambda into what you would do manually with `copy` functions, that means
-the `copy` or `invoke` lambda can only work if the plugin is applied to the project it is being
-called.
+The plugin transforms the lambda into what a developer would do manually with `copy` functions,
+that means the `copy` or `invoke` lambda can only work if the plugin is applied to the project it is
+being called.
 
 If the plugin is not applied, the `copy` and `invoke` function calls will be marked as
 errors. Don't suppress them without applying the plugin as they will not work.
 
-You don't need to suppress them, the Gradle plugin will suppress them for you.
+It is not necessary to suppress them manually, the Gradle plugin will suppress them automatically.
 
-There is no reflection or mutability, your class will have some new functions and properties added,
+There is no reflection or mutability, the class will have some new functions and properties added,
 as it will extend under the hood the `Kopyable` interface.
 
-The number is limited to 7 independently of the number of properties your data class has:
+The number is limited to 7 independently of the number of properties the data class has:
 
 - `copy` function
 - `invoke` function
@@ -158,7 +154,7 @@ The number is limited to 7 independently of the number of properties your data c
 - `updateEach` function
 
 When the Context Parameters feature is available, the `Kopyable` interface will not be necessary and
-the number of properties and methods added to your data class will be reduced to only 2:
+the number of properties and methods added to the data class will be reduced to only 2:
 
 - `copy` function
 - `invoke` function

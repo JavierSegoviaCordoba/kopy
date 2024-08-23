@@ -7,6 +7,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
@@ -22,6 +23,9 @@ constructor(
     override fun apply(target: Project) {
         target.createExtension()
         target.withKotlin { suppressKopyOptInt() }
+        target.withKotlinAndroid { dependencies { "api"(kopyRuntime) } }
+        target.withKotlinJvm { dependencies { "api"(kopyRuntime) } }
+        target.withKotlinMultiplatform { dependencies { "commonMainApi"(kopyRuntime) } }
     }
 
     override fun applyToCompilation(
@@ -46,10 +50,22 @@ constructor(
         )
     }
 
-    private fun Project.withKotlin(action: Project.() -> Unit) {
+    private fun Project.withKotlinAndroid(action: Project.() -> Unit) {
         pluginManager.withPlugin("org.jetbrains.kotlin.android") { action() }
+    }
+
+    private fun Project.withKotlinJvm(action: Project.() -> Unit) {
         pluginManager.withPlugin("org.jetbrains.kotlin.jvm") { action() }
+    }
+
+    private fun Project.withKotlinMultiplatform(action: Project.() -> Unit) {
         pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") { action() }
+    }
+
+    private fun Project.withKotlin(action: Project.() -> Unit) {
+        withKotlinAndroid(action)
+        withKotlinJvm(action)
+        withKotlinMultiplatform(action)
     }
 
     private fun Project.suppressKopyOptInt() {
@@ -60,3 +76,6 @@ constructor(
         }
     }
 }
+
+private const val kopyRuntime =
+    "com.javiersc.kotlin:kopy-runtime:${KopyCompilerProjectData.Version}"
