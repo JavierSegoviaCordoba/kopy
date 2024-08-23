@@ -20,5 +20,5 @@ jobs:
       allow-github-actor-bots: false
       deploy-docs: false
       publish-snapshot: true
-      run_before_args: './gradlew assemble'
+      run_before_args: './gradlew assemble publishToMavenLocalTest'
     secrets: inherit

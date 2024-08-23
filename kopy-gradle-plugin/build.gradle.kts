@@ -20,7 +20,8 @@ hubdle {
         }
         jvm {
             features {
-                coroutines()
+                jvmVersion(JavaVersion.VERSION_17)
+
                 gradle {
                     plugin {
                         gradlePlugin {
@@ -30,7 +31,7 @@ hubdle {
                                     displayName = "Kopy"
                                     description =
                                         "A compiler plugin to improve how to copy data classes " +
-                                            "with a nice DSL in Kotlin."
+                                                "with a nice DSL in Kotlin."
                                     implementationClass =
                                         "com.javiersc.kotlin.kopy.gradle.plugin.KopyGradlePlugin"
                                     tags.set(
@@ -46,6 +47,12 @@ hubdle {
                                 }
                             }
                         }
+
+                        pluginUnderTestDependencies(
+                            hubdle.android.tools.build.gradle,
+                            hubdle.jetbrains.kotlin.gradle.plugin,
+                            projects.kopyRuntime,
+                        )
                     }
                 }
             }
@@ -57,6 +64,17 @@ hubdle {
                     compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }
             }
+
+            testIntegration {
+                dependencies {
+                    implementation(gradleKotlinDsl())
+                    implementation(projects.kopyCompiler)
+                    implementation(hubdle.android.tools.build.gradle)
+                    implementation(hubdle.jetbrains.kotlin.gradle.plugin)
+                }
+            }
+
+            testFunctional()
         }
     }
 }

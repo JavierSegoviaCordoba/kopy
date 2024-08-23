@@ -13,7 +13,13 @@ hubdle {
             experimentalContracts()
         }
         projectConfig()
-        publishing()
+        publishing {
+            maven {
+                repositories { //
+                    mavenLocalTest()
+                }
+            }
+        }
     }
     kotlin {
         compilerOptions { //

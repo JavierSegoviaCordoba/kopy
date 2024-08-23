@@ -14,5 +14,5 @@ jobs:
       #TODO: publish-jetbrains-marketplace: "{{ publish-jetbrains-marketplace }}"
       publish-docs: true
       publish-github-release: true
-      run_before_args: './gradlew assemble'
+      run_before_args: './gradlew assemble publishToMavenLocalTest'
     secrets: inherit
