@@ -129,6 +129,38 @@ val house2: House = house.copy {
 }
 ```
 
+## KopyKat comparison
+
+Kopy uses the K2 compiler plugin whereas [KopyKat](https://github.com/kopykat-kt/kopykat) uses KSP
+to generate code, as a consequence there are different advantages and disadvantages.
+
+### Advantages
+
+- Kopy's code generation is faster than [KopyKat](https://github.com/kopykat-kt/kopykat)'s
+- Kopy does not need to run any Gradle task to get feedback on the IDE:
+    - Autocompletion shows the `copy` and `invoke` functions instantly after annotating a data class
+      with `@Kopy` annotation.
+    - Removing the `@Kopy` annotation instantly removes the `copy` and `invoke` functions without
+      running a Gradle task or manually deleting the `build` directory of a project.
+    - As it is not necessary to assemble/build the project, the feedback loop is faster.
+- Build time should be better too (not tested).
+- Kopy only adds 5 or 6 functions/properties to each data class,
+  whereas [KopyKat](https://github.com/kopykat-kt/kopykat) needs to generate builders and the
+  functions/properties match the number of properties in the data class.
+  In the future, the number of properties Kopy adds to each data class will be reduced to 1 or 2.
+
+### Disadvantages
+
+Similar to [Kotlin Power Assert](https://github.com/bnorm/kotlin-power-assert), this plugin works on
+the call site, so it modifies the body of the `copy` or `invoke` lambdas. That means the plugin must
+be applied to get it working, so it is not a good idea to use it in a library or an SDK as it will
+force the users to apply the plugin. [KopyKat](https://github.com/kopykat-kt/kopykat) generates all
+the builders, so it does not have this limitation.
+
+An error is shown in the IDE or at compilation time if the plugin is not applied and the `copy` or
+`invoke` function from a class in another module is called, but it will not appear if the consumer
+is a Java application/library.
+
 ## How it works
 
 The plugin transforms the lambda into what a developer would do manually with `copy` functions,
