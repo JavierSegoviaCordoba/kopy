@@ -4,14 +4,22 @@
 
 ### Added
 
-- Atomic library is added automatically to the project when the plugin is applied
-- Kopy runtime library is added automatically to the project when the plugin is applied
-
 ### Changed
 
 ### Deprecated
 
 ### Fixed
+
+### Removed
+
+### Updated
+
+## [0.3.0+2.0.20] - 2024-08-24
+
+### Added
+
+- Atomic library is added automatically to the project when the plugin is applied
+- Kopy runtime library is added automatically to the project when the plugin is applied
 
 ### Removed
 
@@ -48,7 +56,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.2.0+2.0.10...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.3.0+2.0.20...HEAD
+
+[0.3.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.2.0+2.0.10...0.3.0+2.0.20
 
 [0.2.0+2.0.10]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.1.1+2.0.10...0.2.0+2.0.10
 
