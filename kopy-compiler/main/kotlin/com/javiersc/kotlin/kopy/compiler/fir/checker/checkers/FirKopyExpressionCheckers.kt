@@ -77,6 +77,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                     positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                 )
             }
+
             is Failure.MissingDataClass -> {
                 reporter.reportOn(
                     source = checkerResult.source,
@@ -86,6 +87,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                     positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                 )
             }
+
             is Failure.MissingKopyAnnotation -> {
                 reporter.reportOn(
                     source = checkerResult.source,
@@ -95,6 +97,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                     positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                 )
             }
+
             is Failure.NoCopyScope -> {
                 reporter.reportOn(
                     source = checkerResult.source,
@@ -108,13 +111,14 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
     }
 
     private val FirCall.isKopyFunctionSetOrUpdateOrUpdateEachCall: Boolean
-        get() =
-            asFirOrNull<FirFunctionCall>()
-                ?.calleeReference
-                ?.symbol
-                ?.resolvedAnnotationClassIds
-                ?.firstOrNull()
-                .isKopyFunctionSetOrUpdateOrUpdateEach
+        get() {
+            val annotations =
+                asFirOrNull<FirFunctionCall>()
+                    ?.calleeReference
+                    ?.symbol
+                    ?.resolvedAnnotationClassIds
+            return annotations?.any { it.isKopyFunctionSetOrUpdateOrUpdateEach == true } == true
+        }
 
     private val ClassId?.isKopyFunctionSetOrUpdateOrUpdateEach: Boolean
         get() =
@@ -211,6 +215,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                 val element = receiver.asFirOrNull<FirResolvable>()?.calleeReference ?: receiver
                 Failure.BrokenChain(element)
             }
+
             else -> receiver.isBreakingChainCall(session, updateOrSetThisBoundSymbol)
         }
     }

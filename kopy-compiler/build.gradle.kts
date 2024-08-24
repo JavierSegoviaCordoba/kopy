@@ -1,3 +1,5 @@
+import com.javiersc.kotlin.stdlib.notContain
+import java.io.File
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 hubdle {
@@ -36,7 +38,6 @@ hubdle {
                     )
                     testProjects(projects.kopyRuntime)
                 }
-                contextReceivers()
             }
             main { //
                 dependencies { //
@@ -44,6 +45,23 @@ hubdle {
                     implementation(projects.kopyRuntime)
                 }
             }
+        }
+    }
+}
+
+// TODO: Move to Hubdle
+tasks.register<Task>("deleteAllTextTestFiles") {
+    doNotTrackState("Not cacheable")
+    pluginManager.withPlugin(hubdle.plugins.jetbrains.kotlin.jvm.get().pluginId) {
+        inputs.dir(layout.projectDirectory.dir("test-data"))
+        outputs.dir(layout.projectDirectory.dir("test-data"))
+        doLast {
+            inputs
+                .files
+                .files.filter {
+                    it.path.notContain("TODO") && it.path.notContain("todo") && it.extension == "txt"
+                }
+                .forEach(File::delete)
         }
     }
 }

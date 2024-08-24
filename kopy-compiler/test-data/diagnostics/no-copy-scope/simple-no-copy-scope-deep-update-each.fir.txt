@@ -7,7 +7,7 @@ FILE: simple-no-copy-scope-deep-update-each.kt
         lval bar0: R|com/javiersc/kotlin/kopy/playground/Bar| = R|com/javiersc/kotlin/kopy/playground/Bar.Bar|(R|<local>/baz0|, Boolean(true))
         lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(R|<local>/bar0|, Char(W))
         lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|kotlin/apply|<R|com/javiersc/kotlin/kopy/playground/Foo|>(<L> = apply@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=Inline, kind=EXACTLY_ONCE>  {
-            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.numbers|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.updateEach: R|kotlin/Unit|>|<R|kotlin/Int|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|.R|com/javiersc/kotlin/kopy/playground/Baz.qux|.R|com/javiersc/kotlin/kopy/playground/Qux.numbers|).R|com/javiersc/kotlin/kopy/playground/Foo.updateEach|<R|kotlin/Int|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Int| <inline=NoInline>  {
                 ^ R|<local>/it|.R|kotlin/Int.plus|(Int(42))
             }
             )
@@ -63,7 +63,7 @@ FILE: simple-no-copy-scope-deep-update-each.kt
         public final fun copy(baz: R|com/javiersc/kotlin/kopy/playground/Baz| = this@R|com/javiersc/kotlin/kopy/playground/Bar|.R|com/javiersc/kotlin/kopy/playground/Bar.baz|, isValid: R|kotlin/Boolean| = this@R|com/javiersc/kotlin/kopy/playground/Bar|.R|com/javiersc/kotlin/kopy/playground/Bar.isValid|): R|com/javiersc/kotlin/kopy/playground/Bar|
 
     }
-    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any|, R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any| {
         public constructor(bar: R|com/javiersc/kotlin/kopy/playground/Bar|, letter: R|kotlin/Char|): R|com/javiersc/kotlin/kopy/playground/Foo| {
             super<R|kotlin/Any|>()
         }
@@ -80,10 +80,22 @@ FILE: simple-no-copy-scope-deep-update-each.kt
 
         public final fun copy(bar: R|com/javiersc/kotlin/kopy/playground/Bar| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|, letter: R|kotlin/Char| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.letter|): R|com/javiersc/kotlin/kopy/playground/Foo|
 
-        public open override fun _initKopyable(): R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
-        public open override val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+        public final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
             public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
 
     }

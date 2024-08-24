@@ -196,11 +196,13 @@ internal class IrSetOrUpdateCallTransformer(
                             val copyChainCall: IrCall =
                                 expression.createCopyChainCall(alsoItValueParameterGetValue)
                                     ?: return null
-                            val setKopyableReferenceCall: IrCall? =
+                            val atomicGetterLazySetFunctionCall: IrCall? =
                                 expression.createAtomicGetterLazySetFunctionCall(
                                     copyChainCall = copyChainCall,
                                 )
-                            if (setKopyableReferenceCall != null) +setKopyableReferenceCall
+                            if (atomicGetterLazySetFunctionCall != null) {
+                                +atomicGetterLazySetFunctionCall
+                            }
                         }
 
                     body = alsoBodyBlock
@@ -209,19 +211,20 @@ internal class IrSetOrUpdateCallTransformer(
     }
 
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
-        val getKopyableRefCall: IrCall = createAtomicGetterGetFunctionCall()
-        val getKopyableRefType: IrSimpleType = getKopyableRefCall.type.asIr()
+        val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall()
+        val atomicRefType: IrSimpleType = atomicGetterGetFunctionCall.type.asIr()
 
         val chain: List<IrMemberAccessExpression<*>> = dispatchersChain().reversed()
         if (chain.isEmpty()) return null
 
-        val dispatchers: List<IrMemberAccessExpression<*>> = listOf(getKopyableRefCall) + chain
+        val dispatchers: List<IrMemberAccessExpression<*>> =
+            listOf(atomicGetterGetFunctionCall) + chain
 
         val calls: List<IrCall> =
             dispatchers
                 .zipWithNext { current, next ->
                     val dataClass: IrClassSymbol =
-                        if (current.type == getKopyableRefType) getKopyableRefType.classOrFail
+                        if (current.type == atomicRefType) atomicRefType.classOrFail
                         else current.type.classOrFail
 
                     val getFun: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
@@ -320,19 +323,19 @@ internal class IrSetOrUpdateCallTransformer(
     }
 
     private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
-        val kopyableGetValue: IrGetValue =
+        val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
                 ?: error("No value found")
 
-        val kopyableClass: IrClassSymbol = kopyableGetValue.type.classOrFail
+        val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
 
         val atomicGetterFunction: IrSimpleFunctionSymbol =
-            kopyableClass.getPropertyGetter("_atomic") ?: error("No function found")
+            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
 
         val getAtomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
+            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = kopyableGetValue
+                    dispatchReceiver = dispatchIrGetValue
                     type = atomicGetterFunction.owner.returnType
                     origin = IrStatementOrigin.GET_PROPERTY
                 }
@@ -343,10 +346,10 @@ internal class IrSetOrUpdateCallTransformer(
                 ?: error("No function found")
 
         val atomicGetterGetFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
+            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterGetFunction).apply {
                     dispatchReceiver = getAtomicGetterFunctionCall
-                    type = kopyableGetValue.type
+                    type = dispatchIrGetValue.type
                     origin = IrStatementOrigin.GET_PROPERTY
                 }
             }
@@ -355,19 +358,19 @@ internal class IrSetOrUpdateCallTransformer(
     }
 
     private fun IrCall.createAtomicGetterLazySetFunctionCall(copyChainCall: IrCall): IrCall? {
-        val kopyableGetValue: IrGetValue =
+        val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
                 ?: error("No value found")
 
-        val kopyableClass: IrClassSymbol = kopyableGetValue.type.classOrFail
+        val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
 
         val atomicGetterFunction: IrSimpleFunctionSymbol =
-            kopyableClass.getPropertyGetter("_atomic") ?: error("No function found")
+            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
 
         val atomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
+            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = kopyableGetValue
+                    dispatchReceiver = dispatchIrGetValue
                     type = atomicGetterFunction.owner.returnType
                     origin = IrStatementOrigin.GET_PROPERTY
                 }
@@ -378,7 +381,7 @@ internal class IrSetOrUpdateCallTransformer(
                 ?: error("No function found")
 
         val atomicGetterLazySetFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(kopyableGetValue.symbol).run {
+            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterLazyFunction).apply {
                     dispatchReceiver = atomicGetterFunctionCall
                     type = atomicGetterLazyFunction.owner.returnType

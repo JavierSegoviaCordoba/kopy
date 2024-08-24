@@ -1,4 +1,4 @@
-![Kotlin version](https://img.shields.io/badge/kotlin-2.0.10-blueviolet?logo=kotlin&logoColor=white)
+![Kotlin version](https://img.shields.io/badge/kotlin-2.0.20-blueviolet?logo=kotlin&logoColor=white)
 [![MavenCentral](https://img.shields.io/maven-central/v/com.javiersc.kotlin/kopy-compiler?label=MavenCentral)](https://repo1.maven.org/maven2/com/javiersc/kotlin/kopy-compiler/)
 [![Snapshot](https://img.shields.io/nexus/s/com.javiersc.kotlin/kopy-compiler?server=https%3A%2F%2Foss.sonatype.org%2F&label=Snapshot)](https://oss.sonatype.org/content/repositories/snapshots/com/javiersc/kotlin/kopy-compiler/)
 
@@ -140,33 +140,31 @@ errors. Don't suppress them without applying the plugin as they will not work.
 
 It is not necessary to suppress them manually, the Gradle plugin will suppress them automatically.
 
-There is no reflection or mutability, the class will have some new functions and properties added,
-as it will extend under the hood the `Kopyable` interface.
+There is no reflection or mutability, the class will have some new functions and properties added.
 
-The number is limited to 7 independently of the number of properties the data class has:
+The number is limited to 6 independently of the number of properties the data class has:
 
 - `copy` function
 - `invoke` function
-- `_initKopyable` function
 - `_atomic` property
 - `set` function
 - `update` function
 - `updateEach` function
 
-When the Context Parameters feature is available, the `Kopyable` interface will not be necessary and
-the number of properties and methods added to the data class will be reduced to only 2:
+When the Context Parameters feature is available, the number of properties and methods added to the
+data class will be reduced to only 1 or 2:
 
-- `copy` function
-- `invoke` function
+- `copy` function [optional]
+- `invoke` function [optional]
 
-A new `KopyableScope` will be created, and it will be used to store the rest of properties, and it
+A new `CopyScope` will be created, and it will be used to store the rest of properties, and it
 will be added as a context parameter to the `copy` and `invoke` lambdas:
 
 ```kotlin
 data class House(val squareMeters: Int, val kitchen: Kitchen) {
 
-    fun copy(block: KopyableScope.() -> Unit): T = ...
+    fun copy(block: CopyScope.() -> Unit): T = ...
 
-    fun invoke(block: KopyableScope.() -> Unit): T = ...
+    operator fun invoke(block: CopyScope.() -> Unit): T = ...
 }
 ```

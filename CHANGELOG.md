@@ -15,6 +15,8 @@
 
 ### Removed
 
+- `Kopyable` interface
+- `_initKopyable` function from Kopyable interface
 - `getKopyableReference` function from Kopyable interface
 - `setKopyableReference` function from Kopyable interface
 

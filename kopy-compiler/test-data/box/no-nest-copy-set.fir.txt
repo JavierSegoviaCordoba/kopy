@@ -3,16 +3,8 @@ FILE: no-nest-copy-set.kt
 
     public final fun box(): R|kotlin/String| {
         lval foo0: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(Int(7), Char(W))
-        lval foo02: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|com/javiersc/kotlin/kopy/playground/Foo2.Foo2|(Int(7), Char(W))
-        lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.copy: R|com/javiersc/kotlin/kopy/playground/Foo|>|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
-            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo.set: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(42))
-        }
-        )
-        lval foo22: R|com/javiersc/kotlin/kopy/playground/Foo2| = R|<local>/foo02|.R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.copy2: R|com/javiersc/kotlin/kopy/playground/Foo2|>|(copy2@fun R|com/javiersc/kotlin/kopy/playground/Foo2|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
-            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2.number|).R|SubstitutionOverride<com/javiersc/kotlin/kopy/playground/Foo2.set2: R|kotlin/Unit|>|<R|kotlin/Int|>(Int(42).R|kotlin/also|<R|kotlin/Int|>(<L> = also@fun <anonymous>(it: R|kotlin/Int|): R|kotlin/Unit| <inline=Inline, kind=EXACTLY_ONCE>  {
-                this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.lazySet: R|kotlin/Unit|>|(this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|com/javiersc/kotlin/kopy/playground/Foo2|>|.R|com/javiersc/kotlin/kopy/playground/Foo2.copy|(R|<local>/it|))
-            }
-            ))
+        lval foo21: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo0|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.number|).R|com/javiersc/kotlin/kopy/playground/Foo.set|<R|kotlin/Int|>(Int(42))
         }
         )
         lval isOk: R|kotlin/Boolean| = ==(R|<local>/foo21|.R|com/javiersc/kotlin/kopy/playground/Foo.number|, Int(42))
@@ -26,7 +18,7 @@ FILE: no-nest-copy-set.kt
         }
 
     }
-    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any|, R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any| {
         public constructor(number: R|kotlin/Int|, letter: R|kotlin/Char|): R|com/javiersc/kotlin/kopy/playground/Foo| {
             super<R|kotlin/Any|>()
         }
@@ -43,56 +35,22 @@ FILE: no-nest-copy-set.kt
 
         public final fun copy(number: R|kotlin/Int| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.number|, letter: R|kotlin/Char| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.letter|): R|com/javiersc/kotlin/kopy/playground/Foo|
 
-        public open override fun _initKopyable(): R|com/javiersc/kotlin/kopy/runtime/Kopyable<com/javiersc/kotlin/kopy/playground/Foo>| {
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
-        public open override val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+        public final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
             public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
 
-    }
-    public final data class Foo2 : R|com/javiersc/kotlin/kopy/playground/Kopyable2<com/javiersc/kotlin/kopy/playground/Foo2>| {
-        public constructor(number: R|kotlin/Int|, letter: R|kotlin/Char|): R|com/javiersc/kotlin/kopy/playground/Foo2| {
-            super<R|kotlin/Any|>()
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
         }
 
-        public final val number: R|kotlin/Int| = R|<local>/number|
-            public get(): R|kotlin/Int|
-
-        public final val letter: R|kotlin/Char| = R|<local>/letter|
-            public get(): R|kotlin/Char|
-
-        public open override val _atomic2: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>| = R|kotlinx/atomicfu/atomic|<R|com/javiersc/kotlin/kopy/playground/Foo2|>(this@R|com/javiersc/kotlin/kopy/playground/Foo2|)
-            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
-
-        public open override fun _initKopyable2(): R|com/javiersc/kotlin/kopy/playground/Kopyable2<com/javiersc/kotlin/kopy/playground/Foo2>| {
-            ^_initKopyable2 this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.copy|()
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
         }
 
-        public final operator fun component1(): R|kotlin/Int|
-
-        public final operator fun component2(): R|kotlin/Char|
-
-        public final fun copy(number: R|kotlin/Int| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.number|, letter: R|kotlin/Char| = this@R|com/javiersc/kotlin/kopy/playground/Foo2|.R|com/javiersc/kotlin/kopy/playground/Foo2.letter|): R|com/javiersc/kotlin/kopy/playground/Foo2|
-
-    }
-    public abstract interface Kopyable2<T> : R|kotlin/Any| {
-        public abstract val _atomic2: R|kotlinx/atomicfu/AtomicRef<T>|
-            public get(): R|kotlinx/atomicfu/AtomicRef<T>|
-
-        public abstract fun _initKopyable2(): R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>|
-
-        public open infix fun copy2(copy2: R|T.() -> kotlin/Unit|): R|T| {
-            lval kopyable: R|com/javiersc/kotlin/kopy/playground/Kopyable2<T>| = this@R|com/javiersc/kotlin/kopy/playground/Kopyable2|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._initKopyable2|()
-            R|<local>/copy2|.R|SubstitutionOverride<kotlin/Function1.invoke: R|kotlin/Unit|>|(R|<local>/kopyable|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|)
-            ^copy2 R|<local>/kopyable|.R|com/javiersc/kotlin/kopy/playground/Kopyable2._atomic2|.R|SubstitutionOverride<kotlinx/atomicfu/AtomicRef.value: R|T|>|
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
         }
 
-        public open infix fun <D> R|D|.set2(other: R|D|): R|kotlin/Unit| {
-            ^set2 Q|kotlin/Unit|
-        }
-
-        public open infix fun <D> R|D|.update2(other: R|(D) -> D|): R|kotlin/Unit| {
-            R|<local>/other|.R|SubstitutionOverride<kotlin/Function1.invoke: R|D|>|(this@R|com/javiersc/kotlin/kopy/playground/Kopyable2.update2|)
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
         }
 
     }
