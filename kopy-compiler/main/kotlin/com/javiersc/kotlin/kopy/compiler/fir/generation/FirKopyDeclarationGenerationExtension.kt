@@ -12,6 +12,7 @@ import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
+import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyKey
 import com.javiersc.kotlin.kopy.compiler.fir.Key
@@ -66,6 +67,9 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private val kopyVisibility: KopyVisibility
         get() = configuration.get(KopyKey.Visibility, KopyVisibility.Auto)
+
+    private val kopyFunctions: KopyFunctions
+        get() = configuration.get(KopyKey.Functions, KopyFunctions.All)
 
     private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
     private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
@@ -144,11 +148,15 @@ internal class FirKopyDeclarationGenerationExtension(
         if (!owner.hasAnnotation(classId<Kopy>(), session)) return@buildList
         if (!owner.isData) return@buildList
 
-        val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
-        if (copyFunction != null) add(copyFunction)
+        if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
+            val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
+            if (copyFunction != null) add(copyFunction)
+        }
 
-        val invokeFunction: FirNamedFunctionSymbol? = createInvokeFun(callableId, owner)
-        if (invokeFunction != null) add(invokeFunction)
+        if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Invoke) {
+            val invokeFunction: FirNamedFunctionSymbol? = createInvokeFun(callableId, owner)
+            if (invokeFunction != null) add(invokeFunction)
+        }
 
         val setFunction: FirNamedFunctionSymbol? = createSetFun(callableId, owner)
         if (setFunction != null) add(setFunction)

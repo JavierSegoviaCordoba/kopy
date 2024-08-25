@@ -4,6 +4,8 @@
 
 ### Added
 
+- `KopyFunctions` to set the functions that will be generated
+
 ### Changed
 
 ### Deprecated

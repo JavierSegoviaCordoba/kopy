@@ -3,6 +3,7 @@ package com.javiersc.kotlin.kopy.compiler
 import com.javiersc.kotlin.compiler.test.runners.BoxTest
 import com.javiersc.kotlin.compiler.test.runners.DiagnosticTest
 import com.javiersc.kotlin.compiler.test.services.MetaRuntimeClasspathProvider
+import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar.ExtensionStorage
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -20,6 +21,9 @@ fun main() {
             testClass<AbstractKopy2InternalDiagnosticTest> { model("diagnostics-kopy-visibility/2_internal") }
             testClass<AbstractKopy3ProtectedDiagnosticTest> { model("diagnostics-kopy-visibility/3_protected") }
             testClass<AbstractKopy4PrivateDiagnosticTest> { model("diagnostics-kopy-visibility/4_private") }
+            testClass<AbstractKopyAllDiagnosticTest> { model("diagnostics-kopy-functions/all") }
+            testClass<AbstractKopyCopyDiagnosticTest> { model("diagnostics-kopy-functions/copy") }
+            testClass<AbstractKopyInvokeDiagnosticTest> { model("diagnostics-kopy-functions/invoke") }
         }
     }
 }
@@ -116,6 +120,48 @@ open class AbstractKopy4PrivateDiagnosticTest : DiagnosticTest() {
         configuration: CompilerConfiguration
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Private)
+        allExtensions(configuration)
+    }
+}
+
+open class AbstractKopyAllDiagnosticTest : DiagnosticTest() {
+
+    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
+        ::GeneratedMetaRuntimeClasspathProvider
+
+    override fun ExtensionStorage.registerExtensions(
+        module: TestModule,
+        configuration: CompilerConfiguration
+    ) {
+        configuration.put(KopyKey.Functions, KopyFunctions.All)
+        allExtensions(configuration)
+    }
+}
+
+open class AbstractKopyCopyDiagnosticTest : DiagnosticTest() {
+
+    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
+        ::GeneratedMetaRuntimeClasspathProvider
+
+    override fun ExtensionStorage.registerExtensions(
+        module: TestModule,
+        configuration: CompilerConfiguration
+    ) {
+        configuration.put(KopyKey.Functions, KopyFunctions.Copy)
+        allExtensions(configuration)
+    }
+}
+
+open class AbstractKopyInvokeDiagnosticTest : DiagnosticTest() {
+
+    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
+        ::GeneratedMetaRuntimeClasspathProvider
+
+    override fun ExtensionStorage.registerExtensions(
+        module: TestModule,
+        configuration: CompilerConfiguration
+    ) {
+        configuration.put(KopyKey.Functions, KopyFunctions.Invoke)
         allExtensions(configuration)
     }
 }

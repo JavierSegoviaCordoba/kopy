@@ -59,11 +59,11 @@ default value is `Auto`, which uses the same visibility the primary constructor 
 
 Possible values:
 
-- `KopyVisibility.Auto`
-- `KopyVisibility.Public`
-- `KopyVisibility.Internal`
-- `KopyVisibility.Protected`
-- `KopyVisibility.Private`
+- `KopyVisibility.Auto` (Default): The visibility of the primary constructor is used.
+- `KopyVisibility.Public`: The visibility of the generated functions will be `public`.
+- `KopyVisibility.Internal`: The visibility of the generated functions will be `internal`.
+- `KopyVisibility.Protected`: The visibility of the generated functions will be `protected`.
+- `KopyVisibility.Private`: The visibility of the generated functions will be `private`.
 
 It is possible to have a more restrictive Kopy `copy` and `invoke` functions than the original one,
 for example by providing the `KopyVisiblity.Private` and the primary constructor being `public` or
@@ -89,7 +89,31 @@ kopy {
 }
 ```
 
-### Example
+#### Functions
+
+The `functions` option allows to decide which functions will be generated.
+
+Possible values:
+
+- `KopyFunctions.All` (default): Both, `copy` and `invoke` functions, will be generated.
+- `KopyFunctions.Copy`: Only the `copy` function will be generated.
+- `KopyFunctions.Invoke`: Only the `invoke` function will be generated.
+
+##### Example
+
+```kotlin
+import com.javiersc.kotlin.kopy.args.KopyFunctions
+
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    functions = KopyFunctions.All
+}
+```
+
+### Kopy Example
 
 ```kotlin
 import com.javiersc.kotlin.kopy.Kopy
