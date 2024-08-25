@@ -64,20 +64,20 @@ internal class IrFunctionsTransformer(
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 
-    private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
-    private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
-    private val kopyFunctionInvokeClassId: ClassId = classId<KopyFunctionInvoke>()
-    private val kopyFunctionSetClassId: ClassId = classId<KopyFunctionSet>()
-    private val kopyFunctionUpdateClassId: ClassId = classId<KopyFunctionUpdate>()
-    private val kopyFunctionUpdateEachClassId: ClassId = classId<KopyFunctionUpdateEach>()
-    private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
+    // private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
+    // private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
+    // private val kopyFunctionInvokeClassId: ClassId = classId<KopyFunctionInvoke>()
+    // private val kopyFunctionSetClassId: ClassId = classId<KopyFunctionSet>()
+    // private val kopyFunctionUpdateClassId: ClassId = classId<KopyFunctionUpdate>()
+    // private val kopyFunctionUpdateEachClassId: ClassId = classId<KopyFunctionUpdateEach>()
+    // private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
     private val atomicName: Name = "_atomic".toName()
     private val valueName: Name = "value".toName()
     private val copyName: Name = "copy".toName()
     private val invokeName: Name = "invoke".toName()
-    private val setName: Name = "set".toName()
-    private val updateName: Name = "update".toName()
-    private val updateEachName: Name = "updateEach".toName()
+    // private val setName: Name = "set".toName()
+    // private val updateName: Name = "update".toName()
+    // private val updateEachName: Name = "updateEach".toName()
 
     private val unitType: IrType = pluginContext.irBuiltIns.unitType
 

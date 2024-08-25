@@ -1,3 +1,5 @@
+@file:Suppress("ReturnCount")
+
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
@@ -66,10 +68,10 @@ internal class FirKopyDeclarationGenerationExtension(
 ) : FirDeclarationGenerationExtension(session) {
 
     private val kopyVisibility: KopyVisibility
-        get() = configuration.get(KopyKey.Visibility, KopyVisibility.Auto)
+        get() = configuration[KopyKey.Visibility, KopyVisibility.Auto]
 
     private val kopyFunctions: KopyFunctions
-        get() = configuration.get(KopyKey.Functions, KopyFunctions.All)
+        get() = configuration[KopyKey.Functions, KopyFunctions.All]
 
     private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
     private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
@@ -430,6 +432,7 @@ internal class FirKopyDeclarationGenerationExtension(
     private fun KopyVisibility.isMoreRestrictedThan(visibility: Visibility): Boolean =
         this.restrictive > visibility.restrictive
 
+    @Suppress("MagicNumber")
     private val Visibility.restrictive: Int
         get() = when (this) {
             Visibilities.Public -> 1

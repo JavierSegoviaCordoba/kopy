@@ -1,3 +1,5 @@
+@file:Suppress("ReturnCount")
+
 package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
