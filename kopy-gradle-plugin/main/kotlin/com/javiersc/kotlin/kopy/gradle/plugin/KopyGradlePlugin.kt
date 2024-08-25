@@ -1,5 +1,6 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
+import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import javax.inject.Inject
@@ -36,6 +37,10 @@ constructor(
         val kopy: KopyExtension = kotlinCompilation.project.the<KopyExtension>()
         return providers.provider {
             listOf(
+                SubpluginOption(
+                    key = KopyFunctions.NAME,
+                    value = kopy.functions.get().value,
+                ),
                 SubpluginOption(
                     key = KopyVisibility.NAME,
                     value = kopy.visibility.get().value,
