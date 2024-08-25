@@ -90,15 +90,15 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                 )
             }
 
-            is Failure.MissingKopyAnnotation -> {
-                reporter.reportOn(
-                    source = checkerResult.source,
-                    factory = FirKopyError.MISSING_KOPY_ANNOTATION,
-                    a = checkerResult.element.render(),
-                    context = context,
-                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-                )
-            }
+//            is Failure.MissingKopyAnnotation -> {
+//                reporter.reportOn(
+//                    source = checkerResult.source,
+//                    factory = FirKopyError.MISSING_KOPY_ANNOTATION,
+//                    a = checkerResult.element.render(),
+//                    context = context,
+//                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
+//                )
+//            }
 
             is Failure.NoCopyScope -> {
                 reporter.reportOn(
@@ -239,7 +239,7 @@ private object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
             data class MissingDataClass(override val element: FirElement) : Failure
 
-            data class MissingKopyAnnotation(override val element: FirElement) : Failure
+            // data class MissingKopyAnnotation(override val element: FirElement) : Failure
 
             data class NoCopyScope(override val element: FirElement) : Failure
         }
