@@ -4,8 +4,6 @@
 
 ### Added
 
-- `KopyVisibility` to set the visibility of the generated functions
-
 ### Changed
 
 ### Deprecated
@@ -15,6 +13,12 @@
 ### Removed
 
 ### Updated
+
+## [0.4.0+2.0.20] - 2024-08-25
+
+### Added
+
+- `KopyVisibility` to set the visibility of the generated functions
 
 ## [0.3.0+2.0.20] - 2024-08-24
 
@@ -58,7 +62,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.3.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.4.0+2.0.20...HEAD
+
+[0.4.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.3.0+2.0.20...0.4.0+2.0.20
 
 [0.3.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.2.0+2.0.10...0.3.0+2.0.20
 
