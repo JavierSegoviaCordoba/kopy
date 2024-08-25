@@ -1,3 +1,5 @@
+@file:Suppress("ReturnCount")
+
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
