@@ -1,8 +1,10 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
+import com.javiersc.gradle.logging.extensions.warnColored
 import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
+import com.javiersc.kotlin.stdlib.remove
 import javax.inject.Inject
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
@@ -16,6 +18,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
 public class KopyGradlePlugin
 @Inject
@@ -23,9 +26,16 @@ constructor(
     private val providers: ProviderFactory,
 ) : KotlinCompilerPluginSupportPlugin {
 
+    private val Project.kopy: KopyExtension
+        get() = the<KopyExtension>()
+
+
     override fun apply(target: Project) {
         target.createExtension()
-        target.withKotlin { suppressKopyOptInt() }
+        target.withKotlin {
+            suppressKopyOptInt()
+            reportKotlinVersion()
+        }
         target.withKotlinAndroid { dependencies { "api"(kopyRuntime) } }
         target.withKotlinJvm { dependencies { "api"(kopyRuntime) } }
         target.withKotlinMultiplatform { dependencies { "commonMainApi"(kopyRuntime) } }
@@ -34,7 +44,7 @@ constructor(
     override fun applyToCompilation(
         kotlinCompilation: KotlinCompilation<*>
     ): Provider<List<SubpluginOption>> {
-        val kopy: KopyExtension = kotlinCompilation.project.the<KopyExtension>()
+        val kopy: KopyExtension = kotlinCompilation.project.kopy
         return providers.provider {
             listOf(
                 SubpluginOption(
@@ -63,6 +73,17 @@ constructor(
 
     private fun Project.createExtension() {
         extensions.create<KopyExtension>(KopyExtension.NAME)
+    }
+
+    private fun Project.reportKotlinVersion() {
+        val kopyVersion: String =
+            KopyCompilerProjectData.Version.replaceBeforeLast("+", "").remove("+")
+        val kotlinVersion: String = getKotlinPluginVersion()
+        if (kopyVersion == kotlinVersion) return
+        logger.warnColored {
+            "Kopy uses a different Kotlin version, $kopyVersion, than the Kotlin Gradle plugin " +
+                "applied to this project, $kotlinVersion. It may not work as expected."
+        }
     }
 
     private fun Project.withKotlinAndroid(action: Project.() -> Unit) {
