@@ -17,6 +17,8 @@
 
 ### Updated
 
+- `org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin -> 2.0.20`
+
 ## [0.4.0+2.0.20] - 2024-08-25
 
 ### Added

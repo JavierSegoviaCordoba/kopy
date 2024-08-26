@@ -1,7 +1,7 @@
 plugins {
     application
     id("com.javiersc.kotlin.kopy")
-    id("org.jetbrains.kotlin.jvm") version "2.0.10"
+    id("org.jetbrains.kotlin.jvm") version "2.0.20"
 }
 
 application {
