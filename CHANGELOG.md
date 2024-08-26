@@ -4,9 +4,6 @@
 
 ### Added
 
-- `KopyFunctions` to set the functions that will be generated
-- report Kopy uses a different Kotlin version than the project
-
 ### Changed
 
 ### Deprecated
@@ -16,6 +13,13 @@
 ### Removed
 
 ### Updated
+
+## [0.5.0+2.0.20] - 2024-08-26
+
+### Added
+
+- `KopyFunctions` to set the functions that will be generated
+- report Kopy uses a different Kotlin version than the project
 
 ## [0.4.0+2.0.20] - 2024-08-25
 
@@ -65,7 +69,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.4.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.5.0+2.0.20...HEAD
+
+[0.5.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.4.0+2.0.20...0.5.0+2.0.20
 
 [0.4.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.3.0+2.0.20...0.4.0+2.0.20
 
