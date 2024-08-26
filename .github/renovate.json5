@@ -1,32 +1,5 @@
 {
   "extends": [
-    "github>JavierSegoviaCordoba/reusable-workflows//.github/renovate-reusable.json",
-  ],
-  "packageRules": [
-    {
-      "matchManagers": [
-        "gradle",
-        "maven",
-      ],
-      "registryUrls": [
-         "https://plugins.gradle.org/m2/",
-         "https://repo.maven.apache.org/maven2",
-         "https://dl.google.com/android/maven2/",
-         "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap",
-         "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev",
-         "https://oss.sonatype.org/content/repositories/snapshots",
-      ]
-    },
-    {
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch",
-      ],
-      "matchPackagePatterns": [
-        "*",
-      ],
-      "groupName": "all dependencies",
-    },
-  ],
+    "github>JavierSegoviaCordoba/reusable-workflows//.github/renovate-reusable.json"
+  ]
 }
