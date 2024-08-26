@@ -5,6 +5,7 @@
 ### Added
 
 - `KopyFunctions` to set the functions that will be generated
+- report Kopy uses a different Kotlin version than the project
 
 ### Changed
 
