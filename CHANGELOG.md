@@ -4,6 +4,8 @@
 
 ### Added
 
+- Kotlin Multiplatform support
+
 ### Changed
 
 ### Deprecated
