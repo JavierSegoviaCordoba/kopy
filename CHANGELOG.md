@@ -4,8 +4,6 @@
 
 ### Added
 
-- Kotlin Multiplatform support
-
 ### Changed
 
 ### Deprecated
@@ -15,6 +13,12 @@
 ### Removed
 
 ### Updated
+
+## [0.6.0+2.0.20] - 2024-08-27
+
+### Added
+
+- Kotlin Multiplatform support
 
 ## [0.5.0+2.0.20] - 2024-08-26
 
@@ -71,7 +75,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.5.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.6.0+2.0.20...HEAD
+
+[0.6.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.5.0+2.0.20...0.6.0+2.0.20
 
 [0.5.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.4.0+2.0.20...0.5.0+2.0.20
 
