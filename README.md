@@ -195,6 +195,14 @@ val house2: House = house.copy {
 }
 ```
 
+### Kotlin Multiplatform
+
+Kopy is compatible with Kotlin Multiplatform projects if it is used exclusively on projects that
+applies the plugin.
+
+Calling `copy` or `invoke` functions from Swift, or anything that is not Kotlin with the Kopy plugin
+applied, will not work.
+
 ## KopyKat comparison
 
 Kopy uses the K2 compiler plugin whereas [KopyKat](https://github.com/kopykat-kt/kopykat) uses KSP

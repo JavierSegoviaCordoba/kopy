@@ -16,15 +16,6 @@ hubdle {
         }
     }
     kotlin {
-        multiplatform {
-            common {
-                main {
-                    dependencies { //
-                        implementation(hubdle.jetbrains.kotlinx.atomicfu)
-                    }
-                }
-            }
-            jvm()
-        }
+        jvm() //
     }
 }
