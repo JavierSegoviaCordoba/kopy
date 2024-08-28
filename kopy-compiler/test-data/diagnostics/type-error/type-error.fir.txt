@@ -1,0 +1,66 @@
+FILE: type-error.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun box(): R|kotlin/String| {
+        lval house: R|com/javiersc/kotlin/kopy/playground/House| = R|com/javiersc/kotlin/kopy/playground/House.House|(String(foo), R|kotlin/collections/listOf|<R|kotlin/String|>(String(bar)))
+        lval house2: R|com/javiersc/kotlin/kopy/playground/House| = R|<local>/house|.R|com/javiersc/kotlin/kopy/playground/House.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/House|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.set|<R|it(kotlin/Comparable<*> & java/io/Serializable)|>(Int(42))
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.set|<R|it(kotlin/Comparable<*> & java/io/Serializable)|>(Int(42))
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.set|<R|kotlin/String|>(String(foo2))
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.set|<R|kotlin/String|>(String(foo2))
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.update|<R|kotlin/String|>(<L> = update@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
+                ^ <strcat>(R|<local>/it|, String( 2))
+            }
+            )
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.street|).R|com/javiersc/kotlin/kopy/playground/House.update<Inapplicable(INAPPLICABLE): com/javiersc/kotlin/kopy/playground/House.update>#|<R|kotlin/String|>(<L> = update@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
+                ^ Int(42)
+            }
+            )
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.names|).R|com/javiersc/kotlin/kopy/playground/House.updateEach|<R|kotlin/String|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
+                ^ <strcat>(R|<local>/it|, String( 2))
+            }
+            )
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/House.names|).R|com/javiersc/kotlin/kopy/playground/House.updateEach<Inapplicable(INAPPLICABLE): com/javiersc/kotlin/kopy/playground/House.updateEach>#|<R|kotlin/String|>(<L> = updateEach@fun <anonymous>(it: R|kotlin/String|): R|kotlin/String| <inline=NoInline>  {
+                ^ Int(42)
+            }
+            )
+        }
+        )
+        ^box String(OK)
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class House : R|kotlin/Any| {
+        public constructor(street: R|kotlin/String|, names: R|kotlin/collections/List<kotlin/String>|): R|com/javiersc/kotlin/kopy/playground/House| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val street: R|kotlin/String| = R|<local>/street|
+            public get(): R|kotlin/String|
+
+        public final val names: R|kotlin/collections/List<kotlin/String>| = R|<local>/names|
+            public get(): R|kotlin/collections/List<kotlin/String>|
+
+        public final operator fun component1(): R|kotlin/String|
+
+        public final operator fun component2(): R|kotlin/collections/List<kotlin/String>|
+
+        public final fun copy(street: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/House|.R|com/javiersc/kotlin/kopy/playground/House.street|, names: R|kotlin/collections/List<kotlin/String>| = this@R|com/javiersc/kotlin/kopy/playground/House|.R|com/javiersc/kotlin/kopy/playground/House.names|): R|com/javiersc/kotlin/kopy/playground/House|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        public final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/House>|
+            public get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/House>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/House.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/House| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/House.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/House| {
+        }
+
+    }

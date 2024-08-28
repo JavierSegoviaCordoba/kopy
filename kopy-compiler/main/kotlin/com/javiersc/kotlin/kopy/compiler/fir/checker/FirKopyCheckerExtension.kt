@@ -13,5 +13,5 @@ internal class FirKopyCheckerExtension(
 
     override val declarationCheckers: DeclarationCheckers = FirKopyDeclarationCheckers
 
-    override val expressionCheckers: ExpressionCheckers = FirKopyExpressionCheckers
+    override val expressionCheckers: ExpressionCheckers = FirKopyExpressionCheckers(session)
 }

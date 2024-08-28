@@ -194,6 +194,22 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   }
 
   @Nested
+  @TestMetadata("test-data/diagnostics/type-error")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Type_error {
+    @Test
+    public void testAllFilesPresentInType_error() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/type-error"), Pattern.compile("^(.+)\\.kt$"), null, true);
+    }
+
+    @Test
+    @TestMetadata("type-error.kt")
+    public void testType_error() {
+      runTest("test-data/diagnostics/type-error/type-error.kt");
+    }
+  }
+
+  @Nested
   @TestMetadata("test-data/diagnostics/valid")
   @TestDataPath("$PROJECT_ROOT")
   public class Valid {
