@@ -9,11 +9,6 @@ import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClass
-import com.javiersc.kotlin.kopy.KopyFunctionCopy
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
-import com.javiersc.kotlin.kopy.KopyFunctionSet
-import com.javiersc.kotlin.kopy.KopyFunctionUpdate
-import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopy
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopyOrInvoke
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
