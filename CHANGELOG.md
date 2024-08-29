@@ -11,6 +11,7 @@
 ### Fixed
 
 - type mismatch errors inside the `copy` function are not shown
+- Kotlin Multiplatform support
 
 ### Removed
 
