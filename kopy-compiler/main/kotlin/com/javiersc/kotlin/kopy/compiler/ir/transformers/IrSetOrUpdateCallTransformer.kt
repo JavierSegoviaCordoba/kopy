@@ -57,8 +57,6 @@ import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
 import org.jetbrains.kotlin.ir.util.findDeclaration
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.ir.util.getArguments
-import org.jetbrains.kotlin.ir.util.getPropertyGetter
-import org.jetbrains.kotlin.ir.util.getSimpleFunction
 import org.jetbrains.kotlin.ir.util.indexOrMinusOne
 import org.jetbrains.kotlin.ir.util.patchDeclarationParents
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
@@ -199,7 +197,7 @@ internal class IrSetOrUpdateCallTransformer(
                                 expression.createCopyChainCall(alsoItValueParameterGetValue)
                                     ?: return null
                             val atomicGetterLazySetFunctionCall: IrCall? =
-                                expression.createAtomicGetterLazySetFunctionCall(
+                                expression.createLazySetAtomicFunctionCall(
                                     copyChainCall = copyChainCall,
                                 )
                             if (atomicGetterLazySetFunctionCall != null) {
@@ -336,13 +334,13 @@ internal class IrSetOrUpdateCallTransformer(
         val getAtomicCall: IrCall =
             pluginContext.declarationIrBuilder(getAtomicFun.symbol).run {
                 irCall(getAtomicFun.symbol).apply {
-
+                    dispatchReceiver = irGet()
                 }
             }
         return getAtomicCall
     }
 
-    private fun IrCall.createAtomicGetterLazySetFunctionCall(copyChainCall: IrCall): IrCall? {
+    private fun IrCall.createLazySetAtomicFunctionCall(copyChainCall: IrCall): IrCall? {
         val setAtomicFun: IrSimpleFunction =
             dispatchReceiver
                 ?.type
