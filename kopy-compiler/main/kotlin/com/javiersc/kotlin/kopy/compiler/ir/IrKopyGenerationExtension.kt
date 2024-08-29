@@ -1,5 +1,6 @@
 package com.javiersc.kotlin.kopy.compiler.ir
 
+import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrAtomicFunctionsTransformer
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrAtomicPropertyTransformer
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrFunctionsTransformer
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrSetOrUpdateCallTransformer
@@ -22,6 +23,7 @@ internal class IrKopyGenerationExtension(
     @JvmName("generate2")
     private fun IrModuleFragment.generate(pluginContext: IrPluginContext) {
         transform(IrAtomicPropertyTransformer(this, pluginContext))
+        transform(IrAtomicFunctionsTransformer(this, pluginContext))
         transform(IrFunctionsTransformer(this, pluginContext))
         transform(IrUpdateEachCallTransformer(this, pluginContext))
         transform(IrSetOrUpdateCallTransformer(this, pluginContext))

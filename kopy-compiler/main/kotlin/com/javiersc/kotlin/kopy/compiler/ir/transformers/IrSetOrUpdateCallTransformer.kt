@@ -51,8 +51,10 @@ import org.jetbrains.kotlin.ir.transformStatement
 import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classOrFail
+import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
+import org.jetbrains.kotlin.ir.util.findDeclaration
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.ir.util.getArguments
 import org.jetbrains.kotlin.ir.util.getPropertyGetter
@@ -211,7 +213,7 @@ internal class IrSetOrUpdateCallTransformer(
     }
 
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
-        val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall()
+        val atomicGetterGetFunctionCall: IrCall = createGetAtomicCall()
         val atomicRefType: IrSimpleType = atomicGetterGetFunctionCall.type.asIr()
 
         val chain: List<IrMemberAccessExpression<*>> = dispatchersChain().reversed()
@@ -322,73 +324,39 @@ internal class IrSetOrUpdateCallTransformer(
         return copyCall
     }
 
-    private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
-        val dispatchIrGetValue: IrGetValue =
-            dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
-                ?: error("No value found")
-
-        val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
-
-        val atomicGetterFunction: IrSimpleFunctionSymbol =
-            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
-
-        val getAtomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = dispatchIrGetValue
-                    type = atomicGetterFunction.owner.returnType
-                    origin = IrStatementOrigin.GET_PROPERTY
-                }
-            }
-
-        val atomicGetterGetFunction: IrSimpleFunctionSymbol =
-            atomicGetterFunction.owner.returnType.classOrFail.getPropertyGetter("value")
+    private fun IrCall.createGetAtomicCall(): IrCall {
+        val getAtomicFun: IrSimpleFunction =
+            dispatchReceiver
+                ?.type
+                ?.classOrNull
+                ?.owner
+                ?.findDeclaration<IrSimpleFunction> { it.name == "_get_atomic".toName() }
                 ?: error("No function found")
 
-        val atomicGetterGetFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterGetFunction).apply {
-                    dispatchReceiver = getAtomicGetterFunctionCall
-                    type = dispatchIrGetValue.type
-                    origin = IrStatementOrigin.GET_PROPERTY
+        val getAtomicCall: IrCall =
+            pluginContext.declarationIrBuilder(getAtomicFun.symbol).run {
+                irCall(getAtomicFun.symbol).apply {
+
                 }
             }
-
-        return atomicGetterGetFunctionCall
+        return getAtomicCall
     }
 
     private fun IrCall.createAtomicGetterLazySetFunctionCall(copyChainCall: IrCall): IrCall? {
-        val dispatchIrGetValue: IrGetValue =
-            dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
-                ?: error("No value found")
-
-        val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
-
-        val atomicGetterFunction: IrSimpleFunctionSymbol =
-            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
-
-        val atomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = dispatchIrGetValue
-                    type = atomicGetterFunction.owner.returnType
-                    origin = IrStatementOrigin.GET_PROPERTY
-                }
-            }
-
-        val atomicGetterLazyFunction: IrSimpleFunctionSymbol =
-            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("lazySet")
+        val setAtomicFun: IrSimpleFunction =
+            dispatchReceiver
+                ?.type
+                ?.classOrNull
+                ?.owner
+                ?.findDeclaration<IrSimpleFunction> { it.name == "_set_atomic".toName() }
                 ?: error("No function found")
 
-        val atomicGetterLazySetFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterLazyFunction).apply {
-                    dispatchReceiver = atomicGetterFunctionCall
-                    type = atomicGetterLazyFunction.owner.returnType
+        val setAtomicCall: IrCall =
+            pluginContext.declarationIrBuilder(setAtomicFun.symbol).run {
+                irCall(setAtomicFun.symbol).apply {
                     putValueArgument(0, copyChainCall)
                 }
             }
-
-        return atomicGetterLazySetFunctionCall
+        return setAtomicCall
     }
 }

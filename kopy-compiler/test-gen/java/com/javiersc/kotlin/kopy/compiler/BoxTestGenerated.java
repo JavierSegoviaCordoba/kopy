@@ -93,6 +93,22 @@ public class BoxTestGenerated extends AbstractBoxTest {
   }
 
   @Nested
+  @TestMetadata("test-data/box/multiple-module")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Multiple_module {
+    @Test
+    public void testAllFilesPresentInMultiple_module() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/multiple-module"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    }
+
+    @Test
+    @TestMetadata("simple-1.kt")
+    public void testSimple_1() {
+      runTest("test-data/box/multiple-module/simple-1.kt");
+    }
+  }
+
+  @Nested
   @TestMetadata("test-data/box/nested-copy")
   @TestDataPath("$PROJECT_ROOT")
   public class Nested_copy {

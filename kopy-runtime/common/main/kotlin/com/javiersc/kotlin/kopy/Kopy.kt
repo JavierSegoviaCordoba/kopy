@@ -41,3 +41,17 @@ public annotation class KopyFunctionUpdateEach {
 
     public companion object
 }
+
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.BINARY)
+public annotation class KopyFunctionGetAtomic {
+
+    public companion object
+}
+
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.BINARY)
+public annotation class KopyFunctionSetAtomic {
+
+    public companion object
+}

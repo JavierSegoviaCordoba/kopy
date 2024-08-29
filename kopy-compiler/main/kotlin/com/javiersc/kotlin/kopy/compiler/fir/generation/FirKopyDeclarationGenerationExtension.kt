@@ -10,8 +10,10 @@ import com.javiersc.kotlin.compiler.extensions.fir.createFirAnnotation
 import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
 import com.javiersc.kotlin.kopy.Kopy
 import com.javiersc.kotlin.kopy.KopyFunctionCopy
+import com.javiersc.kotlin.kopy.KopyFunctionGetAtomic
 import com.javiersc.kotlin.kopy.KopyFunctionInvoke
 import com.javiersc.kotlin.kopy.KopyFunctionSet
+import com.javiersc.kotlin.kopy.KopyFunctionSetAtomic
 import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import com.javiersc.kotlin.kopy.args.KopyFunctions
@@ -79,8 +81,12 @@ internal class FirKopyDeclarationGenerationExtension(
     private val kopyFunctionSetClassId: ClassId = classId<KopyFunctionSet>()
     private val kopyFunctionUpdateClassId: ClassId = classId<KopyFunctionUpdate>()
     private val kopyFunctionUpdateEachClassId: ClassId = classId<KopyFunctionUpdateEach>()
+    private val kopyFunctionGetAtomicClassId: ClassId = classId<KopyFunctionGetAtomic>()
+    private val kopyFunctionSetAtomicClassId: ClassId = classId<KopyFunctionSetAtomic>()
     private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
     private val atomicName: Name = "_atomic".toName()
+    private val getAtomicName: Name = "_get_atomic".toName()
+    private val setAtomicName: Name = "_set_atomic".toName()
     private val copyName: Name = "copy".toName()
     private val invokeName: Name = "invoke".toName()
     private val setName: Name = "set".toName()
@@ -107,6 +113,8 @@ internal class FirKopyDeclarationGenerationExtension(
         val names: Set<Name> =
             setOf(
                 atomicName,
+                getAtomicName,
+                setAtomicName,
                 copyName,
                 invokeName,
                 setName,
@@ -136,7 +144,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 config = {
                     status { isOverride = false }
                     modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
+                    visibility = Visibilities.Private
                 },
             )
         return listOf(atomicProperty.symbol)
@@ -149,6 +157,12 @@ internal class FirKopyDeclarationGenerationExtension(
         val owner: FirClassSymbol<*> = context?.owner ?: return@buildList
         if (!owner.hasAnnotation(classId<Kopy>(), session)) return@buildList
         if (!owner.isData) return@buildList
+
+        val getAtomicFunction: FirNamedFunctionSymbol? = createGetAtomicFun(callableId, owner)
+        if (getAtomicFunction != null) add(getAtomicFunction)
+
+        val setAtomicFunction: FirNamedFunctionSymbol? = createSetAtomicFun(callableId, owner)
+        if (setAtomicFunction != null) add(setAtomicFunction)
 
         if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
             val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
@@ -240,6 +254,76 @@ internal class FirKopyDeclarationGenerationExtension(
                     )
                 }
         return setFunction.symbol
+    }
+
+    private fun createGetAtomicFun(
+        callableId: CallableId,
+        owner: FirClassSymbol<*>,
+    ): FirNamedFunctionSymbol? {
+        if (callableId.callableName != getAtomicName) return null
+        val getAtomicFunction: FirSimpleFunction =
+            createMemberFunction(
+                owner = owner,
+                key = Key,
+                name = callableId.callableName,
+                returnType = owner.defaultType(),
+                config = {
+                    status {
+                        isOverride = false
+                        isInfix = false
+                    }
+                    modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
+                },
+            )
+                .apply {
+                    replaceBody(buildEmptyExpressionBlock())
+
+                    replaceAnnotations(
+                        listOfNotNull(
+                            createAnnotation(kopyOptInClassId),
+                            createAnnotation(kopyFunctionGetAtomicClassId),
+                        ),
+                    )
+                }
+        return getAtomicFunction.symbol
+    }
+
+    private fun createSetAtomicFun(
+        callableId: CallableId,
+        owner: FirClassSymbol<*>,
+    ): FirNamedFunctionSymbol? {
+        if (callableId.callableName != setAtomicName) return null
+        val setAtomicFunction: FirSimpleFunction =
+            createMemberFunction(
+                owner = owner,
+                key = Key,
+                name = callableId.callableName,
+                returnType = session.builtinTypes.unitType.type,
+                config = {
+                    status {
+                        isOverride = false
+                        isInfix = false
+                    }
+                    modality = Modality.FINAL
+                    visibility = calculateVisibility(owner)
+                    valueParameter(
+                        name = "value".toName(),
+                        type = owner.defaultType(),
+                    )
+                },
+            )
+                .apply {
+                    replaceBody(buildEmptyExpressionBlock())
+
+                    replaceAnnotations(
+                        listOfNotNull(
+                            createAnnotation(kopyOptInClassId),
+                            createAnnotation(kopyFunctionGetAtomicClassId),
+                        ),
+                    )
+                }
+        return setAtomicFunction.symbol
     }
 
     private fun createUpdateFun(
