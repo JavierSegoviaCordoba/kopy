@@ -7,7 +7,7 @@ plugins {
 }
 
 application {
-    mainClass = "com.javiersc.kotlin.kopy.functiona.test.MainKt"
+    mainClass = "com.javiersc.kotlin.kopy.functional.test.MainKt"
 }
 
 kopy {

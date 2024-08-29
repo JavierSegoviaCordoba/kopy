@@ -1,4 +1,4 @@
-package com.javiersc.kotlin.kopy.functiona.test
+package com.javiersc.kotlin.kopy.functional.test
 
 import com.javiersc.kotlin.kopy.Kopy
 

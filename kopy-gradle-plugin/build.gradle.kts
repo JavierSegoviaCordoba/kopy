@@ -1,3 +1,4 @@
+import com.javiersc.gradle.extensions.version.catalogs.artifact
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 hubdle {
@@ -51,6 +52,7 @@ hubdle {
                         pluginUnderTestDependencies(
                             hubdle.android.tools.build.gradle,
                             hubdle.jetbrains.kotlin.gradle.plugin,
+                            hubdle.plugins.jetbrains.kotlin.plugin.atomicfu.artifact,
                             projects.kopyRuntime,
                         )
                     }
@@ -75,7 +77,11 @@ hubdle {
                 }
             }
 
-            testFunctional()
+            testFunctional {
+                dependencies {
+                    compileOnly(hubdle.plugins.jetbrains.kotlin.plugin.atomicfu.artifact)
+                }
+            }
         }
     }
 }

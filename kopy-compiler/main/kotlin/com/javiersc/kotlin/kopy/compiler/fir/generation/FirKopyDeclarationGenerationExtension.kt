@@ -127,6 +127,10 @@ internal class FirKopyDeclarationGenerationExtension(
 
         val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
 
+        val atomicVisibility: Visibility =
+            calculateVisibility(owner).takeIf { it !is Visibilities.Public }
+                ?: Visibilities.Internal
+
         val atomicProperty: FirProperty =
             createMemberProperty(
                 owner = context.owner,
@@ -136,7 +140,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 config = {
                     status { isOverride = false }
                     modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
+                    visibility = atomicVisibility
                 },
             )
         return listOf(atomicProperty.symbol)
