@@ -10,10 +10,16 @@
 
 ### Fixed
 
+### Removed
+
+### Updated
+
+## [0.7.0+2.0.20] - 2024-08-29
+
+### Fixed
+
 - type mismatch errors inside the `copy` function are not shown
 - Kotlin Multiplatform support
-
-### Removed
 
 ### Updated
 
@@ -81,7 +87,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.6.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.7.0+2.0.20...HEAD
+
+[0.7.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.6.0+2.0.20...0.7.0+2.0.20
 
 [0.6.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.5.0+2.0.20...0.6.0+2.0.20
 
