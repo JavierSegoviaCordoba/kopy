@@ -1,10 +1,10 @@
 package com.javiersc.kotlin.kopy.compiler.fir.utils
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
+
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
-import com.javiersc.kotlin.kopy.KopyFunctionSet
-import com.javiersc.kotlin.kopy.KopyFunctionUpdate
-import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionSetClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateEachClassId
 import org.jetbrains.kotlin.fir.expressions.FirCall
 import org.jetbrains.kotlin.fir.expressions.FirFunctionCall
 import org.jetbrains.kotlin.fir.references.symbol
@@ -41,13 +41,13 @@ internal val FirCall.isKopyFunctionSetOrUpdateOrUpdateEachCall: Boolean
     }
 
 internal val ClassId?.isKopyFunctionSet: Boolean
-    get() = this == classId<KopyFunctionSet>()
+    get() = this == kopyFunctionSetClassId
+
+internal val ClassId?.isKopyFunctionUpdate: Boolean
+    get() = this == kopyFunctionUpdateClassId
 
 internal val ClassId?.isKopyFunctionUpdateEach: Boolean
-    get() = this == classId<KopyFunctionUpdateEach>()
+    get() = this == kopyFunctionUpdateEachClassId
 
 internal val ClassId?.isKopyFunctionSetOrUpdateOrUpdateEach: Boolean
-    get() =
-        this == classId<KopyFunctionSet>() ||
-            this == classId<KopyFunctionUpdate>() ||
-            this == classId<KopyFunctionUpdateEach>()
+    get() = isKopyFunctionSet || isKopyFunctionUpdate || isKopyFunctionUpdateEach

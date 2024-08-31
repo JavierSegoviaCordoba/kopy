@@ -5,6 +5,6 @@ import com.javiersc.kotlin.kopy.args.KopyVisibility
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
 
 internal object KopyKey {
-    val Visibility = CompilerConfigurationKey<KopyVisibility>(KopyVisibility.NAME)
-    val Functions = CompilerConfigurationKey<KopyFunctions>(KopyFunctions.NAME)
+    val Functions = CompilerConfigurationKey<String>(KopyFunctions.NAME)
+    val Visibility = CompilerConfigurationKey<String>(KopyVisibility.NAME)
 }

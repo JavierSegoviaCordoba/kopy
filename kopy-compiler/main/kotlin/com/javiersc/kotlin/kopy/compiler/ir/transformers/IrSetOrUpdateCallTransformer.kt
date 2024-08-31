@@ -2,9 +2,6 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
-import com.javiersc.kotlin.compiler.extensions.common.fqName
-import com.javiersc.kotlin.compiler.extensions.common.toCallableId
-import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
@@ -14,11 +11,13 @@ import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
-import com.javiersc.kotlin.kopy.KopyFunctionCopy
+import com.javiersc.kotlin.kopy.compiler.alsoCallableId
+import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyFqName
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames
@@ -144,7 +143,7 @@ internal class IrSetOrUpdateCallTransformer(
                 expression = expression,
             ) ?: return null
 
-        val alsoFunction: IrSimpleFunction = firstIrSimpleFunction("kotlin.also".toCallableId())
+        val alsoFunction: IrSimpleFunction = firstIrSimpleFunction(alsoCallableId)
 
         val alsoBlockFunctionExpression: IrFunctionExpression =
             createIrFunctionExpression(
@@ -304,8 +303,8 @@ internal class IrSetOrUpdateCallTransformer(
                 val kotlinCopyFunctionSymbol: IrSimpleFunctionSymbol =
                     dataClass.owner.functions
                         .firstOrNull {
-                            it.name == "copy".toName() &&
-                                !it.hasAnnotation(fqName<KopyFunctionCopy>())
+                            it.name == copyName &&
+                                !it.hasAnnotation(kopyFunctionCopyFqName)
                         }
                         ?.symbol ?: return null
                 irCall(kotlinCopyFunctionSymbol).apply {

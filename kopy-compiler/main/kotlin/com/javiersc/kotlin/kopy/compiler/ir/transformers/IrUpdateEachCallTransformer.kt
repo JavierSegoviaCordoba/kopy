@@ -2,8 +2,6 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
-import com.javiersc.kotlin.compiler.extensions.common.toCallableId
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrBlockBody
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
@@ -11,9 +9,11 @@ import com.javiersc.kotlin.compiler.extensions.ir.createLambdaIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClassSymbolOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
-import com.javiersc.kotlin.kopy.KopyFunctionUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
+import com.javiersc.kotlin.kopy.compiler.iterableClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateFqName
+import com.javiersc.kotlin.kopy.compiler.mapCallableId
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
@@ -57,7 +57,7 @@ internal class IrUpdateEachCallTransformer(
     private fun IrPluginContext.createUpdateCall(expression: IrCall): IrFunctionAccessExpression? {
         val updateFunctionSymbol: IrSimpleFunctionSymbol =
             expression.dispatchReceiver?.type?.classOrNull?.functions?.firstOrNull {
-                it.owner.asIrOrNull<IrElement>()?.hasAnnotation<KopyFunctionUpdate>() == true
+                it.owner.asIrOrNull<IrElement>()?.hasAnnotation(kopyFunctionUpdateFqName) == true
             } ?: return null
         val updateFunction: IrSimpleFunction = updateFunctionSymbol.owner
         val expressionExtensionReceiverType: IrType =
@@ -142,7 +142,7 @@ internal class IrUpdateEachCallTransformer(
 
     private val IrPluginContext.iterableMapFunctionOrNull: IrSimpleFunction?
         get() =
-            referenceFunctions("kotlin.collections.map".toCallableId())
+            referenceFunctions(mapCallableId)
                 .firstOrNull {
                     val extensionReceiverClass: IrClassSymbol? =
                         it.owner.extensionReceiverParameter?.type?.classOrNull
@@ -152,5 +152,5 @@ internal class IrUpdateEachCallTransformer(
                 ?.owner
 
     private val IrPluginContext.iterableClassSymbolOrNull: IrClassSymbol?
-        get() = firstIrClassSymbolOrNull(classId<Iterable<*>>())
+        get() = firstIrClassSymbolOrNull(iterableClassId)
 }

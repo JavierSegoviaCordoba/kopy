@@ -1,6 +1,8 @@
 package com.javiersc.kotlin.kopy.args
 
-public enum class KopyFunctions(public val value: String) : KopyArgument {
+import java.io.Serializable
+
+public enum class KopyFunctions(public val value: String) : Serializable {
     All(value = "all"),
     Copy(value = "copy"),
     Invoke(value = "invoke"),
@@ -9,6 +11,7 @@ public enum class KopyFunctions(public val value: String) : KopyArgument {
     public companion object {
 
         public const val NAME: String = "KopyFunctions"
+        public const val VALUE_DESCRIPTION: String = "<all|copy|invoke>"
         public const val DESCRIPTION: String = "Kopy functions to be generated"
 
         public fun from(value: String): KopyFunctions =

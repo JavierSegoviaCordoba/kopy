@@ -2,19 +2,21 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
-import com.javiersc.kotlin.compiler.extensions.common.toCallableId
-import com.javiersc.kotlin.compiler.extensions.common.toClassId
-import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClass
+import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
+import com.javiersc.kotlin.kopy.compiler.atomicRefClassId
+import com.javiersc.kotlin.kopy.compiler.copyName
+import com.javiersc.kotlin.kopy.compiler.invokeName
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopy
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopyOrInvoke
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
-import kotlinx.atomicfu.AtomicRef
+import com.javiersc.kotlin.kopy.compiler.listClassId
+import com.javiersc.kotlin.kopy.compiler.mapCallableId
+import com.javiersc.kotlin.kopy.compiler.valueName
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -49,9 +51,6 @@ import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.findDeclaration
 import org.jetbrains.kotlin.ir.util.parentAsClass
-import org.jetbrains.kotlin.name.CallableId
-import org.jetbrains.kotlin.name.ClassId
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
 
 internal class IrFunctionsTransformer(
@@ -59,34 +58,17 @@ internal class IrFunctionsTransformer(
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 
-    // private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
-    // private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
-    // private val kopyFunctionInvokeClassId: ClassId = classId<KopyFunctionInvoke>()
-    // private val kopyFunctionSetClassId: ClassId = classId<KopyFunctionSet>()
-    // private val kopyFunctionUpdateClassId: ClassId = classId<KopyFunctionUpdate>()
-    // private val kopyFunctionUpdateEachClassId: ClassId = classId<KopyFunctionUpdateEach>()
-    // private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
-    private val atomicName: Name = "_atomic".toName()
-    private val valueName: Name = "value".toName()
-    private val copyName: Name = "copy".toName()
-    private val invokeName: Name = "invoke".toName()
-    // private val setName: Name = "set".toName()
-    // private val updateName: Name = "update".toName()
-    // private val updateEachName: Name = "updateEach".toName()
-
     private val unitType: IrType = pluginContext.irBuiltIns.unitType
 
     private val function1Class: IrClass = pluginContext.irBuiltIns.functionN(1)
 
-    private val mapCallableId: CallableId = "kotlin.collections.map".toCallableId()
     private val mapFunction: IrSimpleFunction
         get() = pluginContext
             .referenceFunctions(mapCallableId)
             .firstIsInstance<IrSimpleFunctionSymbol>()
             .owner
 
-    private val listClass: IrClass =
-        pluginContext.referenceClass("kotlin.collections.List".toClassId())!!.owner
+    private val listClass: IrClass = pluginContext.referenceClass(listClassId)!!.owner
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction): IrStatement {
         fun originalFunction(): IrStatement = super.visitSimpleFunction(declaration)
@@ -233,9 +215,8 @@ internal class IrFunctionsTransformer(
     ): IrReturn =
         pluginContext.declarationIrBuilder(declaration.symbol).run {
             val thisCopyGetValue: IrGetValue = irGet(thisCopyIrVariable)
-            val atomicRefClassId: ClassId = classId<AtomicRef<*>>()
-            val atomicProperty = declaration.parent.asIr<IrClass>()
-                .findDeclaration<IrProperty> { it.name == atomicName }
+            val atomicProperty: IrProperty? = declaration.parent.asIr<IrClass>()
+                .findDeclaration<IrProperty> { it.name == underscoreAtomicName }
 
             val getAtomicCall = irCall(atomicProperty!!.getter!!).apply {
                 dispatchReceiver = thisCopyGetValue

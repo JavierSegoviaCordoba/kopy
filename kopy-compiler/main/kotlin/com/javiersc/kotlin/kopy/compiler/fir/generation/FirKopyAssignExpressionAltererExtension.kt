@@ -2,11 +2,10 @@
 
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
-import com.javiersc.kotlin.compiler.extensions.common.fqName
-import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
-import com.javiersc.kotlin.kopy.Kopy
+import com.javiersc.kotlin.kopy.compiler.kopyClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFqName
+import com.javiersc.kotlin.kopy.compiler.utils.toName
 import org.jetbrains.kotlin.KtFakeSourceElementKind.AssignmentPluginAltered
 import org.jetbrains.kotlin.fakeElement
 import org.jetbrains.kotlin.fir.FirSession
@@ -53,7 +52,7 @@ internal class FirKopyAssignExpressionAltererExtension(
         val kopyClass: FirRegularClassSymbol =
             session.symbolProvider.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
 
-        if (!kopyClass.hasAnnotation(classId = classId<Kopy>(), session = session)) return null
+        if (!kopyClass.hasAnnotation(classId = kopyClassId, session = session)) return null
 
         val leftArgument: FirReference = variableAssignment.calleeReference!!
         val leftSymbol: FirVariableSymbol<*> = leftArgument.toResolvedVariableSymbol()!!
@@ -87,6 +86,6 @@ internal class FirKopyAssignExpressionAltererExtension(
     }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {
-        register(DeclarationPredicate.create { annotated(fqName<Kopy>()) })
+        register(DeclarationPredicate.create { annotated(kopyFqName) })
     }
 }

@@ -1,10 +1,9 @@
 package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
-import com.javiersc.kotlin.compiler.extensions.common.fqName
 import com.javiersc.kotlin.compiler.extensions.fir.name
-import com.javiersc.kotlin.kopy.Kopy
 import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
+import com.javiersc.kotlin.kopy.compiler.kopyClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFqName
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -35,11 +34,11 @@ private object DataClassKopyAnnotationChecker :
         context: CheckerContext,
         reporter: DiagnosticReporter
     ) {
-        val isKopy: Boolean = declaration.hasAnnotation(classId<Kopy>(), context.session)
+        val isKopy: Boolean = declaration.hasAnnotation(kopyClassId, context.session)
         val isDataClass: Boolean = declaration.symbol.isData
         if (isKopy && !isDataClass) {
             val kopyAnnotation: FirAnnotation =
-                declaration.annotations.first { it.fqName(context.session) == fqName<Kopy>() }
+                declaration.annotations.first { it.fqName(context.session) == kopyFqName }
             reporter.reportOn(
                 source = kopyAnnotation.source,
                 factory = FirKopyError.NON_DATA_CLASS_KOPY_ANNOTATED,

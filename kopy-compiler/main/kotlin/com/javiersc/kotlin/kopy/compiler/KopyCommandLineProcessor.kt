@@ -18,15 +18,15 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
         listOf(
             CliOption(
                 optionName = KopyFunctions.NAME,
-                valueDescription = KopyFunctions.DESCRIPTION,
+                valueDescription = KopyFunctions.VALUE_DESCRIPTION,
                 description = KopyFunctions.DESCRIPTION,
-                required = true,
+                required = false,
             ),
             CliOption(
                 optionName = KopyVisibility.NAME,
-                valueDescription = KopyVisibility.DESCRIPTION,
+                valueDescription = KopyVisibility.VALUE_DESCRIPTION,
                 description = KopyVisibility.DESCRIPTION,
-                required = true,
+                required = false,
             ),
         )
 
@@ -39,8 +39,8 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
             configuration.put(key, value)
 
         when (option.optionName) {
-            KopyFunctions.NAME -> put(KopyKey.Functions, KopyFunctions.from(value))
-            KopyVisibility.NAME -> put(KopyKey.Visibility, KopyVisibility.from(value))
+            KopyFunctions.NAME -> put(KopyKey.Functions, value)
+            KopyVisibility.NAME -> put(KopyKey.Visibility, value)
         }
     }
 }
