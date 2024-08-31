@@ -149,7 +149,7 @@ data class House(val squareMeters: Int, val kitchen: Kitchen)
 data class Kitchen(val cat: Cat, val squareMeters: Int)
 
 @Kopy
-data class Cat(val name: String, val age: Int)
+data class Cat(val name: String, val age: Int, val numbers: List<Int>)
 ```
 
 ## Features
