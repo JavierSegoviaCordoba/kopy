@@ -1,9 +1,11 @@
 package com.javiersc.kotlin.kopy.args
 
+import java.io.Serializable
+
 public enum class KopyVisibility(
     public val value: String,
     public val restrictive: Int,
-) : KopyArgument {
+) : Serializable {
     Auto(value = "auto", restrictive = 0),
     Public(value = "public", restrictive = 1),
     Internal(value = "internal", restrictive = 2),
@@ -14,6 +16,7 @@ public enum class KopyVisibility(
     public companion object {
 
         public const val NAME: String = "KopyVisibility"
+        public const val VALUE_DESCRIPTION: String = "<auto|public|internal|protected|private>"
         public const val DESCRIPTION: String = "Visibility of the generated copy function"
 
         public fun from(value: String): KopyVisibility =

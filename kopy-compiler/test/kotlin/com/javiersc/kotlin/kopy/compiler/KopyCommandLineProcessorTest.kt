@@ -29,55 +29,55 @@ class KopyCommandLineProcessorTest {
             value = KopyFunctions.All.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.All
+        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.All.value
 
         processor.processOption(
             option = processor.pluginOptions.first(),
             value = KopyFunctions.Copy.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Copy
+        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Copy.value
 
         processor.processOption(
             option = processor.pluginOptions.first(),
             value = KopyFunctions.Invoke.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Invoke
+        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Invoke.value
 
         processor.processOption(
             option = processor.pluginOptions.second(),
             value = KopyVisibility.Auto.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Auto
+        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Auto.value
 
         processor.processOption(
             option = processor.pluginOptions.second(),
             value = KopyVisibility.Public.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Public
+        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Public.value
 
         processor.processOption(
             option = processor.pluginOptions.second(),
             value = KopyVisibility.Internal.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Internal
+        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Internal.value
 
         processor.processOption(
             option = processor.pluginOptions.second(),
             value = KopyVisibility.Protected.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Protected
+        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Protected.value
 
         processor.processOption(
             option = processor.pluginOptions.second(),
             value = KopyVisibility.Private.value,
             configuration = compilerConfiguration,
         )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Private
+        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Private.value
     }
 }

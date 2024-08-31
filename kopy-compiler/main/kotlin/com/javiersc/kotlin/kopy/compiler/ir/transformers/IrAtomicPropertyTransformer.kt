@@ -1,9 +1,9 @@
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
-import com.javiersc.kotlin.compiler.extensions.common.toCallableId
-import com.javiersc.kotlin.compiler.extensions.common.toClassId
-import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.kopy.compiler.atomicCallableId
+import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
+import com.javiersc.kotlin.kopy.compiler.atomicRefClassId
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -19,6 +19,7 @@ import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
 import org.jetbrains.kotlin.ir.expressions.IrFunctionAccessExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
+import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classOrNull
@@ -34,12 +35,10 @@ internal class IrAtomicPropertyTransformer(
 
     override fun visitPropertyNew(declaration: IrProperty): IrStatement {
         fun originalProp() = super.visitPropertyNew(declaration)
-        if (declaration.name != "_atomic".toName()) return originalProp()
+        if (declaration.name != underscoreAtomicName) return originalProp()
 
-        val atomicRefClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
-
-        val atomicFunctions =
-            pluginContext.referenceFunctions("kotlinx.atomicfu.atomic".toCallableId())
+        val atomicFunctions: Collection<IrSimpleFunctionSymbol> =
+            pluginContext.referenceFunctions(atomicCallableId)
 
         val atomicFunction: IrSimpleFunction =
             atomicFunctions

@@ -2,22 +2,29 @@
 
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
-import com.javiersc.kotlin.compiler.extensions.common.classId
-import com.javiersc.kotlin.compiler.extensions.common.fqName
-import com.javiersc.kotlin.compiler.extensions.common.toClassId
-import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.fir.createFirAnnotation
 import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
-import com.javiersc.kotlin.kopy.Kopy
-import com.javiersc.kotlin.kopy.KopyFunctionCopy
-import com.javiersc.kotlin.kopy.KopyFunctionInvoke
-import com.javiersc.kotlin.kopy.KopyFunctionSet
-import com.javiersc.kotlin.kopy.KopyFunctionUpdate
-import com.javiersc.kotlin.kopy.KopyFunctionUpdateEach
 import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyKey
+import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
+import com.javiersc.kotlin.kopy.compiler.atomicRefClassId
+import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.fir.Key
+import com.javiersc.kotlin.kopy.compiler.invokeName
+import com.javiersc.kotlin.kopy.compiler.iterableClassId
+import com.javiersc.kotlin.kopy.compiler.kopyClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFqName
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionInvokeClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionSetClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateClassId
+import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateEachClassId
+import com.javiersc.kotlin.kopy.compiler.kopyOptInClassId
+import com.javiersc.kotlin.kopy.compiler.setName
+import com.javiersc.kotlin.kopy.compiler.updateEachName
+import com.javiersc.kotlin.kopy.compiler.updateName
+import com.javiersc.kotlin.kopy.compiler.utils.toName
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.descriptors.Visibilities
@@ -67,25 +74,11 @@ internal class FirKopyDeclarationGenerationExtension(
     private val configuration: CompilerConfiguration,
 ) : FirDeclarationGenerationExtension(session) {
 
-    private val kopyVisibility: KopyVisibility
-        get() = configuration[KopyKey.Visibility, KopyVisibility.Auto]
-
     private val kopyFunctions: KopyFunctions
-        get() = configuration[KopyKey.Functions, KopyFunctions.All]
+        get() = KopyFunctions.from(configuration[KopyKey.Functions, KopyFunctions.All.value])
 
-    private val kopyOptInClassId: ClassId = "com.javiersc.kotlin.kopy.KopyOptIn".toClassId()
-    private val kopyFunctionCopyClassId: ClassId = classId<KopyFunctionCopy>()
-    private val kopyFunctionInvokeClassId: ClassId = classId<KopyFunctionInvoke>()
-    private val kopyFunctionSetClassId: ClassId = classId<KopyFunctionSet>()
-    private val kopyFunctionUpdateClassId: ClassId = classId<KopyFunctionUpdate>()
-    private val kopyFunctionUpdateEachClassId: ClassId = classId<KopyFunctionUpdateEach>()
-    private val atomicRefClassId: ClassId = "kotlinx.atomicfu.AtomicRef".toClassId()
-    private val atomicName: Name = "_atomic".toName()
-    private val copyName: Name = "copy".toName()
-    private val invokeName: Name = "invoke".toName()
-    private val setName: Name = "set".toName()
-    private val updateName: Name = "update".toName()
-    private val updateEachName: Name = "updateEach".toName()
+    private val kopyVisibility: KopyVisibility
+        get() = KopyVisibility.from(configuration[KopyKey.Visibility, KopyVisibility.Auto.value])
 
     private val function1Class: FirClassLikeSymbol<*>
         get() = session
@@ -97,7 +90,7 @@ internal class FirKopyDeclarationGenerationExtension(
             .withArguments { it.type!! }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {
-        register(DeclarationPredicate.create { annotated(fqName<Kopy>()) })
+        register(DeclarationPredicate.create { annotated(kopyFqName) })
     }
 
     override fun getCallableNamesForClass(
@@ -106,7 +99,7 @@ internal class FirKopyDeclarationGenerationExtension(
     ): Set<Name> {
         val names: Set<Name> =
             setOf(
-                atomicName,
+                underscoreAtomicName,
                 copyName,
                 invokeName,
                 setName,
@@ -120,9 +113,9 @@ internal class FirKopyDeclarationGenerationExtension(
         callableId: CallableId,
         context: MemberGenerationContext?
     ): List<FirPropertySymbol> {
-        if (callableId.callableName != atomicName) return emptyList()
+        if (callableId.callableName != underscoreAtomicName) return emptyList()
         val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
-        if (!owner.hasAnnotation(classId<Kopy>(), session)) return emptyList()
+        if (!owner.hasAnnotation(kopyClassId, session)) return emptyList()
         if (!owner.isData) return emptyList()
 
         val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
@@ -151,7 +144,7 @@ internal class FirKopyDeclarationGenerationExtension(
         context: MemberGenerationContext?
     ): List<FirNamedFunctionSymbol> = buildList {
         val owner: FirClassSymbol<*> = context?.owner ?: return@buildList
-        if (!owner.hasAnnotation(classId<Kopy>(), session)) return@buildList
+        if (!owner.hasAnnotation(kopyClassId, session)) return@buildList
         if (!owner.isData) return@buildList
 
         if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
@@ -306,7 +299,7 @@ internal class FirKopyDeclarationGenerationExtension(
         val iterableClass: FirClassLikeSymbol<*> =
             session
                 .symbolProvider
-                .getClassLikeSymbolByClassId(classId<Iterable<*>>()) ?: return null
+                .getClassLikeSymbolByClassId(iterableClassId) ?: return null
 
         val iterableType: ConeClassLikeType =
             (iterableClass.toFirTypeRef().coneType as ConeClassLikeType)

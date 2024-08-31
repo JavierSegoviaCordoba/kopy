@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- Kotlin Multiplatform support
+
 ### Removed
 
 ### Updated
@@ -18,8 +20,8 @@
 
 ### Fixed
 
+- crash when atomicfu plugin is applied
 - type mismatch errors inside the `copy` function are not shown
-- Kotlin Multiplatform support
 
 ### Updated
 
