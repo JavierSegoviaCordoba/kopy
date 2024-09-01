@@ -6,6 +6,8 @@
 
 ### Changed
 
+- `kopy-args` to `api` from `implementation` in the Gradle plugin
+
 ### Deprecated
 
 ### Fixed

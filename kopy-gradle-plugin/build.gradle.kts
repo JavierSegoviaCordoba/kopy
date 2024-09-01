@@ -1,5 +1,4 @@
 import com.javiersc.gradle.extensions.version.catalogs.artifact
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 hubdle {
     config {
@@ -59,7 +58,7 @@ hubdle {
             main {
                 dependencies {
                     implementation(gradleKotlinDsl())
-                    implementation(projects.kopyArgs)
+                    api(projects.kopyArgs)
                     compileOnly(projects.kopyCompiler)
                     compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }
