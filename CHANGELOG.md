@@ -4,11 +4,6 @@
 
 ### Added
 
-- `androidNativeArm32` support
-- `androidNativeArm64` support
-- `androidNativeX64` support
-- `androidNativeX86` support
-
 ### Changed
 
 ### Deprecated
@@ -18,6 +13,15 @@
 ### Removed
 
 ### Updated
+
+## [0.9.0+2.0.20] - 2024-09-01
+
+### Added
+
+- `androidNativeArm32` support
+- `androidNativeArm64` support
+- `androidNativeX64` support
+- `androidNativeX86` support
 
 ## [0.8.0+2.0.20] - 2024-08-31
 
@@ -98,7 +102,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.8.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.9.0+2.0.20...HEAD
+
+[0.9.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.8.0+2.0.20...0.9.0+2.0.20
 
 [0.8.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.7.0+2.0.20...0.8.0+2.0.20
 
