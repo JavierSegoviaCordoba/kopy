@@ -4,6 +4,11 @@
 
 ### Added
 
+- `androidNativeArm32` support
+- `androidNativeArm64` support
+- `androidNativeX64` support
+- `androidNativeX86` support
+
 ### Changed
 
 ### Deprecated
