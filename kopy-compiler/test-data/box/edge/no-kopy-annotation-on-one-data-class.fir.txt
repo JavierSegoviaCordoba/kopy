@@ -1,0 +1,164 @@
+FILE: no-kopy-annotation-on-one-data-class.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun box(): R|kotlin/String| {
+        lval address1: R|com/javiersc/kotlin/kopy/playground/Address| = R|com/javiersc/kotlin/kopy/playground/Address.Address|(String(Street), String(City), String(State), String(Zip))
+        lval name1: R|com/javiersc/kotlin/kopy/playground/Name| = R|com/javiersc/kotlin/kopy/playground/Name.Name|(String(First), String(Last))
+        lval privateInfo1: R|com/javiersc/kotlin/kopy/playground/PrivateInfo| = R|com/javiersc/kotlin/kopy/playground/PrivateInfo.PrivateInfo|(String(SSN), String(DOB))
+        lval person1: R|com/javiersc/kotlin/kopy/playground/Person| = R|com/javiersc/kotlin/kopy/playground/Person.Person|(R|<local>/name1|, R|<local>/address1|, R|<local>/privateInfo1|)
+        lval person2: R|com/javiersc/kotlin/kopy/playground/Person| = R|<local>/person1|.R|com/javiersc/kotlin/kopy/playground/Person.copy|(copy@fun R|com/javiersc/kotlin/kopy/playground/Person|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Person.privateInfo|.R|com/javiersc/kotlin/kopy/playground/PrivateInfo.ssn|).R|com/javiersc/kotlin/kopy/playground/Person.set|<R|kotlin/String|>(String(SSN 42))
+        }
+        )
+        lval isOk: R|kotlin/Boolean| = ==(R|<local>/person2|.R|com/javiersc/kotlin/kopy/playground/Person.privateInfo|.R|com/javiersc/kotlin/kopy/playground/PrivateInfo.ssn|, String(SSN 42))
+        ^box when () {
+            R|<local>/isOk| ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Fail: ), R|<local>/person2|.R|com/javiersc/kotlin/kopy/playground/Person.privateInfo|.R|com/javiersc/kotlin/kopy/playground/PrivateInfo.ssn|, String( is not equal to SSN 42))
+            }
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Person : R|kotlin/Any| {
+        public constructor(name: R|com/javiersc/kotlin/kopy/playground/Name|, address: R|com/javiersc/kotlin/kopy/playground/Address|, privateInfo: R|com/javiersc/kotlin/kopy/playground/PrivateInfo|): R|com/javiersc/kotlin/kopy/playground/Person| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val name: R|com/javiersc/kotlin/kopy/playground/Name| = R|<local>/name|
+            public get(): R|com/javiersc/kotlin/kopy/playground/Name|
+
+        public final val address: R|com/javiersc/kotlin/kopy/playground/Address| = R|<local>/address|
+            public get(): R|com/javiersc/kotlin/kopy/playground/Address|
+
+        public final val privateInfo: R|com/javiersc/kotlin/kopy/playground/PrivateInfo| = R|<local>/privateInfo|
+            public get(): R|com/javiersc/kotlin/kopy/playground/PrivateInfo|
+
+        public final operator fun component1(): R|com/javiersc/kotlin/kopy/playground/Name|
+
+        public final operator fun component2(): R|com/javiersc/kotlin/kopy/playground/Address|
+
+        public final operator fun component3(): R|com/javiersc/kotlin/kopy/playground/PrivateInfo|
+
+        public final fun copy(name: R|com/javiersc/kotlin/kopy/playground/Name| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.name|, address: R|com/javiersc/kotlin/kopy/playground/Address| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.address|, privateInfo: R|com/javiersc/kotlin/kopy/playground/PrivateInfo| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.privateInfo|): R|com/javiersc/kotlin/kopy/playground/Person|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Person.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Person| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        internal final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Person>|
+            internal get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Person>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Person.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Person| {
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Name : R|kotlin/Any| {
+        public constructor(first: R|kotlin/String|, last: R|kotlin/String|): R|com/javiersc/kotlin/kopy/playground/Name| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val first: R|kotlin/String| = R|<local>/first|
+            public get(): R|kotlin/String|
+
+        public final val last: R|kotlin/String| = R|<local>/last|
+            public get(): R|kotlin/String|
+
+        public final operator fun component1(): R|kotlin/String|
+
+        public final operator fun component2(): R|kotlin/String|
+
+        public final fun copy(first: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Name|.R|com/javiersc/kotlin/kopy/playground/Name.first|, last: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Name|.R|com/javiersc/kotlin/kopy/playground/Name.last|): R|com/javiersc/kotlin/kopy/playground/Name|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        internal final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Name>|
+            internal get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Name>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Address : R|kotlin/Any| {
+        public constructor(street: R|kotlin/String|, city: R|kotlin/String|, state: R|kotlin/String|, zip: R|kotlin/String|): R|com/javiersc/kotlin/kopy/playground/Address| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val street: R|kotlin/String| = R|<local>/street|
+            public get(): R|kotlin/String|
+
+        public final val city: R|kotlin/String| = R|<local>/city|
+            public get(): R|kotlin/String|
+
+        public final val state: R|kotlin/String| = R|<local>/state|
+            public get(): R|kotlin/String|
+
+        public final val zip: R|kotlin/String| = R|<local>/zip|
+            public get(): R|kotlin/String|
+
+        public final operator fun component1(): R|kotlin/String|
+
+        public final operator fun component2(): R|kotlin/String|
+
+        public final operator fun component3(): R|kotlin/String|
+
+        public final operator fun component4(): R|kotlin/String|
+
+        public final fun copy(street: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.street|, city: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.city|, state: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.state|, zip: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.zip|): R|com/javiersc/kotlin/kopy/playground/Address|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Address.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Address| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        internal final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Address>|
+            internal get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Address>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Address.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Address| {
+        }
+
+    }
+    public final data class PrivateInfo : R|kotlin/Any| {
+        public constructor(ssn: R|kotlin/String|, dob: R|kotlin/String|): R|com/javiersc/kotlin/kopy/playground/PrivateInfo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val ssn: R|kotlin/String| = R|<local>/ssn|
+            public get(): R|kotlin/String|
+
+        public final val dob: R|kotlin/String| = R|<local>/dob|
+            public get(): R|kotlin/String|
+
+        public final operator fun component1(): R|kotlin/String|
+
+        public final operator fun component2(): R|kotlin/String|
+
+        public final fun copy(ssn: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/PrivateInfo|.R|com/javiersc/kotlin/kopy/playground/PrivateInfo.ssn|, dob: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/PrivateInfo|.R|com/javiersc/kotlin/kopy/playground/PrivateInfo.dob|): R|com/javiersc/kotlin/kopy/playground/PrivateInfo|
+
+    }

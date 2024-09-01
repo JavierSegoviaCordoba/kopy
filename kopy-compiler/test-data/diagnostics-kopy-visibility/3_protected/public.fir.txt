@@ -33,8 +33,8 @@ FILE: public.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() protected final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
-        protected final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
-            protected get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+        internal final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
+            internal get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() protected final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
         }
@@ -69,8 +69,8 @@ FILE: public.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() protected final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
-        protected final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
-            protected get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
+        internal final val _atomic: R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
+            internal get(): R|kotlinx/atomicfu/AtomicRef<com/javiersc/kotlin/kopy/playground/Foo2>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() protected final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
         }

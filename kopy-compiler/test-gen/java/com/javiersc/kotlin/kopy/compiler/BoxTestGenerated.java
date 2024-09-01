@@ -86,6 +86,12 @@ public class BoxTestGenerated extends AbstractBoxTest {
     }
 
     @Test
+    @TestMetadata("no-kopy-annotation-on-one-data-class.kt")
+    public void testNo_kopy_annotation_on_one_data_class() {
+      runTest("test-data/box/edge/no-kopy-annotation-on-one-data-class.kt");
+    }
+
+    @Test
     @TestMetadata("simple-1.kt")
     public void testSimple_1() {
       runTest("test-data/box/edge/simple-1.kt");

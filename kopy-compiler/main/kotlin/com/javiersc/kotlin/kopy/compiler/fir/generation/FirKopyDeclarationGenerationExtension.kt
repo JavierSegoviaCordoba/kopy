@@ -7,7 +7,6 @@ import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
 import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyKey
-import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import com.javiersc.kotlin.kopy.compiler.atomicRefClassId
 import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.fir.Key
@@ -22,6 +21,7 @@ import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateEachClassId
 import com.javiersc.kotlin.kopy.compiler.kopyOptInClassId
 import com.javiersc.kotlin.kopy.compiler.setName
+import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import com.javiersc.kotlin.kopy.compiler.updateEachName
 import com.javiersc.kotlin.kopy.compiler.updateName
 import com.javiersc.kotlin.kopy.compiler.utils.toName
@@ -121,7 +121,8 @@ internal class FirKopyDeclarationGenerationExtension(
         val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
 
         val atomicVisibility: Visibility =
-            calculateVisibility(owner).takeIf { it !is Visibilities.Public }
+            calculateVisibility(owner)
+                .takeIf { it is Visibilities.Internal || it is Visibilities.Private }
                 ?: Visibilities.Internal
 
         val atomicProperty: FirProperty =
