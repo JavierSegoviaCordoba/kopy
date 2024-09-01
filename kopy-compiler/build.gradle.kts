@@ -24,9 +24,6 @@ hubdle {
         }
     }
     kotlin {
-        compilerOptions { //
-            languageVersion(KotlinVersion.KOTLIN_2_0)
-        }
         jvm {
             features { //
                 compiler {
@@ -38,6 +35,7 @@ hubdle {
                     )
                     testProjects(projects.kopyRuntime)
                 }
+                jvmVersion(JavaVersion.VERSION_1_8)
             }
             main { //
                 dependencies { //

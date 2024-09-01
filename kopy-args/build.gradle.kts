@@ -15,7 +15,11 @@ hubdle {
             }
         }
     }
-    kotlin { //
-        jvm()
+    kotlin {
+        jvm {
+            features { //
+                jvmVersion(JavaVersion.VERSION_1_8)
+            }
+        }
     }
 }

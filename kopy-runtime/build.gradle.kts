@@ -17,6 +17,9 @@ hubdle {
     }
     kotlin {
         multiplatform {
+            features {
+                jvmVersion(JavaVersion.VERSION_1_8)
+            }
             common {
                 main {
                     dependencies { //

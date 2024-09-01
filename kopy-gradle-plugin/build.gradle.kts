@@ -16,12 +16,9 @@ hubdle {
         publishing()
     }
     kotlin {
-        compilerOptions { //
-            languageVersion(KotlinVersion.KOTLIN_2_0)
-        }
         jvm {
             features {
-                jvmVersion(JavaVersion.VERSION_17)
+                jvmVersion(JavaVersion.VERSION_11)
 
                 gradle {
                     plugin {
