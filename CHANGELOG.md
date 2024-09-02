@@ -6,17 +6,23 @@
 
 ### Changed
 
-- `kopy-args` to `api` from `implementation` in the Gradle plugin
-
 ### Deprecated
 
 ### Fixed
 
-- Kotlin multiplatform support
-
 ### Removed
 
 ### Updated
+
+## [0.10.0+2.0.20] - 2024-09-02
+
+### Changed
+
+- `kopy-args` to `api` from `implementation` in the Gradle plugin
+
+### Fixed
+
+- Kotlin multiplatform support
 
 ## [0.9.0+2.0.20] - 2024-09-01
 
@@ -106,7 +112,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.9.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.10.0+2.0.20...HEAD
+
+[0.10.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.9.0+2.0.20...0.10.0+2.0.20
 
 [0.9.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.8.0+2.0.20...0.9.0+2.0.20
 
