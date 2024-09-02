@@ -43,7 +43,17 @@ Apply the plugin in the `build.gradle.kts` or `build.gradle`:
 
 ```kotlin
 plugins {
-    id("com.javiersc.kotlin.kopy") version "$version"
+    id("com.javiersc.kotlin.kopy") version "$kopyVersion"
+}
+```
+
+As the plugin uses under the hood the Atomicfu library, the performance can be improved by
+applying the Atomicfu plugin, **it is important to apply the Kopy plugin before the Atomicfu one**.
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$kopyVersion"
+    id("org.jetbrains.kotlin.plugin.atomicfu") version "$kotlinVersion"
 }
 ```
 
