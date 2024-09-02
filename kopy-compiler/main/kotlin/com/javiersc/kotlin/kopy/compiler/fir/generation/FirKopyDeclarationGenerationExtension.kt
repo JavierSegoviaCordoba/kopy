@@ -2,6 +2,7 @@
 
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
+import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.fir.createFirAnnotation
 import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
 import com.javiersc.kotlin.kopy.args.KopyFunctions
@@ -24,7 +25,6 @@ import com.javiersc.kotlin.kopy.compiler.setName
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import com.javiersc.kotlin.kopy.compiler.updateEachName
 import com.javiersc.kotlin.kopy.compiler.updateName
-import com.javiersc.kotlin.kopy.compiler.utils.toName
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.descriptors.Visibilities

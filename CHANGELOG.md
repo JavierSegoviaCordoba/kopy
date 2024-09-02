@@ -12,6 +12,8 @@
 
 ### Fixed
 
+- Kotlin multiplatform support
+
 ### Removed
 
 ### Updated

@@ -1,9 +1,9 @@
 package com.javiersc.kotlin.kopy.compiler
 
-import com.javiersc.kotlin.kopy.compiler.utils.toCallableId
-import com.javiersc.kotlin.kopy.compiler.utils.toClassId
-import com.javiersc.kotlin.kopy.compiler.utils.toFqName
-import com.javiersc.kotlin.kopy.compiler.utils.toName
+import com.javiersc.kotlin.compiler.extensions.common.toCallableId
+import com.javiersc.kotlin.compiler.extensions.common.toClassId
+import com.javiersc.kotlin.compiler.extensions.common.toFqName
+import com.javiersc.kotlin.compiler.extensions.common.toName
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName

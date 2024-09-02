@@ -11,6 +11,13 @@ hubdle {
         format.isEnabled = false
         projectConfig { //
             generateProjectData(true)
+            generateAdditionalData {
+                const(
+                    name = "compilerExtensions",
+                    type = "String",
+                    value = "${hubdle.javiersc.kotlin.compiler.extensions.get()}",
+                )
+            }
         }
         publishing()
     }
@@ -59,6 +66,7 @@ hubdle {
                 dependencies {
                     implementation(gradleKotlinDsl())
                     api(projects.kopyArgs)
+                    implementation(libs.javiersc.kotlin.compiler.gradle.extensions)
                     compileOnly(projects.kopyCompiler)
                     compileOnly(hubdle.jetbrains.kotlin.gradle.plugin)
                 }

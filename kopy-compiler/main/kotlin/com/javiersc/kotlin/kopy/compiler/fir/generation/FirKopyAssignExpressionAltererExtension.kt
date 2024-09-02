@@ -5,7 +5,7 @@ package com.javiersc.kotlin.kopy.compiler.fir.generation
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
 import com.javiersc.kotlin.kopy.compiler.kopyClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFqName
-import com.javiersc.kotlin.kopy.compiler.utils.toName
+import com.javiersc.kotlin.kopy.compiler.setName
 import org.jetbrains.kotlin.KtFakeSourceElementKind.AssignmentPluginAltered
 import org.jetbrains.kotlin.fakeElement
 import org.jetbrains.kotlin.fir.FirSession
@@ -77,7 +77,7 @@ internal class FirKopyAssignExpressionAltererExtension(
             argumentList = buildUnaryArgumentList(rightArgument)
             calleeReference = buildSimpleNamedReference {
                 source = variableAssignment.source
-                name = "set".toName()
+                name = setName
             }
             origin = FirFunctionCallOrigin.Regular
         }

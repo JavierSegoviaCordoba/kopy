@@ -1,5 +1,6 @@
 package com.javiersc.kotlin.kopy.compiler.ir.utils
 
+import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyFqName
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionInvokeFqName
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionSetFqName

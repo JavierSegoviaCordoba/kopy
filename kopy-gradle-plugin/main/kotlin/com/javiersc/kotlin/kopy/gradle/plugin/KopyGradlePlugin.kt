@@ -1,6 +1,7 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.logging.extensions.warnColored
+import com.javiersc.kotlin.compiler.gradle.extensions.KotlinCompilerGradlePlugin
 import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
@@ -15,7 +16,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
@@ -24,13 +24,13 @@ public class KopyGradlePlugin
 @Inject
 constructor(
     private val providers: ProviderFactory,
-) : KotlinCompilerPluginSupportPlugin {
+) : KotlinCompilerGradlePlugin {
 
     private val Project.kopy: KopyExtension
         get() = the<KopyExtension>()
 
-
     override fun apply(target: Project) {
+        super.apply(target)
         target.createExtension()
         target.withKotlin {
             suppressKopyOptInt()
@@ -38,7 +38,14 @@ constructor(
         }
         target.withKotlinAndroid { dependencies { "api"(kopyRuntime) } }
         target.withKotlinJvm { dependencies { "api"(kopyRuntime) } }
-        target.withKotlinMultiplatform { dependencies { "commonMainApi"(kopyRuntime) } }
+        target.withKotlinMultiplatform {
+            dependencies {
+                "commonMainApi"(kopyRuntime)
+                compilerClasspath(kopyArgs)
+                compilerClasspath(kopyRuntime)
+                compilerClasspath(KopyGradlePluginAdditionalData.compilerExtensions)
+            }
+        }
     }
 
     override fun applyToCompilation(
@@ -112,6 +119,9 @@ constructor(
         }
     }
 }
+
+private const val kopyArgs =
+    "com.javiersc.kotlin:kopy-args:${KopyCompilerProjectData.Version}"
 
 private const val kopyRuntime =
     "com.javiersc.kotlin:kopy-runtime:${KopyCompilerProjectData.Version}"
