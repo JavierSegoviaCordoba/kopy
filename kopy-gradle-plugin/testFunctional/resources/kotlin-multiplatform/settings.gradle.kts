@@ -24,3 +24,8 @@ dependencyResolutionManagement {
         }
     }
 }
+
+include(
+    ":lib-a",
+    // ":lib-b",
+)

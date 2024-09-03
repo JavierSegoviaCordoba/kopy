@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 internal class KopyGradlePluginTest : GradleTestKitTest() {
 
     @Test
-    fun `kotlin multiplatform empty`() = gradleTestKitTest("kotlin-multiplatform-empty") {
+    fun `kotlin multiplatform`() = gradleTestKitTest("kotlin-multiplatform") {
         gradlew("assemble").output.shouldContain("BUILD SUCCESSFUL")
     }
 
