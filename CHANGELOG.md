@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- `compilerClasspath` not working with the separator `:`
+
 ### Removed
 
 ### Updated
