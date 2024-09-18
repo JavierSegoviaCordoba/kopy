@@ -39,7 +39,7 @@ dependencyResolutionManagement {
     }
 }
 
-val catalogFile = file("$rootDir/gradle/libs.versions.toml").readLines()
+val catalogFile: List<String> = file("$rootDir/gradle/libs.versions.toml").readLines()
 
 val hubdleCatalogVersion: String =
     catalogFile.first { it.contains("hubdleCatalog =") }.split("\"")[1]
@@ -63,6 +63,19 @@ settings.gradle.beforeProject {
                 val metadata = gradleVersion.metadata?.let { "$kotlinVersion-$it" } ?: kotlinVersion
                 "${gradleVersion.copy(metadata = metadata)}"
             }
+        }
+    }
+}
+
+buildscript {
+    dependencies {
+        constraints {
+            val catalogFile: List<String> = file("$rootDir/gradle/libs.versions.toml").readLines()
+            val kotlinVersion: String =
+                catalogFile.first { it.contains("jetbrains-kotlin =") }.split("\"")[1]
+            val kotlinGradlePlugin: String =
+                catalogFile.first { it.contains("jetbrains-kotlin-gradle-plugin =") }.split("\"")[1]
+            classpath("$kotlinGradlePlugin:$kotlinVersion")
         }
     }
 }
