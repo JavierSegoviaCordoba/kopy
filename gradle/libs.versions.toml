@@ -1,7 +1,7 @@
 [versions]
 hubdle = "0.7.14"
 hubdleCatalog = "0.3.12"
-javiersc-kotlin-compiler-extensions = "0.4.3+2.0.20"
+javiersc-kotlin-compiler-extensions = "0.4.4+2.0.21"
 
 [libraries]
 hubdle-catalog = { module = "com.javiersc.hubdle:hubdle-version-catalog", version.ref = "hubdleCatalog" }
