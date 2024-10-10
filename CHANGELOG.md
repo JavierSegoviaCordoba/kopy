@@ -14,6 +14,10 @@
 
 ### Updated
 
+## [0.12.0+2.0.21] - 2024-10-10
+
+### Updated
+
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.4.4+2.0.21`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.4.4+2.0.21`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.4.4+2.0.21`
@@ -131,7 +135,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.11.0+2.0.20...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.12.0+2.0.21...HEAD
+
+[0.12.0+2.0.21]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.11.0+2.0.20...0.12.0+2.0.21
 
 [0.11.0+2.0.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.10.0+2.0.20...0.11.0+2.0.20
 

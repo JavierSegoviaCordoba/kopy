@@ -1,4 +1,4 @@
-![Kotlin version](https://img.shields.io/badge/kotlin-2.0.20-blueviolet?logo=kotlin&logoColor=white)
+![Kotlin version](https://img.shields.io/badge/kotlin-2.0.21-blueviolet?logo=kotlin&logoColor=white)
 [![MavenCentral](https://img.shields.io/maven-central/v/com.javiersc.kotlin/kopy-compiler?label=MavenCentral)](https://repo1.maven.org/maven2/com/javiersc/kotlin/kopy-compiler/)
 [![Snapshot](https://img.shields.io/nexus/s/com.javiersc.kotlin/kopy-compiler?server=https%3A%2F%2Foss.sonatype.org%2F&label=Snapshot)](https://oss.sonatype.org/content/repositories/snapshots/com/javiersc/kotlin/kopy-compiler/)
 
