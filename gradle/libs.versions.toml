@@ -1,6 +1,6 @@
 [versions]
 hubdle = "0.7.14"
-hubdleCatalog = "0.3.12"
+hubdleCatalog = "0.3.13"
 javiersc-kotlin-compiler-extensions = "0.4.4+2.0.21"
 
 [libraries]
