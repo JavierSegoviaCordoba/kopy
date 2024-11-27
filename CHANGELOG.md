@@ -14,6 +14,7 @@
 
 ### Updated
 
+- `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.1.0`
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.5.0+2.1.0`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.5.0+2.1.0`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.5.0+2.1.0`

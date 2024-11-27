@@ -46,6 +46,25 @@ val hubdleCatalogVersion: String =
 val kotlinCompilerExtensionsVersion: String =
     catalogFile.first { it.contains("javiersc-kotlin-compiler-extensions =") }.split("\"")[1]
 
+buildscript {
+    dependencies {
+        val kotlinVersion: String =
+            file("$rootDir/gradle/libs.versions.toml")
+                .readLines()
+                .first { it.contains("jetbrains-kotlin") }
+                .split("\"")[1]
+
+        val kotlinModule =
+            file("$rootDir/gradle/libs.versions.toml")
+                .readLines()
+                .first { it.contains("jetbrains-kotlin-gradle-plugin") }
+                .split("\"")[1]
+
+        val kotlinDependency = "$kotlinModule:$kotlinVersion"
+        classpath(kotlinDependency)
+    }
+}
+
 hubdleSettings {
     catalog { //
         version(hubdleCatalogVersion)
@@ -57,7 +76,7 @@ hubdleSettings {
 
 settings.gradle.beforeProject {
     pluginManager.withPlugin("com.javiersc.semver") {
-        val kotlinVersion = getKotlinPluginVersion(logger)
+        val kotlinVersion: String = getKotlinPluginVersion(logger)
         project.configure<SemverExtension> {
             mapVersion { gradleVersion ->
                 val metadata = gradleVersion.metadata?.let { "$kotlinVersion-$it" } ?: kotlinVersion

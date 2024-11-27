@@ -2,12 +2,14 @@
 hubdle = "0.7.18"
 hubdleCatalog = "0.3.13"
 javiersc-kotlin-compiler-extensions = "0.5.0+2.1.0"
+jetbrains-kotlin = "2.1.0"
 
 [libraries]
 hubdle-catalog = { module = "com.javiersc.hubdle:hubdle-version-catalog", version.ref = "hubdleCatalog" }
 javiersc-kotlin-compiler-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
 javiersc-kotlin-compiler-gradle-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-gradle-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
 javiersc-kotlin-compiler-test-extensions = { module = "com.javiersc.kotlin:kotlin-compiler-test-extensions", version.ref = "javiersc-kotlin-compiler-extensions" }
+jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
 
 [plugins]
 javiersc-hubdle = { id = "com.javiersc.hubdle", version.ref = "hubdle" }
