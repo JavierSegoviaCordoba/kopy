@@ -1,5 +1,19 @@
 {
   "extends": [
     "github>JavierSegoviaCordoba/reusable-workflows//.github/renovate-reusable.json"
+  ],
+  packageRules: [
+    {
+      matchUpdateTypes: [
+        'major',
+        'minor',
+        'patch',
+      ],
+      groupName: 'all dependencies',
+      minimumReleaseAge: '6 hours',
+      matchPackageNames: [
+        '*',
+      ],
+    }
   ]
 }
