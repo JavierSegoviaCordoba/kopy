@@ -46,25 +46,6 @@ val hubdleCatalogVersion: String =
 val kotlinCompilerExtensionsVersion: String =
     catalogFile.first { it.contains("javiersc-kotlin-compiler-extensions =") }.split("\"")[1]
 
-buildscript {
-    dependencies {
-        val kotlinVersion: String =
-            file("$rootDir/gradle/libs.versions.toml")
-                .readLines()
-                .first { it.contains("jetbrains-kotlin") }
-                .split("\"")[1]
-
-        val kotlinModule =
-            file("$rootDir/gradle/libs.versions.toml")
-                .readLines()
-                .first { it.contains("jetbrains-kotlin-gradle-plugin") }
-                .split("\"")[1]
-
-        val kotlinDependency = "$kotlinModule:$kotlinVersion"
-        classpath(kotlinDependency)
-    }
-}
-
 hubdleSettings {
     catalog { //
         version(hubdleCatalogVersion)

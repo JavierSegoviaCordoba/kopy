@@ -1,3 +1,4 @@
+FILE fqName:<root> fileName:/SomeFile.kt
 FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-each-no-it.kt
   CLASS CLASS name:Foo modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
     annotations:
@@ -301,4 +302,3 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-update-ea
               CALL 'public final fun <get-numbers> (): kotlin.collections.List<kotlin.Int> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.collections.List<kotlin.Int> origin=GET_PROPERTY
                 $this: GET_VAR 'val foo21: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
               CONST String type=kotlin.String value=" instead of all being 42"
-FILE fqName:<root> fileName:/SomeFile.kt

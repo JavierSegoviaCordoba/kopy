@@ -1,3 +1,4 @@
+FILE fqName:<root> fileName:/SomeFile.kt
 FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
   CLASS CLASS name:Bar modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
     annotations:
@@ -1063,4 +1064,3 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/complex-1.kt
             then: STRING_CONCATENATION type=kotlin.String
               CONST String type=kotlin.String value="Fail:\n"
               GET_VAR 'val foo2: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-FILE fqName:<root> fileName:/SomeFile.kt

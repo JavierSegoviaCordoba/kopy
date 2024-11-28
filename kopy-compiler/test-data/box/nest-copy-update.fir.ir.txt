@@ -1,3 +1,4 @@
+FILE fqName:<root> fileName:/SomeFile.kt
 FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
   CLASS CLASS name:Bar modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
     annotations:
@@ -943,4 +944,3 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
                     $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
                       $this: GET_VAR 'val foo21: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
               CONST String type=kotlin.String value=" instead of 49"
-FILE fqName:<root> fileName:/SomeFile.kt
