@@ -30,7 +30,6 @@ import org.jetbrains.kotlin.fir.references.FirReference
 import org.jetbrains.kotlin.fir.references.builder.buildSimpleNamedReference
 import org.jetbrains.kotlin.fir.references.toResolvedVariableSymbol
 import org.jetbrains.kotlin.fir.resolve.providers.getRegularClassSymbolByClassId
-import org.jetbrains.kotlin.fir.resolve.providers.symbolProvider
 import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirVariableSymbol
 import org.jetbrains.kotlin.fir.types.FirResolvedTypeRef
@@ -50,7 +49,7 @@ internal class FirKopyAssignExpressionAltererExtension(
 
         val kopyClassClassId: ClassId = variableDispatchReceiver.resolvedType.classId ?: return null
         val kopyClass: FirRegularClassSymbol =
-            session.symbolProvider.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
+            session.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
 
         if (!kopyClass.hasAnnotation(classId = kopyClassId, session = session)) return null
 
@@ -62,7 +61,7 @@ internal class FirKopyAssignExpressionAltererExtension(
             source = variableAssignment.source?.fakeElement(AssignmentPluginAltered)
             explicitReceiver = buildPropertyAccessExpression {
                 source = leftArgument.source
-                coneTypeOrNull = leftResolvedType.type
+                coneTypeOrNull = leftResolvedType.coneType
                 calleeReference = leftArgument
                 variableAssignment.lValue
                     .asFirOrNull<FirQualifiedAccessExpression>()

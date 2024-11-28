@@ -1,3 +1,4 @@
+FILE fqName:<root> fileName:/SomeFile.kt
 FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
   CLASS CLASS name:House modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
     annotations:
@@ -513,4 +514,3 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
               GET_VAR 'val house1: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
               CONST String type=kotlin.String value=" is not equal to "
               GET_VAR 'val house2: com.javiersc.kotlin.kopy.playground.House declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.House origin=null
-FILE fqName:<root> fileName:/SomeFile.kt

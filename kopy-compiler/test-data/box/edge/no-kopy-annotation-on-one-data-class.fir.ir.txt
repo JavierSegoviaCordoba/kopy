@@ -1,3 +1,4 @@
+FILE fqName:<root> fileName:/SomeFile.kt
 FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-one-data-class.kt
   CLASS CLASS name:Address modality:FINAL visibility:public [data] superTypes:[kotlin.Any]
     annotations:
@@ -1015,4 +1016,3 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
                 $this: CALL 'public final fun <get-privateInfo> (): com.javiersc.kotlin.kopy.playground.PrivateInfo declared in com.javiersc.kotlin.kopy.playground.Person' type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=GET_PROPERTY
                   $this: GET_VAR 'val person2: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box' type=com.javiersc.kotlin.kopy.playground.Person origin=null
               CONST String type=kotlin.String value=" is not equal to SSN 42"
-FILE fqName:<root> fileName:/SomeFile.kt

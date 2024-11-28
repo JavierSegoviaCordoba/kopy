@@ -170,7 +170,7 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private fun createAtomicRefType(owner: FirClassSymbol<*>): ConeKotlinType {
         val atomicRefSymbol: FirRegularClassSymbol =
-            session.symbolProvider.getRegularClassSymbolByClassId(atomicRefClassId)!!
+            session.getRegularClassSymbolByClassId(atomicRefClassId)!!
 
         val fromTypeParameterSymbols: List<FirTypeParameterSymbol> =
             atomicRefSymbol.typeParameterSymbols.takeIf(List<FirTypeParameterSymbol>::isNotEmpty)!!
@@ -209,7 +209,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 owner = owner,
                 key = Key,
                 name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.type,
+                returnType = session.builtinTypes.unitType.coneType,
                 config = {
                     status {
                         isOverride = false
@@ -251,7 +251,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 owner = owner,
                 key = Key,
                 name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.type,
+                returnType = session.builtinTypes.unitType.coneType,
                 config = {
                     status {
                         isOverride = false
@@ -311,7 +311,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 owner = owner,
                 key = Key,
                 name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.type,
+                returnType = session.builtinTypes.unitType.coneType,
                 config = {
                     status {
                         isOverride = false
@@ -353,7 +353,7 @@ internal class FirKopyDeclarationGenerationExtension(
     private fun createCopyLikeFunction(
         callableId: CallableId,
         owner: FirClassSymbol<*>,
-    ): FirNamedFunctionSymbol? {
+    ): FirNamedFunctionSymbol {
         val copyValueParameterType: ConeKotlinType =
             session.substitutor(
                 fromTypeParameters = function1Class.typeParameterSymbols,
@@ -404,7 +404,6 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private fun createAnnotation(classId: ClassId): FirAnnotation? =
         session
-            .symbolProvider
             .getRegularClassSymbolByClassId(classId = classId)
             ?.fir
             ?.symbol
