@@ -39,6 +39,25 @@ dependencyResolutionManagement {
     }
 }
 
+buildscript {
+    dependencies {
+        val kotlinVersion: String =
+            file("$rootDir/gradle/libs.versions.toml")
+                .readLines()
+                .first { it.contains("jetbrains-kotlin") }
+                .split("\"")[1]
+
+        val kotlinModule =
+            file("$rootDir/gradle/libs.versions.toml")
+                .readLines()
+                .first { it.contains("jetbrains-kotlin-gradle-plugin") }
+                .split("\"")[1]
+
+        val kotlinDependency = "$kotlinModule:$kotlinVersion"
+        classpath(kotlinDependency)
+    }
+}
+
 val catalogFile = file("$rootDir/gradle/libs.versions.toml").readLines()
 
 val hubdleCatalogVersion: String =
@@ -46,11 +65,17 @@ val hubdleCatalogVersion: String =
 val kotlinCompilerExtensionsVersion: String =
     catalogFile.first { it.contains("javiersc-kotlin-compiler-extensions =") }.split("\"")[1]
 
+val kotlinVersion: String =
+    catalogFile
+        .first { it.contains("jetbrains-kotlin") }
+        .split("\"")[1]
+
 hubdleSettings {
     catalog { //
         version(hubdleCatalogVersion)
         replaceVersion(
             "javiersc-kotlin-compiler-extensions" to kotlinCompilerExtensionsVersion,
+            "jetbrains-kotlin" to kotlinVersion,
         )
     }
 }
