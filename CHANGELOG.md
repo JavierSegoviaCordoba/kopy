@@ -14,6 +14,7 @@
 
 ### Updated
 
+- `Kotlin -> 2.1.20-Beta2`
 - `com.javiersc.hubdle:hubdle-version-catalog -> 0.4.4`
 - `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.8.3`
 

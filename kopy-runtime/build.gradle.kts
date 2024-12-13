@@ -59,7 +59,7 @@ hubdle {
                 linuxArm64()
                 linuxX64()
             }
-            mingw {
+            mingw { //
                 mingwX64()
             }
             native()
@@ -69,7 +69,7 @@ hubdle {
                     d8()
                     nodejs()
                 }
-                wasi {
+                wasi { //
                     nodejs()
                 }
             }
