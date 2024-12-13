@@ -10,6 +10,8 @@ pluginManagement {
         ) {
             name = "mavenLocalTest"
         }
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
 
@@ -22,5 +24,7 @@ dependencyResolutionManagement {
         ) {
             name = "mavenLocalTest"
         }
+        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
 }

@@ -19,6 +19,7 @@ import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
 import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallChecker
 import org.jetbrains.kotlin.fir.declarations.FirDeclaration
+import org.jetbrains.kotlin.fir.declarations.FirReceiverParameter
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
 import org.jetbrains.kotlin.fir.expressions.FirAnonymousFunctionExpression
@@ -31,8 +32,8 @@ import org.jetbrains.kotlin.fir.expressions.FirThisReceiverExpression
 import org.jetbrains.kotlin.fir.references.toResolvedFunctionSymbol
 import org.jetbrains.kotlin.fir.render
 import org.jetbrains.kotlin.fir.resolve.toRegularClassSymbol
-import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirThisOwnerSymbol
 import org.jetbrains.kotlin.fir.types.resolvedType
 
 internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
@@ -95,7 +96,7 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
         val extensionReceiver: FirPropertyAccessExpression =
             setOrUpdateCall.extensionReceiver?.asFirOrNull<FirPropertyAccessExpression>()
                 ?: return Failure.BrokenChain(setOrUpdateCall)
-        val updateOrSetThisBoundSymbol: FirBasedSymbol<*> =
+        val updateOrSetThisBoundSymbol: FirThisOwnerSymbol<*> =
             setOrUpdateCall.dispatchReceiver
                 ?.asFirOrNull<FirThisReceiverExpression>()
                 ?.calleeReference
@@ -120,7 +121,11 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                 ?.asFirOrNull<FirThisReceiverExpression>()
                 ?.calleeReference
                 ?.boundSymbol
-                ?.fir ?: return Failure.NoCopyScope(setOrUpdateCall)
+                ?.fir
+                ?.asFirOrNull<FirReceiverParameter>()
+                ?.containingDeclarationSymbol
+                ?.fir
+                ?: return Failure.NoCopyScope(setOrUpdateCall)
         val isCopyScope: Boolean =
             context.callsOrAssignments
                 .asSequence()
@@ -147,9 +152,9 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
     private fun FirExpression.isBreakingChainCall(
         session: FirSession,
-        updateOrSetThisBoundSymbol: FirBasedSymbol<*>
+        updateOrSetThisBoundSymbol: FirThisOwnerSymbol<*>,
     ): CheckerResult {
-        val thisBoundSymbol: FirBasedSymbol<*>? =
+        val thisBoundSymbol: FirThisOwnerSymbol<*>? =
             this.asFirOrNull<FirThisReceiverExpression>()?.calleeReference?.boundSymbol
         if (updateOrSetThisBoundSymbol == thisBoundSymbol) return Success
 
@@ -159,7 +164,7 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
         val receiver: FirExpression? = this.dispatchReceiver
 
-        val dispatcherBoundSymbol: FirBasedSymbol<*>? =
+        val dispatcherBoundSymbol: FirThisOwnerSymbol<*>? =
             receiver?.asFirOrNull<FirThisReceiverExpression>()?.calleeReference?.boundSymbol
 
         val hasSameBoundSymbol: Boolean = dispatcherBoundSymbol == updateOrSetThisBoundSymbol

@@ -68,7 +68,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:zip index:3 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Address modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Address modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Address, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Address, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Address [infix]
       annotations:
         KopyOptIn
@@ -113,7 +113,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:other index:0 type:S of com.javiersc.kotlin.kopy.playground.Address.set
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun set <S> (other: S of com.javiersc.kotlin.kopy.playground.Address.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Address'
-          GET_OBJECT 'CLASS OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+          GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:update visibility:public modality:FINAL <U> ($this:com.javiersc.kotlin.kopy.playground.Address, $receiver:U of com.javiersc.kotlin.kopy.playground.Address.update, transform:kotlin.Function1<U of com.javiersc.kotlin.kopy.playground.Address.update, U of com.javiersc.kotlin.kopy.playground.Address.update>) returnType:kotlin.Unit [infix]
       annotations:
         KopyOptIn
@@ -358,7 +358,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:last index:1 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Name modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Name modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Name, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Name, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Name [infix]
       annotations:
         KopyOptIn
@@ -403,7 +403,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:other index:0 type:S of com.javiersc.kotlin.kopy.playground.Name.set
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun set <S> (other: S of com.javiersc.kotlin.kopy.playground.Name.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Name'
-          GET_OBJECT 'CLASS OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+          GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:update visibility:public modality:FINAL <U> ($this:com.javiersc.kotlin.kopy.playground.Name, $receiver:U of com.javiersc.kotlin.kopy.playground.Name.update, transform:kotlin.Function1<U of com.javiersc.kotlin.kopy.playground.Name.update, U of com.javiersc.kotlin.kopy.playground.Name.update>) returnType:kotlin.Unit [infix]
       annotations:
         KopyOptIn
@@ -594,7 +594,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:privateInfo index:2 type:com.javiersc.kotlin.kopy.playground.PrivateInfo
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Person modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Person modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Person, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Person, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Person [infix]
       annotations:
         KopyOptIn
@@ -639,7 +639,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:other index:0 type:S of com.javiersc.kotlin.kopy.playground.Person.set
       BLOCK_BODY
         RETURN type=kotlin.Nothing from='public final fun set <S> (other: S of com.javiersc.kotlin.kopy.playground.Person.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Person'
-          GET_OBJECT 'CLASS OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+          GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:Unit modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:update visibility:public modality:FINAL <U> ($this:com.javiersc.kotlin.kopy.playground.Person, $receiver:U of com.javiersc.kotlin.kopy.playground.Person.update, transform:kotlin.Function1<U of com.javiersc.kotlin.kopy.playground.Person.update, U of com.javiersc.kotlin.kopy.playground.Person.update>) returnType:kotlin.Unit [infix]
       annotations:
         KopyOptIn
@@ -836,7 +836,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:dob index:1 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:PrivateInfo modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:PrivateInfo modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.PrivateInfo) returnType:kotlin.String [operator]
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.PrivateInfo
       BLOCK_BODY
@@ -973,10 +973,10 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
               BLOCK_BODY
                 CALL 'public final fun set <S> (other: S of com.javiersc.kotlin.kopy.playground.Person.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Person' type=kotlin.Unit origin=null
                   <S>: kotlin.String
-                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=null
+                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_ARGUMENT
                   $receiver: CALL 'public final fun <get-ssn> (): kotlin.String declared in com.javiersc.kotlin.kopy.playground.PrivateInfo' type=kotlin.String origin=GET_PROPERTY
                     $this: CALL 'public final fun <get-privateInfo> (): com.javiersc.kotlin.kopy.playground.PrivateInfo declared in com.javiersc.kotlin.kopy.playground.Person' type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=GET_PROPERTY
-                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=null
+                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_ARGUMENT
                   other: CALL 'public final fun also <T> (block: kotlin.Function1<T of kotlin.also, kotlin.Unit>): T of kotlin.also declared in kotlin' type=kotlin.String origin=null
                     <T>: kotlin.String
                     $receiver: CONST String type=kotlin.String value="SSN 42"
@@ -986,16 +986,16 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
                         BLOCK_BODY
                           CALL 'public final fun lazySet (value: T of kotlinx.atomicfu.AtomicRef): kotlin.Unit declared in kotlinx.atomicfu.AtomicRef' type=kotlin.Unit origin=null
                             $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> declared in com.javiersc.kotlin.kopy.playground.Person' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> origin=GET_PROPERTY
-                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=null
+                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_ARGUMENT
                             value: CALL 'public final fun copy (name: com.javiersc.kotlin.kopy.playground.Name, address: com.javiersc.kotlin.kopy.playground.Address, privateInfo: com.javiersc.kotlin.kopy.playground.PrivateInfo): com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.Person' type=com.javiersc.kotlin.kopy.playground.Person origin=null
                               $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Person origin=GET_PROPERTY
                                 $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> declared in com.javiersc.kotlin.kopy.playground.Person' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> origin=GET_PROPERTY
-                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=null
+                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_ARGUMENT
                               privateInfo: CALL 'public final fun copy (ssn: kotlin.String, dob: kotlin.String): com.javiersc.kotlin.kopy.playground.PrivateInfo declared in com.javiersc.kotlin.kopy.playground.PrivateInfo' type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=null
                                 $this: CALL 'public final fun <get-privateInfo> (): com.javiersc.kotlin.kopy.playground.PrivateInfo declared in com.javiersc.kotlin.kopy.playground.Person' type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=GET_PROPERTY
                                   $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Person origin=GET_PROPERTY
                                     $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> declared in com.javiersc.kotlin.kopy.playground.Person' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Person> origin=GET_PROPERTY
-                                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=null
+                                      $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Person declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_ARGUMENT
                                 ssn: GET_VAR 'it: kotlin.String declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.String origin=null
       VAR name:isOk type:kotlin.Boolean [val]
         CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ

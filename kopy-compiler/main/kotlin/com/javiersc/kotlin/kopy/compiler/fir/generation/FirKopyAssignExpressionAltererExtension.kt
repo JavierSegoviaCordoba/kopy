@@ -19,7 +19,7 @@ import org.jetbrains.kotlin.fir.expressions.buildUnaryArgumentList
 import org.jetbrains.kotlin.fir.expressions.builder.buildFunctionCall
 import org.jetbrains.kotlin.fir.expressions.builder.buildPropertyAccessExpression
 import org.jetbrains.kotlin.fir.expressions.calleeReference
-import org.jetbrains.kotlin.fir.expressions.contextReceiverArguments
+import org.jetbrains.kotlin.fir.expressions.contextArguments
 import org.jetbrains.kotlin.fir.expressions.dispatchReceiver
 import org.jetbrains.kotlin.fir.expressions.explicitReceiver
 import org.jetbrains.kotlin.fir.expressions.extensionReceiver
@@ -71,7 +71,7 @@ internal class FirKopyAssignExpressionAltererExtension(
                 explicitReceiver = variableAssignment.explicitReceiver
                 dispatchReceiver = variableAssignment.dispatchReceiver
                 extensionReceiver = variableAssignment.extensionReceiver
-                contextReceiverArguments += variableAssignment.contextReceiverArguments
+                contextArguments += variableAssignment.contextArguments
             }
             argumentList = buildUnaryArgumentList(rightArgument)
             calleeReference = buildSimpleNamedReference {
