@@ -53,7 +53,7 @@ import org.jetbrains.kotlin.ir.types.classOrFail
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.deepCopyWithSymbols
 import org.jetbrains.kotlin.ir.util.functions
-import org.jetbrains.kotlin.ir.util.getArguments
+import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.util.getPropertyGetter
 import org.jetbrains.kotlin.ir.util.getSimpleFunction
 import org.jetbrains.kotlin.ir.util.indexOrMinusOne
@@ -90,9 +90,8 @@ internal class IrSetOrUpdateCallTransformer(
         return originalCallCallWithAlsoCall
     }
 
-    private inner class SetValueTransformer(
-        private val expressionCall: IrCall,
-    ) : IrElementTransformerVoid() {
+    private inner class SetValueTransformer(private val expressionCall: IrCall) :
+        IrElementTransformerVoid() {
         override fun visitExpression(expression: IrExpression): IrExpression {
             fun original(): IrExpression = super.visitExpression(expression)
             if (expression !in expressionCall.valueArguments) return original()
@@ -106,9 +105,8 @@ internal class IrSetOrUpdateCallTransformer(
         }
     }
 
-    private inner class UpdateReturnTransformer(
-        private val expressionCall: IrCall,
-    ) : IrElementTransformerVoid() {
+    private inner class UpdateReturnTransformer(private val expressionCall: IrCall) :
+        IrElementTransformerVoid() {
         override fun visitReturn(expression: IrReturn): IrExpression {
             fun original(): IrExpression = super.visitReturn(expression)
             val parent: IrDeclarationParent =
@@ -132,7 +130,7 @@ internal class IrSetOrUpdateCallTransformer(
 
     private fun IrPluginContext.createAlsoCall(
         expression: IrCall,
-        expressionParent: IrDeclarationParent
+        expressionParent: IrDeclarationParent,
     ): IrCall? {
         val setOrUpdateType: IrType = expression.extensionReceiver?.type ?: return null
 
@@ -171,7 +169,7 @@ internal class IrSetOrUpdateCallTransformer(
     private fun createAlsoBlockFunction(
         expressionParent: IrDeclarationParent,
         setOrUpdateType: IrType,
-        expression: IrCall
+        expression: IrCall,
     ): IrSimpleFunction? {
         val alsoBlockFunction: IrSimpleFunction =
             pluginContext.irFactory
@@ -197,7 +195,7 @@ internal class IrSetOrUpdateCallTransformer(
                                     ?: return null
                             val atomicGetterLazySetFunctionCall: IrCall? =
                                 expression.createAtomicGetterLazySetFunctionCall(
-                                    copyChainCall = copyChainCall,
+                                    copyChainCall = copyChainCall
                                 )
                             if (atomicGetterLazySetFunctionCall != null) {
                                 +atomicGetterLazySetFunctionCall
@@ -230,7 +228,7 @@ internal class IrSetOrUpdateCallTransformer(
                     val isLast: Boolean = next == dispatchers.last()
                     val argumentValue: IrDeclarationReference =
                         if (isLast) alsoItValueParameterGetValue
-                        else next.apply { this.dispatchReceiver = current }
+                        else next.apply { insertDispatchReceiver(current) }
 
                     val copyCall: IrCall? =
                         current.symbol.createCopyCall(
@@ -246,8 +244,8 @@ internal class IrSetOrUpdateCallTransformer(
         val copyChainCall: IrCall =
             calls.reduce { acc, irCall ->
                 val argumentIndex: Int =
-                    irCall.getArguments().firstNotNullOfOrNull {
-                        val index = it.first.indexOrMinusOne
+                    irCall.getArgumentsWithIr().firstNotNullOfOrNull { (valueParameter, _) ->
+                        val index: Int = valueParameter.descriptor.indexOrMinusOne
                         if (index != -1) index else null
                     } ?: return null
                 irCall.putValueArgument(argumentIndex, acc)
@@ -271,10 +269,10 @@ internal class IrSetOrUpdateCallTransformer(
         buildList {
             val extensionReceiver: IrMemberAccessExpression<*> =
                 runCatching {
-                    extensionReceiver
-                        ?.asIrOrNull<IrMemberAccessExpression<*>>()
-                        ?.deepCopyWithSymbols()
-                }
+                        extensionReceiver
+                            ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                            ?.deepCopyWithSymbols()
+                    }
                     .getOrNull() ?: return@buildList
 
             add(extensionReceiver)
@@ -303,8 +301,7 @@ internal class IrSetOrUpdateCallTransformer(
                 val kotlinCopyFunctionSymbol: IrSimpleFunctionSymbol =
                     dataClass.owner.functions
                         .firstOrNull {
-                            it.name == copyName &&
-                                !it.hasAnnotation(kopyFunctionCopyFqName)
+                            it.name == copyName && !it.hasAnnotation(kopyFunctionCopyFqName)
                         }
                         ?.symbol ?: return null
                 irCall(kotlinCopyFunctionSymbol).apply {

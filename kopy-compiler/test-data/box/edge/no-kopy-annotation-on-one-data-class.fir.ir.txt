@@ -68,7 +68,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:zip index:3 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Address modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Address modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Address, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Address, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Address [infix]
       annotations:
         KopyOptIn
@@ -358,7 +358,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:last index:1 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Name modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Name modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Name, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Name, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Name [infix]
       annotations:
         KopyOptIn
@@ -594,7 +594,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:privateInfo index:2 type:com.javiersc.kotlin.kopy.playground.PrivateInfo
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Person modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Person modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:copy visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Person, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Person, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Person [infix]
       annotations:
         KopyOptIn
@@ -836,7 +836,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
       VALUE_PARAMETER name:dob index:1 type:kotlin.String
       BLOCK_BODY
         DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
-        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:PrivateInfo modality:FINAL visibility:public [data] superTypes:[kotlin.Any]'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:PrivateInfo modality:FINAL visibility:public [data] superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN GENERATED_DATA_CLASS_MEMBER name:component1 visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.PrivateInfo) returnType:kotlin.String [operator]
       $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.PrivateInfo
       BLOCK_BODY
