@@ -14,6 +14,8 @@
 
 ### Updated
 
+- `com.javiersc.hubdle:hubdle-version-catalog -> 0.4.3`
+
 ## [0.14.0+2.1.10] - 2025-01-28
 
 ### Updated
