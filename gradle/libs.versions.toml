@@ -1,6 +1,6 @@
 [versions]
-hubdle = "0.8.2"
-hubdleCatalog = "0.4.3"
+hubdle = "0.8.3"
+hubdleCatalog = "0.4.4"
 javiersc-kotlin-compiler-extensions = "0.5.2+2.1.10"
 jetbrains-kotlin = "2.1.10"
 
