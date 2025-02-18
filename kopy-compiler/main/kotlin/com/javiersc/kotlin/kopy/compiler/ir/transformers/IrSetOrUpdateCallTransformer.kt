@@ -18,6 +18,7 @@ import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyFqName
+import com.javiersc.kotlin.kopy.compiler.loadName
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames
@@ -193,12 +194,12 @@ internal class IrSetOrUpdateCallTransformer(
                             val copyChainCall: IrCall =
                                 expression.createCopyChainCall(alsoItValueParameterGetValue)
                                     ?: return null
-                            val atomicGetterLazySetFunctionCall: IrCall? =
-                                expression.createAtomicGetterLazySetFunctionCall(
+                            val atomicGetterStoreFunctionCall: IrCall? =
+                                expression.createAtomicGetterStoreSetFunctionCall(
                                     copyChainCall = copyChainCall
                                 )
-                            if (atomicGetterLazySetFunctionCall != null) {
-                                +atomicGetterLazySetFunctionCall
+                            if (atomicGetterStoreFunctionCall != null) {
+                                +atomicGetterStoreFunctionCall
                             }
                         }
 
@@ -337,13 +338,13 @@ internal class IrSetOrUpdateCallTransformer(
                 }
             }
 
-        val atomicGetterGetFunction: IrSimpleFunctionSymbol =
-            atomicGetterFunction.owner.returnType.classOrFail.getPropertyGetter("value")
+        val atomicReferenceLoadFunction: IrSimpleFunctionSymbol =
+            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("$loadName")
                 ?: error("No function found")
 
         val atomicGetterGetFunctionCall: IrCall =
             pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterGetFunction).apply {
+                irCall(atomicReferenceLoadFunction).apply {
                     dispatchReceiver = getAtomicGetterFunctionCall
                     type = dispatchIrGetValue.type
                     origin = IrStatementOrigin.GET_PROPERTY
@@ -353,7 +354,7 @@ internal class IrSetOrUpdateCallTransformer(
         return atomicGetterGetFunctionCall
     }
 
-    private fun IrCall.createAtomicGetterLazySetFunctionCall(copyChainCall: IrCall): IrCall? {
+    private fun IrCall.createAtomicGetterStoreSetFunctionCall(copyChainCall: IrCall): IrCall? {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
                 ?: error("No value found")
@@ -372,19 +373,19 @@ internal class IrSetOrUpdateCallTransformer(
                 }
             }
 
-        val atomicGetterLazyFunction: IrSimpleFunctionSymbol =
-            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("lazySet")
+        val atomicGetterStoreFunction: IrSimpleFunctionSymbol =
+            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("store")
                 ?: error("No function found")
 
-        val atomicGetterLazySetFunctionCall: IrCall =
+        val atomicGetterStoreFunctionCall: IrCall =
             pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterLazyFunction).apply {
+                irCall(atomicGetterStoreFunction).apply {
                     dispatchReceiver = atomicGetterFunctionCall
-                    type = atomicGetterLazyFunction.owner.returnType
+                    type = atomicGetterStoreFunction.owner.returnType
                     putValueArgument(0, copyChainCall)
                 }
             }
 
-        return atomicGetterLazySetFunctionCall
+        return atomicGetterStoreFunctionCall
     }
 }

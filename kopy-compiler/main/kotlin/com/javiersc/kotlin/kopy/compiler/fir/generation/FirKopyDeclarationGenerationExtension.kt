@@ -8,7 +8,7 @@ import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
 import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyKey
-import com.javiersc.kotlin.kopy.compiler.atomicRefClassId
+import com.javiersc.kotlin.kopy.compiler.atomicReferenceClassId
 import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.fir.Key
 import com.javiersc.kotlin.kopy.compiler.invokeName
@@ -81,13 +81,10 @@ internal class FirKopyDeclarationGenerationExtension(
         get() = KopyVisibility.from(configuration[KopyKey.Visibility, KopyVisibility.Auto.value])
 
     private val function1Class: FirClassLikeSymbol<*>
-        get() = session
-            .symbolProvider
-            .getClassLikeSymbolByClassId(StandardClassIds.FunctionN(1))!!
+        get() = session.symbolProvider.getClassLikeSymbolByClassId(StandardClassIds.FunctionN(1))!!
 
     private val function1Type: ConeClassLikeType
-        get() = (function1Class.toFirTypeRef().coneType as ConeClassLikeType)
-            .withArguments { it.type!! }
+        get() = (function1Class.defaultType()).withArguments { it.type!! }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {
         register(DeclarationPredicate.create { annotated(kopyFqName) })
@@ -95,23 +92,16 @@ internal class FirKopyDeclarationGenerationExtension(
 
     override fun getCallableNamesForClass(
         classSymbol: FirClassSymbol<*>,
-        context: MemberGenerationContext
+        context: MemberGenerationContext,
     ): Set<Name> {
         val names: Set<Name> =
-            setOf(
-                underscoreAtomicName,
-                copyName,
-                invokeName,
-                setName,
-                updateName,
-                updateEachName,
-            )
+            setOf(underscoreAtomicName, copyName, invokeName, setName, updateName, updateEachName)
         return names
     }
 
     override fun generateProperties(
         callableId: CallableId,
-        context: MemberGenerationContext?
+        context: MemberGenerationContext?,
     ): List<FirPropertySymbol> {
         if (callableId.callableName != underscoreAtomicName) return emptyList()
         val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
@@ -121,9 +111,9 @@ internal class FirKopyDeclarationGenerationExtension(
         val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
 
         val atomicVisibility: Visibility =
-            calculateVisibility(owner)
-                .takeIf { it is Visibilities.Internal || it is Visibilities.Private }
-                ?: Visibilities.Internal
+            calculateVisibility(owner).takeIf {
+                it is Visibilities.Internal || it is Visibilities.Private
+            } ?: Visibilities.Internal
 
         val atomicProperty: FirProperty =
             createMemberProperty(
@@ -142,7 +132,7 @@ internal class FirKopyDeclarationGenerationExtension(
 
     override fun generateFunctions(
         callableId: CallableId,
-        context: MemberGenerationContext?
+        context: MemberGenerationContext?,
     ): List<FirNamedFunctionSymbol> = buildList {
         val owner: FirClassSymbol<*> = context?.owner ?: return@buildList
         if (!owner.hasAnnotation(kopyClassId, session)) return@buildList
@@ -170,7 +160,7 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private fun createAtomicRefType(owner: FirClassSymbol<*>): ConeKotlinType {
         val atomicRefSymbol: FirRegularClassSymbol =
-            session.getRegularClassSymbolByClassId(atomicRefClassId)!!
+            session.getRegularClassSymbolByClassId(atomicReferenceClassId)!!
 
         val fromTypeParameterSymbols: List<FirTypeParameterSymbol> =
             atomicRefSymbol.typeParameterSymbols.takeIf(List<FirTypeParameterSymbol>::isNotEmpty)!!
@@ -206,27 +196,27 @@ internal class FirKopyDeclarationGenerationExtension(
         if (callableId.callableName != setName) return null
         val setFunction: FirSimpleFunction =
             createMemberFunction(
-                owner = owner,
-                key = Key,
-                name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.coneType,
-                config = {
-                    status {
-                        isOverride = false
-                        isInfix = true
-                    }
-                    modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
-                    this.extensionReceiverType { typeParameters ->
-                        typeParameters.first().toConeType()
-                    }
-                    valueParameter(
-                        name = "other".toName(),
-                        typeProvider = { typeParameters -> typeParameters.first().toConeType() },
-                    )
-                    typeParameter("S".toName())
-                },
-            )
+                    owner = owner,
+                    key = Key,
+                    name = callableId.callableName,
+                    returnType = session.builtinTypes.unitType.coneType,
+                    config = {
+                        status {
+                            isOverride = false
+                            isInfix = true
+                        }
+                        modality = Modality.FINAL
+                        visibility = calculateVisibility(owner)
+                        this.extensionReceiverType { typeParameters ->
+                            typeParameters.first().toConeType()
+                        }
+                        valueParameter(
+                            name = "other".toName(),
+                            typeProvider = { typeParameters -> typeParameters.first().toConeType() },
+                        )
+                        typeParameter("S".toName())
+                    },
+                )
                 .apply {
                     replaceBody(buildEmptyExpressionBlock())
 
@@ -234,7 +224,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionSetClassId),
-                        ),
+                        )
                     )
                 }
         return setFunction.symbol
@@ -248,36 +238,39 @@ internal class FirKopyDeclarationGenerationExtension(
 
         val updateFunction: FirSimpleFunction =
             createMemberFunction(
-                owner = owner,
-                key = Key,
-                name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.coneType,
-                config = {
-                    status {
-                        isOverride = false
-                        isInfix = true
-                    }
-                    modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
-                    this.extensionReceiverType { typeParameters ->
-                        typeParameters.first().toConeType()
-                    }
-                    typeParameter("U".toName())
-                    valueParameter(
-                        name = "transform".toName(),
-                        typeProvider = { typeParams ->
-                            val typeParam: ConeTypeParameterType = typeParams.first().toConeType()
-                            val copyValueParameterType: ConeKotlinType =
-                                session.substitutor(
-                                    fromTypeParameters = function1Class.typeParameterSymbols,
-                                    toTypeParameters = listOf(typeParam, typeParam),
-                                )
-                                    .substituteOrSelf(function1Type)
-                            copyValueParameterType
-                        },
-                    )
-                },
-            )
+                    owner = owner,
+                    key = Key,
+                    name = callableId.callableName,
+                    returnType = session.builtinTypes.unitType.coneType,
+                    config = {
+                        status {
+                            isOverride = false
+                            isInfix = true
+                        }
+                        modality = Modality.FINAL
+                        visibility = calculateVisibility(owner)
+                        this.extensionReceiverType { typeParameters ->
+                            typeParameters.first().toConeType()
+                        }
+                        typeParameter("U".toName())
+                        valueParameter(
+                            name = "transform".toName(),
+                            typeProvider = { typeParams ->
+                                val typeParam: ConeTypeParameterType =
+                                    typeParams.first().toConeType()
+                                val copyValueParameterType: ConeKotlinType =
+                                    session
+                                        .substitutor(
+                                            fromTypeParameters =
+                                                function1Class.typeParameterSymbols,
+                                            toTypeParameters = listOf(typeParam, typeParam),
+                                        )
+                                        .substituteOrSelf(function1Type)
+                                copyValueParameterType
+                            },
+                        )
+                    },
+                )
                 .apply {
                     replaceBody(buildEmptyExpressionBlock())
 
@@ -285,7 +278,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionUpdateClassId),
-                        ),
+                        )
                     )
                 }
         return updateFunction.symbol
@@ -298,45 +291,43 @@ internal class FirKopyDeclarationGenerationExtension(
         if (callableId.callableName != updateEachName) return null
 
         val iterableClass: FirClassLikeSymbol<*> =
-            session
-                .symbolProvider
-                .getClassLikeSymbolByClassId(iterableClassId) ?: return null
+            session.symbolProvider.getClassLikeSymbolByClassId(iterableClassId) ?: return null
 
         val iterableType: ConeClassLikeType =
-            (iterableClass.toFirTypeRef().coneType as ConeClassLikeType)
-                .withArguments { it.type!! }
+            (iterableClass.toFirTypeRef().coneType as ConeClassLikeType).withArguments { it.type!! }
 
         val updateEachFunction: FirSimpleFunction =
             createMemberFunction(
-                owner = owner,
-                key = Key,
-                name = callableId.callableName,
-                returnType = session.builtinTypes.unitType.coneType,
-                config = {
-                    status {
-                        isOverride = false
-                        isInfix = true
-                    }
-                    modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
-                    this.extensionReceiverType { typeParameters ->
-                        val typeParamsAsConeType: List<ConeTypeParameterType> =
-                            typeParameters.map { it.toConeType() }
-                        session.substitutor(
-                            fromTypeParameters = iterableClass.typeParameterSymbols,
-                            toTypeParameters = typeParamsAsConeType,
+                    owner = owner,
+                    key = Key,
+                    name = callableId.callableName,
+                    returnType = session.builtinTypes.unitType.coneType,
+                    config = {
+                        status {
+                            isOverride = false
+                            isInfix = true
+                        }
+                        modality = Modality.FINAL
+                        visibility = calculateVisibility(owner)
+                        this.extensionReceiverType { typeParameters ->
+                            val typeParamsAsConeType: List<ConeTypeParameterType> =
+                                typeParameters.map { it.toConeType() }
+                            session
+                                .substitutor(
+                                    fromTypeParameters = iterableClass.typeParameterSymbols,
+                                    toTypeParameters = typeParamsAsConeType,
+                                )
+                                .substituteOrSelf(iterableType)
+                        }
+                        typeParameter("UE".toName())
+                        valueParameter(
+                            name = "transform".toName(),
+                            typeProvider = { typeParamRefs ->
+                                function1Type.withArguments { typeParamRefs.first().toConeType() }
+                            },
                         )
-                            .substituteOrSelf(iterableType)
-                    }
-                    typeParameter("UE".toName())
-                    valueParameter(
-                        name = "transform".toName(),
-                        typeProvider = { typeParamRefs ->
-                            function1Type.withArguments { typeParamRefs.first().toConeType() }
-                        },
-                    )
-                },
-            )
+                    },
+                )
                 .apply {
                     replaceBody(buildEmptyExpressionBlock())
 
@@ -344,7 +335,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionUpdateEachClassId),
-                        ),
+                        )
                     )
                 }
         return updateEachFunction.symbol
@@ -354,34 +345,34 @@ internal class FirKopyDeclarationGenerationExtension(
         callableId: CallableId,
         owner: FirClassSymbol<*>,
     ): FirNamedFunctionSymbol {
+        val toTypeParameters: List<ConeClassLikeType> =
+            listOf(owner.defaultType(), session.builtinTypes.unitType.coneType)
         val copyValueParameterType: ConeKotlinType =
-            session.substitutor(
-                fromTypeParameters = function1Class.typeParameterSymbols,
-                toTypeParameters = listOf(
-                    owner.defaultType(),
-                    session.builtinTypes.unitType.coneType,
-                ),
-            )
+            session
+                .substitutor(
+                    fromTypeParameters = function1Class.typeParameterSymbols,
+                    toTypeParameters = toTypeParameters,
+                )
                 .substituteOrSelf(function1Type)
                 .withAttributes(ConeAttributes.WithExtensionFunctionType)
 
         val copyFunction: FirSimpleFunction =
             createMemberFunction(
-                owner = owner,
-                key = Key,
-                name = callableId.callableName,
-                returnType = owner.defaultType(),
-                config = {
-                    status {
-                        isOverride = false
-                        isInfix = true
-                        isOperator = callableId.callableName == invokeName
-                    }
-                    modality = Modality.FINAL
-                    visibility = calculateVisibility(owner)
-                    valueParameter(copyName, copyValueParameterType)
-                },
-            )
+                    owner = owner,
+                    key = Key,
+                    name = callableId.callableName,
+                    returnType = owner.defaultType(),
+                    config = {
+                        status {
+                            isOverride = false
+                            isInfix = true
+                            isOperator = callableId.callableName == invokeName
+                        }
+                        modality = Modality.FINAL
+                        visibility = calculateVisibility(owner)
+                        valueParameter(copyName, copyValueParameterType)
+                    },
+                )
                 .apply {
                     replaceBody(buildEmptyExpressionBlock())
 
@@ -389,7 +380,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createCopyOrInvokeAnnotation(callableId),
-                        ),
+                        )
                     )
                 }
         return copyFunction.symbol
@@ -407,14 +398,14 @@ internal class FirKopyDeclarationGenerationExtension(
             .getRegularClassSymbolByClassId(classId = classId)
             ?.fir
             ?.symbol
-            ?.toFirTypeRef()?.let(::createFirAnnotation)
+            ?.toFirTypeRef()
+            ?.let(::createFirAnnotation)
 
     private fun calculateVisibility(classSymbol: FirClassSymbol<*>): Visibility {
         val visibility: Visibility =
             classSymbol.primaryConstructorSymbol(session)?.visibility ?: return Visibilities.Public
         val isMoreRestrictive: Boolean = kopyVisibility.isMoreRestrictedThan(visibility)
-        return if (isMoreRestrictive) kopyVisibility.toVisibility(visibility)
-        else visibility
+        return if (isMoreRestrictive) kopyVisibility.toVisibility(visibility) else visibility
     }
 
     private fun KopyVisibility.toVisibility(defaultVisibility: Visibility): Visibility =
@@ -431,13 +422,14 @@ internal class FirKopyDeclarationGenerationExtension(
 
     @Suppress("MagicNumber")
     private val Visibility.restrictive: Int
-        get() = when (this) {
-            Visibilities.Public -> 1
-            Visibilities.Internal -> 2
-            Visibilities.Protected -> 3
-            Visibilities.Private -> 4
-            else -> 5
-        }
+        get() =
+            when (this) {
+                Visibilities.Public -> 1
+                Visibilities.Internal -> 2
+                Visibilities.Protected -> 3
+                Visibilities.Private -> 4
+                else -> 5
+            }
 }
 
 private fun FirSession.substitutor(

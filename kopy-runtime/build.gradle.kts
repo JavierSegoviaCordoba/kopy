@@ -21,13 +21,7 @@ hubdle {
                 jvmVersion(JavaVersion.VERSION_1_8)
                 kotest.enabled(false)
             }
-            common {
-                main {
-                    dependencies { //
-                        api(hubdle.jetbrains.kotlinx.atomicfu)
-                    }
-                }
-            }
+            common()
             androidNative {
                 androidNativeArm32()
                 androidNativeArm64()
