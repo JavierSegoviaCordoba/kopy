@@ -27,17 +27,17 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:isValid type:kotlin.Boolean visibility:private [final]' type=kotlin.Boolean origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.<get-isValid>' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
-      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> visibility:private [final]
+      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> visibility:private [final]
         EXPRESSION_BODY
-          CALL 'public final fun atomic <T> (initial: T of kotlinx.atomicfu.atomic): kotlinx.atomicfu.AtomicRef<T of kotlinx.atomicfu.atomic> declared in kotlinx.atomicfu' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> origin=null
-            <T>: com.javiersc.kotlin.kopy.playground.Bar
-            initial: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
-      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Bar) returnType:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar>
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+            <class: T>: com.javiersc.kotlin.kopy.playground.Bar
+            value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Bar) returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar>
         correspondingProperty: PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
         $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Bar
         BLOCK_BODY
-          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar'
-            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> visibility:private [final]' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> origin=null
+          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> visibility:private [final]' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.<get-_atomic>' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     CONSTRUCTOR visibility:public <> (baz:com.javiersc.kotlin.kopy.playground.Baz, isValid:kotlin.Boolean) returnType:com.javiersc.kotlin.kopy.playground.Bar [primary]
       VALUE_PARAMETER name:baz index:0 type:com.javiersc.kotlin.kopy.playground.Baz
@@ -59,8 +59,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
               $this: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Bar, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Bar [operator,infix]
       annotations:
@@ -76,8 +76,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Bar> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
               $this: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL <S> ($this:com.javiersc.kotlin.kopy.playground.Bar, $receiver:S of com.javiersc.kotlin.kopy.playground.Bar.set, other:S of com.javiersc.kotlin.kopy.playground.Bar.set) returnType:kotlin.Unit [infix]
       annotations:
@@ -251,17 +251,17 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:text type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.<get-text>' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
     PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
-      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> visibility:private [final]
+      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> visibility:private [final]
         EXPRESSION_BODY
-          CALL 'public final fun atomic <T> (initial: T of kotlinx.atomicfu.atomic): kotlinx.atomicfu.AtomicRef<T of kotlinx.atomicfu.atomic> declared in kotlinx.atomicfu' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> origin=null
-            <T>: com.javiersc.kotlin.kopy.playground.Baz
-            initial: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
-      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Baz) returnType:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz>
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+            <class: T>: com.javiersc.kotlin.kopy.playground.Baz
+            value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Baz) returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz>
         correspondingProperty: PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
         $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Baz
         BLOCK_BODY
-          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz'
-            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> visibility:private [final]' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> origin=null
+          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> visibility:private [final]' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.<get-_atomic>' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
     CONSTRUCTOR visibility:public <> (qux:com.javiersc.kotlin.kopy.playground.Qux, text:kotlin.String) returnType:com.javiersc.kotlin.kopy.playground.Baz [primary]
       VALUE_PARAMETER name:qux index:0 type:com.javiersc.kotlin.kopy.playground.Qux
@@ -283,8 +283,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Baz.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.copy' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> origin=null
               $this: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.copy' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Baz, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Baz [operator,infix]
       annotations:
@@ -300,8 +300,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Baz.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.invoke' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Baz, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Baz> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> declared in com.javiersc.kotlin.kopy.playground.Baz' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Baz> origin=null
               $this: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz.invoke' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL <S> ($this:com.javiersc.kotlin.kopy.playground.Baz, $receiver:S of com.javiersc.kotlin.kopy.playground.Baz.set, other:S of com.javiersc.kotlin.kopy.playground.Baz.set) returnType:kotlin.Unit [infix]
       annotations:
@@ -475,17 +475,17 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:letter type:kotlin.Char visibility:private [final]' type=kotlin.Char origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<get-letter>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
-      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> visibility:private [final]
+      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> visibility:private [final]
         EXPRESSION_BODY
-          CALL 'public final fun atomic <T> (initial: T of kotlinx.atomicfu.atomic): kotlinx.atomicfu.AtomicRef<T of kotlinx.atomicfu.atomic> declared in kotlinx.atomicfu' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=null
-            <T>: com.javiersc.kotlin.kopy.playground.Foo
-            initial: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo>
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+            <class: T>: com.javiersc.kotlin.kopy.playground.Foo
+            value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo) returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo>
         correspondingProperty: PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
         $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Foo
         BLOCK_BODY
-          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo'
-            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> visibility:private [final]' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=null
+          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> visibility:private [final]' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.<get-_atomic>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     CONSTRUCTOR visibility:public <> (bar:com.javiersc.kotlin.kopy.playground.Bar, letter:kotlin.Char) returnType:com.javiersc.kotlin.kopy.playground.Foo [primary]
       VALUE_PARAMETER name:bar index:0 type:com.javiersc.kotlin.kopy.playground.Bar
@@ -507,8 +507,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_6: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
               $this: GET_VAR 'val tmp_6: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Foo, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Foo [operator,infix]
       annotations:
@@ -524,8 +524,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_7: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
               $this: GET_VAR 'val tmp_7: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL <S> ($this:com.javiersc.kotlin.kopy.playground.Foo, $receiver:S of com.javiersc.kotlin.kopy.playground.Foo.set, other:S of com.javiersc.kotlin.kopy.playground.Foo.set) returnType:kotlin.Unit [infix]
       annotations:
@@ -688,17 +688,17 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:number type:kotlin.Int visibility:private [final]' type=kotlin.Int origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.<get-number>' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
     PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
-      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> visibility:private [final]
+      FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> visibility:private [final]
         EXPRESSION_BODY
-          CALL 'public final fun atomic <T> (initial: T of kotlinx.atomicfu.atomic): kotlinx.atomicfu.AtomicRef<T of kotlinx.atomicfu.atomic> declared in kotlinx.atomicfu' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> origin=null
-            <T>: com.javiersc.kotlin.kopy.playground.Qux
-            initial: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
-      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Qux) returnType:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux>
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+            <class: T>: com.javiersc.kotlin.kopy.playground.Qux
+            value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Qux) returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux>
         correspondingProperty: PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
         $this: VALUE_PARAMETER name:<this> type:com.javiersc.kotlin.kopy.playground.Qux
         BLOCK_BODY
-          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux'
-            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> visibility:private [final]' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> origin=null
+          RETURN type=kotlin.Nothing from='internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> visibility:private [final]' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> origin=null
               receiver: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.<get-_atomic>' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
     CONSTRUCTOR visibility:public <> (number:kotlin.Int) returnType:com.javiersc.kotlin.kopy.playground.Qux [primary]
       VALUE_PARAMETER name:number index:0 type:kotlin.Int
@@ -719,8 +719,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Qux.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_9: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.copy' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> origin=null
               $this: GET_VAR 'val tmp_9: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.copy' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL <> ($this:com.javiersc.kotlin.kopy.playground.Qux, copy:@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit>) returnType:com.javiersc.kotlin.kopy.playground.Qux [operator,infix]
       annotations:
@@ -736,8 +736,8 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
           $this: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Qux.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           p1: GET_VAR 'val tmp_10: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.invoke' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Qux, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux'
-          CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=T of kotlinx.atomicfu.AtomicRef origin=null
-            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Qux> origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> declared in com.javiersc.kotlin.kopy.playground.Qux' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Qux> origin=null
               $this: GET_VAR 'val tmp_10: com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux.invoke' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL <S> ($this:com.javiersc.kotlin.kopy.playground.Qux, $receiver:S of com.javiersc.kotlin.kopy.playground.Qux.set, other:S of com.javiersc.kotlin.kopy.playground.Qux.set) returnType:kotlin.Unit [infix]
       annotations:
@@ -895,30 +895,30 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
                               FUN LOCAL_FUNCTION_FOR_LAMBDA name:<anonymous> visibility:local modality:FINAL <> (it:kotlin.Int) returnType:kotlin.Unit
                                 VALUE_PARAMETER name:it index:0 type:kotlin.Int
                                 BLOCK_BODY
-                                  CALL 'public final fun lazySet (value: T of kotlinx.atomicfu.AtomicRef): kotlin.Unit declared in kotlinx.atomicfu.AtomicRef' type=kotlin.Unit origin=null
-                                    $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                  CALL 'public final fun store (newValue: T of kotlin.concurrent.atomics.AtomicReference): kotlin.Unit declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.Unit origin=null
+                                    $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
                                       $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
-                                    value: CALL 'public final fun copy (bar: com.javiersc.kotlin.kopy.playground.Bar, letter: kotlin.Char): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
-                                      $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
-                                        $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                    newValue: CALL 'public final fun copy (bar: com.javiersc.kotlin.kopy.playground.Bar, letter: kotlin.Char): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
+                                      $this: CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                        $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
                                           $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
                                       bar: CALL 'public final fun copy (baz: com.javiersc.kotlin.kopy.playground.Baz, isValid: kotlin.Boolean): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
                                         $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                          $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
-                                            $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                          $this: CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                            $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
                                               $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
                                         baz: CALL 'public final fun copy (qux: com.javiersc.kotlin.kopy.playground.Qux, text: kotlin.String): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Baz origin=null
                                           $this: CALL 'public final fun <get-baz> (): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Baz origin=GET_PROPERTY
                                             $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                              $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
-                                                $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                              $this: CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                                $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
                                                   $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
                                           qux: CALL 'public final fun copy (number: kotlin.Int): com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Qux' type=com.javiersc.kotlin.kopy.playground.Qux origin=null
                                             $this: CALL 'public final fun <get-qux> (): com.javiersc.kotlin.kopy.playground.Qux declared in com.javiersc.kotlin.kopy.playground.Baz' type=com.javiersc.kotlin.kopy.playground.Qux origin=GET_PROPERTY
                                               $this: CALL 'public final fun <get-baz> (): com.javiersc.kotlin.kopy.playground.Baz declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Baz origin=GET_PROPERTY
                                                 $this: CALL 'public final fun <get-bar> (): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Bar origin=GET_PROPERTY
-                                                  $this: CALL 'public final fun <get-value> (): T of kotlinx.atomicfu.AtomicRef declared in kotlinx.atomicfu.AtomicRef' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
-                                                    $this: CALL 'internal final fun <get-_atomic> (): kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlinx.atomicfu.AtomicRef<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
+                                                  $this: CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
+                                                    $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
                                                       $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
                                             number: GET_VAR 'it: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>.<anonymous>' type=kotlin.Int origin=null
       VAR name:isOk type:kotlin.Boolean [val]

@@ -1,6 +1,5 @@
 package com.javiersc.kotlin.kopy.compiler.fir.utils
 
-
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionSetClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateClassId
@@ -12,32 +11,26 @@ import org.jetbrains.kotlin.name.ClassId
 
 internal val FirCall.isKopyFunctionSetCall: Boolean
     get() {
-        val annotations =
-            asFirOrNull<FirFunctionCall>()
-                ?.calleeReference
-                ?.symbol
-                ?.resolvedAnnotationClassIds
-        return annotations?.any { it.isKopyFunctionSet == true } == true
+        val annotations: List<ClassId>? =
+            asFirOrNull<FirFunctionCall>()?.calleeReference?.symbol?.resolvedAnnotationClassIds
+        return annotations?.any { it.isKopyFunctionSet } == true
     }
 
-internal val FirCall.isKopyFunctionUpdateEachCall: Boolean
-    get() {
-        val annotations =
-            asFirOrNull<FirFunctionCall>()
-                ?.calleeReference
-                ?.symbol
-                ?.resolvedAnnotationClassIds
-        return annotations?.any { it.isKopyFunctionUpdateEach == true } == true
-    }
+// internal val FirCall.isKopyFunctionUpdateEachCall: Boolean
+//    get() {
+//        val annotations =
+//            asFirOrNull<FirFunctionCall>()
+//                ?.calleeReference
+//                ?.symbol
+//                ?.resolvedAnnotationClassIds
+//        return annotations?.any { it.isKopyFunctionUpdateEach == true } == true
+//    }
 
 internal val FirCall.isKopyFunctionSetOrUpdateOrUpdateEachCall: Boolean
     get() {
         val annotations =
-            asFirOrNull<FirFunctionCall>()
-                ?.calleeReference
-                ?.symbol
-                ?.resolvedAnnotationClassIds
-        return annotations?.any { it.isKopyFunctionSetOrUpdateOrUpdateEach == true } == true
+            asFirOrNull<FirFunctionCall>()?.calleeReference?.symbol?.resolvedAnnotationClassIds
+        return annotations?.any { it.isKopyFunctionSetOrUpdateOrUpdateEach } == true
     }
 
 internal val ClassId?.isKopyFunctionSet: Boolean

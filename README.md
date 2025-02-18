@@ -37,6 +37,15 @@ And uncheck it.
 
 <img src=".docs/docs/assets/images/registry.png" width="1089" alt="registry"/>
 
+#### Disclaimer IDE issues
+
+> ⚠️ Note:
+>
+> If the code compiles and run in the terminal, but the IDE is failing with some error, try with a
+> different IDE version.
+>
+> It is recommendable to use the latest IDEA version, including EAP ones if possible.
+
 ### Download
 
 Apply the plugin in the `build.gradle.kts` or `build.gradle`:
