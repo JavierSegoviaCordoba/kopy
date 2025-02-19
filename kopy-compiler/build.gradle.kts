@@ -35,6 +35,7 @@ hubdle {
                     testProjects(projects.kopyRuntime)
                 }
                 jvmVersion(JavaVersion.VERSION_1_8)
+                kotest.enabled(true)
             }
             main { //
                 dependencies { //

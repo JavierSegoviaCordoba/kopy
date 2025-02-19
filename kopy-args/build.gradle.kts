@@ -19,6 +19,7 @@ hubdle {
         jvm {
             features { //
                 jvmVersion(JavaVersion.VERSION_1_8)
+                kotest.enabled(true)
             }
         }
     }

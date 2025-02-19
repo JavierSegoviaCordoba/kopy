@@ -25,6 +25,7 @@ hubdle {
         jvm {
             features {
                 jvmVersion(JavaVersion.VERSION_11)
+                kotest.enabled(true)
 
                 gradle {
                     plugin {

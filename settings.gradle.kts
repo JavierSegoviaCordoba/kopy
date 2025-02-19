@@ -15,7 +15,7 @@ pluginManagement {
         // maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
         maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
-        // mavenLocal()
+         mavenLocal()
     }
 
     plugins { //
@@ -35,7 +35,7 @@ dependencyResolutionManagement {
         // maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
         maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
         sonatypeSnapshot()
-        // mavenLocal()
+         mavenLocal()
     }
 }
 
