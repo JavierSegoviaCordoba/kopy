@@ -21,6 +21,7 @@ import com.javiersc.kotlin.kopy.compiler.kopyFunctionSetClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateEachClassId
 import com.javiersc.kotlin.kopy.compiler.kopyOptInClassId
+import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.setName
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import com.javiersc.kotlin.kopy.compiler.updateEachName
@@ -102,61 +103,66 @@ internal class FirKopyDeclarationGenerationExtension(
     override fun generateProperties(
         callableId: CallableId,
         context: MemberGenerationContext?,
-    ): List<FirPropertySymbol> {
-        if (callableId.callableName != underscoreAtomicName) return emptyList()
-        val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
-        if (!owner.hasAnnotation(kopyClassId, session)) return emptyList()
-        if (!owner.isData) return emptyList()
+    ): List<FirPropertySymbol> =
+        measureExecution(key = "FIR_GENERATE_PROPERTIES") {
+            if (callableId.callableName != underscoreAtomicName) return emptyList()
+            val owner: FirClassSymbol<*> = context?.owner ?: return emptyList()
+            if (!owner.hasAnnotation(kopyClassId, session)) return emptyList()
+            if (!owner.isData) return emptyList()
 
-        val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
+            val atomicRefType: ConeKotlinType = createAtomicRefType(owner)
 
-        val atomicVisibility: Visibility =
-            calculateVisibility(owner).takeIf {
-                it is Visibilities.Internal || it is Visibilities.Private
-            } ?: Visibilities.Internal
+            val atomicVisibility: Visibility =
+                calculateVisibility(owner).takeIf {
+                    it is Visibilities.Internal || it is Visibilities.Private
+                } ?: Visibilities.Internal
 
-        val atomicProperty: FirProperty =
-            createMemberProperty(
-                owner = context.owner,
-                key = Key,
-                name = callableId.callableName,
-                returnType = atomicRefType,
-                config = {
-                    status { isOverride = false }
-                    modality = Modality.FINAL
-                    visibility = atomicVisibility
-                },
-            )
-        return listOf(atomicProperty.symbol)
-    }
+            val atomicProperty: FirProperty =
+                createMemberProperty(
+                    owner = context.owner,
+                    key = Key,
+                    name = callableId.callableName,
+                    returnType = atomicRefType,
+                    config = {
+                        status { isOverride = false }
+                        modality = Modality.FINAL
+                        visibility = atomicVisibility
+                    },
+                )
+            return listOf(atomicProperty.symbol)
+        }
 
     override fun generateFunctions(
         callableId: CallableId,
         context: MemberGenerationContext?,
-    ): List<FirNamedFunctionSymbol> = buildList {
-        val owner: FirClassSymbol<*> = context?.owner ?: return@buildList
-        if (!owner.hasAnnotation(kopyClassId, session)) return@buildList
-        if (!owner.isData) return@buildList
+    ): List<FirNamedFunctionSymbol> =
+        measureExecution(key = "FIR_GENERATE_FUNCTIONS") {
+            buildList {
+                val owner: FirClassSymbol<*> = context?.owner ?: return@buildList
+                if (!owner.hasAnnotation(kopyClassId, session)) return@buildList
+                if (!owner.isData) return@buildList
 
-        if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
-            val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
-            if (copyFunction != null) add(copyFunction)
+                if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
+                    val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
+                    if (copyFunction != null) add(copyFunction)
+                }
+
+                if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Invoke) {
+                    val invokeFunction: FirNamedFunctionSymbol? = createInvokeFun(callableId, owner)
+                    if (invokeFunction != null) add(invokeFunction)
+                }
+
+                val setFunction: FirNamedFunctionSymbol? = createSetFun(callableId, owner)
+                if (setFunction != null) add(setFunction)
+
+                val updateFunction: FirNamedFunctionSymbol? = createUpdateFun(callableId, owner)
+                if (updateFunction != null) add(updateFunction)
+
+                val updateEachFunction: FirNamedFunctionSymbol? =
+                    createUpdateEachFun(callableId, owner)
+                if (updateEachFunction != null) add(updateEachFunction)
+            }
         }
-
-        if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Invoke) {
-            val invokeFunction: FirNamedFunctionSymbol? = createInvokeFun(callableId, owner)
-            if (invokeFunction != null) add(invokeFunction)
-        }
-
-        val setFunction: FirNamedFunctionSymbol? = createSetFun(callableId, owner)
-        if (setFunction != null) add(setFunction)
-
-        val updateFunction: FirNamedFunctionSymbol? = createUpdateFun(callableId, owner)
-        if (updateFunction != null) add(updateFunction)
-
-        val updateEachFunction: FirNamedFunctionSymbol? = createUpdateEachFun(callableId, owner)
-        if (updateEachFunction != null) add(updateEachFunction)
-    }
 
     private fun createAtomicRefType(owner: FirClassSymbol<*>): ConeKotlinType {
         val atomicRefSymbol: FirRegularClassSymbol =

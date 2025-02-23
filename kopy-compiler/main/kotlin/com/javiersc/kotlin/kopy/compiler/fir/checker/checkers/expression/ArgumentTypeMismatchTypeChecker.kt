@@ -2,6 +2,7 @@ package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression
 
 import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
 import com.javiersc.kotlin.kopy.compiler.fir.utils.isKopyFunctionSetCall
+import com.javiersc.kotlin.kopy.compiler.measureExecution
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -18,34 +19,34 @@ import org.jetbrains.kotlin.fir.types.resolvedType
 import org.jetbrains.kotlin.fir.types.typeContext
 import org.jetbrains.kotlin.types.AbstractTypeChecker
 
-internal class ArgumentTypeMismatchTypeChecker(
-    private val session: FirSession,
-) : FirCallChecker(MppCheckerKind.Common) {
+internal class ArgumentTypeMismatchTypeChecker(private val session: FirSession) :
+    FirCallChecker(MppCheckerKind.Common) {
 
-    override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) {
-        if (!expression.isKopyFunctionSetCall) return
-        if (expression !is FirFunctionCall) return
+    override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) =
+        measureExecution(key = "FIR_ARGUMENT_TYPE_MISMATCH_TYPE_CHECKER") {
+            if (!expression.isKopyFunctionSetCall) return
+            if (expression !is FirFunctionCall) return
 
-        val extensionType: ConeKotlinType? = expression.extensionReceiver?.resolvedType
-        val argumentType: ConeKotlinType? = expression.arguments.firstOrNull()?.resolvedType
+            val extensionType: ConeKotlinType? = expression.extensionReceiver?.resolvedType
+            val argumentType: ConeKotlinType? = expression.arguments.firstOrNull()?.resolvedType
 
-        if (extensionType == null || argumentType == null) return
+            if (extensionType == null || argumentType == null) return
 
-        val isSubtype: Boolean =
-            AbstractTypeChecker.isSubtypeOf(
-                context = session.typeContext,
-                subType = extensionType,
-                superType = argumentType,
-            )
-        if (!isSubtype) {
-            reporter.reportOn(
-                source = expression.arguments.first().source,
-                factory = FirKopyError.ARGUMENT_TYPE_MISMATCH,
-                a = extensionType.renderReadable(),
-                b = argumentType.renderReadable(),
-                context = context,
-                positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-            )
+            val isSubtype: Boolean =
+                AbstractTypeChecker.isSubtypeOf(
+                    context = session.typeContext,
+                    subType = extensionType,
+                    superType = argumentType,
+                )
+            if (!isSubtype) {
+                reporter.reportOn(
+                    source = expression.arguments.first().source,
+                    factory = FirKopyError.ARGUMENT_TYPE_MISMATCH,
+                    a = extensionType.renderReadable(),
+                    b = argumentType.renderReadable(),
+                    context = context,
+                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
+                )
+            }
         }
-    }
 }

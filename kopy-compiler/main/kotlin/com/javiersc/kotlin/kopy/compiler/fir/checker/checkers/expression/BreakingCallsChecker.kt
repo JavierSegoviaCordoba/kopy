@@ -9,6 +9,7 @@ import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.Breakin
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.BreakingCallsChecker.CheckerResult.Ignore
 import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.BreakingCallsChecker.CheckerResult.Success
 import com.javiersc.kotlin.kopy.compiler.fir.utils.isKopyFunctionSetOrUpdateOrUpdateEachCall
+import com.javiersc.kotlin.kopy.compiler.measureExecution
 import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
@@ -38,51 +39,53 @@ import org.jetbrains.kotlin.fir.types.resolvedType
 
 internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
-    override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) {
-        when (val checkerResult: CheckerResult = expression.isBreakingCallsChain(context)) {
-            is Ignore -> return
-            is Success -> return
-            is Failure.BrokenChain -> {
-                reporter.reportOn(
-                    source = checkerResult.source,
-                    factory = FirKopyError.INVALID_CALL_CHAIN,
-                    a = checkerResult.element.render(),
-                    context = context,
-                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-                )
-            }
+    override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) =
+        measureExecution(key = "FIR_BREAKING_CALLS_CHECKER") {
+            when (val checkerResult: CheckerResult = expression.isBreakingCallsChain(context)) {
+                is Ignore -> return
+                is Success -> return
+                is Failure.BrokenChain -> {
+                    reporter.reportOn(
+                        source = checkerResult.source,
+                        factory = FirKopyError.INVALID_CALL_CHAIN,
+                        a = checkerResult.element.render(),
+                        context = context,
+                        positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
+                    )
+                }
 
-            is Failure.MissingDataClass -> {
-                reporter.reportOn(
-                    source = checkerResult.source,
-                    factory = FirKopyError.MISSING_DATA_CLASS,
-                    a = checkerResult.element.render(),
-                    context = context,
-                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-                )
-            }
+                is Failure.MissingDataClass -> {
+                    reporter.reportOn(
+                        source = checkerResult.source,
+                        factory = FirKopyError.MISSING_DATA_CLASS,
+                        a = checkerResult.element.render(),
+                        context = context,
+                        positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
+                    )
+                }
 
-//            is Failure.MissingKopyAnnotation -> {
-//                reporter.reportOn(
-//                    source = checkerResult.source,
-//                    factory = FirKopyError.MISSING_KOPY_ANNOTATION,
-//                    a = checkerResult.element.render(),
-//                    context = context,
-//                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-//                )
-//            }
+                //            is Failure.MissingKopyAnnotation -> {
+                //                reporter.reportOn(
+                //                    source = checkerResult.source,
+                //                    factory = FirKopyError.MISSING_KOPY_ANNOTATION,
+                //                    a = checkerResult.element.render(),
+                //                    context = context,
+                //                    positioningStrategy =
+                // SourceElementPositioningStrategies.DEFAULT,
+                //                )
+                //            }
 
-            is Failure.NoCopyScope -> {
-                reporter.reportOn(
-                    source = checkerResult.source,
-                    factory = FirKopyError.NO_COPY_SCOPE,
-                    a = checkerResult.element.render(),
-                    context = context,
-                    positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
-                )
+                is Failure.NoCopyScope -> {
+                    reporter.reportOn(
+                        source = checkerResult.source,
+                        factory = FirKopyError.NO_COPY_SCOPE,
+                        a = checkerResult.element.render(),
+                        context = context,
+                        positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
+                    )
+                }
             }
         }
-    }
 
     private fun FirCall.isBreakingCallsChain(context: CheckerContext): CheckerResult {
         if (!isKopyFunctionSetOrUpdateOrUpdateEachCall) return Ignore
@@ -113,7 +116,7 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
 
     private fun checkFailureNoCopyScope(
         context: CheckerContext,
-        setOrUpdateCall: FirFunctionCall
+        setOrUpdateCall: FirFunctionCall,
     ): Failure.NoCopyScope? {
         val session: FirSession = context.session
         val setOrUpdateCallLambdaAnonymousFunction: FirDeclaration =
@@ -124,8 +127,7 @@ internal object BreakingCallsChecker : FirCallChecker(MppCheckerKind.Common) {
                 ?.fir
                 ?.asFirOrNull<FirReceiverParameter>()
                 ?.containingDeclarationSymbol
-                ?.fir
-                ?: return Failure.NoCopyScope(setOrUpdateCall)
+                ?.fir ?: return Failure.NoCopyScope(setOrUpdateCall)
         val isCopyScope: Boolean =
             context.callsOrAssignments
                 .asSequence()
