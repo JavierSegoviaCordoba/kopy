@@ -1,16 +1,14 @@
 package com.javiersc.kotlin.kopy.compiler.fir
 
+import com.javiersc.kotlin.kopy.compiler.KopyConfig
 import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyCheckerExtension
 import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyAssignExpressionAltererExtension
 import com.javiersc.kotlin.kopy.compiler.fir.generation.FirKopyDeclarationGenerationExtension
 import org.jetbrains.kotlin.GeneratedDeclarationKey
-import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrar
 
-internal class FirKopyExtension(
-    private val configuration: CompilerConfiguration,
-) : FirExtensionRegistrar() {
+internal class FirKopyExtension(private val kopyConfig: KopyConfig) : FirExtensionRegistrar() {
 
     override fun ExtensionRegistrarContext.configurePlugin() {
         registerCheckers()
@@ -18,12 +16,12 @@ internal class FirKopyExtension(
     }
 
     private fun ExtensionRegistrarContext.registerCheckers() {
-        +::FirKopyCheckerExtension
+        +{ session: FirSession -> FirKopyCheckerExtension(session, kopyConfig) }
     }
 
     private fun ExtensionRegistrarContext.registerGenerators() {
-        +::FirKopyAssignExpressionAltererExtension
-        +{ session: FirSession -> FirKopyDeclarationGenerationExtension(session, configuration) }
+        +{ session: FirSession -> FirKopyAssignExpressionAltererExtension(session, kopyConfig) }
+        +{ session: FirSession -> FirKopyDeclarationGenerationExtension(session, kopyConfig) }
     }
 }
 

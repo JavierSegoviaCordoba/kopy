@@ -29,9 +29,8 @@ internal class IrAtomicPropertyTransformer(
 ) : IrElementTransformerVoidWithContext() {
 
     override fun visitPropertyNew(declaration: IrProperty): IrStatement {
-        fun originalProp() = super.visitPropertyNew(declaration)
+        fun originalProp(): IrStatement = super.visitPropertyNew(declaration)
         if (declaration.name != underscoreAtomicName) return originalProp()
-
         val atomicReference: IrClassSymbol =
             pluginContext.referenceClass(atomicReferenceClassId) ?: return originalProp()
 

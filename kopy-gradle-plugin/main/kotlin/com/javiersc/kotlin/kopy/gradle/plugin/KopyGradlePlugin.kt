@@ -2,7 +2,9 @@ package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.logging.extensions.warnColored
 import com.javiersc.kotlin.compiler.gradle.extensions.KotlinCompilerGradlePlugin
+import com.javiersc.kotlin.kopy.args.KopyDebug
 import com.javiersc.kotlin.kopy.args.KopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyReportPath
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import com.javiersc.kotlin.stdlib.remove
@@ -20,11 +22,8 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 
-public class KopyGradlePlugin
-@Inject
-constructor(
-    private val providers: ProviderFactory,
-) : KotlinCompilerGradlePlugin {
+public class KopyGradlePlugin @Inject constructor(private val providers: ProviderFactory) :
+    KotlinCompilerGradlePlugin {
 
     private val Project.kopy: KopyExtension
         get() = the<KopyExtension>()
@@ -53,15 +52,12 @@ constructor(
     ): Provider<List<SubpluginOption>> {
         val kopy: KopyExtension = kotlinCompilation.project.kopy
         return providers.provider {
+            val reportPath: String = kopy.reportPath.get().asFile.path
             listOf(
-                SubpluginOption(
-                    key = KopyFunctions.NAME,
-                    value = kopy.functions.get().value,
-                ),
-                SubpluginOption(
-                    key = KopyVisibility.NAME,
-                    value = kopy.visibility.get().value,
-                ),
+                SubpluginOption(key = KopyDebug.NAME, value = kopy.debug.get().toString()),
+                SubpluginOption(key = KopyFunctions.NAME, value = kopy.functions.get().value),
+                SubpluginOption(key = KopyReportPath.NAME, value = reportPath),
+                SubpluginOption(key = KopyVisibility.NAME, value = kopy.visibility.get().value),
             )
         }
     }
@@ -120,8 +116,7 @@ constructor(
     }
 }
 
-private const val kopyArgs =
-    "com.javiersc.kotlin:kopy-args:${KopyCompilerProjectData.Version}"
+private const val kopyArgs = "com.javiersc.kotlin:kopy-args:${KopyCompilerProjectData.Version}"
 
 private const val kopyRuntime =
     "com.javiersc.kotlin:kopy-runtime:${KopyCompilerProjectData.Version}"

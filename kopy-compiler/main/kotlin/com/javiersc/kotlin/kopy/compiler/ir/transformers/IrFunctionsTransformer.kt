@@ -74,7 +74,6 @@ internal class IrFunctionsTransformer(
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction): IrStatement {
         fun originalFunction(): IrStatement = super.visitSimpleFunction(declaration)
-
         return when {
             declaration.isKopyCopyOrInvoke -> transformCopyOrInvokeFunction(declaration)
             declaration.isKopySet -> transformSetFunction(declaration)
