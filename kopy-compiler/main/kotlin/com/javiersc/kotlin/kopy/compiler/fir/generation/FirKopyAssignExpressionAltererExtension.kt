@@ -3,8 +3,11 @@
 package com.javiersc.kotlin.kopy.compiler.fir.generation
 
 import com.javiersc.kotlin.compiler.extensions.fir.asFirOrNull
+import com.javiersc.kotlin.kopy.compiler.KopyConfig
 import com.javiersc.kotlin.kopy.compiler.kopyClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFqName
+import com.javiersc.kotlin.kopy.compiler.measureExecution
+import com.javiersc.kotlin.kopy.compiler.measureKey
 import com.javiersc.kotlin.kopy.compiler.setName
 import org.jetbrains.kotlin.KtFakeSourceElementKind.AssignmentPluginAltered
 import org.jetbrains.kotlin.fakeElement
@@ -39,50 +42,53 @@ import org.jetbrains.kotlin.name.ClassId
 
 internal class FirKopyAssignExpressionAltererExtension(
     session: FirSession,
+    private val kopyConfig: KopyConfig,
 ) : FirAssignExpressionAltererExtension(session) {
 
     override fun transformVariableAssignment(
         variableAssignment: FirVariableAssignment
-    ): FirStatement? {
-        val variableDispatchReceiver: FirQualifiedAccessExpression =
-            variableAssignment.dispatchReceiver?.asFirOrNull() ?: return null
+    ): FirStatement? =
+        kopyConfig.measureExecution(key = this::class.measureKey) {
+            val variableDispatchReceiver: FirQualifiedAccessExpression =
+                variableAssignment.dispatchReceiver?.asFirOrNull() ?: return null
 
-        val kopyClassClassId: ClassId = variableDispatchReceiver.resolvedType.classId ?: return null
-        val kopyClass: FirRegularClassSymbol =
-            session.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
+            val kopyClassClassId: ClassId =
+                variableDispatchReceiver.resolvedType.classId ?: return null
+            val kopyClass: FirRegularClassSymbol =
+                session.getRegularClassSymbolByClassId(kopyClassClassId) ?: return null
 
-        if (!kopyClass.hasAnnotation(classId = kopyClassId, session = session)) return null
+            if (!kopyClass.hasAnnotation(classId = kopyClassId, session = session)) return null
 
-        val leftArgument: FirReference = variableAssignment.calleeReference!!
-        val leftSymbol: FirVariableSymbol<*> = leftArgument.toResolvedVariableSymbol()!!
-        val leftResolvedType: FirResolvedTypeRef = leftSymbol.resolvedReturnTypeRef
-        val rightArgument: FirExpression = variableAssignment.rValue
-        val setFunCall: FirStatement = buildFunctionCall {
-            source = variableAssignment.source?.fakeElement(AssignmentPluginAltered)
-            explicitReceiver = buildPropertyAccessExpression {
-                source = leftArgument.source
-                coneTypeOrNull = leftResolvedType.coneType
-                calleeReference = leftArgument
-                variableAssignment.lValue
-                    .asFirOrNull<FirQualifiedAccessExpression>()
-                    ?.typeArguments
-                    ?.let(typeArguments::addAll)
-                annotations += variableAssignment.annotations
-                explicitReceiver = variableAssignment.explicitReceiver
-                dispatchReceiver = variableAssignment.dispatchReceiver
-                extensionReceiver = variableAssignment.extensionReceiver
-                contextArguments += variableAssignment.contextArguments
+            val leftArgument: FirReference = variableAssignment.calleeReference!!
+            val leftSymbol: FirVariableSymbol<*> = leftArgument.toResolvedVariableSymbol()!!
+            val leftResolvedType: FirResolvedTypeRef = leftSymbol.resolvedReturnTypeRef
+            val rightArgument: FirExpression = variableAssignment.rValue
+            val setFunCall: FirStatement = buildFunctionCall {
+                source = variableAssignment.source?.fakeElement(AssignmentPluginAltered)
+                explicitReceiver = buildPropertyAccessExpression {
+                    source = leftArgument.source
+                    coneTypeOrNull = leftResolvedType.coneType
+                    calleeReference = leftArgument
+                    variableAssignment.lValue
+                        .asFirOrNull<FirQualifiedAccessExpression>()
+                        ?.typeArguments
+                        ?.let(typeArguments::addAll)
+                    annotations += variableAssignment.annotations
+                    explicitReceiver = variableAssignment.explicitReceiver
+                    dispatchReceiver = variableAssignment.dispatchReceiver
+                    extensionReceiver = variableAssignment.extensionReceiver
+                    contextArguments += variableAssignment.contextArguments
+                }
+                argumentList = buildUnaryArgumentList(rightArgument)
+                calleeReference = buildSimpleNamedReference {
+                    source = variableAssignment.source
+                    name = setName
+                }
+                origin = FirFunctionCallOrigin.Regular
             }
-            argumentList = buildUnaryArgumentList(rightArgument)
-            calleeReference = buildSimpleNamedReference {
-                source = variableAssignment.source
-                name = setName
-            }
-            origin = FirFunctionCallOrigin.Regular
+
+            return setFunCall
         }
-
-        return setFunCall
-    }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {
         register(DeclarationPredicate.create { annotated(kopyFqName) })

@@ -10,4 +10,5 @@ application {
 
 kopy {
     debug = true
+    reportPath = layout.buildDirectory.dir("reports/custom/kopy/")
 }

@@ -2,19 +2,19 @@
 
 package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers
 
-import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.BreakingCallsChecker
-import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.ArgumentTypeMismatchTypeChecker
+import com.javiersc.kotlin.kopy.compiler.KopyConfig
+import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.FirArgumentTypeMismatchTypeChecker
+import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.FirBreakingCallsChecker
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.ExpressionCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallChecker
 
-internal class FirKopyExpressionCheckers(
-    private val session: FirSession,
-) : ExpressionCheckers() {
+internal class FirKopyExpressionCheckers(private val session: FirSession, kopyConfig: KopyConfig) :
+    ExpressionCheckers() {
     override val callCheckers: Set<FirCallChecker> =
         setOf(
-            BreakingCallsChecker,
-            ArgumentTypeMismatchTypeChecker(session = session),
+            FirBreakingCallsChecker(kopyConfig = kopyConfig),
+            FirArgumentTypeMismatchTypeChecker(session = session, kopyConfig = kopyConfig),
         )
     //    override val variableAssignmentCheckers: Set<FirVariableAssignmentChecker> =
     //        setOf(

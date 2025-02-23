@@ -4,6 +4,8 @@
 
 ### Added
 
+- Debug mode
+
 ### Changed
 
 ### Deprecated

@@ -1,10 +1,13 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.project.test.extensions.GradleProjectTest
+import com.javiersc.kotlin.kopy.args.KopyDebug
 import com.javiersc.kotlin.kopy.args.KopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyReportPath
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.gradle.kotlin.dsl.configure
@@ -70,15 +73,16 @@ internal class KopyGradlePluginIntegrationTest : GradleProjectTest() {
             val jvmCompilation: KotlinCompilation<*> =
                 kotlin.targets.first { it.name.contains("jvm") }.compilations.first()
             kopy.isApplicable(jvmCompilation).shouldBeTrue()
+
             kopy
                 .applyToCompilation(jvmCompilation)
                 .get()
                 .map { it.key to it.value }
-                .shouldBe(
-                    listOf(
-                        KopyFunctions.NAME to KopyFunctions.All.value,
-                        KopyVisibility.NAME to KopyVisibility.Auto.value,
-                    )
+                .shouldContainExactly(
+                    KopyDebug.NAME to "${false}",
+                    KopyFunctions.NAME to KopyFunctions.All.value,
+                    KopyReportPath.NAME to projectDir.resolve("build/reports/kopy").path,
+                    KopyVisibility.NAME to KopyVisibility.Auto.value,
                 )
         }
     }

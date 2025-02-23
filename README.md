@@ -132,6 +132,31 @@ kopy {
 }
 ```
 
+#### Debug mode
+
+The `debug` option allows to enable the debug mode. It will measure the time each phase takes to be
+computed. It can help to benchmark any execution or find any issue. It can be `false` or `true`,
+being the default value `false`.
+
+With the `reportPath` option, it is possible to specify the path where the report will be saved. The
+default value is `build/reports/kopy`.
+
+> [!CAUTION]
+> It is not recommended to enable the debug mode by default, as it will increase the build time.
+
+##### Example
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    debug = true
+    reportPath = layout.buildDirectory.dir("reports/custom/kopy")
+}
+```
+
 ### Kopy Example
 
 ```kotlin

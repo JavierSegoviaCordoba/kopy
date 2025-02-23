@@ -1,35 +1,53 @@
 package com.javiersc.kotlin.kopy.compiler.ir
 
+import com.javiersc.kotlin.kopy.compiler.KopyConfig
+import com.javiersc.kotlin.kopy.compiler.createReport
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrAtomicPropertyTransformer
+import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrFixDeclarationParents
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrFunctionsTransformer
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrSetOrUpdateCallTransformer
 import com.javiersc.kotlin.kopy.compiler.ir.transformers.IrUpdateEachCallTransformer
+import com.javiersc.kotlin.kopy.compiler.measureExecution
+import com.javiersc.kotlin.kopy.compiler.measureKey
+import kotlin.reflect.KClass
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.ir.util.patchDeclarationParents
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 
-internal class IrKopyGenerationExtension(
-    private val configuration: CompilerConfiguration,
-) : IrGenerationExtension {
+internal class IrKopyGenerationExtension(private val kopyConfig: KopyConfig) :
+    IrGenerationExtension {
 
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-        moduleFragment.generate(pluginContext)
+        kopyConfig.measureExecution(key = this@IrKopyGenerationExtension::class.measureKey) {
+            moduleFragment.generate(pluginContext)
+        }
+        kopyConfig.createReport()
     }
 
     @JvmName("generate2")
     private fun IrModuleFragment.generate(pluginContext: IrPluginContext) {
-        transform(IrAtomicPropertyTransformer(this, pluginContext))
-        transform(IrFunctionsTransformer(this, pluginContext))
-        transform(IrUpdateEachCallTransformer(this, pluginContext))
-        transform(IrSetOrUpdateCallTransformer(this, pluginContext))
-
-        patchDeclarationParents()
+        measureExecution(IrAtomicPropertyTransformer::class) {
+            transform(IrAtomicPropertyTransformer(this, pluginContext))
+        }
+        measureExecution(IrFunctionsTransformer::class) {
+            transform(IrFunctionsTransformer(this, pluginContext))
+        }
+        measureExecution(IrUpdateEachCallTransformer::class) {
+            transform(IrUpdateEachCallTransformer(this, pluginContext))
+        }
+        measureExecution(IrSetOrUpdateCallTransformer::class) {
+            transform(IrSetOrUpdateCallTransformer(this, pluginContext))
+        }
+        measureExecution(IrFixDeclarationParents::class) {
+            IrFixDeclarationParents(this).patchDeclarationParents()
+        }
     }
 
     private fun <T> IrModuleFragment.transform(transformer: IrElementTransformer<T?>) {
         this.transform(transformer, null)
     }
+
+    private inline fun IrModuleFragment.measureExecution(kclass: KClass<*>, block: () -> Unit) =
+        kopyConfig.measureExecution(key = kclass.measureKey, isNested = true) { block() }
 }

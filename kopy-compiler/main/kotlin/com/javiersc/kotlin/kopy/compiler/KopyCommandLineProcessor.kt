@@ -1,6 +1,8 @@
 package com.javiersc.kotlin.kopy.compiler
 
+import com.javiersc.kotlin.kopy.args.KopyDebug
 import com.javiersc.kotlin.kopy.args.KopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyReportPath
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Group
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Name
@@ -17,9 +19,21 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
     override val pluginOptions: Collection<AbstractCliOption> =
         listOf(
             CliOption(
+                optionName = KopyDebug.NAME,
+                valueDescription = KopyDebug.VALUE_DESCRIPTION,
+                description = KopyDebug.DESCRIPTION,
+                required = false,
+            ),
+            CliOption(
                 optionName = KopyFunctions.NAME,
                 valueDescription = KopyFunctions.VALUE_DESCRIPTION,
                 description = KopyFunctions.DESCRIPTION,
+                required = false,
+            ),
+            CliOption(
+                optionName = KopyReportPath.NAME,
+                valueDescription = KopyReportPath.VALUE_DESCRIPTION,
+                description = KopyReportPath.DESCRIPTION,
                 required = false,
             ),
             CliOption(
@@ -33,13 +47,15 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
     override fun processOption(
         option: AbstractCliOption,
         value: String,
-        configuration: CompilerConfiguration
+        configuration: CompilerConfiguration,
     ) {
         fun <T : Any> put(key: CompilerConfigurationKey<T>, value: T) =
             configuration.put(key, value)
 
         when (option.optionName) {
+            KopyDebug.NAME -> put(KopyKey.Debug, value.toBooleanStrictOrNull() ?: false)
             KopyFunctions.NAME -> put(KopyKey.Functions, value)
+            KopyReportPath.NAME -> put(KopyKey.ReportPath, value)
             KopyVisibility.NAME -> put(KopyKey.Visibility, value)
         }
     }
