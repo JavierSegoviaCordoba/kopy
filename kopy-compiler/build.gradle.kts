@@ -9,7 +9,6 @@ hubdle {
             api()
         }
         explicitApi()
-        format.isEnabled = false
         languageSettings { //
             experimentalContracts()
         }

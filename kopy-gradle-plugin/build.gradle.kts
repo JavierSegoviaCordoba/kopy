@@ -8,7 +8,6 @@ hubdle {
             api()
         }
         explicitApi()
-        format.isEnabled = false
         projectConfig { //
             generateProjectData(true)
             generateAdditionalData {

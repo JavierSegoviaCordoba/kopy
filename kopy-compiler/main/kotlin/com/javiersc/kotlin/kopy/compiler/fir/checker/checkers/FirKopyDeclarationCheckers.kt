@@ -5,8 +5,7 @@ import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.declaration.FirDat
 import org.jetbrains.kotlin.fir.analysis.checkers.declaration.DeclarationCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirClassLikeChecker
 
-internal class FirKopyDeclarationCheckers(kopyConfig: KopyConfig) :
-    DeclarationCheckers() {
+internal class FirKopyDeclarationCheckers(kopyConfig: KopyConfig) : DeclarationCheckers() {
     override val classLikeCheckers: Set<FirClassLikeChecker> =
         setOf(FirDataClassKopyAnnotationChecker(kopyConfig))
 }

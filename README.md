@@ -70,6 +70,69 @@ plugins {
 
 The extension `kopy` is available to configure the plugin:
 
+#### Debug mode
+
+The `debug` option allows to enable the debug mode. It will measure the time each phase takes to be
+computed. It can help to benchmark any execution or find any issue. It can be `false` or `true`,
+being the default value `false`.
+
+With the `reportPath` option, it is possible to specify the path where the report will be saved. The
+default value is `build/reports/kopy`.
+
+> [!CAUTION]
+> It is not recommended to enable the debug mode by default, as it will increase the build time.
+
+##### Example
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    debug = true
+    reportPath = layout.buildDirectory.dir("reports/custom/kopy")
+}
+```
+
+#### Copy functions
+
+The `copyFunctions` option accepts the list of functions that will be generated. The default value
+is `listOf(KopyCopyFunctions.Copy, KopyCopyFunctions.Invoke)`.
+
+An empty list will generate all copy functions (`copy`, and `invoke`).
+
+##### Example
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    copyFunctions = listOf(KopyFunctions.Copy)
+}
+```
+
+#### Transform functions
+
+The `functions` option accepts the list of functions that will be generated. The default value is
+`listOf(KopyTransformFunctions.Set, KopyTransformFunctions.Update, KopyTransformFunctions.UpdateEach)`.
+
+An empty list will generate all transform functions, (`set`, `update`, and `updateEach`).
+
+##### Example
+
+```kotlin
+plugins {
+    id("com.javiersc.kotlin.kopy") version "$version"
+}
+
+kopy {
+    transformFunctions = listOf(KopyTransformFunctions.Set, KopyTransformFunctions.Update)
+}
+```
+
 #### Visibility
 
 The `visibility` option allows changing the visibility of the `copy` and `invoke` functions. The
@@ -97,8 +160,6 @@ functions would be `private`.
 ##### Example
 
 ```kotlin
-import com.javiersc.kotlin.kopy.args.KopyVisibility
-
 plugins {
     id("com.javiersc.kotlin.kopy") version "$version"
 }
@@ -108,60 +169,9 @@ kopy {
 }
 ```
 
-#### Functions
-
-The `functions` option allows to decide which functions will be generated.
-
-Possible values:
-
-- `KopyFunctions.All` (default): Both, `copy` and `invoke` functions, will be generated.
-- `KopyFunctions.Copy`: Only the `copy` function will be generated.
-- `KopyFunctions.Invoke`: Only the `invoke` function will be generated.
-
-##### Example
-
-```kotlin
-import com.javiersc.kotlin.kopy.args.KopyFunctions
-
-plugins {
-    id("com.javiersc.kotlin.kopy") version "$version"
-}
-
-kopy {
-    functions = KopyFunctions.All
-}
-```
-
-#### Debug mode
-
-The `debug` option allows to enable the debug mode. It will measure the time each phase takes to be
-computed. It can help to benchmark any execution or find any issue. It can be `false` or `true`,
-being the default value `false`.
-
-With the `reportPath` option, it is possible to specify the path where the report will be saved. The
-default value is `build/reports/kopy`.
-
-> [!CAUTION]
-> It is not recommended to enable the debug mode by default, as it will increase the build time.
-
-##### Example
-
-```kotlin
-plugins {
-    id("com.javiersc.kotlin.kopy") version "$version"
-}
-
-kopy {
-    debug = true
-    reportPath = layout.buildDirectory.dir("reports/custom/kopy")
-}
-```
-
 ### Kopy Example
 
 ```kotlin
-import com.javiersc.kotlin.kopy.Kopy
-
 fun main() {
     val house = House(
         squareMeters = 100,
@@ -313,8 +323,12 @@ will be added as a context parameter to the `copy` and `invoke` lambdas:
 ```kotlin
 data class House(val squareMeters: Int, val kitchen: Kitchen) {
 
-    fun copy(block: CopyScope.() -> Unit): T = ...
+    fun copy(block: CopyScope.() -> Unit): T {
+        // ...
+    }
 
-    operator fun invoke(block: CopyScope.() -> Unit): T = ...
+    operator fun invoke(block: CopyScope.() -> Unit): T {
+        // ...
+    }
 }
 ```

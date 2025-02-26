@@ -3,7 +3,7 @@ package com.javiersc.kotlin.kopy.compiler
 import com.javiersc.kotlin.compiler.test.runners.BoxTest
 import com.javiersc.kotlin.compiler.test.runners.DiagnosticTest
 import com.javiersc.kotlin.compiler.test.services.MetaRuntimeClasspathProvider
-import com.javiersc.kotlin.kopy.args.KopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar.ExtensionStorage
 import org.jetbrains.kotlin.config.CompilerConfiguration
@@ -70,7 +70,7 @@ open class AbstractKopy0AutoDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Visibility, KopyVisibility.Auto.value)
+        configuration.put(KopyKey.Visibility, KopyVisibility.Auto)
         registerAllExtensions(configuration)
     }
 }
@@ -84,7 +84,7 @@ open class AbstractKopy1PublicDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Visibility, KopyVisibility.Public.value)
+        configuration.put(KopyKey.Visibility, KopyVisibility.Public)
         registerAllExtensions(configuration)
     }
 }
@@ -98,7 +98,7 @@ open class AbstractKopy2InternalDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Visibility, KopyVisibility.Internal.value)
+        configuration.put(KopyKey.Visibility, KopyVisibility.Internal)
         registerAllExtensions(configuration)
     }
 }
@@ -112,7 +112,7 @@ open class AbstractKopy3ProtectedDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Visibility, KopyVisibility.Protected.value)
+        configuration.put(KopyKey.Visibility, KopyVisibility.Protected)
         registerAllExtensions(configuration)
     }
 }
@@ -126,7 +126,7 @@ open class AbstractKopy4PrivateDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Visibility, KopyVisibility.Private.value)
+        configuration.put(KopyKey.Visibility, KopyVisibility.Private)
         registerAllExtensions(configuration)
     }
 }
@@ -140,7 +140,7 @@ open class AbstractKopyAllDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Functions, KopyFunctions.All.value)
+        configuration.put(KopyKey.CopyFunctions, KopyCopyFunctions.entries)
         registerAllExtensions(configuration)
     }
 }
@@ -154,7 +154,7 @@ open class AbstractKopyCopyDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Functions, KopyFunctions.Copy.value)
+        configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Copy))
         registerAllExtensions(configuration)
     }
 }
@@ -168,7 +168,7 @@ open class AbstractKopyInvokeDiagnosticTest : DiagnosticTest() {
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        configuration.put(KopyKey.Functions, KopyFunctions.Invoke.value)
+        configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Invoke))
         registerAllExtensions(configuration)
     }
 }

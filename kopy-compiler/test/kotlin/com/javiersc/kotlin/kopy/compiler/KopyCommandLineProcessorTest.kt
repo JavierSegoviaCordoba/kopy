@@ -1,14 +1,19 @@
 package com.javiersc.kotlin.kopy.compiler
 
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyDebug
-import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyReportPath
+import com.javiersc.kotlin.kopy.args.KopyTransformFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
+import com.javiersc.kotlin.kopy.compiler.KopyKey.TransformFunctions
+import com.javiersc.kotlin.stdlib.fifth
 import com.javiersc.kotlin.stdlib.forth
 import com.javiersc.kotlin.stdlib.second
 import com.javiersc.kotlin.stdlib.third
+import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.junit.jupiter.api.Test
 
@@ -23,88 +28,117 @@ class KopyCommandLineProcessorTest {
     @Test
     fun `check plugin options`() {
         val processor = KopyCommandLineProcessor()
-        val compilerConfiguration = CompilerConfiguration()
-        processor.pluginOptions.shouldHaveSize(4)
-        processor.pluginOptions.first().optionName shouldBe KopyDebug.NAME
-        processor.pluginOptions.second().optionName shouldBe KopyFunctions.NAME
-        processor.pluginOptions.third().optionName shouldBe KopyReportPath.NAME
-        processor.pluginOptions.forth().optionName shouldBe KopyVisibility.NAME
+        val pluginOptions: Collection<AbstractCliOption> = processor.pluginOptions
+        pluginOptions.shouldHaveSize(5)
+        pluginOptions.first().optionName shouldBe KopyDebug.NAME
+        pluginOptions.second().optionName shouldBe KopyCopyFunctions.NAME
+        pluginOptions.third().optionName shouldBe KopyReportPath.NAME
+        pluginOptions.forth().optionName shouldBe KopyTransformFunctions.NAME
+        pluginOptions.fifth().optionName shouldBe KopyVisibility.NAME
 
-        processor.processOption(
-            option = processor.pluginOptions.first(),
-            value = true.toString(),
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Debug] shouldBe true
+        processor.testOption(option = pluginOptions.first(), value = "${true}") { configuration ->
+            configuration[KopyKey.Debug] shouldBe true
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.first(),
-            value = false.toString(),
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Debug] shouldBe false
+        processor.testOption(option = pluginOptions.first(), value = "${false}") { configuration ->
+            configuration[KopyKey.Debug] shouldBe false
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.second(),
-            value = KopyFunctions.All.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.All.value
+        processor.testOption(
+            option = pluginOptions.second(),
+            values = KopyCopyFunctions.entries.map(KopyCopyFunctions::value),
+        ) { configuration ->
+            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.entries)
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.second(),
-            value = KopyFunctions.Copy.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Copy.value
+        processor.testOption(
+            option = pluginOptions.second(),
+            value = KopyCopyFunctions.Copy.value,
+        ) { configuration ->
+            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.Copy)
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.second(),
-            value = KopyFunctions.Invoke.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Functions] shouldBe KopyFunctions.Invoke.value
+        processor.testOption(
+            option = pluginOptions.second(),
+            value = KopyCopyFunctions.Invoke.value,
+        ) { configuration ->
+            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.Invoke)
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.third(),
-            value = "build/reports/kopy",
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.ReportPath] shouldBe "build/reports/kopy"
+        processor.testOption(option = pluginOptions.third(), value = "build/reports/kopy") {
+            configuration ->
+            configuration[KopyKey.ReportPath] shouldBe "build/reports/kopy"
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.forth(),
-            value = KopyVisibility.Auto.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Auto.value
+        processor.testOption(
+            option = pluginOptions.forth(),
+            value = KopyTransformFunctions.Set.value,
+        ) { configuration ->
+            configuration[TransformFunctions].shouldContainExactly(KopyTransformFunctions.Set)
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.forth(),
-            value = KopyVisibility.Public.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Public.value
+        processor.testOption(
+            option = pluginOptions.forth(),
+            values = KopyTransformFunctions.entries.map(KopyTransformFunctions::value),
+        ) { configuration ->
+            configuration[TransformFunctions].shouldContainExactly(
+                KopyTransformFunctions.Set,
+                KopyTransformFunctions.Update,
+                KopyTransformFunctions.UpdateEach,
+            )
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.forth(),
+        processor.testOption(option = pluginOptions.fifth(), value = KopyVisibility.Auto.value) {
+            configuration ->
+            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Auto
+        }
+
+        processor.testOption(option = pluginOptions.fifth(), value = KopyVisibility.Public.value) {
+            configuration ->
+            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Public
+        }
+
+        processor.testOption(
+            option = pluginOptions.fifth(),
             value = KopyVisibility.Internal.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Internal.value
+        ) { configuration ->
+            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Internal
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.forth(),
+        processor.testOption(
+            option = pluginOptions.fifth(),
             value = KopyVisibility.Protected.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Protected.value
+        ) { configuration ->
+            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Protected
+        }
 
-        processor.processOption(
-            option = processor.pluginOptions.forth(),
+        processor.testOption(
+            option = pluginOptions.fifth(),
             value = KopyVisibility.Private.value,
-            configuration = compilerConfiguration,
-        )
-        compilerConfiguration[KopyKey.Visibility] shouldBe KopyVisibility.Private.value
+        ) { configuration ->
+            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Private
+        }
+    }
+
+    private fun KopyCommandLineProcessor.testOption(
+        option: AbstractCliOption,
+        value: String,
+        block: (CompilerConfiguration) -> Unit,
+    ) {
+        val compilerConfiguration = CompilerConfiguration()
+        processOption(option = option, value = value, configuration = compilerConfiguration)
+        block(compilerConfiguration)
+    }
+
+    private fun KopyCommandLineProcessor.testOption(
+        option: AbstractCliOption,
+        values: List<String>,
+        block: (CompilerConfiguration) -> Unit,
+    ) {
+        val compilerConfiguration = CompilerConfiguration()
+        for (value in values) {
+            processOption(option = option, value = value, configuration = compilerConfiguration)
+        }
+        block(compilerConfiguration)
     }
 }

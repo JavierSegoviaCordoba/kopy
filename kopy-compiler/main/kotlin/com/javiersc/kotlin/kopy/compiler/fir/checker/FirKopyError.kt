@@ -26,7 +26,8 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
 
     val NO_COPY_SCOPE: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
-    val ARGUMENT_TYPE_MISMATCH: KtDiagnosticFactory2<String, String> by error2<PsiElement, String, String>()
+    val ARGUMENT_TYPE_MISMATCH: KtDiagnosticFactory2<String, String> by
+        error2<PsiElement, String, String>()
 
     override val MAP: KtDiagnosticFactoryToRendererMap = rendererMap { map ->
         map.put(
@@ -46,12 +47,14 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
         )
         map.put(
             factory = MISSING_KOPY_ANNOTATION,
-            message = "The property ''{0}'' does not belong to a data class annotated with ''@Kopy''",
+            message =
+                "The property ''{0}'' does not belong to a data class annotated with ''@Kopy''",
             rendererA = Renderer { t: String -> t },
         )
         map.put(
             factory = NO_COPY_SCOPE,
-            message = "Invalid scope ''{0}'', ''set/update'' are only allowed inside a ''copy'' scope",
+            message =
+                "Invalid scope ''{0}'', ''set/update'' are only allowed inside a ''copy'' scope",
             rendererA = Renderer { t: String -> t },
         )
         map.put(
