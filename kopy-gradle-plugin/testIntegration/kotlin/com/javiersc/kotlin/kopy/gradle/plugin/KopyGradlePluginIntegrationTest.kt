@@ -1,9 +1,10 @@
 package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.project.test.extensions.GradleProjectTest
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyDebug
-import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyReportPath
+import com.javiersc.kotlin.kopy.args.KopyTransformFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -80,8 +81,12 @@ internal class KopyGradlePluginIntegrationTest : GradleProjectTest() {
                 .map { it.key to it.value }
                 .shouldContainExactly(
                     KopyDebug.NAME to "${false}",
-                    KopyFunctions.NAME to KopyFunctions.All.value,
+                    KopyCopyFunctions.NAME to KopyCopyFunctions.Copy.value,
+                    KopyCopyFunctions.NAME to KopyCopyFunctions.Invoke.value,
                     KopyReportPath.NAME to projectDir.resolve("build/reports/kopy").path,
+                    KopyTransformFunctions.NAME to KopyTransformFunctions.Set.value,
+                    KopyTransformFunctions.NAME to KopyTransformFunctions.Update.value,
+                    KopyTransformFunctions.NAME to KopyTransformFunctions.UpdateEach.value,
                     KopyVisibility.NAME to KopyVisibility.Auto.value,
                 )
         }

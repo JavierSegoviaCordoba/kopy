@@ -1,8 +1,9 @@
 package com.javiersc.kotlin.kopy.compiler
 
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyDebug
-import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyReportPath
+import com.javiersc.kotlin.kopy.args.KopyTransformFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Group
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData.Name
@@ -25,16 +26,24 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
                 required = false,
             ),
             CliOption(
-                optionName = KopyFunctions.NAME,
-                valueDescription = KopyFunctions.VALUE_DESCRIPTION,
-                description = KopyFunctions.DESCRIPTION,
+                optionName = KopyCopyFunctions.NAME,
+                valueDescription = KopyCopyFunctions.VALUE_DESCRIPTION,
+                description = KopyCopyFunctions.DESCRIPTION,
                 required = false,
+                allowMultipleOccurrences = true,
             ),
             CliOption(
                 optionName = KopyReportPath.NAME,
                 valueDescription = KopyReportPath.VALUE_DESCRIPTION,
                 description = KopyReportPath.DESCRIPTION,
                 required = false,
+            ),
+            CliOption(
+                optionName = KopyTransformFunctions.NAME,
+                valueDescription = KopyTransformFunctions.VALUE_DESCRIPTION,
+                description = KopyTransformFunctions.DESCRIPTION,
+                required = false,
+                allowMultipleOccurrences = true,
             ),
             CliOption(
                 optionName = KopyVisibility.NAME,
@@ -49,14 +58,35 @@ public class KopyCommandLineProcessor : CommandLineProcessor {
         value: String,
         configuration: CompilerConfiguration,
     ) {
-        fun <T : Any> put(key: CompilerConfigurationKey<T>, value: T) =
+        fun <T : Any> put(key: CompilerConfigurationKey<T>, value: T) {
             configuration.put(key, value)
+        }
+
+        fun <T : Any> appendList(key: CompilerConfigurationKey<List<T>>, values: List<T>) {
+            configuration.appendList(key, values)
+        }
 
         when (option.optionName) {
-            KopyDebug.NAME -> put(KopyKey.Debug, value.toBooleanStrictOrNull() ?: false)
-            KopyFunctions.NAME -> put(KopyKey.Functions, value)
-            KopyReportPath.NAME -> put(KopyKey.ReportPath, value)
-            KopyVisibility.NAME -> put(KopyKey.Visibility, value)
+            KopyDebug.NAME -> {
+                val debug: Boolean = value.toBooleanStrictOrNull() ?: false
+                put(KopyKey.Debug, debug)
+            }
+            KopyCopyFunctions.NAME -> {
+                val kopyCopyFunctions = KopyCopyFunctions.from(value)
+                appendList(KopyKey.CopyFunctions, kopyCopyFunctions)
+            }
+            KopyReportPath.NAME -> {
+                val reportPath: String = value
+                put(KopyKey.ReportPath, reportPath)
+            }
+            KopyTransformFunctions.NAME -> {
+                val kopyTransformFunctions = KopyTransformFunctions.from(value)
+                appendList(KopyKey.TransformFunctions, kopyTransformFunctions)
+            }
+            KopyVisibility.NAME -> {
+                val kopyVisibility = KopyVisibility.from(value)
+                put(KopyKey.Visibility, kopyVisibility)
+            }
         }
     }
 }

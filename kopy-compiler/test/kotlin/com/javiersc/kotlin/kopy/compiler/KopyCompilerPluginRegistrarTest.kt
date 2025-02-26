@@ -22,11 +22,7 @@ class KopyCompilerPluginRegistrarTest {
         val extensionStorage = CompilerPluginRegistrar.ExtensionStorage()
         val configuration = CompilerConfiguration()
         val kopyCompiler = KopyCompilerPluginRegistrar()
-        extensionStorage.run {
-            kopyCompiler.run {
-                registerExtensions(configuration)
-            }
-        }
+        extensionStorage.run { kopyCompiler.run { registerExtensions(configuration) } }
         val extensions: List<Any> = extensionStorage.registeredExtensions.values.flatten()
         extensions.shouldHaveSize(2)
         extensions.first().shouldBeTypeOf<FirKopyExtension>()

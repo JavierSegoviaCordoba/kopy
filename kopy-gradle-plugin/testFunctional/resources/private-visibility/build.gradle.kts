@@ -1,5 +1,3 @@
-import com.javiersc.kotlin.kopy.args.KopyVisibility
-
 plugins {
     application
     id("com.javiersc.kotlin.kopy")
@@ -11,5 +9,5 @@ application {
 }
 
 kopy {
-    visibility.set(KopyVisibility.Private)
+    visibility = KopyVisibility.Private
 }

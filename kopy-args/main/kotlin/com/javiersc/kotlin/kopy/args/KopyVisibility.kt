@@ -2,16 +2,13 @@ package com.javiersc.kotlin.kopy.args
 
 import java.io.Serializable
 
-public enum class KopyVisibility(
-    public val value: String,
-    public val restrictive: Int,
-) : Serializable {
+public enum class KopyVisibility(public val value: String, public val restrictive: Int) :
+    Serializable {
     Auto(value = "auto", restrictive = 0),
     Public(value = "public", restrictive = 1),
     Internal(value = "internal", restrictive = 2),
     Protected(value = "protected", restrictive = 3),
-    Private(value = "private", restrictive = 4),
-    ;
+    Private(value = "private", restrictive = 4);
 
     public companion object {
 

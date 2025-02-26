@@ -5,7 +5,8 @@ package com.javiersc.kotlin.kopy.compiler.fir.generation
 import com.javiersc.kotlin.compiler.extensions.common.toName
 import com.javiersc.kotlin.compiler.extensions.fir.createFirAnnotation
 import com.javiersc.kotlin.compiler.extensions.fir.toFirTypeRef
-import com.javiersc.kotlin.kopy.args.KopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
+import com.javiersc.kotlin.kopy.args.KopyTransformFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyConfig
 import com.javiersc.kotlin.kopy.compiler.KopyKey
@@ -79,11 +80,14 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private val configuration: CompilerConfiguration = kopyConfig.configuration
 
-    private val kopyFunctions: KopyFunctions
-        get() = KopyFunctions.from(configuration[KopyKey.Functions, KopyFunctions.All.value])
+    private val kopyCopyFunctions: List<KopyCopyFunctions>
+        get() = configuration[KopyKey.CopyFunctions, KopyCopyFunctions.entries]
+
+    private val kopyTransformFunctions: List<KopyTransformFunctions>
+        get() = configuration[KopyKey.TransformFunctions, KopyTransformFunctions.entries]
 
     private val kopyVisibility: KopyVisibility
-        get() = KopyVisibility.from(configuration[KopyKey.Visibility, KopyVisibility.Auto.value])
+        get() = configuration[KopyKey.Visibility, KopyVisibility.Auto]
 
     private val function1Class: FirClassLikeSymbol<*>
         get() = session.symbolProvider.getClassLikeSymbolByClassId(StandardClassIds.FunctionN(1))!!
@@ -99,8 +103,11 @@ internal class FirKopyDeclarationGenerationExtension(
         classSymbol: FirClassSymbol<*>,
         context: MemberGenerationContext,
     ): Set<Name> {
-        val names: Set<Name> =
-            setOf(underscoreAtomicName, copyName, invokeName, setName, updateName, updateEachName)
+        val names: Set<Name> = buildSet {
+            add(underscoreAtomicName)
+            addAll(kopyCopyFunctions.map { it.value.toName() })
+            addAll(kopyTransformFunctions.map { it.value.toName() })
+        }
         return names
     }
 
@@ -146,25 +153,30 @@ internal class FirKopyDeclarationGenerationExtension(
                 if (!owner.hasAnnotation(kopyClassId, session)) return@buildList
                 if (!owner.isData) return@buildList
 
-                if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Copy) {
+                if (KopyCopyFunctions.Copy in kopyCopyFunctions) {
                     val copyFunction: FirNamedFunctionSymbol? = createCopyFun(callableId, owner)
                     if (copyFunction != null) add(copyFunction)
                 }
 
-                if (kopyFunctions == KopyFunctions.All || kopyFunctions == KopyFunctions.Invoke) {
+                if (KopyCopyFunctions.Invoke in kopyCopyFunctions) {
                     val invokeFunction: FirNamedFunctionSymbol? = createInvokeFun(callableId, owner)
                     if (invokeFunction != null) add(invokeFunction)
                 }
+                if (KopyTransformFunctions.Set in kopyTransformFunctions) {
+                    val setFunction: FirNamedFunctionSymbol? = createSetFun(callableId, owner)
+                    if (setFunction != null) add(setFunction)
+                }
 
-                val setFunction: FirNamedFunctionSymbol? = createSetFun(callableId, owner)
-                if (setFunction != null) add(setFunction)
+                if (KopyTransformFunctions.Update in kopyTransformFunctions) {
+                    val updateFunction: FirNamedFunctionSymbol? = createUpdateFun(callableId, owner)
+                    if (updateFunction != null) add(updateFunction)
+                }
 
-                val updateFunction: FirNamedFunctionSymbol? = createUpdateFun(callableId, owner)
-                if (updateFunction != null) add(updateFunction)
-
-                val updateEachFunction: FirNamedFunctionSymbol? =
-                    createUpdateEachFun(callableId, owner)
-                if (updateEachFunction != null) add(updateEachFunction)
+                if (KopyTransformFunctions.UpdateEach in kopyTransformFunctions) {
+                    val updateEachFunction: FirNamedFunctionSymbol? =
+                        createUpdateEachFun(callableId, owner)
+                    if (updateEachFunction != null) add(updateEachFunction)
+                }
             }
         }
 

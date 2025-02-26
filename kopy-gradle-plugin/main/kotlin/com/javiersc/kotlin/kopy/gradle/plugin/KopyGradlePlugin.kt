@@ -2,9 +2,10 @@ package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.logging.extensions.warnColored
 import com.javiersc.kotlin.compiler.gradle.extensions.KotlinCompilerGradlePlugin
+import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyDebug
-import com.javiersc.kotlin.kopy.args.KopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyReportPath
+import com.javiersc.kotlin.kopy.args.KopyTransformFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
 import com.javiersc.kotlin.kopy.compiler.KopyCompilerProjectData
 import com.javiersc.kotlin.stdlib.remove
@@ -52,13 +53,28 @@ public class KopyGradlePlugin @Inject constructor(private val providers: Provide
     ): Provider<List<SubpluginOption>> {
         val kopy: KopyExtension = kotlinCompilation.project.kopy
         return providers.provider {
+            val debug: String = kopy.debug.get().toString()
+            val copyFunctions: List<String> = kopy.copyFunctions.get().map(KopyCopyFunctions::value)
             val reportPath: String = kopy.reportPath.get().asFile.path
-            listOf(
-                SubpluginOption(key = KopyDebug.NAME, value = kopy.debug.get().toString()),
-                SubpluginOption(key = KopyFunctions.NAME, value = kopy.functions.get().value),
-                SubpluginOption(key = KopyReportPath.NAME, value = reportPath),
-                SubpluginOption(key = KopyVisibility.NAME, value = kopy.visibility.get().value),
-            )
+            val transformFunctions: List<String> =
+                kopy.transformFunctions.get().map(KopyTransformFunctions::value)
+            val visibility: String = kopy.visibility.get().value
+            buildList {
+                add(SubpluginOption(key = KopyDebug.NAME, value = debug))
+                for (copyFunction in copyFunctions) {
+                    add(SubpluginOption(key = KopyCopyFunctions.NAME, value = copyFunction))
+                }
+                add(SubpluginOption(key = KopyReportPath.NAME, value = reportPath))
+                for (transformFunction in transformFunctions) {
+                    add(
+                        SubpluginOption(
+                            key = KopyTransformFunctions.NAME,
+                            value = transformFunction,
+                        )
+                    )
+                }
+                add(SubpluginOption(key = KopyVisibility.NAME, value = visibility))
+            }
         }
     }
 

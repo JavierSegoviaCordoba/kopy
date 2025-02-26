@@ -5,8 +5,13 @@
 ### Added
 
 - Debug mode
+- `KopyTransformFunctions` to set the transform functions that will be generated
+- `transformFunctions`, and it accepts a list of `KopyTransformFunctions`
 
 ### Changed
+
+- `KopyFunctions` to `KopyCopyFunctions`
+- `functions` to `copyFunctions`, and it accepts a list of `KopyCopyFunctions`
 
 ### Deprecated
 

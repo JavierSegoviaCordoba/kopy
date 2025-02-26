@@ -6,7 +6,6 @@ hubdle {
             api()
         }
         explicitApi()
-        format.isEnabled = false
         publishing {
             maven {
                 repositories { //
