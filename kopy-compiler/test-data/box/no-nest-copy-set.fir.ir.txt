@@ -239,9 +239,9 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-set.kt
               BLOCK_BODY
                 CALL 'public final fun set <S> (other: S of com.javiersc.kotlin.kopy.playground.Foo.set): kotlin.Unit declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Unit origin=null
                   <S>: kotlin.Int
-                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
+                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                   $receiver: CALL 'public final fun <get-number> (): kotlin.Int declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.Int origin=GET_PROPERTY
-                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
+                    $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                   other: CALL 'public final fun also <T> (block: kotlin.Function1<T of kotlin.also, kotlin.Unit>): T of kotlin.also declared in kotlin' type=kotlin.Int origin=null
                     <T>: kotlin.Int
                     $receiver: CONST Int type=kotlin.Int value=42
@@ -251,11 +251,11 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-nest-copy-set.kt
                         BLOCK_BODY
                           CALL 'public final fun store (newValue: T of kotlin.concurrent.atomics.AtomicReference): kotlin.Unit declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.Unit origin=null
                             $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
-                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
+                              $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                             newValue: CALL 'public final fun copy (number: kotlin.Int, letter: kotlin.Char): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                               $this: CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=GET_PROPERTY
                                 $this: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=GET_PROPERTY
-                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_ARGUMENT
+                                  $this: GET_VAR '$this$copy: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
                               number: GET_VAR 'it: kotlin.Int declared in com.javiersc.kotlin.kopy.playground.box.<anonymous>.<anonymous>' type=kotlin.Int origin=null
       VAR name:isOk type:kotlin.Boolean [val]
         CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=EQEQ

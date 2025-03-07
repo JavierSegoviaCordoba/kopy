@@ -1,4 +1,6 @@
 import com.javiersc.gradle.extensions.version.catalogs.artifact
+import com.javiersc.kotlin.stdlib.AnsiColor
+import com.javiersc.kotlin.stdlib.ansiColor
 
 hubdle {
     config {
@@ -35,7 +37,7 @@ hubdle {
                                     displayName = "Kopy"
                                     description =
                                         "A compiler plugin to improve how to copy data classes " +
-                                                "with a nice DSL in Kotlin."
+                                            "with a nice DSL in Kotlin."
                                     implementationClass =
                                         "com.javiersc.kotlin.kopy.gradle.plugin.KopyGradlePlugin"
                                     tags.set(
@@ -46,7 +48,7 @@ hubdle {
                                             "data",
                                             "copy",
                                             "kopy",
-                                        ),
+                                        )
                                     )
                                 }
                             }
@@ -87,5 +89,13 @@ hubdle {
                 }
             }
         }
+    }
+}
+
+val testTasks = tasks.withType<Test>()
+
+rootProject.allprojects {
+    testTasks.configureEach { //
+        dependsOn(tasks.named { it == "publishToMavenLocalTest" })
     }
 }
