@@ -21,7 +21,7 @@
 
 ### Updated
 
-- `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.1.20-RC3`
+- `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.1.20`
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.6.0-RC2`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.6.0-RC2`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.6.0-RC2`
