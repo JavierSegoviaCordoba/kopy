@@ -21,13 +21,15 @@
 
 ### Updated
 
+- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.6.0+2.1.20`
+- `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.6.0+2.1.20`
+- `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.6.0+2.1.20`
+- `com.javiersc.hubdle:hubdle-version-catalog -> 0.5.0`
+- `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.9.0`
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.1.20`
-- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.6.0-RC2`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.6.0-RC2`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.6.0-RC2`
 - `gradle -> 8.13`
-- `com.javiersc.hubdle:hubdle-version-catalog -> 0.4.7`
-- `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.8.7`
 
 ## [0.14.0+2.1.10] - 2025-01-28
 
