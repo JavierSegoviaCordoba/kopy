@@ -4,6 +4,20 @@
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Updated
+
+## [0.15.0+2.1.20] - 2025-03-21
+
+### Added
+
 - Debug mode
 - `KopyTransformFunctions` to set the transform functions that will be generated
 - `transformFunctions`, and it accepts a list of `KopyTransformFunctions`
@@ -12,12 +26,6 @@
 
 - `KopyFunctions` to `KopyCopyFunctions`
 - `functions` to `copyFunctions`, and it accepts a list of `KopyCopyFunctions`
-
-### Deprecated
-
-### Fixed
-
-### Removed
 
 ### Updated
 
@@ -186,7 +194,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.14.0+2.1.10...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.15.0+2.1.20...HEAD
+
+[0.15.0+2.1.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.14.0+2.1.10...0.15.0+2.1.20
 
 [0.14.0+2.1.10]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.13.1+2.1.0...0.14.0+2.1.10
 
