@@ -14,8 +14,8 @@
 
 ### Updated
 
+- `gradle -> 8.14.1`
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.1.21`
-- `gradle -> 8.14`
 
 ## [0.15.0+2.1.20] - 2025-03-21
 
