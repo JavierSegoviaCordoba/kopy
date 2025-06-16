@@ -135,4 +135,20 @@ public class BoxTestGenerated extends AbstractBoxTest {
       runTest("test-data/box/repeated-properties/complex-2.kt");
     }
   }
+
+  @Nested
+  @TestMetadata("test-data/box/serialization")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Serialization {
+    @Test
+    public void testAllFilesPresentInSerialization() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/serialization"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    }
+
+    @Test
+    @TestMetadata("simple-serialization.kt")
+    public void testSimple_serialization() {
+      runTest("test-data/box/serialization/simple-serialization.kt");
+    }
+  }
 }

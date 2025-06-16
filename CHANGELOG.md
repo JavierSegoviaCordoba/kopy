@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- Kotlin Serialization
+
 ### Removed
 
 ### Updated
