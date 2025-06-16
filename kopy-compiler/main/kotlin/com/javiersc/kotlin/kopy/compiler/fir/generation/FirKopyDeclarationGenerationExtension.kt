@@ -25,7 +25,9 @@ import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateEachClassId
 import com.javiersc.kotlin.kopy.compiler.kopyOptInClassId
 import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.measureKey
+import com.javiersc.kotlin.kopy.compiler.serializableAnnotationClassId
 import com.javiersc.kotlin.kopy.compiler.setName
+import com.javiersc.kotlin.kopy.compiler.transientAnnotationClassId
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import com.javiersc.kotlin.kopy.compiler.updateEachName
 import com.javiersc.kotlin.kopy.compiler.updateName
@@ -130,16 +132,17 @@ internal class FirKopyDeclarationGenerationExtension(
 
             val atomicProperty: FirProperty =
                 createMemberProperty(
-                    owner = context.owner,
-                    key = Key,
-                    name = callableId.callableName,
-                    returnType = atomicRefType,
-                    config = {
-                        status { isOverride = false }
-                        modality = Modality.FINAL
-                        visibility = atomicVisibility
-                    },
-                )
+                        owner = context.owner,
+                        key = Key,
+                        name = callableId.callableName,
+                        returnType = atomicRefType,
+                        config = {
+                            status { isOverride = false }
+                            modality = Modality.FINAL
+                            visibility = atomicVisibility
+                        },
+                    )
+                    .apply { addTransientAnnotationIfOwnedBySerializable(owner = owner) }
             return listOf(atomicProperty.symbol)
         }
 
@@ -422,6 +425,17 @@ internal class FirKopyDeclarationGenerationExtension(
             ?.symbol
             ?.toFirTypeRef()
             ?.let(::createFirAnnotation)
+
+    private fun FirProperty.addTransientAnnotationIfOwnedBySerializable(owner: FirClassSymbol<*>) {
+        val isSerializable: Boolean = owner.hasAnnotation(serializableAnnotationClassId, session)
+        if (isSerializable) {
+            val replacedAnnotations: List<FirAnnotation> = buildList {
+                addAll(annotations)
+                createAnnotation(classId = transientAnnotationClassId)?.let(::add)
+            }
+            replaceAnnotations(replacedAnnotations)
+        }
+    }
 
     private fun calculateVisibility(classSymbol: FirClassSymbol<*>): Visibility {
         val visibility: Visibility =

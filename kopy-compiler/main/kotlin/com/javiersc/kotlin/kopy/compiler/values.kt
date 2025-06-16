@@ -21,6 +21,8 @@ private const val iterable: String = "kotlin.collections.Iterable"
 private const val list: String = "kotlin.collections.List"
 private const val map: String = "kotlin.collections.map"
 private const val also: String = "kotlin.also"
+private const val serializableAnnotation: String = "kotlinx.serialization.Serializable"
+private const val transientAnnotation: String = "kotlinx.serialization.Transient"
 
 internal val kopyFqName: FqName = kopy.toFqName()
 internal val kopyFunctionCopyFqName: FqName = kopyFunctionCopy.toFqName()
@@ -39,6 +41,8 @@ internal val kopyFunctionUpdateEachClassId: ClassId = kopyFunctionUpdateEach.toC
 internal val atomicReferenceClassId: ClassId = atomicReference.toClassId()
 internal val iterableClassId: ClassId = iterable.toClassId()
 internal val listClassId: ClassId = list.toClassId()
+internal val serializableAnnotationClassId: ClassId = serializableAnnotation.toClassId()
+internal val transientAnnotationClassId: ClassId = transientAnnotation.toClassId()
 
 internal val underscoreAtomicName: Name = "_atomic".toName()
 internal val loadName: Name = "load".toName()
