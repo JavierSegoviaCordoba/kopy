@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- Missing artifacts on Maven Central
+
 ### Removed
 
 ### Updated
