@@ -10,11 +10,15 @@
 
 ### Fixed
 
-- Missing artifacts on Maven Central
-
 ### Removed
 
 ### Updated
+
+## [0.16.1+2.1.21] - 2025-06-17
+
+### Fixed
+
+- Missing artifacts on Maven Central
 
 ## [0.16.0+2.1.21] - 2025-06-16
 
@@ -212,7 +216,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.16.0+2.1.21...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.16.1+2.1.21...HEAD
+
+[0.16.1+2.1.21]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.16.0+2.1.21...0.16.1+2.1.21
 
 [0.16.0+2.1.21]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.15.0+2.1.20...0.16.0+2.1.21
 
