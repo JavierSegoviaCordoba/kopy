@@ -1,6 +1,4 @@
 import com.javiersc.gradle.extensions.version.catalogs.artifact
-import com.javiersc.kotlin.stdlib.AnsiColor
-import com.javiersc.kotlin.stdlib.ansiColor
 
 hubdle {
     config {
