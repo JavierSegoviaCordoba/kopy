@@ -36,10 +36,10 @@ import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.descriptors.Visibility
 import org.jetbrains.kotlin.fir.FirSession
-import org.jetbrains.kotlin.fir.analysis.checkers.declaration.primaryConstructorSymbol
 import org.jetbrains.kotlin.fir.declarations.FirProperty
 import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
+import org.jetbrains.kotlin.fir.declarations.primaryConstructorIfAny
 import org.jetbrains.kotlin.fir.declarations.utils.isData
 import org.jetbrains.kotlin.fir.declarations.utils.visibility
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
@@ -439,7 +439,7 @@ internal class FirKopyDeclarationGenerationExtension(
 
     private fun calculateVisibility(classSymbol: FirClassSymbol<*>): Visibility {
         val visibility: Visibility =
-            classSymbol.primaryConstructorSymbol(session)?.visibility ?: return Visibilities.Public
+            classSymbol.primaryConstructorIfAny(session)?.visibility ?: return Visibilities.Public
         val isMoreRestrictive: Boolean = kopyVisibility.isMoreRestrictedThan(visibility)
         return if (isMoreRestrictive) kopyVisibility.toVisibility(visibility) else visibility
     }

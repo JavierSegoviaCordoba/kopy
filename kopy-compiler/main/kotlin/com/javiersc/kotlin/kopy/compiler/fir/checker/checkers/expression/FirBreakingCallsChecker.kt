@@ -12,6 +12,7 @@ import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.FirBrea
 import com.javiersc.kotlin.kopy.compiler.fir.utils.isKopyFunctionSetOrUpdateOrUpdateEachCall
 import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.measureKey
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
@@ -42,6 +43,8 @@ import org.jetbrains.kotlin.fir.types.resolvedType
 internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
     FirCallChecker(MppCheckerKind.Common) {
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) =
         kopyConfig.measureExecution(key = this::class.measureKey) {
             when (val checkerResult: CheckerResult = expression.isBreakingCallsChain(context)) {

@@ -1,7 +1,7 @@
 package com.javiersc.kotlin.kopy.compiler
 
-import com.javiersc.kotlin.compiler.test.runners.BoxTest
-import com.javiersc.kotlin.compiler.test.runners.DiagnosticTest
+import com.javiersc.kotlin.compiler.test.runners.JvmBoxTest
+import com.javiersc.kotlin.compiler.test.runners.JvmDiagnosticTest
 import com.javiersc.kotlin.compiler.test.services.MetaRuntimeClasspathProvider
 import com.javiersc.kotlin.kopy.args.KopyCopyFunctions
 import com.javiersc.kotlin.kopy.args.KopyVisibility
@@ -9,7 +9,12 @@ import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar.ExtensionSto
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.generators.generateTestGroupSuiteWithJUnit5
 import org.jetbrains.kotlin.test.Constructor
+import org.jetbrains.kotlin.test.FirParser
+import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
+import org.jetbrains.kotlin.test.directives.configureFirParser
+import org.jetbrains.kotlin.test.initIdeaConfiguration
 import org.jetbrains.kotlin.test.model.TestModule
+import org.junit.jupiter.api.BeforeAll
 
 fun main() = generateTestGroupSuiteWithJUnit5 {
     testGroup(testDataRoot = "test-data", testsRoot = "test-gen/java") {
@@ -34,7 +39,16 @@ fun main() = generateTestGroupSuiteWithJUnit5 {
     }
 }
 
-open class AbstractDiagnosticTest : DiagnosticTest() {
+open class AbstractDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -47,7 +61,16 @@ open class AbstractDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractBoxTest : BoxTest() {
+open class AbstractBoxTest : JvmBoxTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -61,7 +84,21 @@ open class AbstractBoxTest : BoxTest() {
     }
 }
 
-open class AbstractKopy0AutoDiagnosticTest : DiagnosticTest() {
+open class AbstractKopy0AutoDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
+
+    override fun configure(builder: TestConfigurationBuilder) {
+        builder.configureFirParser(FirParser.Psi)
+        super.configure(builder)
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -75,7 +112,16 @@ open class AbstractKopy0AutoDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopy1PublicDiagnosticTest : DiagnosticTest() {
+open class AbstractKopy1PublicDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -89,7 +135,16 @@ open class AbstractKopy1PublicDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopy2InternalDiagnosticTest : DiagnosticTest() {
+open class AbstractKopy2InternalDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -103,7 +158,16 @@ open class AbstractKopy2InternalDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopy3ProtectedDiagnosticTest : DiagnosticTest() {
+open class AbstractKopy3ProtectedDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -117,7 +181,16 @@ open class AbstractKopy3ProtectedDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopy4PrivateDiagnosticTest : DiagnosticTest() {
+open class AbstractKopy4PrivateDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -131,7 +204,16 @@ open class AbstractKopy4PrivateDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopyAllDiagnosticTest : DiagnosticTest() {
+open class AbstractKopyAllDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -145,7 +227,16 @@ open class AbstractKopyAllDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopyCopyDiagnosticTest : DiagnosticTest() {
+open class AbstractKopyCopyDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -159,7 +250,16 @@ open class AbstractKopyCopyDiagnosticTest : DiagnosticTest() {
     }
 }
 
-open class AbstractKopyInvokeDiagnosticTest : DiagnosticTest() {
+open class AbstractKopyInvokeDiagnosticTest : JvmDiagnosticTest() {
+
+    companion object {
+
+        @BeforeAll
+        @JvmStatic
+        fun setUp() {
+            initIdeaConfiguration()
+        }
+    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider

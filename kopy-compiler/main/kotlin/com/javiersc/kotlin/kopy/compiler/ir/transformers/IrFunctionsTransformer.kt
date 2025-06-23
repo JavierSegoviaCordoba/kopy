@@ -17,6 +17,7 @@ import com.javiersc.kotlin.kopy.compiler.listClassId
 import com.javiersc.kotlin.kopy.compiler.loadName
 import com.javiersc.kotlin.kopy.compiler.mapCallableId
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -110,6 +111,8 @@ internal class IrFunctionsTransformer(
         return function
     }
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun transformUpdateFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
@@ -146,6 +149,8 @@ internal class IrFunctionsTransformer(
         return function
     }
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun transformUpdateEachFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
@@ -194,6 +199,8 @@ internal class IrFunctionsTransformer(
         return irVariable
     }
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrBlockBodyBuilder.copyCall(
         declaration: IrSimpleFunction,
         thisCopyIrVariable: IrVariable,
