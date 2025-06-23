@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
+import org.jetbrains.kotlin.ir.visitors.IrTransformer
 
 internal class IrKopyGenerationExtension(private val kopyConfig: KopyConfig) :
     IrGenerationExtension {
@@ -42,9 +42,10 @@ internal class IrKopyGenerationExtension(private val kopyConfig: KopyConfig) :
         measureExecution(IrFixDeclarationParents::class) {
             IrFixDeclarationParents(this).patchDeclarationParents()
         }
+        println()
     }
 
-    private fun <T> IrModuleFragment.transform(transformer: IrElementTransformer<T?>) {
+    private fun <T> IrModuleFragment.transform(transformer: IrTransformer<T?>) {
         this.transform(transformer, null)
     }
 

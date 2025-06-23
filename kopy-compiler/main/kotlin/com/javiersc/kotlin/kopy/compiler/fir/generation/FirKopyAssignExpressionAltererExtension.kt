@@ -29,6 +29,7 @@ import org.jetbrains.kotlin.fir.expressions.extensionReceiver
 import org.jetbrains.kotlin.fir.extensions.FirAssignExpressionAltererExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.predicate.DeclarationPredicate
+import org.jetbrains.kotlin.fir.references.FirNamedReference
 import org.jetbrains.kotlin.fir.references.FirReference
 import org.jetbrains.kotlin.fir.references.builder.buildSimpleNamedReference
 import org.jetbrains.kotlin.fir.references.toResolvedVariableSymbol
@@ -68,7 +69,7 @@ internal class FirKopyAssignExpressionAltererExtension(
                 explicitReceiver = buildPropertyAccessExpression {
                     source = leftArgument.source
                     coneTypeOrNull = leftResolvedType.coneType
-                    calleeReference = leftArgument
+                    calleeReference = leftArgument as FirNamedReference
                     variableAssignment.lValue
                         .asFirOrNull<FirQualifiedAccessExpression>()
                         ?.typeArguments

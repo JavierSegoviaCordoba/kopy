@@ -4,6 +4,7 @@ package com.javiersc.kotlin.kopy.compiler;
 
 import com.intellij.testFramework.TestDataPath;
 import org.jetbrains.kotlin.test.util.KtTestUtil;
+import org.jetbrains.kotlin.test.TargetBackend;
 import org.jetbrains.kotlin.test.TestMetadata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @Test
   public void testAllFilesPresentInDiagnostics() {
-    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics"), Pattern.compile("^(.+)\\.kt$"), null, true);
+    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
   }
 
   @Nested
@@ -27,7 +28,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Invalid_call_chain {
     @Test
     public void testAllFilesPresentInInvalid_call_chain() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/invalid-call-chain"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/invalid-call-chain"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -55,7 +56,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Missing_data_class {
     @Test
     public void testAllFilesPresentInMissing_data_class() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/missing-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/missing-data-class"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -137,7 +138,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class No_copy_scope {
     @Test
     public void testAllFilesPresentInNo_copy_scope() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/no-copy-scope"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/no-copy-scope"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -183,7 +184,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Non_data_class {
     @Test
     public void testAllFilesPresentInNon_data_class() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/non-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/non-data-class"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -199,7 +200,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Type_error {
     @Test
     public void testAllFilesPresentInType_error() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/type-error"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/type-error"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -215,7 +216,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Valid {
     @Test
     public void testAllFilesPresentInValid() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/valid"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/valid"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test
@@ -279,7 +280,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   public class Visibility {
     @Test
     public void testAllFilesPresentInVisibility() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/visibility"), Pattern.compile("^(.+)\\.kt$"), null, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/visibility"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
     @Test

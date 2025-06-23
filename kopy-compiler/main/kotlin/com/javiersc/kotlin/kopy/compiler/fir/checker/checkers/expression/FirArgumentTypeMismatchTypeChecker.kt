@@ -5,6 +5,7 @@ import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError
 import com.javiersc.kotlin.kopy.compiler.fir.utils.isKopyFunctionSetCall
 import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.measureKey
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -26,6 +27,8 @@ internal class FirArgumentTypeMismatchTypeChecker(
     private val kopyConfig: KopyConfig,
 ) : FirCallChecker(MppCheckerKind.Common) {
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) {
         kopyConfig.measureExecution(key = this::class.measureKey) {
             if (!expression.isKopyFunctionSetCall) return

@@ -1,3 +1,5 @@
+@file:OptIn(DeprecatedForRemovalCompilerApi::class)
+
 package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.declaration
 
 import com.javiersc.kotlin.compiler.extensions.fir.name
@@ -7,6 +9,7 @@ import com.javiersc.kotlin.kopy.compiler.kopyClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFqName
 import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.measureKey
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -23,6 +26,7 @@ import org.jetbrains.kotlin.renderer.render
 internal class FirDataClassKopyAnnotationChecker(private val kopyConfig: KopyConfig) :
     FirDeclarationChecker<FirClassLikeDeclaration>(MppCheckerKind.Common) {
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     override fun check(
         declaration: FirClassLikeDeclaration,
         context: CheckerContext,

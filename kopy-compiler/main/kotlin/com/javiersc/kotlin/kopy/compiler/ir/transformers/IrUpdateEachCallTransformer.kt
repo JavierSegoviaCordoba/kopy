@@ -14,6 +14,7 @@ import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
 import com.javiersc.kotlin.kopy.compiler.iterableClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateFqName
 import com.javiersc.kotlin.kopy.compiler.mapCallableId
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
@@ -53,6 +54,8 @@ internal class IrUpdateEachCallTransformer(
         return updateCall
     }
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrPluginContext.createUpdateCall(expression: IrCall): IrFunctionAccessExpression? {
         val updateFunctionSymbol: IrSimpleFunctionSymbol =
             expression.dispatchReceiver?.type?.classOrNull?.functions?.firstOrNull {
@@ -97,6 +100,8 @@ internal class IrUpdateEachCallTransformer(
         return updateCall
     }
 
+    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrPluginContext.createMapCallToUpdateCall(
         expression: IrCall,
         updateCall: IrFunctionAccessExpression,
@@ -139,6 +144,7 @@ internal class IrUpdateEachCallTransformer(
         return mapCall
     }
 
+    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private val IrPluginContext.iterableMapFunctionOrNull: IrSimpleFunction?
         get() =
             referenceFunctions(mapCallableId)
