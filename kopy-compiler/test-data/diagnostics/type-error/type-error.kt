@@ -14,9 +14,9 @@ fun box(): String {
         street.set("foo2")
         street = "foo2"
         street.update { "$it 2" }
-        street.update { <!ARGUMENT_TYPE_MISMATCH!>42<!> }
+        street.update { <!RETURN_TYPE_MISMATCH!>42<!> }
         names.updateEach { "$it 2" }
-        names.updateEach { <!ARGUMENT_TYPE_MISMATCH!>42<!> }
+        names.updateEach { <!RETURN_TYPE_MISMATCH!>42<!> }
     }
 
     return "OK"
