@@ -9,12 +9,16 @@ import com.javiersc.kotlin.compiler.extensions.ir.createLambdaIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClassSymbolOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
+import com.javiersc.kotlin.kopy.compiler.ir.utils.dispatchReceiverArgument
+import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiver
+import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiverArgument
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
+import com.javiersc.kotlin.kopy.compiler.ir.utils.regularArguments
+import com.javiersc.kotlin.kopy.compiler.ir.utils.regularParameters
 import com.javiersc.kotlin.kopy.compiler.iterableClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateFqName
 import com.javiersc.kotlin.kopy.compiler.mapCallableId
-import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.builtins.StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
@@ -54,8 +58,6 @@ internal class IrUpdateEachCallTransformer(
         return updateCall
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrPluginContext.createUpdateCall(expression: IrCall): IrFunctionAccessExpression? {
         val updateFunctionSymbol: IrSimpleFunctionSymbol =
             expression.dispatchReceiver?.type?.classOrNull?.functions?.firstOrNull {
@@ -63,7 +65,7 @@ internal class IrUpdateEachCallTransformer(
             } ?: return null
         val updateFunction: IrSimpleFunction = updateFunctionSymbol.owner
         val expressionExtensionReceiverType: IrType =
-            expression.extensionReceiver?.type ?: return null
+            expression.extensionReceiverArgument?.type ?: return null
         val kFunction1Type: IrType =
             irBuiltIns
                 .functionN(1)
@@ -73,11 +75,11 @@ internal class IrUpdateEachCallTransformer(
                 ?: return null
         val updateCall: IrFunctionAccessExpression =
             declarationIrBuilder(updateFunction.symbol).irCall(updateFunction).also {
-                it.dispatchReceiver = expression.dispatchReceiver
-                it.extensionReceiver = expression.extensionReceiver
+                it.insertDispatchReceiver(expression.dispatchReceiverArgument)
+                it.insertExtensionReceiver(expression.extensionReceiverArgument)
                 it.type = expression.type
-                it.putTypeArgument(0, it.extensionReceiver?.type)
-                val lambda = createLambdaIrSimpleFunction {
+                it.typeArguments[0] = it.extensionReceiverArgument?.type
+                val lambda: IrSimpleFunction = createLambdaIrSimpleFunction {
                     this.parent = expressionParent
                     this.addValueParameter(
                         IMPLICIT_LAMBDA_PARAMETER_NAME,
@@ -91,8 +93,10 @@ internal class IrUpdateEachCallTransformer(
                         function = lambda,
                         origin = IrStatementOrigin.LAMBDA,
                     )
-                it.putValueArgument(0, lambdaFunctionExpression)
-                val mapCall = createMapCallToUpdateCall(expression, it) ?: return null
+                it.arguments[2] = lambdaFunctionExpression
+                val asIrCall: IrCall = it.asIrOrNull<IrCall>() ?: return null
+                val mapCall: IrFunctionAccessExpression =
+                    createMapCallToUpdateCall(expression, asIrCall) ?: return null
                 lambda.body = createIrBlockBody {
                     this.statements.add(declarationIrBuilder(lambda.symbol).irReturn(mapCall))
                 }
@@ -100,35 +104,37 @@ internal class IrUpdateEachCallTransformer(
         return updateCall
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrPluginContext.createMapCallToUpdateCall(
         expression: IrCall,
-        updateCall: IrFunctionAccessExpression,
+        updateCall: IrCall,
     ): IrFunctionAccessExpression? {
         val mapFunction: IrSimpleFunction = iterableMapFunctionOrNull ?: return null
 
         val expressionLambda: IrFunctionExpression? =
-            expression.getValueArgument(0)?.asIrOrNull<IrFunctionExpression>()
+            expression.regularArguments.firstOrNull().asIrOrNull<IrFunctionExpression>()
 
         val valueArgumentFromUpdate: IrSimpleFunction =
-            updateCall.getValueArgument(0)?.asIrOrNull<IrFunctionExpression>()?.function
+            updateCall.regularArguments.firstOrNull()?.asIrOrNull<IrFunctionExpression>()?.function
                 ?: return null
         val itValueParameterFromUpdate: IrValueParameter =
-            valueArgumentFromUpdate.valueParameters.firstOrNull() ?: return null
+            valueArgumentFromUpdate.regularParameters.firstOrNull() ?: return null
         val mapCallType: IrType = itValueParameterFromUpdate.type
 
         val mapCall: IrFunctionAccessExpression =
             declarationIrBuilder(mapFunction.symbol)
                 .irCall(callee = mapFunction.symbol, type = mapCallType)
                 .also {
-                    it.extensionReceiver =
+                    it.insertExtensionReceiver(
                         declarationIrBuilder(it.symbol).irGet(itValueParameterFromUpdate)
-                    val typeArg = expression.getTypeArgument(0)!!
-                    it.putTypeArgument(0, typeArg)
-                    it.putTypeArgument(1, typeArg)
+                    )
+                    val typeArg: IrType = expression.typeArguments.first()!!
+                    it.typeArguments[0] = typeArg
+                    it.typeArguments[1] = typeArg
                     val updateCallLambda: IrSimpleFunction? =
-                        updateCall.getValueArgument(0)?.asIrOrNull<IrFunctionExpression>()?.function
+                        updateCall.regularArguments
+                            .firstOrNull()
+                            ?.asIrOrNull<IrFunctionExpression>()
+                            ?.function
                     val updateCallParent: IrSimpleFunction = updateCallLambda ?: return null
                     val expressionLambdaFunction: IrSimpleFunction =
                         expressionLambda?.deepCopyWithSymbols(updateCallParent)?.function
@@ -139,18 +145,17 @@ internal class IrUpdateEachCallTransformer(
                             function = expressionLambdaFunction,
                             origin = IrStatementOrigin.LAMBDA,
                         )
-                    it.putValueArgument(0, funcExp)
+                    it.arguments[1] = funcExp
                 }
         return mapCall
     }
 
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private val IrPluginContext.iterableMapFunctionOrNull: IrSimpleFunction?
         get() =
             referenceFunctions(mapCallableId)
                 .firstOrNull {
                     val extensionReceiverClass: IrClassSymbol? =
-                        it.owner.extensionReceiverParameter?.type?.classOrNull
+                        it.owner.extensionReceiver?.type?.classOrNull
                     if (extensionReceiverClass == null || iterableClassSymbolOrNull == null) false
                     else extensionReceiverClass == iterableClassSymbolOrNull
                 }
