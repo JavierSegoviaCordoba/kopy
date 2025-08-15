@@ -1,5 +1,4 @@
 import com.javiersc.kotlin.stdlib.notContain
-import java.io.File
 
 hubdle {
     config {
@@ -54,10 +53,11 @@ tasks.register<Task>("deleteAllTextTestFiles") {
         inputs.dir(layout.projectDirectory.dir("test-data"))
         outputs.dir(layout.projectDirectory.dir("test-data"))
         doLast {
-            inputs
-                .files
-                .files.filter {
-                    it.path.notContain("TODO") && it.path.notContain("todo") && it.extension == "txt"
+            inputs.files.files
+                .filter {
+                    it.path.notContain("TODO") &&
+                        it.path.notContain("todo") &&
+                        it.extension == "txt"
                 }
                 .forEach(File::delete)
         }

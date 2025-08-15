@@ -43,22 +43,22 @@ FILE: no-kopy-annotation-on-one-data-class.kt
 
         public final fun copy(name: R|com/javiersc/kotlin/kopy/playground/Name| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.name|, address: R|com/javiersc/kotlin/kopy/playground/Address| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.address|, privateInfo: R|com/javiersc/kotlin/kopy/playground/PrivateInfo| = this@R|com/javiersc/kotlin/kopy/playground/Person|.R|com/javiersc/kotlin/kopy/playground/Person.privateInfo|): R|com/javiersc/kotlin/kopy/playground/Person|
 
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
-        }
-
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Person.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Person| {
-        }
-
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
-        }
-
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
         internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Person>|
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Person>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Person.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Person| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
         }
 
     }
@@ -79,22 +79,22 @@ FILE: no-kopy-annotation-on-one-data-class.kt
 
         public final fun copy(first: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Name|.R|com/javiersc/kotlin/kopy/playground/Name.first|, last: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Name|.R|com/javiersc/kotlin/kopy/playground/Name.last|): R|com/javiersc/kotlin/kopy/playground/Name|
 
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
         }
 
         internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Name>|
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Name>|
 
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
+        }
+
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
         }
 
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
-        }
-
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Name.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Name| {
         }
 
     }
@@ -125,22 +125,22 @@ FILE: no-kopy-annotation-on-one-data-class.kt
 
         public final fun copy(street: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.street|, city: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.city|, state: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.state|, zip: R|kotlin/String| = this@R|com/javiersc/kotlin/kopy/playground/Address|.R|com/javiersc/kotlin/kopy/playground/Address.zip|): R|com/javiersc/kotlin/kopy/playground/Address|
 
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
-        }
-
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Address.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Address| {
-        }
-
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
-        }
-
-        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
         }
 
         internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Address>|
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Address>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Address.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Address| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
         }
 
     }
