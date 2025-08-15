@@ -8,16 +8,17 @@ import com.javiersc.kotlin.compiler.extensions.ir.firstIrClass
 import com.javiersc.kotlin.kopy.compiler.atomicReferenceClassId
 import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.invokeName
+import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiver
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopy
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopyOrInvoke
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
+import com.javiersc.kotlin.kopy.compiler.ir.utils.regularParameters
 import com.javiersc.kotlin.kopy.compiler.listClassId
 import com.javiersc.kotlin.kopy.compiler.loadName
 import com.javiersc.kotlin.kopy.compiler.mapCallableId
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
-import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -111,15 +112,13 @@ internal class IrFunctionsTransformer(
         return function
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun transformUpdateFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
                 body =
                     pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
-                        val thisGet: IrGetValue = irGet(extensionReceiverParameter!!)
-                        val transformValueParameter: IrValueParameter = valueParameters.first()
+                        val thisGet: IrGetValue = irGet(extensionReceiver!!)
+                        val transformValueParameter: IrValueParameter = regularParameters.first()
                         val func1Invoke: IrSimpleFunction =
                             function1Class.findDeclaration<IrSimpleFunction> {
                                 it.name == invokeName
@@ -149,15 +148,15 @@ internal class IrFunctionsTransformer(
         return function
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun transformUpdateEachFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
                 body =
                     pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
-                        val thisGet: IrGetValue = irGet(extensionReceiverParameter!!)
-                        val transformValueParameter: IrValueParameter = valueParameters.first()
+                        val thisGet: IrGetValue = irGet(extensionReceiver!!)
+                        val transformValueParameter: IrValueParameter = regularParameters.first()
+                        val transformParameterIndex: Int =
+                            transformValueParameter.indexInParameters - 1
 
                         val transformCallType: IrSimpleType =
                             listClass.typeWith(typeParameters.map { it.defaultType })
@@ -167,10 +166,10 @@ internal class IrFunctionsTransformer(
 
                         val transformCall: IrCall =
                             irCall(callee = mapFunction.symbol).apply {
-                                this.putTypeArgument(0, typeParameterType)
-                                this.putTypeArgument(1, typeParameterType)
-                                this.extensionReceiver = thisGet
-                                this.putValueArgument(0, irGet(transformValueParameter))
+                                typeArguments[0] = typeParameterType
+                                typeArguments[1] = typeParameterType
+                                insertExtensionReceiver(thisGet)
+                                arguments[transformParameterIndex] = irGet(transformValueParameter)
                                 this.type = transformCallType
                             }
 
@@ -199,8 +198,6 @@ internal class IrFunctionsTransformer(
         return irVariable
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrBlockBodyBuilder.copyCall(
         declaration: IrSimpleFunction,
         thisCopyIrVariable: IrVariable,
@@ -208,7 +205,7 @@ internal class IrFunctionsTransformer(
         val invokeFunc: IrSimpleFunction =
             function1Class.findDeclaration<IrSimpleFunction> { it.name == invokeName }!!
 
-        val copyValueParameter: IrValueParameter = declaration.valueParameters.first()
+        val copyValueParameter: IrValueParameter = declaration.regularParameters.first()
         val thisCopyIrVariableGetValue: IrGetValue = irGet(thisCopyIrVariable)
 
         val copyCall: IrCall =
@@ -217,7 +214,7 @@ internal class IrFunctionsTransformer(
                     irGet(copyValueParameter).apply {
                         origin = IrStatementOrigin.VARIABLE_AS_FUNCTION
                     }
-                putValueArgument(0, thisCopyIrVariableGetValue)
+                arguments[copyValueParameter.indexInParameters] = thisCopyIrVariableGetValue
                 origin = IrStatementOrigin.INVOKE
             }
         return copyCall
