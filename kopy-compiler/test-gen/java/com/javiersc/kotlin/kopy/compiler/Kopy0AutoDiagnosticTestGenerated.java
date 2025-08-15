@@ -34,6 +34,12 @@ public class Kopy0AutoDiagnosticTestGenerated extends AbstractKopy0AutoDiagnosti
   }
 
   @Test
+  @TestMetadata("private_2.kt")
+  public void testPrivate_2() {
+    runTest("test-data/diagnostics-kopy-visibility/0_auto/private_2.kt");
+  }
+
+  @Test
   @TestMetadata("protected.kt")
   public void testProtected() {
     runTest("test-data/diagnostics-kopy-visibility/0_auto/protected.kt");
