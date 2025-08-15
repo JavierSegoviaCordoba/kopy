@@ -3,7 +3,6 @@ package com.javiersc.kotlin.kopy.compiler.ir.transformers
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.kopy.compiler.atomicReferenceClassId
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
-import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -29,8 +28,6 @@ internal class IrAtomicPropertyTransformer(
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
     override fun visitPropertyNew(declaration: IrProperty): IrStatement {
         fun originalProp(): IrStatement = super.visitPropertyNew(declaration)
         if (declaration.name != underscoreAtomicName) return originalProp()
@@ -51,7 +48,10 @@ internal class IrAtomicPropertyTransformer(
                             callee = atomicReferenceConstructor.symbol,
                             typeArguments = listOf(typeArg),
                         )
-                        .apply { putValueArgument(index = 0, valueArgument = thisGet) }
+                        .apply {
+                            val index: Int = thisReceiver.indexInParameters.takeIf { it >= 0 } ?: 0
+                            arguments[index] = thisGet
+                        }
                 irExprBody(atomicReferenceConstructorCall)
             }
         declaration.backingField?.initializer = atomicInitializer
