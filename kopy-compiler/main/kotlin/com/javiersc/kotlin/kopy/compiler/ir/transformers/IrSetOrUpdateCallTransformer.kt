@@ -17,6 +17,7 @@ import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
+import com.javiersc.kotlin.kopy.compiler.ir.utils.regularArguments
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyFqName
 import com.javiersc.kotlin.kopy.compiler.loadName
 import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
@@ -33,7 +34,6 @@ import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
@@ -398,12 +398,3 @@ internal class IrSetOrUpdateCallTransformer(
         return atomicGetterStoreFunctionCall
     }
 }
-
-// TODO: Copy to compiler project
-internal val IrCall.regularArguments: List<IrExpression>
-    get() =
-        (arguments zip symbol.owner.parameters)
-            .toMap()
-            .filterValues { valueParameter -> valueParameter.kind == IrParameterKind.Regular }
-            .keys
-            .filterNotNull()
