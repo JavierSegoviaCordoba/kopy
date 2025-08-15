@@ -39,38 +39,17 @@ fun main() = generateTestGroupSuiteWithJUnit5 {
     }
 }
 
-open class AbstractDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
 open class AbstractBoxTest : JvmBoxTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
@@ -80,11 +59,8 @@ open class AbstractBoxTest : JvmBoxTest() {
         configuration: CompilerConfiguration,
     ) {
         // configuration.put(KopyKey.Debug, true)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = false)
     }
-}
-
-open class AbstractKopy0AutoDiagnosticTest : JvmDiagnosticTest() {
 
     companion object {
 
@@ -94,163 +70,105 @@ open class AbstractKopy0AutoDiagnosticTest : JvmDiagnosticTest() {
             initIdeaConfiguration()
         }
     }
+}
 
-    override fun configure(builder: TestConfigurationBuilder) {
-        builder.configureFirParser(FirParser.Psi)
-        super.configure(builder)
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopy0AutoDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Auto)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopy1PublicDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopy1PublicDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Public)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopy2InternalDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopy2InternalDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Internal)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopy3ProtectedDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopy3ProtectedDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Protected)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopy4PrivateDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopy4PrivateDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.Visibility, KopyVisibility.Private)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopyAllDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopyAllDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.CopyFunctions, KopyCopyFunctions.entries)
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopyCopyDiagnosticTest : JvmDiagnosticTest() {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            initIdeaConfiguration()
-        }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
+open class AbstractKopyCopyDiagnosticTest : KopyDiagnosticTest() {
 
     override fun ExtensionStorage.registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
         configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Copy))
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
 }
 
-open class AbstractKopyInvokeDiagnosticTest : JvmDiagnosticTest() {
+open class AbstractKopyInvokeDiagnosticTest : KopyDiagnosticTest() {
+
+    override fun ExtensionStorage.registerExtensions(
+        module: TestModule,
+        configuration: CompilerConfiguration,
+    ) {
+        configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Invoke))
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
+    }
+}
+
+abstract class KopyDiagnosticTest() : JvmDiagnosticTest() {
+
+    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
+        ::GeneratedMetaRuntimeClasspathProvider
+
+    override fun configure(builder: TestConfigurationBuilder) {
+        builder.configureFirParser(FirParser.Psi)
+        super.configure(builder)
+    }
 
     companion object {
 
@@ -259,16 +177,5 @@ open class AbstractKopyInvokeDiagnosticTest : JvmDiagnosticTest() {
         fun setUp() {
             initIdeaConfiguration()
         }
-    }
-
-    override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
-        ::GeneratedMetaRuntimeClasspathProvider
-
-    override fun ExtensionStorage.registerExtensions(
-        module: TestModule,
-        configuration: CompilerConfiguration,
-    ) {
-        configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Invoke))
-        registerAllExtensions(configuration)
     }
 }

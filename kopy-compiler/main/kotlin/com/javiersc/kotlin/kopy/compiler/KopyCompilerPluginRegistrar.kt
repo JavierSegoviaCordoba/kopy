@@ -13,16 +13,22 @@ public class KopyCompilerPluginRegistrar : CompilerPluginRegistrar() {
     override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
-        registerAllExtensions(configuration)
+        registerAllExtensions(configuration = configuration, onlyDiagnostics = false)
     }
 }
 
 internal fun ExtensionStorage.registerAllExtensions(
     configuration: CompilerConfiguration,
+    onlyDiagnostics: Boolean,
     additionalConfig: ExtensionStorage.() -> Unit = {},
 ) {
     val measureStorage = MeasureStorage()
-    val kopyConfig = KopyConfig(configuration, measureStorage)
+    val kopyConfig =
+        KopyConfig(
+            configuration = configuration,
+            measureStorage = measureStorage,
+            onlyDiagnostics = onlyDiagnostics,
+        )
     registerDisposable(measureStorage)
     FirExtensionRegistrarAdapter.registerExtension(FirKopyExtension(kopyConfig))
     IrGenerationExtension.registerExtension(IrKopyGenerationExtension(kopyConfig))

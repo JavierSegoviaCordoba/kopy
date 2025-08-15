@@ -53,7 +53,12 @@ class KopyCompilerPluginRegistrarTest {
         configuration.put(KopyKey.Debug, true)
         configuration.put(KopyKey.ReportPath, tempDir.path)
         val measureStorage = MeasureStorage()
-        val kopyConfig = KopyConfig(configuration, measureStorage)
+        val kopyConfig =
+            KopyConfig(
+                configuration = configuration,
+                measureStorage = measureStorage,
+                onlyDiagnostics = false,
+            )
         kopyConfig.measureStorage.put("KEY_A", "VALUE_A", 1.seconds, false)
         kopyConfig.measureStorage.put("KEY_A", "VALUE_A_A", 0.5.seconds, false)
         kopyConfig.measureStorage.put("KEY_B", "VALUE_B", 0.15.seconds, false)
