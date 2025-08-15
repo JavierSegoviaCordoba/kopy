@@ -10,7 +10,6 @@ import com.javiersc.kotlin.compiler.extensions.ir.filterIrIsInstance
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
-import com.javiersc.kotlin.compiler.extensions.ir.toIrGetValue
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
 import com.javiersc.kotlin.kopy.compiler.alsoCallableId
 import com.javiersc.kotlin.kopy.compiler.copyName
@@ -34,13 +33,13 @@ import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
+import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrDeclarationReference
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.IrFunctionAccessExpression
 import org.jetbrains.kotlin.ir.expressions.IrFunctionExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.IrMemberAccessExpression
@@ -49,7 +48,6 @@ import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 import org.jetbrains.kotlin.ir.symbols.IrSymbol
-import org.jetbrains.kotlin.ir.symbols.IrValueSymbol
 import org.jetbrains.kotlin.ir.transformStatement
 import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
@@ -61,7 +59,6 @@ import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.util.getPropertyGetter
 import org.jetbrains.kotlin.ir.util.getSimpleFunction
 import org.jetbrains.kotlin.ir.util.indexOrMinusOne
-import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.patchDeclarationParents
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.SpecialNames
@@ -98,11 +95,10 @@ internal class IrSetOrUpdateCallTransformer(
     private inner class SetValueTransformer(private val expressionCall: IrCall) :
         IrElementTransformerVoid() {
 
-        // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
         @OptIn(DeprecatedForRemovalCompilerApi::class)
         override fun visitExpression(expression: IrExpression): IrExpression {
             fun original(): IrExpression = super.visitExpression(expression)
-            if (expression !in expressionCall.arguments) return original()
+            if (expression !in expressionCall.regularArguments) return original()
             val parent: IrDeclarationParent =
                 expression.findDeclarationParent() ?: return original()
             if (parent != expressionCall.findDeclarationParent()) return original()
@@ -116,15 +112,16 @@ internal class IrSetOrUpdateCallTransformer(
     private inner class UpdateReturnTransformer(private val expressionCall: IrCall) :
         IrElementTransformerVoid() {
 
-        // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
         @OptIn(DeprecatedForRemovalCompilerApi::class)
         override fun visitReturn(expression: IrReturn): IrExpression {
             fun original(): IrExpression = super.visitReturn(expression)
             val parent: IrDeclarationParent =
                 expression.findDeclarationParent() ?: return original()
             val updateLambda: IrSimpleFunction =
-                expressionCall.arguments.firstOrNull()?.asIrOrNull<IrFunctionExpression>()?.function
-                    ?: return original()
+                expressionCall.regularArguments
+                    .firstOrNull()
+                    ?.asIrOrNull<IrFunctionExpression>()
+                    ?.function ?: return original()
             if (parent != updateLambda) return original()
             val alsoCall: IrCall =
                 pluginContext.createAlsoCall(expressionCall, parent) ?: return original()
@@ -137,7 +134,6 @@ internal class IrSetOrUpdateCallTransformer(
         }
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrPluginContext.createAlsoCall(
         expression: IrCall,
@@ -177,7 +173,6 @@ internal class IrSetOrUpdateCallTransformer(
     private fun IrElement.findDeclarationParent(): IrDeclarationParent? =
         findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun createAlsoBlockFunction(
         expressionParent: IrDeclarationParent,
@@ -206,13 +201,11 @@ internal class IrSetOrUpdateCallTransformer(
                             val copyChainCall: IrCall =
                                 expression.createCopyChainCall(alsoItValueParameterGetValue)
                                     ?: return null
-                            val atomicGetterStoreFunctionCall: IrCall? =
+                            val atomicGetterStoreFunctionCall: IrCall =
                                 expression.createAtomicGetterStoreSetFunctionCall(
                                     copyChainCall = copyChainCall
                                 )
-                            if (atomicGetterStoreFunctionCall != null) {
-                                +atomicGetterStoreFunctionCall
-                            }
+                            +atomicGetterStoreFunctionCall
                         }
 
                     body = alsoBodyBlock
@@ -220,10 +213,9 @@ internal class IrSetOrUpdateCallTransformer(
         return alsoBlockFunction
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
-        val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall() ?: return null
+        val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall()
         val atomicRefType: IrSimpleType = atomicGetterGetFunctionCall.type.asIr()
 
         val chain: List<IrMemberAccessExpression<*>> = dispatchersChain().reversed()
@@ -280,16 +272,15 @@ internal class IrSetOrUpdateCallTransformer(
         return copyChainCall
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrMemberAccessExpression<*>.dispatchersChain(): List<IrMemberAccessExpression<*>> =
         buildList {
             val extensionReceiver: IrMemberAccessExpression<*> =
                 runCatching {
-                        extensionReceiver
-                            ?.asIrOrNull<IrMemberAccessExpression<*>>()
-                            ?.deepCopyWithSymbols()
-                    }
+                    extensionReceiver
+                        ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                        ?.deepCopyWithSymbols()
+                }
                     .getOrNull() ?: return@buildList
 
             add(extensionReceiver)
@@ -307,7 +298,6 @@ internal class IrSetOrUpdateCallTransformer(
             extract(extensionReceiver)
         }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
     private fun IrSymbol.createCopyCall(
         dataClass: IrClassSymbol,
@@ -337,11 +327,10 @@ internal class IrSetOrUpdateCallTransformer(
         return copyCall
     }
 
-    private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall? {
+    private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
-                ?: getThisReceiver()?.toIrGetValue()
-                ?: return null
+                ?: error("No value found")
 
         val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
 
@@ -373,11 +362,11 @@ internal class IrSetOrUpdateCallTransformer(
         return atomicGetterGetFunctionCall
     }
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
     @OptIn(DeprecatedForRemovalCompilerApi::class)
-    private fun IrCall.createAtomicGetterStoreSetFunctionCall(copyChainCall: IrCall): IrCall? {
+    private fun IrCall.createAtomicGetterStoreSetFunctionCall(copyChainCall: IrCall): IrCall {
         val dispatchIrGetValue: IrGetValue =
-            dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols() ?: return null
+            dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
+                ?: error("No value found")
 
         val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
 
@@ -411,9 +400,10 @@ internal class IrSetOrUpdateCallTransformer(
 }
 
 // TODO: Copy to compiler project
-private fun IrFunctionAccessExpression.getThisReceiver(): IrValueParameter? =
-    symbol.owner.parentAsClass.thisReceiver
-
-// TODO: Copy to compiler project
-private fun IrFunctionAccessExpression.getThisReceiverSymbol(): IrValueSymbol? =
-    getThisReceiver()?.symbol
+internal val IrCall.regularArguments: List<IrExpression>
+    get() =
+        (arguments zip symbol.owner.parameters)
+            .toMap()
+            .filterValues { valueParameter -> valueParameter.kind == IrParameterKind.Regular }
+            .keys
+            .filterNotNull()
