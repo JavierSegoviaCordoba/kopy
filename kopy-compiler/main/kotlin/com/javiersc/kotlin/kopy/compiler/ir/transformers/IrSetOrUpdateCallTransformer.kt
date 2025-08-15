@@ -277,10 +277,10 @@ internal class IrSetOrUpdateCallTransformer(
         buildList {
             val extensionReceiver: IrMemberAccessExpression<*> =
                 runCatching {
-                    extensionReceiver
-                        ?.asIrOrNull<IrMemberAccessExpression<*>>()
-                        ?.deepCopyWithSymbols()
-                }
+                        extensionReceiver
+                            ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                            ?.deepCopyWithSymbols()
+                    }
                     .getOrNull() ?: return@buildList
 
             add(extensionReceiver)
