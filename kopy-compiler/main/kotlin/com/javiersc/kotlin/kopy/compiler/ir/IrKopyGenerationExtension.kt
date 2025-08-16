@@ -27,7 +27,7 @@ internal class IrKopyGenerationExtension(private val kopyConfig: KopyConfig) :
 
     @JvmName("generate2")
     private fun IrModuleFragment.generate(pluginContext: IrPluginContext) {
-        if (kopyConfig.onlyDiagnostics) return
+        // if (kopyConfig.onlyDiagnostics) return
 
         measureExecution(IrAtomicPropertyTransformer::class) {
             transform(IrAtomicPropertyTransformer(this, pluginContext))
@@ -50,6 +50,6 @@ internal class IrKopyGenerationExtension(private val kopyConfig: KopyConfig) :
         this.transform(transformer, null)
     }
 
-    private inline fun IrModuleFragment.measureExecution(kclass: KClass<*>, block: () -> Unit) =
+    private inline fun measureExecution(kclass: KClass<*>, block: () -> Unit) =
         kopyConfig.measureExecution(key = kclass.measureKey, isNested = true) { block() }
 }
