@@ -4,17 +4,17 @@ package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiver
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClass
+import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
 import com.javiersc.kotlin.kopy.compiler.atomicReferenceClassId
 import com.javiersc.kotlin.kopy.compiler.copyName
 import com.javiersc.kotlin.kopy.compiler.invokeName
-import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiver
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopy
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyCopyOrInvoke
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
-import com.javiersc.kotlin.kopy.compiler.ir.utils.regularParameters
 import com.javiersc.kotlin.kopy.compiler.listClassId
 import com.javiersc.kotlin.kopy.compiler.loadName
 import com.javiersc.kotlin.kopy.compiler.mapCallableId

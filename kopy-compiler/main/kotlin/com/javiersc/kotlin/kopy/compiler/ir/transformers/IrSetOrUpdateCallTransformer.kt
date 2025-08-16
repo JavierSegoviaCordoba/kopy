@@ -6,10 +6,13 @@ import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiverArgument
 import com.javiersc.kotlin.compiler.extensions.ir.filterIrIsInstance
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.name
+import com.javiersc.kotlin.compiler.extensions.ir.regularArguments
+import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
 import com.javiersc.kotlin.kopy.compiler.alsoCallableId
 import com.javiersc.kotlin.kopy.compiler.copyName
@@ -18,8 +21,6 @@ import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdate
-import com.javiersc.kotlin.kopy.compiler.ir.utils.regularArguments
-import com.javiersc.kotlin.kopy.compiler.ir.utils.regularParameters
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionCopyFqName
 import com.javiersc.kotlin.kopy.compiler.loadName
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
