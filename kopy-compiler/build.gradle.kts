@@ -1,4 +1,5 @@
 import com.javiersc.kotlin.stdlib.notContain
+import org.jetbrains.kotlin.gradle.internal.config.LanguageFeature
 
 hubdle {
     config {
@@ -41,6 +42,8 @@ hubdle {
                     implementation(projects.kopyArgs)
                     implementation(projects.kopyRuntime)
                 }
+
+                languageSettings.enableLanguageFeature(LanguageFeature.ContextParameters.name)
             }
         }
     }
