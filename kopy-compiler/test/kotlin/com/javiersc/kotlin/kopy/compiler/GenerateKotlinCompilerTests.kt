@@ -160,7 +160,7 @@ open class AbstractKopyInvokeDiagnosticTest : KopyDiagnosticTest() {
     }
 }
 
-abstract class KopyDiagnosticTest() : JvmDiagnosticTest() {
+abstract class KopyDiagnosticTest : JvmDiagnosticTest() {
 
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
