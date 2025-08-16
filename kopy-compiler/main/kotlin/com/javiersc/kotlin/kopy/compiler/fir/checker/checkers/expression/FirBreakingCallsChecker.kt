@@ -1,3 +1,5 @@
+@file:Suppress("ReturnCount")
+
 package com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression
 
 import com.javiersc.kotlin.compiler.extensions.common.classId
@@ -12,7 +14,6 @@ import com.javiersc.kotlin.kopy.compiler.fir.checker.checkers.expression.FirBrea
 import com.javiersc.kotlin.kopy.compiler.fir.utils.isKopyFunctionSetOrUpdateOrUpdateEachCall
 import com.javiersc.kotlin.kopy.compiler.measureExecution
 import com.javiersc.kotlin.kopy.compiler.measureKey
-import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.SourceElementPositioningStrategies
@@ -43,9 +44,8 @@ import org.jetbrains.kotlin.fir.types.resolvedType
 internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
     FirCallChecker(MppCheckerKind.Common) {
 
-    // TODO: Remove @OptIn(DeprecatedForRemovalCompilerApi::class)
-    @OptIn(DeprecatedForRemovalCompilerApi::class)
-    override fun check(expression: FirCall, context: CheckerContext, reporter: DiagnosticReporter) =
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(expression: FirCall) {
         kopyConfig.measureExecution(key = this::class.measureKey) {
             when (val checkerResult: CheckerResult = expression.isBreakingCallsChain(context)) {
                 is Ignore -> return
@@ -55,7 +55,6 @@ internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
                         source = checkerResult.source,
                         factory = FirKopyError.INVALID_CALL_CHAIN,
                         a = checkerResult.element.render(),
-                        context = context,
                         positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                     )
                 }
@@ -65,7 +64,6 @@ internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
                         source = checkerResult.source,
                         factory = FirKopyError.MISSING_DATA_CLASS,
                         a = checkerResult.element.render(),
-                        context = context,
                         positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                     )
                 }
@@ -75,7 +73,6 @@ internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
                 //         source = checkerResult.source,
                 //         factory = FirKopyError.MISSING_KOPY_ANNOTATION,
                 //         a = checkerResult.element.render(),
-                //         context = context,
                 //         positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                 //     )
                 // }
@@ -85,12 +82,12 @@ internal class FirBreakingCallsChecker(private val kopyConfig: KopyConfig) :
                         source = checkerResult.source,
                         factory = FirKopyError.NO_COPY_SCOPE,
                         a = checkerResult.element.render(),
-                        context = context,
                         positioningStrategy = SourceElementPositioningStrategies.DEFAULT,
                     )
                 }
             }
         }
+    }
 
     private fun FirCall.isBreakingCallsChain(context: CheckerContext): CheckerResult {
         if (!isKopyFunctionSetOrUpdateOrUpdateEachCall) return Ignore
