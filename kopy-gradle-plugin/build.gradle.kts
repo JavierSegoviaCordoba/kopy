@@ -24,42 +24,7 @@ hubdle {
         jvm {
             features {
                 jvmVersion(JavaVersion.VERSION_11)
-                kotest.enabled(true)
-
-                gradle {
-                    plugin {
-                        gradlePlugin {
-                            plugins {
-                                create("kotlin-kopy") {
-                                    id = "com.javiersc.kotlin.kopy"
-                                    displayName = "Kopy"
-                                    description =
-                                        "A compiler plugin to improve how to copy data classes " +
-                                            "with a nice DSL in Kotlin."
-                                    implementationClass =
-                                        "com.javiersc.kotlin.kopy.gradle.plugin.KopyGradlePlugin"
-                                    tags.set(
-                                        listOf(
-                                            "kotlin",
-                                            "kopy",
-                                            "data class",
-                                            "data",
-                                            "copy",
-                                            "kopy",
-                                        )
-                                    )
-                                }
-                            }
-                        }
-
-                        pluginUnderTestDependencies(
-                            hubdle.android.tools.build.gradle,
-                            hubdle.jetbrains.kotlin.gradle.plugin,
-                            hubdle.plugins.jetbrains.kotlin.plugin.atomicfu.artifact,
-                            projects.kopyRuntime,
-                        )
-                    }
-                }
+                kotest()
             }
 
             main {
@@ -86,6 +51,32 @@ hubdle {
                     compileOnly(hubdle.plugins.jetbrains.kotlin.plugin.atomicfu.artifact)
                 }
             }
+        }
+    }
+
+    gradle {
+        plugin {
+            gradlePlugin {
+                plugins {
+                    create("kotlin-kopy") {
+                        id = "com.javiersc.kotlin.kopy"
+                        displayName = "Kopy"
+                        description =
+                            "A compiler plugin to improve how to copy data classes " +
+                                "with a nice DSL in Kotlin."
+                        implementationClass =
+                            "com.javiersc.kotlin.kopy.gradle.plugin.KopyGradlePlugin"
+                        tags.set(listOf("kotlin", "kopy", "data class", "data", "copy", "kopy"))
+                    }
+                }
+            }
+
+            pluginUnderTestDependencies(
+                hubdle.android.tools.build.gradle,
+                hubdle.jetbrains.kotlin.gradle.plugin,
+                hubdle.plugins.jetbrains.kotlin.plugin.atomicfu.artifact,
+                projects.kopyRuntime,
+            )
         }
     }
 }
