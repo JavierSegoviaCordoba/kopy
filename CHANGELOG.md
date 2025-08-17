@@ -14,11 +14,11 @@
 
 ### Updated
 
+- `gradle -> 9.0.0`
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.8.1+2.2.10`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.8.1+2.2.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.8.1+2.2.10`
 - `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.15.0`
-- `gradle -> 8.14.3`
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.2.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.8.0+2.2.10`
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.8.0+2.2.10`
