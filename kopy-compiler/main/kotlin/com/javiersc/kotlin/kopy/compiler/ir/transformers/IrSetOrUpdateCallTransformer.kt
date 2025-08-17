@@ -16,7 +16,6 @@ import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
 import com.javiersc.kotlin.compiler.extensions.ir.toIrTreeNode
 import com.javiersc.kotlin.kopy.compiler.alsoCallableId
 import com.javiersc.kotlin.kopy.compiler.copyName
-import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiverArgument
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySet
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopySetOrUpdate

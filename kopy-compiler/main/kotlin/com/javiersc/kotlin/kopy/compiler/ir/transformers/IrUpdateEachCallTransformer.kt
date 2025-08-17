@@ -9,11 +9,11 @@ import com.javiersc.kotlin.compiler.extensions.ir.createLambdaIrSimpleFunction
 import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.dispatchReceiverArgument
 import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiver
+import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiverArgument
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClassSymbolOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.regularArguments
 import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
-import com.javiersc.kotlin.kopy.compiler.ir.utils.extensionReceiverArgument
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
 import com.javiersc.kotlin.kopy.compiler.iterableClassId
