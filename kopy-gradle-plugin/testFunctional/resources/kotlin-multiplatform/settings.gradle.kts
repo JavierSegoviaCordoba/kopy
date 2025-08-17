@@ -30,6 +30,6 @@ dependencyResolutionManagement {
 }
 
 include(
-    ":lib-a",
+    // ":lib-a",
     // ":lib-b",
 )
