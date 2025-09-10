@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName", "FunctionNaming", "MaxLineLength")
+
 package com.javiersc.kotlin.kopy.gradle.plugin
 
 import com.javiersc.gradle.testkit.test.extensions.GradleTestKitTest
@@ -73,22 +75,22 @@ internal class KopyGradlePluginTest : GradleTestKitTest() {
                 .buildAndFail()
                 .output
                 .shouldContain(
-                    "Cannot access 'fun copy(copy: House.() -> Unit): House': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun copy(copy: House.() -> Unit): House': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
                 .shouldContain(
-                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
                 .shouldContain(
-                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
                 .shouldContain(
-                    "Cannot access 'fun <U> U.update(transform: (U) -> U): Unit': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun <U> U.update(transform: (U) -> U): Unit': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
                 .shouldContain(
-                    "Cannot access 'fun <UE> Iterable<UE>.updateEach(transform: (UE) -> UE): Unit': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun <UE> Iterable<UE>.updateEach(transform: (UE) -> UE): Unit': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
                 .shouldContain(
-                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com/javiersc/kotlin/kopy/functional/test/House'."
+                    "Cannot access 'fun <S> S.set(other: S): Unit': it is private in 'com.javiersc.kotlin.kopy.functional.test.House'."
                 )
         }
 }

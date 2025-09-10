@@ -165,7 +165,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.House'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:com.javiersc.kotlin.kopy.playground.House [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.House origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.House
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.House origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.House
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.House.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -389,7 +389,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/simple-1.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Pet'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_5 type:com.javiersc.kotlin.kopy.playground.Pet [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Pet origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Pet
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Pet origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Pet
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Pet.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
