@@ -1,20 +1,22 @@
 package com.javiersc.kotlin.kopy.compiler.fir.checker
 
 import com.intellij.psi.PsiElement
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.ARGUMENT_TYPE_MISMATCH
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.INVALID_CALL_CHAIN
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.MISSING_DATA_CLASS
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.MISSING_KOPY_ANNOTATION
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.NON_DATA_CLASS_KOPY_ANNOTATED
+import com.javiersc.kotlin.kopy.compiler.fir.checker.FirKopyError.NO_COPY_SCOPE
 import org.jetbrains.kotlin.diagnostics.KtDiagnosticFactory1
 import org.jetbrains.kotlin.diagnostics.KtDiagnosticFactory2
 import org.jetbrains.kotlin.diagnostics.KtDiagnosticFactoryToRendererMap
+import org.jetbrains.kotlin.diagnostics.KtDiagnosticsContainer
 import org.jetbrains.kotlin.diagnostics.error1
 import org.jetbrains.kotlin.diagnostics.error2
 import org.jetbrains.kotlin.diagnostics.rendering.BaseDiagnosticRendererFactory
 import org.jetbrains.kotlin.diagnostics.rendering.Renderer
-import org.jetbrains.kotlin.diagnostics.rendering.RootDiagnosticRendererFactory
 
-internal object FirKopyError : BaseDiagnosticRendererFactory() {
-
-    init {
-        RootDiagnosticRendererFactory.registerFactory(FirKopyError)
-    }
+internal object FirKopyError : KtDiagnosticsContainer() {
 
     val NON_DATA_CLASS_KOPY_ANNOTATED: KtDiagnosticFactory1<String> by error1<PsiElement, String>()
 
@@ -29,7 +31,16 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
     val ARGUMENT_TYPE_MISMATCH: KtDiagnosticFactory2<String, String> by
         error2<PsiElement, String, String>()
 
-    override val MAP: KtDiagnosticFactoryToRendererMap = rendererMap { map ->
+    override fun getRendererFactory(): BaseDiagnosticRendererFactory = Renderers
+
+    private object Renderers : BaseDiagnosticRendererFactory() {
+
+        override val MAP: KtDiagnosticFactoryToRendererMap by rendererMap
+    }
+}
+
+private val rendererMap: Lazy<KtDiagnosticFactoryToRendererMap> =
+    KtDiagnosticFactoryToRendererMap("Kopy errors") { map ->
         map.put(
             factory = NON_DATA_CLASS_KOPY_ANNOTATED,
             message = "The class ''{0}'' must be a data class",
@@ -64,8 +75,3 @@ internal object FirKopyError : BaseDiagnosticRendererFactory() {
             rendererB = Renderer { t: String -> t },
         )
     }
-
-    private fun rendererMap(
-        block: (KtDiagnosticFactoryToRendererMap) -> Unit
-    ): KtDiagnosticFactoryToRendererMap = KtDiagnosticFactoryToRendererMap("FirKopy").also(block)
-}

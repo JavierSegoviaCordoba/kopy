@@ -165,7 +165,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Bar'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:com.javiersc.kotlin.kopy.playground.Bar [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Bar origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Bar
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Bar origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Bar
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Bar.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -389,7 +389,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Baz'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_5 type:com.javiersc.kotlin.kopy.playground.Baz [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Baz origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Baz
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Baz origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Baz
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Baz.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -613,7 +613,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Foo'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_8 type:com.javiersc.kotlin.kopy.playground.Foo [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Foo origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Foo
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Foo origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Foo
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Foo.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -814,7 +814,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/nest-copy-update.kt
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Qux'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_11 type:com.javiersc.kotlin.kopy.playground.Qux [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Qux origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Qux
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Qux origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Qux
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Qux.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH

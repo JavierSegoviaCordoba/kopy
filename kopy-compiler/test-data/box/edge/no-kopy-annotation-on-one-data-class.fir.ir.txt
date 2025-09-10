@@ -211,7 +211,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Address'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_2 type:com.javiersc.kotlin.kopy.playground.Address [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Address origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Address
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Address origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Address
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Address.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -479,7 +479,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Name'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_5 type:com.javiersc.kotlin.kopy.playground.Name [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Name origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Name
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Name origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Name
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Name.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -726,7 +726,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.Person'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_8 type:com.javiersc.kotlin.kopy.playground.Person [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Person origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.Person
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.Person origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.Person
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.Person.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
@@ -884,7 +884,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/no-kopy-annotation-on-
             then: RETURN type=kotlin.Nothing from='public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in com.javiersc.kotlin.kopy.playground.PrivateInfo'
               CONST Boolean type=kotlin.Boolean value=false
         VAR IR_TEMPORARY_VARIABLE name:tmp_9 type:com.javiersc.kotlin.kopy.playground.PrivateInfo [val]
-          TYPE_OP type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=CAST typeOperand=com.javiersc.kotlin.kopy.playground.PrivateInfo
+          TYPE_OP type=com.javiersc.kotlin.kopy.playground.PrivateInfo origin=IMPLICIT_CAST typeOperand=com.javiersc.kotlin.kopy.playground.PrivateInfo
             GET_VAR 'other: kotlin.Any? declared in com.javiersc.kotlin.kopy.playground.PrivateInfo.equals' type=kotlin.Any? origin=null
         WHEN type=kotlin.Unit origin=null
           BRANCH
