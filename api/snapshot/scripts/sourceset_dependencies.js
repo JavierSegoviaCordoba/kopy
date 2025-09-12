@@ -1,0 +1,1 @@
+sourceset_dependencies = '{":kopy-runtime:dokkaHtmlPartial/commonMain":[],":kopy-runtime:dokkaHtmlPartial/jvmMain":[":kopy-runtime:dokkaHtmlPartial/commonMain"],":kopy-compiler:dokkaHtmlPartial/main":[],":kopy-gradle-plugin:dokkaHtmlPartial/main":[]}'
