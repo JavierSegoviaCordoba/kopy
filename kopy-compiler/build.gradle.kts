@@ -10,6 +10,7 @@ hubdle {
         }
         explicitApi()
         languageSettings { //
+            enableLanguageFeatures(LanguageFeature.ContextParameters)
             experimentalContracts()
         }
         projectConfig()
@@ -42,8 +43,6 @@ hubdle {
                     implementation(projects.kopyArgs)
                     implementation(projects.kopyRuntime)
                 }
-
-                languageSettings.enableLanguageFeature(LanguageFeature.ContextParameters.name)
             }
         }
     }
