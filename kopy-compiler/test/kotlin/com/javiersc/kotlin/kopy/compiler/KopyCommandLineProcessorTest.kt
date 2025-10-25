@@ -10,9 +10,12 @@ import com.javiersc.kotlin.stdlib.fifth
 import com.javiersc.kotlin.stdlib.forth
 import com.javiersc.kotlin.stdlib.second
 import com.javiersc.kotlin.stdlib.third
-import io.kotest.matchers.collections.shouldContainExactly
-import io.kotest.matchers.collections.shouldHaveSize
-import io.kotest.matchers.shouldBe
+import com.javiersc.kotlin.test.assertContainsExactly
+import com.javiersc.kotlin.test.assertCount
+import com.javiersc.kotlin.test.assertEquals
+import com.javiersc.kotlin.test.assertFalse
+import com.javiersc.kotlin.test.assertNotNull
+import com.javiersc.kotlin.test.assertTrue
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.junit.jupiter.api.Test
@@ -22,101 +25,113 @@ class KopyCommandLineProcessorTest {
     @Test
     fun `check plugin id`() {
         val processor = KopyCommandLineProcessor()
-        processor.pluginId shouldBe "com.javiersc.kotlin.kopy-compiler"
+        processor.pluginId.assertEquals("com.javiersc.kotlin.kopy-compiler")
     }
 
     @Test
     fun `check plugin options`() {
         val processor = KopyCommandLineProcessor()
         val pluginOptions: Collection<AbstractCliOption> = processor.pluginOptions
-        pluginOptions.shouldHaveSize(5)
-        pluginOptions.first().optionName shouldBe KopyDebug.NAME
-        pluginOptions.second().optionName shouldBe KopyCopyFunctions.NAME
-        pluginOptions.third().optionName shouldBe KopyReportPath.NAME
-        pluginOptions.forth().optionName shouldBe KopyTransformFunctions.NAME
-        pluginOptions.fifth().optionName shouldBe KopyVisibility.NAME
+        pluginOptions.assertCount(5)
+        pluginOptions.first().optionName.assertEquals(KopyDebug.NAME)
+        pluginOptions.second().optionName.assertEquals(KopyCopyFunctions.NAME)
+        pluginOptions.third().optionName.assertEquals(KopyReportPath.NAME)
+        pluginOptions.forth().optionName.assertEquals(KopyTransformFunctions.NAME)
+        pluginOptions.fifth().optionName.assertEquals(KopyVisibility.NAME)
 
         processor.testOption(option = pluginOptions.first(), value = "${true}") { configuration ->
-            configuration[KopyKey.Debug] shouldBe true
+            configuration[KopyKey.Debug].assertNotNull().assertTrue()
         }
 
         processor.testOption(option = pluginOptions.first(), value = "${false}") { configuration ->
-            configuration[KopyKey.Debug] shouldBe false
+            configuration[KopyKey.Debug].assertNotNull().assertFalse()
         }
 
         processor.testOption(
             option = pluginOptions.second(),
             values = KopyCopyFunctions.entries.map(KopyCopyFunctions::value),
         ) { configuration ->
-            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.entries)
+            configuration[KopyKey.CopyFunctions]
+                .assertNotNull()
+                .assertContainsExactly(KopyCopyFunctions.entries)
         }
 
         processor.testOption(
             option = pluginOptions.second(),
             value = KopyCopyFunctions.Copy.value,
         ) { configuration ->
-            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.Copy)
+            configuration[KopyKey.CopyFunctions]
+                .assertNotNull()
+                .assertContainsExactly(listOf(KopyCopyFunctions.Copy))
         }
 
         processor.testOption(
             option = pluginOptions.second(),
             value = KopyCopyFunctions.Invoke.value,
         ) { configuration ->
-            configuration[KopyKey.CopyFunctions].shouldContainExactly(KopyCopyFunctions.Invoke)
+            configuration[KopyKey.CopyFunctions]
+                .assertNotNull()
+                .assertContainsExactly(listOf(KopyCopyFunctions.Invoke))
         }
 
         processor.testOption(option = pluginOptions.third(), value = "build/reports/kopy") {
             configuration ->
-            configuration[KopyKey.ReportPath] shouldBe "build/reports/kopy"
+            configuration[KopyKey.ReportPath].assertEquals("build/reports/kopy")
         }
 
         processor.testOption(
             option = pluginOptions.forth(),
             value = KopyTransformFunctions.Set.value,
         ) { configuration ->
-            configuration[TransformFunctions].shouldContainExactly(KopyTransformFunctions.Set)
+            configuration[TransformFunctions]
+                .assertNotNull()
+                .assertContainsExactly(listOf(KopyTransformFunctions.Set))
         }
 
         processor.testOption(
             option = pluginOptions.forth(),
             values = KopyTransformFunctions.entries.map(KopyTransformFunctions::value),
         ) { configuration ->
-            configuration[TransformFunctions].shouldContainExactly(
-                KopyTransformFunctions.Set,
-                KopyTransformFunctions.Update,
-                KopyTransformFunctions.UpdateEach,
-            )
+            configuration[TransformFunctions]
+                .assertNotNull()
+                .assertContainsExactly(
+                    listOf(
+                        KopyTransformFunctions.Set,
+                        KopyTransformFunctions.Update,
+                        KopyTransformFunctions.UpdateEach,
+                    )
+                )
         }
 
         processor.testOption(option = pluginOptions.fifth(), value = KopyVisibility.Auto.value) {
             configuration ->
-            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Auto
+            configuration[KopyKey.Visibility].assertEquals(KopyVisibility.Auto)
         }
 
         processor.testOption(option = pluginOptions.fifth(), value = KopyVisibility.Public.value) {
             configuration ->
-            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Public
+            configuration[KopyKey.Visibility].assertEquals(KopyVisibility.Public)
         }
 
         processor.testOption(
             option = pluginOptions.fifth(),
             value = KopyVisibility.Internal.value,
         ) { configuration ->
-            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Internal
+            configuration[KopyKey.Visibility].assertEquals(KopyVisibility.Internal)
         }
 
         processor.testOption(
             option = pluginOptions.fifth(),
             value = KopyVisibility.Protected.value,
         ) { configuration ->
-            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Protected
+            configuration[KopyKey.Visibility].assertEquals(KopyVisibility.Protected)
         }
 
         processor.testOption(
             option = pluginOptions.fifth(),
             value = KopyVisibility.Private.value,
         ) { configuration ->
-            configuration[KopyKey.Visibility] shouldBe KopyVisibility.Private
+            configuration[KopyKey.Visibility].assertEquals(KopyVisibility.Private)
         }
     }
 
