@@ -237,7 +237,9 @@ internal class FirKopyDeclarationGenerationExtension(
                         }
                         valueParameter(
                             name = "other".toName(),
-                            typeProvider = { typeParameters -> typeParameters.first().toConeType() },
+                            typeProvider = { typeParameters ->
+                                typeParameters.first().toConeType()
+                            },
                         )
                         typeParameter("S".toName())
                     },
