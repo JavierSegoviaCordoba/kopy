@@ -28,7 +28,7 @@ FILE: internal.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() internal final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() internal final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {

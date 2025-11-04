@@ -57,7 +57,7 @@ plugins {
 ```
 
 As the plugin uses under the hood the Atomicfu library, the performance can be improved by
-applying the Atomicfu plugin, **it is important to apply the Kopy plugin before the Atomicfu one**.
+applying the Atomicfu plugin.
 
 ```kotlin
 plugins {

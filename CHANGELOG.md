@@ -6,9 +6,13 @@
 
 ### Changed
 
+- AtomicFU and Kopy plugins can be applied in any order
+
 ### Deprecated
 
 ### Fixed
+
+- Kotlin Serialization compilation error due to `@Transient` annotation
 
 ### Removed
 
