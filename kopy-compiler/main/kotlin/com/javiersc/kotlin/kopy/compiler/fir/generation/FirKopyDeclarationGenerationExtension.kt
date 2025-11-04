@@ -42,8 +42,10 @@ import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.primaryConstructorIfAny
 import org.jetbrains.kotlin.fir.declarations.utils.isData
 import org.jetbrains.kotlin.fir.declarations.utils.visibility
+import org.jetbrains.kotlin.fir.diagnostics.ConeDiagnostic
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
 import org.jetbrains.kotlin.fir.expressions.builder.buildEmptyExpressionBlock
+import org.jetbrains.kotlin.fir.expressions.builder.buildErrorExpression
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
@@ -142,7 +144,12 @@ internal class FirKopyDeclarationGenerationExtension(
                             visibility = atomicVisibility
                         },
                     )
-                    .apply { addTransientAnnotationIfOwnedBySerializable(owner = owner) }
+                    .apply {
+                        addTransientAnnotationIfOwnedBySerializable(owner = owner)
+                        replaceInitializer(
+                            buildErrorExpression { diagnostic = KopyConeTemporalDiagnostic }
+                        )
+                    }
             return listOf(atomicProperty.symbol)
         }
 
@@ -478,4 +485,10 @@ private fun FirSession.substitutor(
         fromTypeParameters.zip(toTypeParameters) { from, to -> from to to }.toMap()
 
     return substitutorByMap(substitutionMap, this)
+}
+
+private object KopyConeTemporalDiagnostic : ConeDiagnostic {
+
+    override val reason: String
+        get() = "This expression is filled on FIR temporally and will be replaced on IR later"
 }

@@ -33,7 +33,7 @@ FILE: simple-deep-copy-with-multiple-scenarios.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/House.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/House| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/House>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/House>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/House>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/House.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/House| {
@@ -69,7 +69,7 @@ FILE: simple-deep-copy-with-multiple-scenarios.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Kitchen.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Kitchen| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Kitchen>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Kitchen>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Kitchen>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Kitchen.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Kitchen| {
@@ -105,7 +105,7 @@ FILE: simple-deep-copy-with-multiple-scenarios.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Cat.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Cat| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Cat>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Cat>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Cat>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Cat.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Cat| {

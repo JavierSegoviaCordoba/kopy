@@ -26,7 +26,7 @@ FILE: simple-1-level-deep-set.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Qux.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Qux| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Qux>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Qux>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Qux>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Qux.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Qux| {
@@ -74,7 +74,7 @@ FILE: simple-1-level-deep-set.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Bar.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Bar| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Bar>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Bar>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Bar>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Bar.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Bar| {
@@ -110,7 +110,7 @@ FILE: simple-1-level-deep-set.kt
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
         }
 
-        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>|
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
             internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>|
 
         @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
