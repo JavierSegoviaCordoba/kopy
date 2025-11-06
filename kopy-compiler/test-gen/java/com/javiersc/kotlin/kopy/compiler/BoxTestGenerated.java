@@ -99,6 +99,28 @@ public class BoxTestGenerated extends AbstractBoxTest {
   }
 
   @Nested
+  @TestMetadata("test-data/box/inheritance")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Inheritance {
+    @Test
+    public void testAllFilesPresentInInheritance() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/inheritance"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    }
+
+    @Test
+    @TestMetadata("interface-1.kt")
+    public void testInterface_1() {
+      runTest("test-data/box/inheritance/interface-1.kt");
+    }
+
+    @Test
+    @TestMetadata("sealed-class-1.kt")
+    public void testSealed_class_1() {
+      runTest("test-data/box/inheritance/sealed-class-1.kt");
+    }
+  }
+
+  @Nested
   @TestMetadata("test-data/box/nested-copy")
   @TestDataPath("$PROJECT_ROOT")
   public class Nested_copy {

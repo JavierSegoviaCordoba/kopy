@@ -1,0 +1,77 @@
+FILE: interface-1.kt
+    package com.javiersc.kotlin.kopy.playground
+
+    public final fun box(): R|kotlin/String| {
+        lval foo: R|com/javiersc/kotlin/kopy/playground/Foo| = R|com/javiersc/kotlin/kopy/playground/Foo.Foo|(R|com/javiersc/kotlin/kopy/playground/Qux.Qux|())
+        lval foo2: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(<L> = copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|).R|com/javiersc/kotlin/kopy/playground/Foo.set|<R|com/javiersc/kotlin/kopy/playground/Bar|>(R|com/javiersc/kotlin/kopy/playground/Quux.Quux|())
+        }
+        )
+        lval foo3: R|com/javiersc/kotlin/kopy/playground/Foo| = R|<local>/foo|.R|com/javiersc/kotlin/kopy/playground/Foo.copy|(<L> = copy@fun R|com/javiersc/kotlin/kopy/playground/Foo|.<anonymous>(): R|kotlin/Unit| <inline=NoInline>  {
+            (this@R|special/anonymous|, this@R|special/anonymous|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|).R|com/javiersc/kotlin/kopy/playground/Foo.set|<R|com/javiersc/kotlin/kopy/playground/Bar|>(R|com/javiersc/kotlin/kopy/playground/Corge.Corge|())
+        }
+        )
+        lval isOk: R|kotlin/Boolean| = (R|<local>/foo|.R|com/javiersc/kotlin/kopy/playground/Foo.bar| is R|com/javiersc/kotlin/kopy/playground/Qux|) && (R|<local>/foo2|.R|com/javiersc/kotlin/kopy/playground/Foo.bar| is R|com/javiersc/kotlin/kopy/playground/Quux|) && (R|<local>/foo3|.R|com/javiersc/kotlin/kopy/playground/Foo.bar| is R|com/javiersc/kotlin/kopy/playground/Corge|)
+        ^box when () {
+            R|<local>/isOk| ->  {
+                String(OK)
+            }
+            else ->  {
+                String(Error)
+            }
+        }
+
+    }
+    @R|com/javiersc/kotlin/kopy/Kopy|() public final data class Foo : R|kotlin/Any| {
+        public constructor(bar: R|com/javiersc/kotlin/kopy/playground/Bar|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final val bar: R|com/javiersc/kotlin/kopy/playground/Bar| = R|<local>/bar|
+            public get(): R|com/javiersc/kotlin/kopy/playground/Bar|
+
+        public final operator fun component1(): R|com/javiersc/kotlin/kopy/playground/Bar|
+
+        public final fun copy(bar: R|com/javiersc/kotlin/kopy/playground/Bar| = this@R|com/javiersc/kotlin/kopy/playground/Foo|.R|com/javiersc/kotlin/kopy/playground/Foo.bar|): R|com/javiersc/kotlin/kopy/playground/Foo|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionCopy|() public final infix fun copy(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
+
+        internal final val _atomic: R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>| = ERROR_EXPR(This expression is filled on FIR temporally and will be replaced on IR later)
+            internal get(): R|kotlin/concurrent/atomics/AtomicReference<com/javiersc/kotlin/kopy/playground/Foo>|
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionInvoke|() public final operator infix fun invoke(copy: R|com/javiersc/kotlin/kopy/playground/Foo.() -> kotlin/Unit|): R|com/javiersc/kotlin/kopy/playground/Foo| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionSet|() public final infix fun <S> R|S|.set(other: R|S|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdate|() public final infix fun <U> R|U|.update(transform: R|(U) -> U|): R|kotlin/Unit| {
+        }
+
+        @R|com/javiersc/kotlin/kopy/KopyOptIn|() @R|com/javiersc/kotlin/kopy/KopyFunctionUpdateEach|() public final infix fun <UE> R|kotlin/collections/Iterable<UE>|.updateEach(transform: R|(UE) -> UE|): R|kotlin/Unit| {
+        }
+
+    }
+    public abstract interface Bar : R|kotlin/Any| {
+    }
+    public abstract interface Baz : R|com/javiersc/kotlin/kopy/playground/Bar| {
+    }
+    public final class Qux : R|com/javiersc/kotlin/kopy/playground/Bar| {
+        public constructor(): R|com/javiersc/kotlin/kopy/playground/Qux| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
+    public final class Quux : R|com/javiersc/kotlin/kopy/playground/Baz| {
+        public constructor(): R|com/javiersc/kotlin/kopy/playground/Quux| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
+    public final class Corge : R|com/javiersc/kotlin/kopy/playground/Baz| {
+        public constructor(): R|com/javiersc/kotlin/kopy/playground/Corge| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
