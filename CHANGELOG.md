@@ -10,11 +10,15 @@
 
 ### Fixed
 
-- inheritance
-
 ### Removed
 
 ### Updated
+
+## [0.20.2+2.2.21] - 2025-11-06
+
+### Fixed
+
+- inheritance
 
 ## [0.20.1+2.2.21] - 2025-11-04
 
@@ -281,7 +285,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.20.1+2.2.21...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.20.2+2.2.21...HEAD
+
+[0.20.2+2.2.21]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.20.1+2.2.21...0.20.2+2.2.21
 
 [0.20.1+2.2.21]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.20.0+2.2.21...0.20.1+2.2.21
 
