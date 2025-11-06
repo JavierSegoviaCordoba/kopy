@@ -42,8 +42,8 @@ internal class FirArgumentTypeMismatchTypeChecker(
             val isSubtype: Boolean =
                 AbstractTypeChecker.isSubtypeOf(
                     context = session.typeContext,
-                    subType = extensionType,
-                    superType = argumentType,
+                    subType = argumentType,
+                    superType = extensionType,
                 )
             if (!isSubtype) {
                 reporter.reportOn(

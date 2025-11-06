@@ -23,6 +23,28 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   }
 
   @Nested
+  @TestMetadata("test-data/diagnostics/inheritance")
+  @TestDataPath("$PROJECT_ROOT")
+  public class Inheritance {
+    @Test
+    public void testAllFilesPresentInInheritance() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/inheritance"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    }
+
+    @Test
+    @TestMetadata("interface-1.kt")
+    public void testInterface_1() {
+      runTest("test-data/diagnostics/inheritance/interface-1.kt");
+    }
+
+    @Test
+    @TestMetadata("sealed-class-1.kt")
+    public void testSealed_class_1() {
+      runTest("test-data/diagnostics/inheritance/sealed-class-1.kt");
+    }
+  }
+
+  @Nested
   @TestMetadata("test-data/diagnostics/invalid-call-chain")
   @TestDataPath("$PROJECT_ROOT")
   public class Invalid_call_chain {

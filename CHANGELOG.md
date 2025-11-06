@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- inheritance
+
 ### Removed
 
 ### Updated
