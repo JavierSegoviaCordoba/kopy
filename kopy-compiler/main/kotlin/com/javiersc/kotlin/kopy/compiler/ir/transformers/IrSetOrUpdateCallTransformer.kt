@@ -248,6 +248,10 @@ internal class IrSetOrUpdateCallTransformer(
         return copyChainCall
     }
 
+    /**
+     * Creates a list of copy calls for each pair of dispatchers in the chain.
+     * For nested property access like `a.b.c`, creates copy calls from innermost to outermost.
+     */
     private fun createCopyCalls(
         dispatchers: List<IrMemberAccessExpression<*>>,
         atomicRefType: IrSimpleType,
@@ -276,6 +280,10 @@ internal class IrSetOrUpdateCallTransformer(
             }
             .reversed()
 
+    /**
+     * Chains multiple copy calls together by setting each call as an argument of the next.
+     * This creates the nested structure needed for deep property updates.
+     */
     private fun chainCopyCalls(calls: List<IrCall>): IrCall? =
         calls.reduce { acc, irCall ->
             val argumentIndex: Int =
@@ -314,6 +322,10 @@ internal class IrSetOrUpdateCallTransformer(
         extractDispatcherChain(extensionReceiver)
     }
 
+    /**
+     * Recursively extracts the dispatcher chain from nested property access.
+     * For example, `a.b.c` produces a chain of [c, b, a] dispatchers.
+     */
     private fun MutableList<IrMemberAccessExpression<*>>.extractDispatcherChain(
         expression: IrMemberAccessExpression<*>
     ) {
@@ -322,6 +334,7 @@ internal class IrSetOrUpdateCallTransformer(
             expressionCopy.dispatchReceiver.asIrOrNull<IrMemberAccessExpression<*>>()
         
         if (dispatcher == null) {
+            // Base case: clear dispatch receivers when no more dispatchers found
             onEach { it.dispatchReceiver = null }
             return
         }
@@ -358,6 +371,10 @@ internal class IrSetOrUpdateCallTransformer(
         return copyCall
     }
 
+    /**
+     * Extracts the dispatch value and atomic getter function from an IR call.
+     * This is used to avoid code duplication in atomic getter operations.
+     */
     private fun IrCall.getDispatchValueAndAtomicGetter(): Pair<IrGetValue, IrSimpleFunctionSymbol> {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
