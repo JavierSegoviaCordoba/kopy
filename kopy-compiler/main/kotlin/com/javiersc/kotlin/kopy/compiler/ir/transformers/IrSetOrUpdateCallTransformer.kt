@@ -70,28 +70,32 @@ internal class IrSetOrUpdateCallTransformer(
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 
+    private companion object {
+        const val ALSO_BLOCK_ARGUMENT_INDEX = 1
+        const val ALSO_TYPE_ARGUMENT_INDEX = 0
+        const val ATOMIC_PROPERTY_NAME = "_atomic"
+        const val STORE_FUNCTION_NAME = "store"
+        const val STORE_VALUE_ARGUMENT_INDEX = 1
+    }
+
     override fun visitCall(expression: IrCall): IrExpression {
-        fun originalCall(): IrExpression = super.visitCall(expression)
-        val expressionCall: IrCall = expression
-        if (!expression.isKopySetOrUpdate) return originalCall()
+        if (!expression.isKopySetOrUpdate) return super.visitCall(expression)
 
-        val originalCallCallWithAlsoCall: IrCall =
-            when {
-                expression.isKopySet -> {
-                    val setValueParameterTransformer: IrElementTransformerVoid =
-                        SetValueTransformer(expressionCall)
-                    expression.also { it.transform(setValueParameterTransformer, null) }
-                }
+        return when {
+            expression.isKopySet -> transformSetCall(expression)
+            expression.isKopyUpdate -> transformUpdateCall(expression)
+            else -> super.visitCall(expression)
+        }
+    }
 
-                expression.isKopyUpdate -> {
-                    val updateReturnTransformer: IrElementTransformerVoid =
-                        UpdateReturnTransformer(expressionCall)
-                    expression.also { it.transformStatement(updateReturnTransformer) }
-                }
+    private fun transformSetCall(expression: IrCall): IrCall {
+        val setValueParameterTransformer: IrElementTransformerVoid = SetValueTransformer(expression)
+        return expression.also { it.transform(setValueParameterTransformer, null) }
+    }
 
-                else -> return originalCall()
-            }
-        return originalCallCallWithAlsoCall
+    private fun transformUpdateCall(expression: IrCall): IrCall {
+        val updateReturnTransformer: IrElementTransformerVoid = UpdateReturnTransformer(expression)
+        return expression.also { it.transformStatement(updateReturnTransformer) }
     }
 
     private inner class SetValueTransformer(private val expressionCall: IrCall) :
@@ -162,8 +166,8 @@ internal class IrSetOrUpdateCallTransformer(
                 irCall(alsoFunction.symbol).also {
                     it.patchDeclarationParents(expressionParent)
                     it.type = setOrUpdateType
-                    it.typeArguments[0] = setOrUpdateType
-                    it.arguments[1] = alsoBlockFunctionExpression
+                    it.typeArguments[ALSO_TYPE_ARGUMENT_INDEX] = setOrUpdateType
+                    it.arguments[ALSO_BLOCK_ARGUMENT_INDEX] = alsoBlockFunctionExpression
                 }
             }
 
@@ -179,38 +183,50 @@ internal class IrSetOrUpdateCallTransformer(
         expression: IrCall,
     ): IrSimpleFunction? {
         val alsoBlockFunction: IrSimpleFunction =
-            pluginContext.irFactory
-                .buildFun {
-                    name = SpecialNames.ANONYMOUS
-                    visibility = DescriptorVisibilities.LOCAL
-                    returnType = pluginContext.irBuiltIns.unitType
-                    origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
-                }
-                .apply {
-                    parent = expressionParent
-                    addValueParameter {
-                        this.name = StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
-                        this.type = setOrUpdateType
-                    }
+            buildAlsoBlockFunctionDeclaration(expressionParent, setOrUpdateType)
 
-                    val alsoBodyBlock: IrBlockBody =
-                        pluginContext.declarationIrBuilder(this.symbol).irBlockBody {
-                            val itValueParameter: IrValueParameter = regularParameters.first()
-                            val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
-                            val copyChainCall: IrCall =
-                                expression.createCopyChainCall(alsoItValueParameterGetValue)
-                                    ?: return null
-                            val atomicGetterStoreFunctionCall: IrCall =
-                                expression.createAtomicGetterStoreSetFunctionCall(
-                                    copyChainCall = copyChainCall
-                                )
-                            +atomicGetterStoreFunctionCall
-                        }
+        val alsoBodyBlock: IrBlockBody =
+            createAlsoBlockBody(alsoBlockFunction, expression) ?: return null
 
-                    body = alsoBodyBlock
-                }
+        alsoBlockFunction.body = alsoBodyBlock
         return alsoBlockFunction
     }
+
+    private fun buildAlsoBlockFunctionDeclaration(
+        expressionParent: IrDeclarationParent,
+        setOrUpdateType: IrType,
+    ): IrSimpleFunction =
+        pluginContext.irFactory
+            .buildFun {
+                name = SpecialNames.ANONYMOUS
+                visibility = DescriptorVisibilities.LOCAL
+                returnType = pluginContext.irBuiltIns.unitType
+                origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
+            }
+            .apply {
+                parent = expressionParent
+                addValueParameter {
+                    this.name = StandardNames.IMPLICIT_LAMBDA_PARAMETER_NAME
+                    this.type = setOrUpdateType
+                }
+            }
+
+    private fun createAlsoBlockBody(
+        alsoBlockFunction: IrSimpleFunction,
+        expression: IrCall,
+    ): IrBlockBody? =
+        pluginContext.declarationIrBuilder(alsoBlockFunction.symbol).irBlockBody {
+            val itValueParameter: IrValueParameter = alsoBlockFunction.regularParameters.first()
+            val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
+            
+            val copyChainCall: IrCall =
+                expression.createCopyChainCall(alsoItValueParameterGetValue) ?: return null
+            
+            val atomicGetterStoreFunctionCall: IrCall =
+                expression.createAtomicGetterStoreSetFunctionCall(copyChainCall)
+            
+            +atomicGetterStoreFunctionCall
+        }
 
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
         val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall()
@@ -223,76 +239,95 @@ internal class IrSetOrUpdateCallTransformer(
             listOf(atomicGetterGetFunctionCall) + chain
 
         val calls: List<IrCall> =
-            dispatchers
-                .zipWithNext { current, next ->
-                    val dataClass: IrClassSymbol =
-                        if (current.type == atomicRefType) atomicRefType.classOrFail
-                        else current.type.classOrFail
+            createCopyCalls(dispatchers, atomicRefType, alsoItValueParameterGetValue) ?: return null
 
-                    val getFun: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
-                    val isLast: Boolean = next == dispatchers.last()
-                    val argumentValue: IrDeclarationReference =
-                        if (isLast) alsoItValueParameterGetValue
-                        else next.apply { insertDispatchReceiver(current) }
+        val copyChainCall: IrCall = chainCopyCalls(calls) ?: return null
 
-                    val copyCall: IrCall? =
-                        current.symbol.createCopyCall(
-                            dataClass = dataClass,
-                            dispatchReceiver = current,
-                            propertyGetFunction = getFun,
-                            argumentValue = argumentValue,
-                        )
-                    copyCall ?: return null
-                }
-                .reversed()
+        patchDispatchReceiversInChain(copyChainCall, dispatchers)
 
-        val copyChainCall: IrCall =
-            calls.reduce { acc, irCall ->
-                val argumentIndex: Int =
-                    irCall.getArgumentsWithIr().firstNotNullOfOrNull { (valueParameter, _) ->
-                        val index: Int = valueParameter.descriptor.indexOrMinusOne
-                        if (index != -1) index + 1 else null
-                    } ?: return null
-                irCall.arguments[argumentIndex] = acc
-                irCall
+        return copyChainCall
+    }
+
+    private fun createCopyCalls(
+        dispatchers: List<IrMemberAccessExpression<*>>,
+        atomicRefType: IrSimpleType,
+        alsoItValueParameterGetValue: IrGetValue,
+    ): List<IrCall>? =
+        dispatchers
+            .zipWithNext { current, next ->
+                val dataClass: IrClassSymbol =
+                    if (current.type == atomicRefType) atomicRefType.classOrFail
+                    else current.type.classOrFail
+
+                val getFun: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
+                val isLast: Boolean = next == dispatchers.last()
+                val argumentValue: IrDeclarationReference =
+                    if (isLast) alsoItValueParameterGetValue
+                    else next.apply { insertDispatchReceiver(current) }
+
+                val copyCall: IrCall? =
+                    current.symbol.createCopyCall(
+                        dataClass = dataClass,
+                        dispatchReceiver = current,
+                        propertyGetFunction = getFun,
+                        argumentValue = argumentValue,
+                    )
+                copyCall ?: return null
             }
+            .reversed()
 
+    private fun chainCopyCalls(calls: List<IrCall>): IrCall? =
+        calls.reduce { acc, irCall ->
+            val argumentIndex: Int =
+                irCall.getArgumentsWithIr().firstNotNullOfOrNull { (valueParameter, _) ->
+                    val index: Int = valueParameter.descriptor.indexOrMinusOne
+                    if (index != -1) index + 1 else null
+                } ?: return null
+            irCall.arguments[argumentIndex] = acc
+            irCall
+        }
+
+    private fun patchDispatchReceiversInChain(
+        copyChainCall: IrCall,
+        dispatchers: List<IrMemberAccessExpression<*>>,
+    ) {
+        val dispatcherNames = dispatchers.mapNotNull { it.asIrOrNull<IrCall>()?.name }
         copyChainCall
             .toIrTreeNode()
             .asSequence()
             .filterIrIsInstance<IrCall>()
             .filter { call ->
                 val dispatcherName = call.dispatchReceiver.asIrOrNull<IrCall>()?.name
-                dispatcherName in dispatchers.mapNotNull { it.asIrOrNull<IrCall>()?.name }
+                dispatcherName in dispatcherNames
             }
             .forEach { it.dispatchReceiver = it.dispatchReceiver?.deepCopyWithSymbols() }
-
-        return copyChainCall
     }
 
     private fun IrMemberAccessExpression<IrFunctionSymbol>.dispatchersChain():
         List<IrMemberAccessExpression<*>> = buildList {
         val extensionReceiver: IrMemberAccessExpression<*> =
-            runCatching {
-                    extensionReceiverArgument
-                        ?.asIrOrNull<IrMemberAccessExpression<*>>()
-                        ?.deepCopyWithSymbols()
-                }
-                .getOrNull() ?: return@buildList
+            extensionReceiverArgument
+                ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                ?.deepCopyWithSymbols() ?: return@buildList
 
         add(extensionReceiver)
-        fun extract(expression: IrMemberAccessExpression<*>) {
-            val expressionCopy: IrMemberAccessExpression<*> = expression.deepCopyWithSymbols()
-            val dispatcher: IrMemberAccessExpression<*>? =
-                expressionCopy.dispatchReceiver.asIrOrNull<IrMemberAccessExpression<*>>()
-            if (dispatcher == null) {
-                onEach { it.dispatchReceiver = null }
-                return
-            }
-            add(dispatcher.deepCopyWithSymbols())
-            extract(dispatcher)
+        extractDispatcherChain(extensionReceiver)
+    }
+
+    private fun MutableList<IrMemberAccessExpression<*>>.extractDispatcherChain(
+        expression: IrMemberAccessExpression<*>
+    ) {
+        val expressionCopy: IrMemberAccessExpression<*> = expression.deepCopyWithSymbols()
+        val dispatcher: IrMemberAccessExpression<*>? =
+            expressionCopy.dispatchReceiver.asIrOrNull<IrMemberAccessExpression<*>>()
+        
+        if (dispatcher == null) {
+            onEach { it.dispatchReceiver = null }
+            return
         }
-        extract(extensionReceiver)
+        
+        add(dispatcher.deepCopyWithSymbols())
+        extractDispatcherChain(dispatcher)
     }
 
     private fun IrSymbol.createCopyCall(
@@ -323,28 +358,41 @@ internal class IrSetOrUpdateCallTransformer(
         return copyCall
     }
 
-    private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
+    private fun IrCall.getDispatchValueAndAtomicGetter(): Pair<IrGetValue, IrSimpleFunctionSymbol> {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
-                ?: error("No value found")
+                ?: error("No dispatch receiver value found")
 
         val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
 
         val atomicGetterFunction: IrSimpleFunctionSymbol =
-            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
+            dispatchClass.getPropertyGetter(ATOMIC_PROPERTY_NAME)
+                ?: error("No atomic getter found for class: ${dispatchClass.owner.name}")
+
+        return dispatchIrGetValue to atomicGetterFunction
+    }
+
+    private fun createAtomicGetterCall(
+        dispatchValue: IrGetValue,
+        atomicGetterFunction: IrSimpleFunctionSymbol,
+    ): IrCall =
+        pluginContext.declarationIrBuilder(dispatchValue.symbol).run {
+            irCall(atomicGetterFunction).apply {
+                dispatchReceiver = dispatchValue
+                type = atomicGetterFunction.owner.returnType
+                origin = IrStatementOrigin.GET_PROPERTY
+            }
+        }
+
+    private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
+        val (dispatchIrGetValue, atomicGetterFunction) = getDispatchValueAndAtomicGetter()
 
         val getAtomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = dispatchIrGetValue
-                    type = atomicGetterFunction.owner.returnType
-                    origin = IrStatementOrigin.GET_PROPERTY
-                }
-            }
+            createAtomicGetterCall(dispatchIrGetValue, atomicGetterFunction)
 
         val atomicReferenceLoadFunction: IrSimpleFunctionSymbol =
             atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("$loadName")
-                ?: error("No function found")
+                ?: error("No load function found for atomic reference")
 
         val atomicGetterGetFunctionCall: IrCall =
             pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
@@ -359,34 +407,21 @@ internal class IrSetOrUpdateCallTransformer(
     }
 
     private fun IrCall.createAtomicGetterStoreSetFunctionCall(copyChainCall: IrCall): IrCall {
-        val dispatchIrGetValue: IrGetValue =
-            dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
-                ?: error("No value found")
-
-        val dispatchClass: IrClassSymbol = dispatchIrGetValue.type.classOrFail
-
-        val atomicGetterFunction: IrSimpleFunctionSymbol =
-            dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
+        val (dispatchIrGetValue, atomicGetterFunction) = getDispatchValueAndAtomicGetter()
 
         val atomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
-                irCall(atomicGetterFunction).apply {
-                    dispatchReceiver = dispatchIrGetValue
-                    type = atomicGetterFunction.owner.returnType
-                    origin = IrStatementOrigin.GET_PROPERTY
-                }
-            }
+            createAtomicGetterCall(dispatchIrGetValue, atomicGetterFunction)
 
         val atomicGetterStoreFunction: IrSimpleFunctionSymbol =
-            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction("store")
-                ?: error("No function found")
+            atomicGetterFunction.owner.returnType.classOrFail.getSimpleFunction(STORE_FUNCTION_NAME)
+                ?: error("No store function found for atomic reference")
 
         val atomicGetterStoreFunctionCall: IrCall =
             pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterStoreFunction).apply {
                     dispatchReceiver = atomicGetterFunctionCall
                     type = atomicGetterStoreFunction.owner.returnType
-                    arguments[1] = copyChainCall
+                    arguments[STORE_VALUE_ARGUMENT_INDEX] = copyChainCall
                 }
             }
 
