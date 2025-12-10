@@ -1,5 +1,5 @@
 [versions]
-hubdle = "0.17.0"
+hubdle = "0.17.1"
 hubdleCatalog = "0.11.0"
 javiersc-kotlin-compiler-extensions = "0.10.0+2.2.21"
 jetbrains-kotlin = "2.2.21"
