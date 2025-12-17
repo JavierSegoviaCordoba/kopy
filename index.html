@@ -1,0 +1,1543 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A compiler plugin to improve how to copy data classes with a nice DSL in Kotlin.">
+      
+      
+        <meta name="author" content="Javier Segovia Córdoba">
+      
+      
+      
+      
+        <link rel="next" href="CHANGELOG/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Kopy</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/all.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="white">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kopy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Kopy" class="md-header__button md-logo" aria-label="Kopy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kopy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JavierSegoviaCordoba/kopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kopy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Kopy" class="md-nav__button md-logo" aria-label="Kopy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kopy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JavierSegoviaCordoba/kopy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kopy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intellij-idea-or-android-studio-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ IDEA or Android Studio configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IntelliJ IDEA or Android Studio configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-k2-compiler-in-the-ide-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable K2 compiler in the IDE settings:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-third-party-k2-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow third party K2 plugins:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disclaimer-ide-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disclaimer IDE issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugin configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug mode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debug mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copy functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transform functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transform functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visibility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kopy-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kopy Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-or-invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy or invoke
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      set or =
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateeach" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateEach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kotlin-multiplatform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kotlin Multiplatform
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kopykat-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      KopyKat comparison
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KopyKat comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disadvantages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CHANGELOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API docs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Latest
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/snapshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snapshot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="projects/kopy-compiler/kopy-compiler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kopy-compiler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="projects/kopy-runtime/kopy-runtime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kopy-runtime
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://qodana.cloud/projects/3k8GJ" target="_blank" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qodana
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://sonarcloud.io/project/overview?id=com.javiersc.kotlin.kopy" target="_blank" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sonar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intellij-idea-or-android-studio-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      IntelliJ IDEA or Android Studio configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IntelliJ IDEA or Android Studio configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-k2-compiler-in-the-ide-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable K2 compiler in the IDE settings:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-third-party-k2-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow third party K2 plugins:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disclaimer-ide-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disclaimer IDE issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugin configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug mode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debug mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copy functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transform-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transform functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transform functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visibility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kopy-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kopy Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-or-invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy or invoke
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      set or =
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateeach" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateEach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kotlin-multiplatform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kotlin Multiplatform
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kopykat-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      KopyKat comparison
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="KopyKat comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disadvantages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<p><img alt="Kotlin version" src="https://img.shields.io/badge/kotlin-2.3.0-blueviolet?logo=kotlin&amp;logoColor=white" />
+<a href="https://repo1.maven.org/maven2/com/javiersc/kotlin/kopy-compiler/"><img alt="MavenCentral" src="https://img.shields.io/maven-central/v/com.javiersc.kotlin/kopy-compiler?label=MavenCentral" /></a>
+<a href="https://oss.sonatype.org/content/repositories/snapshots/com/javiersc/kotlin/kopy-compiler/"><img alt="Snapshot" src="https://img.shields.io/nexus/s/com.javiersc.kotlin/kopy-compiler?server=https%3A%2F%2Foss.sonatype.org%2F&amp;label=Snapshot" /></a></p>
+<p><a href="https://github.com/JavierSegoviaCordoba/kopy/tree/main"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/JavierSegoviaCordoba/kopy/build-kotlin.yaml?label=Build&amp;logo=GitHub" /></a>
+<a href="https://sonarcloud.io/dashboard?id=com.javiersc.kotlin.kopy"><img alt="Coverage" src="https://img.shields.io/sonar/coverage/com.javiersc.kotlin.kopy?label=Coverage&amp;logo=SonarCloud&amp;logoColor=white&amp;server=https%3A%2F%2Fsonarcloud.io" /></a>
+<a href="https://sonarcloud.io/dashboard?id=com.javiersc.kotlin.kopy"><img alt="Quality" src="https://img.shields.io/sonar/quality_gate/com.javiersc.kotlin.kopy?label=Quality&amp;logo=SonarCloud&amp;logoColor=white&amp;server=https%3A%2F%2Fsonarcloud.io" /></a>
+<a href="https://sonarcloud.io/dashboard?id=com.javiersc.kotlin.kopy"><img alt="Tech debt" src="https://img.shields.io/sonar/tech_debt/com.javiersc.kotlin.kopy?label=Tech%20debt&amp;logo=SonarCloud&amp;logoColor=white&amp;server=https%3A%2F%2Fsonarcloud.io" /></a></p>
+<h1 id="kopy">Kopy<a class="headerlink" href="#kopy" title="Permanent link">&para;</a></h1>
+<p><img src="assets/images/example.gif" alt="example animation"></p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<h3 id="intellij-idea-or-android-studio-configuration">IntelliJ IDEA or Android Studio configuration<a class="headerlink" href="#intellij-idea-or-android-studio-configuration" title="Permanent link">&para;</a></h3>
+<h4 id="enable-k2-compiler-in-the-ide-settings">Enable K2 compiler in the IDE settings:<a class="headerlink" href="#enable-k2-compiler-in-the-ide-settings" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>File &gt; Settings &gt; Language &amp; Frameworks &gt; Kotlin &gt; Enable K2 mode
+</code></pre></div>
+<p>It is necessary to restart the IDE to do the next step.</p>
+<p><img src="assets/images/k2.png" width="649" alt="k2"/></p>
+<h4 id="allow-third-party-k2-plugins">Allow third party K2 plugins:<a class="headerlink" href="#allow-third-party-k2-plugins" title="Permanent link">&para;</a></h4>
+<p>Popup the quick search with <code>shift + shift</code> and type <code>Registry...</code>, then search for:</p>
+<div class="highlight"><pre><span></span><code>kotlin.k2.only.bundled.compiler.plugins.enabled
+</code></pre></div>
+<p>And uncheck it.</p>
+<p><img src="assets/images/registry.png" width="1089" alt="registry"/></p>
+<h4 id="disclaimer-ide-issues">Disclaimer IDE issues<a class="headerlink" href="#disclaimer-ide-issues" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>⚠️ Note:</p>
+<p>If the code compiles and run in the terminal, but the IDE is failing with some error, try with a
+different IDE version.</p>
+<p>It is recommendable to use the latest IDEA version, including EAP ones if possible.</p>
+</blockquote>
+<h3 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h3>
+<p>Apply the plugin in the <code>build.gradle.kts</code> or <code>build.gradle</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">kopyVersion</span><span class="s">&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>As the plugin uses under the hood the Atomicfu library, the performance can be improved by
+applying the Atomicfu plugin.</p>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">kopyVersion</span><span class="s">&quot;</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin.plugin.atomicfu&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">kotlinVersion</span><span class="s">&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="plugin-configurations">Plugin configurations<a class="headerlink" href="#plugin-configurations" title="Permanent link">&para;</a></h3>
+<p>The extension <code>kopy</code> is available to configure the plugin:</p>
+<h4 id="debug-mode">Debug mode<a class="headerlink" href="#debug-mode" title="Permanent link">&para;</a></h4>
+<p>The <code>debug</code> option allows to enable the debug mode. It will measure the time each phase takes to be
+computed. It can help to benchmark any execution or find any issue. It can be <code>false</code> or <code>true</code>,
+being the default value <code>false</code>.</p>
+<p>With the <code>reportPath</code> option, it is possible to specify the path where the report will be saved. The
+default value is <code>build/reports/kopy</code>.</p>
+<blockquote>
+<p>[!CAUTION]
+It is not recommended to enable the debug mode by default, as it will increase the build time.</p>
+</blockquote>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">version</span><span class="s">&quot;</span>
+<span class="p">}</span>
+
+<span class="n">kopy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">debug</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">reportPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layout</span><span class="p">.</span><span class="na">buildDirectory</span><span class="p">.</span><span class="na">dir</span><span class="p">(</span><span class="s">&quot;reports/custom/kopy&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="copy-functions">Copy functions<a class="headerlink" href="#copy-functions" title="Permanent link">&para;</a></h4>
+<p>The <code>copyFunctions</code> option accepts the list of functions that will be generated. The default value
+is <code>listOf(KopyCopyFunctions.Copy, KopyCopyFunctions.Invoke)</code>.</p>
+<p>An empty list will generate all copy functions (<code>copy</code>, and <code>invoke</code>).</p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">version</span><span class="s">&quot;</span>
+<span class="p">}</span>
+
+<span class="n">kopy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">copyFunctions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">KopyFunctions</span><span class="p">.</span><span class="na">Copy</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="transform-functions">Transform functions<a class="headerlink" href="#transform-functions" title="Permanent link">&para;</a></h4>
+<p>The <code>functions</code> option accepts the list of functions that will be generated. The default value is
+<code>listOf(KopyTransformFunctions.Set, KopyTransformFunctions.Update, KopyTransformFunctions.UpdateEach)</code>.</p>
+<p>An empty list will generate all transform functions, (<code>set</code>, <code>update</code>, and <code>updateEach</code>).</p>
+<h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">version</span><span class="s">&quot;</span>
+<span class="p">}</span>
+
+<span class="n">kopy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">transformFunctions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">KopyTransformFunctions</span><span class="p">.</span><span class="na">Set</span><span class="p">,</span><span class="w"> </span><span class="n">KopyTransformFunctions</span><span class="p">.</span><span class="na">Update</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="visibility">Visibility<a class="headerlink" href="#visibility" title="Permanent link">&para;</a></h4>
+<p>The <code>visibility</code> option allows changing the visibility of the <code>copy</code> and <code>invoke</code> functions. The
+default value is <code>Auto</code>, which uses the same visibility the primary constructor has, as the original
+<code>copy</code> function does after Kotlin 2.0.20.</p>
+<p>Possible values:</p>
+<ul>
+<li><code>KopyVisibility.Auto</code> (Default): The visibility of the primary constructor is used.</li>
+<li><code>KopyVisibility.Public</code>: The visibility of the generated functions will be <code>public</code>.</li>
+<li><code>KopyVisibility.Internal</code>: The visibility of the generated functions will be <code>internal</code>.</li>
+<li><code>KopyVisibility.Protected</code>: The visibility of the generated functions will be <code>protected</code>.</li>
+<li><code>KopyVisibility.Private</code>: The visibility of the generated functions will be <code>private</code>.</li>
+</ul>
+<p>It is possible to have a more restrictive Kopy <code>copy</code> and <code>invoke</code> functions than the original one,
+for example by providing the <code>KopyVisiblity.Private</code> and the primary constructor being <code>public</code> or
+<code>internal</code>. The original <code>copy</code> function would be <code>public</code> or <code>internal</code> respectively, and the Kopy
+functions would be <code>private</code>.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>If the primary constructor visibility is more restrictive than the specified visibility, the
+primary constructor one is used.</p>
+</blockquote>
+<h5 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.javiersc.kotlin.kopy&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">version</span><span class="s">&quot;</span>
+<span class="p">}</span>
+
+<span class="n">kopy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">visibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KopyVisibility</span><span class="p">.</span><span class="na">Private</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="kopy-example">Kopy Example<a class="headerlink" href="#kopy-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">house</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">House</span><span class="p">(</span>
+<span class="w">        </span><span class="n">squareMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span>
+<span class="w">        </span><span class="n">kitchen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Kitchen</span><span class="p">(</span>
+<span class="w">            </span><span class="n">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cat</span><span class="p">(</span>
+<span class="w">                </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Garfield&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span>
+<span class="w">                </span><span class="n">numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">),</span>
+<span class="w">            </span><span class="p">),</span>
+<span class="w">            </span><span class="n">squareMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">house2</span><span class="p">:</span><span class="w"> </span><span class="n">House</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">house</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">squareMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">200</span>
+<span class="w">        </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Felix&quot;</span>
+<span class="w">        </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
+<span class="w">        </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">numbers</span><span class="p">.</span><span class="na">updateEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">kitchen</span><span class="p">.</span><span class="na">squareMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// House(squareMeters=200, kitchen=Kitchen(cat=Cat(name=Felix, age=7, numbers=[2, 3, 4]), squareMeters=20))</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">house2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">@Kopy</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">House</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">squareMeters</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">kitchen</span><span class="p">:</span><span class="w"> </span><span class="n">Kitchen</span><span class="p">)</span>
+
+<span class="nd">@Kopy</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Kitchen</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="p">:</span><span class="w"> </span><span class="n">Cat</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">squareMeters</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span>
+
+<span class="nd">@Kopy</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Cat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">age</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">numbers</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<h3 id="copy-or-invoke"><code>copy</code> or <code>invoke</code><a class="headerlink" href="#copy-or-invoke" title="Permanent link">&para;</a></h3>
+<p><code>copy</code> and <code>invoke</code> create a new instance of the data class with the content specified. There is no
+difference between both functions.</p>
+<h3 id="set-or"><code>set</code> or <code>=</code><a class="headerlink" href="#set-or" title="Permanent link">&para;</a></h3>
+<p><code>set</code> and <code>=</code> do the same, assigning a value.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">house2</span><span class="p">:</span><span class="w"> </span><span class="n">House</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">house</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Felix&quot;</span>
+<span class="p">}</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">house3</span><span class="p">:</span><span class="w"> </span><span class="n">House</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">house</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;Felix&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="update"><code>update</code><a class="headerlink" href="#update" title="Permanent link">&para;</a></h3>
+<p><code>update</code> is a lambda which allows updating the value of the property while having access to the
+current value.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">house2</span><span class="p">:</span><span class="w"> </span><span class="n">House</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">house</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> Jr.&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="updateeach"><code>updateEach</code><a class="headerlink" href="#updateeach" title="Permanent link">&para;</a></h3>
+<p><code>updateEach</code> is a lambda that allows updating the values of an <code>Iterable</code> while having access to the
+current value of each element.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">house2</span><span class="p">:</span><span class="w"> </span><span class="n">House</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">house</span><span class="p">.</span><span class="na">copy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">kitchen</span><span class="p">.</span><span class="na">cat</span><span class="p">.</span><span class="na">numbers</span><span class="p">.</span><span class="na">updateEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="kotlin-multiplatform">Kotlin Multiplatform<a class="headerlink" href="#kotlin-multiplatform" title="Permanent link">&para;</a></h3>
+<p>Kopy is compatible with Kotlin Multiplatform projects if it is used exclusively on projects that
+applies the plugin.</p>
+<p>Calling <code>copy</code> or <code>invoke</code> functions from Swift, or anything that is not Kotlin with the Kopy plugin
+applied, will not work.</p>
+<h2 id="kopykat-comparison">KopyKat comparison<a class="headerlink" href="#kopykat-comparison" title="Permanent link">&para;</a></h2>
+<p>Kopy uses the K2 compiler plugin whereas <a href="https://github.com/kopykat-kt/kopykat">KopyKat</a> uses KSP
+to generate code, as a consequence there are different advantages and disadvantages.</p>
+<h3 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kopy&rsquo;s code generation is faster than <a href="https://github.com/kopykat-kt/kopykat">KopyKat</a>&rsquo;s</li>
+<li>Kopy does not need to run any Gradle task to get feedback on the IDE:<ul>
+<li>Autocompletion shows the <code>copy</code> and <code>invoke</code> functions instantly after annotating a data class
+  with <code>@Kopy</code> annotation.</li>
+<li>Removing the <code>@Kopy</code> annotation instantly removes the <code>copy</code> and <code>invoke</code> functions without
+  running a Gradle task or manually deleting the <code>build</code> directory of a project.</li>
+<li>As it is not necessary to assemble/build the project, the feedback loop is faster.</li>
+</ul>
+</li>
+<li>Build time should be better too (not tested).</li>
+<li>Kopy only adds 5 or 6 functions/properties to each data class,
+  whereas <a href="https://github.com/kopykat-kt/kopykat">KopyKat</a> needs to generate builders and the
+  functions/properties match the number of properties in the data class.
+  In the future, the number of properties Kopy adds to each data class will be reduced to 1 or 2.</li>
+</ul>
+<h3 id="disadvantages">Disadvantages<a class="headerlink" href="#disadvantages" title="Permanent link">&para;</a></h3>
+<p>Similar to <a href="https://github.com/bnorm/kotlin-power-assert">Kotlin Power Assert</a>, this plugin works on
+the call site, so it modifies the body of the <code>copy</code> or <code>invoke</code> lambdas. That means the plugin must
+be applied to get it working, so it is not a good idea to use it in a library or an SDK as it will
+force the users to apply the plugin. <a href="https://github.com/kopykat-kt/kopykat">KopyKat</a> generates all
+the builders, so it does not have this limitation.</p>
+<p>An error is shown in the IDE or at compilation time if the plugin is not applied and the <code>copy</code> or
+<code>invoke</code> function from a class in another module is called, but it will not appear if the consumer
+is a Java application/library.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>The plugin transforms the lambda into what a developer would do manually with <code>copy</code> functions,
+that means the <code>copy</code> or <code>invoke</code> lambda can only work if the plugin is applied to the project it is
+being called.</p>
+<p>If the plugin is not applied, the <code>copy</code> and <code>invoke</code> function calls will be marked as
+errors. Don&rsquo;t suppress them without applying the plugin as they will not work.</p>
+<p>It is not necessary to suppress them manually, the Gradle plugin will suppress them automatically.</p>
+<p>There is no reflection or mutability, the class will have some new functions and properties added.</p>
+<p>The number is limited to 6 independently of the number of properties the data class has:</p>
+<ul>
+<li><code>copy</code> function</li>
+<li><code>invoke</code> function</li>
+<li><code>_atomic</code> property</li>
+<li><code>set</code> function</li>
+<li><code>update</code> function</li>
+<li><code>updateEach</code> function</li>
+</ul>
+<p>When the Context Parameters feature is available, the number of properties and methods added to the
+data class will be reduced to only 1 or 2:</p>
+<ul>
+<li><code>copy</code> function [optional]</li>
+<li><code>invoke</code> function [optional]</li>
+</ul>
+<p>A new <code>CopyScope</code> will be created, and it will be used to store the rest of properties, and it
+will be added as a context parameter to the <code>copy</code> and <code>invoke</code> lambdas:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">House</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">squareMeters</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">kitchen</span><span class="p">:</span><span class="w"> </span><span class="n">Kitchen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">CopyScope</span><span class="p">.()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">):</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">block</span><span class="p">:</span><span class="w"> </span><span class="n">CopyScope</span><span class="p">.()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">):</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Copyright 2025 Javier Segovia Córdoba
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 Javier Segovia Córdoba
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/JavierSegoviaCordoba" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/JavierSegoviaCo" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
