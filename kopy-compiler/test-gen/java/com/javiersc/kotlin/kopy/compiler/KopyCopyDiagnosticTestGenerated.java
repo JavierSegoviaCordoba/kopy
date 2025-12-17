@@ -4,7 +4,6 @@ package com.javiersc.kotlin.kopy.compiler;
 
 import com.intellij.testFramework.TestDataPath;
 import org.jetbrains.kotlin.test.util.KtTestUtil;
-import org.jetbrains.kotlin.test.TargetBackend;
 import org.jetbrains.kotlin.test.TestMetadata;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,7 @@ import java.util.regex.Pattern;
 public class KopyCopyDiagnosticTestGenerated extends AbstractKopyCopyDiagnosticTest {
   @Test
   public void testAllFilesPresentInCopy() {
-    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-functions/copy"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-functions/copy"), Pattern.compile("^(.+)\\.kt$"), null, true);
   }
 
   @Test
