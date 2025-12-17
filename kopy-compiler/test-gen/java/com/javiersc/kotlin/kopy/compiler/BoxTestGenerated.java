@@ -4,7 +4,6 @@ package com.javiersc.kotlin.kopy.compiler;
 
 import com.intellij.testFramework.TestDataPath;
 import org.jetbrains.kotlin.test.util.KtTestUtil;
-import org.jetbrains.kotlin.test.TargetBackend;
 import org.jetbrains.kotlin.test.TestMetadata;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
 public class BoxTestGenerated extends AbstractBoxTest {
   @Test
   public void testAllFilesPresentInBox() {
-    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box"), Pattern.compile("^(.+)\\.kt$"), null, true);
   }
 
   @Test
@@ -82,7 +81,7 @@ public class BoxTestGenerated extends AbstractBoxTest {
   public class Edge {
     @Test
     public void testAllFilesPresentInEdge() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/edge"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/edge"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
 
     @Test
@@ -104,7 +103,7 @@ public class BoxTestGenerated extends AbstractBoxTest {
   public class Inheritance {
     @Test
     public void testAllFilesPresentInInheritance() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/inheritance"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/inheritance"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
 
     @Test
@@ -126,7 +125,7 @@ public class BoxTestGenerated extends AbstractBoxTest {
   public class Nested_copy {
     @Test
     public void testAllFilesPresentInNested_copy() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/nested-copy"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/nested-copy"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
 
     @Test
@@ -142,7 +141,7 @@ public class BoxTestGenerated extends AbstractBoxTest {
   public class Repeated_properties {
     @Test
     public void testAllFilesPresentInRepeated_properties() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/repeated-properties"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/repeated-properties"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
 
     @Test
@@ -164,7 +163,7 @@ public class BoxTestGenerated extends AbstractBoxTest {
   public class Serialization {
     @Test
     public void testAllFilesPresentInSerialization() {
-      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/serialization"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/box/serialization"), Pattern.compile("^(.+)\\.kt$"), null, true);
     }
 
     @Test

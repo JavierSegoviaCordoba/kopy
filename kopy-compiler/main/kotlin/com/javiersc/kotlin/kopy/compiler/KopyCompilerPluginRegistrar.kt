@@ -10,6 +10,9 @@ import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrarAdapter
 
 public class KopyCompilerPluginRegistrar : CompilerPluginRegistrar() {
 
+    override val pluginId: String =
+        "${KopyCompilerProjectData.Group}.${KopyCompilerProjectData.Name}"
+
     override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {

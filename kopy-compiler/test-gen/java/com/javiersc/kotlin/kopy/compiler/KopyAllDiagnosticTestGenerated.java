@@ -4,7 +4,6 @@ package com.javiersc.kotlin.kopy.compiler;
 
 import com.intellij.testFramework.TestDataPath;
 import org.jetbrains.kotlin.test.util.KtTestUtil;
-import org.jetbrains.kotlin.test.TargetBackend;
 import org.jetbrains.kotlin.test.TestMetadata;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +23,6 @@ public class KopyAllDiagnosticTestGenerated extends AbstractKopyAllDiagnosticTes
 
   @Test
   public void testAllFilesPresentInAll() {
-    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-functions/all"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
+    KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-functions/all"), Pattern.compile("^(.+)\\.kt$"), null, true);
   }
 }
