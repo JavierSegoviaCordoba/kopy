@@ -14,6 +14,7 @@
 
 ### Updated
 
+- `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.3.10`
 - `gradle -> 9.3.1`
 
 ## [0.21.0+2.3.0] - 2025-12-17
