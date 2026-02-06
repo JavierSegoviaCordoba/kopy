@@ -36,6 +36,8 @@ public class KopyGradlePlugin @Inject constructor(private val providers: Provide
             suppressKopyOptInt()
             reportKotlinVersion()
         }
+        target.withAndroidApplication { dependencies { "api"(kopyRuntime) } }
+        target.withAndroidLibrary { dependencies { "api"(kopyRuntime) } }
         target.withKotlinAndroid { dependencies { "api"(kopyRuntime) } }
         target.withKotlinJvm { dependencies { "api"(kopyRuntime) } }
         target.withKotlinMultiplatform {
@@ -105,6 +107,14 @@ public class KopyGradlePlugin @Inject constructor(private val providers: Provide
         }
     }
 
+    private fun Project.withAndroidApplication(action: Project.() -> Unit) {
+        pluginManager.withPlugin("com.android.application") { action() }
+    }
+
+    private fun Project.withAndroidLibrary(action: Project.() -> Unit) {
+        pluginManager.withPlugin("com.android.library") { action() }
+    }
+
     private fun Project.withKotlinAndroid(action: Project.() -> Unit) {
         pluginManager.withPlugin("org.jetbrains.kotlin.android") { action() }
     }
@@ -118,6 +128,8 @@ public class KopyGradlePlugin @Inject constructor(private val providers: Provide
     }
 
     private fun Project.withKotlin(action: Project.() -> Unit) {
+        withAndroidApplication(action)
+        withAndroidLibrary(action)
         withKotlinAndroid(action)
         withKotlinJvm(action)
         withKotlinMultiplatform(action)

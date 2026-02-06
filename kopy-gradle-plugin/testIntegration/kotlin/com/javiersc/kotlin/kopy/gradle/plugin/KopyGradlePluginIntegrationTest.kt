@@ -24,7 +24,6 @@ internal class KopyGradlePluginIntegrationTest : GradleProjectTest() {
         gradleProjectTest {
             pluginManager.apply("com.javiersc.kotlin.kopy")
             pluginManager.apply("com.android.library")
-            pluginManager.apply("org.jetbrains.kotlin.android")
             extensions.findByName("kopy").shouldNotBeNull()
             extensions.findByType(KopyExtension::class.java).shouldNotBeNull()
             val kopy: KopyGradlePlugin = plugins.getPlugin(KopyGradlePlugin::class.java)
