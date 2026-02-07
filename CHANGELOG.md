@@ -14,6 +14,9 @@
 
 ### Updated
 
+- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.12.0+2.3.10`
+- `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.12.0+2.3.10`
+- `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.12.0+2.3.10`
 - `com.javiersc.hubdle:hubdle-version-catalog -> 0.13.0`
 - `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.18.1`
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.3.10`
