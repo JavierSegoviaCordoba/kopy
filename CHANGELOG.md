@@ -14,6 +14,10 @@
 
 ### Updated
 
+## [0.23.0+2.3.20] - 2026-03-16
+
+### Updated
+
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.3.20`
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.13.0+2.3.20`
 - `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.13.0+2.3.20`
@@ -315,7 +319,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.22.0+2.3.10...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.23.0+2.3.20...HEAD
+
+[0.23.0+2.3.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.22.0+2.3.10...0.23.0+2.3.20
 
 [0.22.0+2.3.10]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.21.0+2.3.0...0.22.0+2.3.10
 
