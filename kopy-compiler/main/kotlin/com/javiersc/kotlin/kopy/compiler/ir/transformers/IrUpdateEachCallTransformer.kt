@@ -2,11 +2,11 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
+import com.javiersc.kotlin.compiler.extensions.ir.DeclarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrBlockBody
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
 import com.javiersc.kotlin.compiler.extensions.ir.createLambdaIrSimpleFunction
-import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.dispatchReceiverArgument
 import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiver
 import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiverArgument
@@ -54,11 +54,12 @@ internal class IrUpdateEachCallTransformer(
         if (!expression.isKopyUpdateEach) return original()
 
         val updateCall: IrFunctionAccessExpression =
-            pluginContext.createUpdateCall(expression) ?: return original()
+            context(pluginContext) { createUpdateCall(expression) ?: return original() }
         return updateCall
     }
 
-    private fun IrPluginContext.createUpdateCall(expression: IrCall): IrFunctionAccessExpression? {
+    context(context: IrPluginContext)
+    private fun createUpdateCall(expression: IrCall): IrFunctionAccessExpression? {
         val updateFunctionSymbol: IrSimpleFunctionSymbol =
             expression.dispatchReceiver?.type?.classOrNull?.functions?.firstOrNull {
                 it.owner.asIrOrNull<IrElement>()?.hasAnnotation(kopyFunctionUpdateFqName) == true
@@ -67,14 +68,14 @@ internal class IrUpdateEachCallTransformer(
         val expressionExtensionReceiverType: IrType =
             expression.extensionReceiverArgument?.type ?: return null
         val kFunction1Type: IrType =
-            irBuiltIns
+            context.irBuiltIns
                 .functionN(1)
                 .typeWith(expressionExtensionReceiverType, expressionExtensionReceiverType)
         val expressionParent: IrDeclarationParent =
             expression.findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
                 ?: return null
         val updateCall: IrFunctionAccessExpression =
-            declarationIrBuilder(updateFunction.symbol).irCall(updateFunction).also {
+            DeclarationIrBuilder(updateFunction.symbol).irCall(updateFunction).also {
                 it.insertDispatchReceiver(expression.dispatchReceiverArgument)
                 it.insertExtensionReceiver(expression.extensionReceiverArgument)
                 it.type = expression.type
@@ -98,17 +99,18 @@ internal class IrUpdateEachCallTransformer(
                 val mapCall: IrFunctionAccessExpression =
                     createMapCallToUpdateCall(expression, asIrCall) ?: return null
                 lambda.body = createIrBlockBody {
-                    this.statements.add(declarationIrBuilder(lambda.symbol).irReturn(mapCall))
+                    this.statements.add(DeclarationIrBuilder(lambda.symbol).irReturn(mapCall))
                 }
             }
         return updateCall
     }
 
-    private fun IrPluginContext.createMapCallToUpdateCall(
+    context(context: IrPluginContext)
+    private fun createMapCallToUpdateCall(
         expression: IrCall,
         updateCall: IrCall,
     ): IrFunctionAccessExpression? {
-        val mapFunction: IrSimpleFunction = iterableMapFunctionOrNull ?: return null
+        val mapFunction: IrSimpleFunction = context.iterableMapFunctionOrNull ?: return null
 
         val expressionLambda: IrFunctionExpression? =
             expression.regularArguments.firstOrNull().asIrOrNull<IrFunctionExpression>()
@@ -121,11 +123,11 @@ internal class IrUpdateEachCallTransformer(
         val mapCallType: IrType = itValueParameterFromUpdate.type
 
         val mapCall: IrFunctionAccessExpression =
-            declarationIrBuilder(mapFunction.symbol)
+            DeclarationIrBuilder(mapFunction.symbol)
                 .irCall(callee = mapFunction.symbol, type = mapCallType)
                 .also {
                     it.insertExtensionReceiver(
-                        declarationIrBuilder(it.symbol).irGet(itValueParameterFromUpdate)
+                        DeclarationIrBuilder(it.symbol).irGet(itValueParameterFromUpdate),
                     )
                     val typeArg: IrType = expression.typeArguments.first()!!
                     it.typeArguments[0] = typeArg
@@ -141,7 +143,7 @@ internal class IrUpdateEachCallTransformer(
                             ?: return null
                     val funcExp: IrFunctionExpression =
                         createIrFunctionExpression(
-                            type = irBuiltIns.functionN(1).typeWith(typeArg, typeArg),
+                            type = context.irBuiltIns.functionN(1).typeWith(typeArg, typeArg),
                             function = expressionLambdaFunction,
                             origin = IrStatementOrigin.LAMBDA,
                         )
@@ -152,7 +154,8 @@ internal class IrUpdateEachCallTransformer(
 
     private val IrPluginContext.iterableMapFunctionOrNull: IrSimpleFunction?
         get() =
-            referenceFunctions(mapCallableId)
+            finderForBuiltins()
+                .findFunctions(mapCallableId)
                 .firstOrNull {
                     val extensionReceiverClass: IrClassSymbol? =
                         it.owner.extensionReceiver?.type?.classOrNull

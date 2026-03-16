@@ -1,6 +1,7 @@
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
-import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.DeclarationIrBuilder
+import com.javiersc.kotlin.compiler.extensions.ir.firstIrClassSymbolOrNull
 import com.javiersc.kotlin.kopy.compiler.atomicReferenceClassId
 import com.javiersc.kotlin.kopy.compiler.underscoreAtomicName
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
@@ -28,34 +29,36 @@ internal class IrAtomicPropertyTransformer(
     private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 
-    override fun visitPropertyNew(declaration: IrProperty): IrStatement {
-        fun originalProp(): IrStatement = super.visitPropertyNew(declaration)
-        if (declaration.name != underscoreAtomicName) return originalProp()
-        val atomicReference: IrClassSymbol =
-            pluginContext.referenceClass(atomicReferenceClassId) ?: return originalProp()
+    override fun visitPropertyNew(declaration: IrProperty): IrStatement =
+        context(pluginContext) {
+            fun originalProp(): IrStatement = super.visitPropertyNew(declaration)
+            if (declaration.name != underscoreAtomicName) return originalProp()
+            val atomicReference: IrClassSymbol =
+                firstIrClassSymbolOrNull(atomicReferenceClassId) ?: return originalProp()
 
-        val atomicReferenceConstructor: IrConstructor =
-            atomicReference.owner.primaryConstructor ?: return originalProp()
+            val atomicReferenceConstructor: IrConstructor =
+                atomicReference.owner.primaryConstructor ?: return originalProp()
 
-        val atomicInitializer: IrExpressionBody =
-            pluginContext.declarationIrBuilder(declaration).run {
-                val parentClass: IrClass = declaration.parentAsClass
-                val typeArg: IrSimpleType = parentClass.defaultType
-                val thisReceiver: IrValueParameter = parentClass.thisReceiver!!
-                val thisGet: IrGetValue = irGet(thisReceiver)
-                val atomicReferenceConstructorCall: IrConstructorCall =
-                    irCallConstructor(
-                            callee = atomicReferenceConstructor.symbol,
-                            typeArguments = listOf(typeArg),
-                        )
-                        .apply {
-                            val index: Int = thisReceiver.indexInParameters.takeIf { it >= 0 } ?: 0
-                            arguments[index] = thisGet
-                        }
-                irExprBody(atomicReferenceConstructorCall)
-            }
-        declaration.backingField?.initializer = atomicInitializer
+            val atomicInitializer: IrExpressionBody =
+                DeclarationIrBuilder(declaration).run {
+                    val parentClass: IrClass = declaration.parentAsClass
+                    val typeArg: IrSimpleType = parentClass.defaultType
+                    val thisReceiver: IrValueParameter = parentClass.thisReceiver!!
+                    val thisGet: IrGetValue = irGet(thisReceiver)
+                    val atomicReferenceConstructorCall: IrConstructorCall =
+                        irCallConstructor(
+                                callee = atomicReferenceConstructor.symbol,
+                                typeArguments = listOf(typeArg),
+                            )
+                            .apply {
+                                val index: Int =
+                                    thisReceiver.indexInParameters.takeIf { it >= 0 } ?: 0
+                                arguments[index] = thisGet
+                            }
+                    irExprBody(atomicReferenceConstructorCall)
+                }
+            declaration.backingField?.initializer = atomicInitializer
 
-        return declaration
-    }
+            return declaration
+        }
 }

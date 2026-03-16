@@ -14,6 +14,10 @@
 
 ### Updated
 
+- `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.3.20`
+- `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.13.0+2.3.20`
+- `com.javiersc.kotlin:kotlin-compiler-gradle-extensions -> 0.13.0+2.3.20`
+- `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.13.0+2.3.20`
 - `gradle -> 9.4.0`
 
 ## [0.22.0+2.3.10] - 2026-02-07

@@ -2,8 +2,8 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
+import com.javiersc.kotlin.compiler.extensions.ir.DeclarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
-import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiver
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrClass
 import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
@@ -76,20 +76,23 @@ internal class IrFunctionsTransformer(
 
     override fun visitSimpleFunction(declaration: IrSimpleFunction): IrStatement {
         fun originalFunction(): IrStatement = super.visitSimpleFunction(declaration)
-        return when {
-            declaration.isKopyCopyOrInvoke -> transformCopyOrInvokeFunction(declaration)
-            declaration.isKopySet -> transformSetFunction(declaration)
-            declaration.isKopyUpdate -> transformUpdateFunction(declaration)
-            declaration.isKopyUpdateEach -> transformUpdateEachFunction(declaration)
-            runCatching { declaration.parentAsClass }.isFailure -> originalFunction()
-            !declaration.parentAsClass.isData -> originalFunction()
-            else -> originalFunction()
+        return context(pluginContext) {
+            when {
+                declaration.isKopyCopyOrInvoke -> transformCopyOrInvokeFunction(declaration)
+                declaration.isKopySet -> transformSetFunction(declaration)
+                declaration.isKopyUpdate -> transformUpdateFunction(declaration)
+                declaration.isKopyUpdateEach -> transformUpdateEachFunction(declaration)
+                runCatching { declaration.parentAsClass }.isFailure -> originalFunction()
+                !declaration.parentAsClass.isData -> originalFunction()
+                else -> originalFunction()
+            }
         }
     }
 
+    context(context: IrPluginContext)
     private fun transformCopyOrInvokeFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         declaration.body =
-            pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
+            DeclarationIrBuilder(declaration.symbol).irBlockBody {
                 val thisCopyIrVariable: IrVariable = thisCopyIrVariable(declaration)
                 +copyCall(declaration, thisCopyIrVariable)
                 +atomicValueIrReturn(declaration, thisCopyIrVariable)
@@ -97,13 +100,13 @@ internal class IrFunctionsTransformer(
         return declaration
     }
 
+    context(context: IrPluginContext)
     private fun transformSetFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
                 body =
-                    pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
-                        val unitClass: IrClassSymbol =
-                            pluginContext.irBuiltIns.unitClass.owner.symbol
+                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
+                        val unitClass: IrClassSymbol = context.irBuiltIns.unitClass.owner.symbol
                         val unitCall: IrGetObjectValue = irGetObject(unitClass)
                         val irReturn: IrReturn = irReturn(unitCall)
                         +irReturn
@@ -112,11 +115,12 @@ internal class IrFunctionsTransformer(
         return function
     }
 
+    context(context: IrPluginContext)
     private fun transformUpdateFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
                 body =
-                    pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
+                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
                         val thisGet: IrGetValue = irGet(extensionReceiver!!)
                         val transformValueParameter: IrValueParameter = regularParameters.first()
                         val func1Invoke: IrSimpleFunction =
@@ -148,11 +152,12 @@ internal class IrFunctionsTransformer(
         return function
     }
 
+    context(context: IrPluginContext)
     private fun transformUpdateEachFunction(declaration: IrSimpleFunction): IrSimpleFunction {
         val function: IrSimpleFunction =
             declaration.apply {
                 body =
-                    pluginContext.declarationIrBuilder(declaration.symbol).irBlockBody {
+                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
                         val thisGet: IrGetValue = irGet(extensionReceiver!!)
                         val transformValueParameter: IrValueParameter = regularParameters.first()
                         val transformParameterIndex: Int =
@@ -220,11 +225,12 @@ internal class IrFunctionsTransformer(
         return copyCall
     }
 
+    context(context: IrPluginContext)
     private fun atomicValueIrReturn(
         declaration: IrSimpleFunction,
         thisCopyIrVariable: IrVariable,
     ): IrReturn =
-        pluginContext.declarationIrBuilder(declaration.symbol).run {
+        DeclarationIrBuilder(declaration.symbol).run {
             val thisCopyGetValue: IrGetValue = irGet(thisCopyIrVariable)
             val atomicProperty: IrProperty? =
                 declaration.parent.asIr<IrClass>().findDeclaration<IrProperty> {
@@ -234,7 +240,7 @@ internal class IrFunctionsTransformer(
             val getAtomicCall =
                 irCall(atomicProperty!!.getter!!).apply { dispatchReceiver = thisCopyGetValue }
 
-            val atomicReferenceClass: IrClass = pluginContext.firstIrClass(atomicReferenceClassId)
+            val atomicReferenceClass: IrClass = firstIrClass(atomicReferenceClassId)
 
             val atomicReferenceLoadFunction: IrFunction =
                 atomicReferenceClass.findDeclaration<IrFunction> { it.name == loadName }!!

@@ -20,6 +20,16 @@ public class KopyCompilerPluginRegistrar : CompilerPluginRegistrar() {
     }
 }
 
+@JvmName("registerAllExtensionsJava")
+context(extensionStorage: ExtensionStorage)
+internal fun registerAllExtensions(
+    configuration: CompilerConfiguration,
+    onlyDiagnostics: Boolean,
+    additionalConfig: ExtensionStorage.() -> Unit = {},
+) {
+    extensionStorage.registerAllExtensions(configuration, onlyDiagnostics, additionalConfig)
+}
+
 internal fun ExtensionStorage.registerAllExtensions(
     configuration: CompilerConfiguration,
     onlyDiagnostics: Boolean,

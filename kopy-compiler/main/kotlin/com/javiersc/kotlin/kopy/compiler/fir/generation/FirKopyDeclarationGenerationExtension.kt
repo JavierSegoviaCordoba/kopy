@@ -36,8 +36,8 @@ import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.descriptors.Visibility
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.declarations.FirNamedFunction
 import org.jetbrains.kotlin.fir.declarations.FirProperty
-import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
 import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.primaryConstructorIfAny
 import org.jetbrains.kotlin.fir.declarations.utils.isData
@@ -147,7 +147,7 @@ internal class FirKopyDeclarationGenerationExtension(
                     .apply {
                         addTransientAnnotationIfOwnedBySerializable(owner = owner)
                         replaceInitializer(
-                            buildErrorExpression { diagnostic = KopyConeTemporalDiagnostic }
+                            buildErrorExpression { diagnostic = KopyConeTemporalDiagnostic },
                         )
                     }
             return listOf(atomicProperty.symbol)
@@ -226,7 +226,7 @@ internal class FirKopyDeclarationGenerationExtension(
         owner: FirClassSymbol<*>,
     ): FirNamedFunctionSymbol? {
         if (callableId.callableName != setName) return null
-        val setFunction: FirSimpleFunction =
+        val setFunction: FirNamedFunction =
             createMemberFunction(
                     owner = owner,
                     key = Key,
@@ -258,7 +258,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionSetClassId),
-                        )
+                        ),
                     )
                 }
         return setFunction.symbol
@@ -270,7 +270,7 @@ internal class FirKopyDeclarationGenerationExtension(
     ): FirNamedFunctionSymbol? {
         if (callableId.callableName != updateName) return null
 
-        val updateFunction: FirSimpleFunction =
+        val updateFunction: FirNamedFunction =
             createMemberFunction(
                     owner = owner,
                     key = Key,
@@ -312,7 +312,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionUpdateClassId),
-                        )
+                        ),
                     )
                 }
         return updateFunction.symbol
@@ -330,7 +330,7 @@ internal class FirKopyDeclarationGenerationExtension(
         val iterableType: ConeClassLikeType =
             (iterableClass.toFirTypeRef().coneType as ConeClassLikeType).withArguments { it.type!! }
 
-        val updateEachFunction: FirSimpleFunction =
+        val updateEachFunction: FirNamedFunction =
             createMemberFunction(
                     owner = owner,
                     key = Key,
@@ -369,7 +369,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createAnnotation(kopyFunctionUpdateEachClassId),
-                        )
+                        ),
                     )
                 }
         return updateEachFunction.symbol
@@ -390,7 +390,7 @@ internal class FirKopyDeclarationGenerationExtension(
                 .substituteOrSelf(function1Type)
                 .withAttributes(ConeAttributes.WithExtensionFunctionType)
 
-        val copyFunction: FirSimpleFunction =
+        val copyFunction: FirNamedFunction =
             createMemberFunction(
                     owner = owner,
                     key = Key,
@@ -414,7 +414,7 @@ internal class FirKopyDeclarationGenerationExtension(
                         listOfNotNull(
                             createAnnotation(kopyOptInClassId),
                             createCopyOrInvokeAnnotation(callableId),
-                        )
+                        ),
                     )
                 }
         return copyFunction.symbol
