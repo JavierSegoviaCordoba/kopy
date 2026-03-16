@@ -2,10 +2,10 @@
 
 package com.javiersc.kotlin.kopy.compiler.ir.transformers
 
+import com.javiersc.kotlin.compiler.extensions.ir.DeclarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.asIr
 import com.javiersc.kotlin.compiler.extensions.ir.asIrOrNull
 import com.javiersc.kotlin.compiler.extensions.ir.createIrFunctionExpression
-import com.javiersc.kotlin.compiler.extensions.ir.declarationIrBuilder
 import com.javiersc.kotlin.compiler.extensions.ir.extensionReceiverArgument
 import com.javiersc.kotlin.compiler.extensions.ir.filterIrIsInstance
 import com.javiersc.kotlin.compiler.extensions.ir.firstIrSimpleFunction
@@ -104,7 +104,9 @@ internal class IrSetOrUpdateCallTransformer(
                 expression.findDeclarationParent() ?: return original()
             if (parent != expressionCall.findDeclarationParent()) return original()
             val alsoCall: IrCall =
-                pluginContext.createAlsoCall(expressionCall, parent) ?: return original()
+                context(pluginContext) {
+                    createAlsoCall(expressionCall, parent) ?: return original()
+                }
             val expressionWithAlsoCall: IrCall =
                 alsoCall.also { it.insertExtensionReceiver(expression) }
             return expressionWithAlsoCall
@@ -125,7 +127,9 @@ internal class IrSetOrUpdateCallTransformer(
                     ?.function ?: return original()
             if (parent != updateLambda) return original()
             val alsoCall: IrCall =
-                pluginContext.createAlsoCall(expressionCall, parent) ?: return original()
+                context(pluginContext) {
+                    createAlsoCall(expressionCall, parent) ?: return original()
+                }
             val value: IrExpression = expression.value
             val expressionWithAlsoCall: IrReturn =
                 expression.also { irReturn ->
@@ -135,7 +139,8 @@ internal class IrSetOrUpdateCallTransformer(
         }
     }
 
-    private fun IrPluginContext.createAlsoCall(
+    context(context: IrPluginContext)
+    private fun createAlsoCall(
         expression: IrCall,
         expressionParent: IrDeclarationParent,
     ): IrCall? {
@@ -152,13 +157,13 @@ internal class IrSetOrUpdateCallTransformer(
 
         val alsoBlockFunctionExpression: IrFunctionExpression =
             createIrFunctionExpression(
-                type = irBuiltIns.run { functionN(1).typeWith(setOrUpdateType, unitType) },
+                type = context.irBuiltIns.run { functionN(1).typeWith(setOrUpdateType, unitType) },
                 function = alsoBlockFunction,
                 origin = IrStatementOrigin.LAMBDA,
             )
 
         val alsoCall: IrCall =
-            declarationIrBuilder(alsoFunction.symbol).run {
+            DeclarationIrBuilder(alsoFunction.symbol).run {
                 irCall(alsoFunction.symbol).also {
                     it.patchDeclarationParents(expressionParent)
                     it.type = setOrUpdateType
@@ -173,6 +178,7 @@ internal class IrSetOrUpdateCallTransformer(
     private fun IrElement.findDeclarationParent(): IrDeclarationParent? =
         findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
 
+    context(context: IrPluginContext)
     private fun createAlsoBlockFunction(
         expressionParent: IrDeclarationParent,
         setOrUpdateType: IrType,
@@ -194,7 +200,7 @@ internal class IrSetOrUpdateCallTransformer(
                     }
 
                     val alsoBodyBlock: IrBlockBody =
-                        pluginContext.declarationIrBuilder(this.symbol).irBlockBody {
+                        DeclarationIrBuilder(this.symbol).irBlockBody {
                             val itValueParameter: IrValueParameter = regularParameters.first()
                             val alsoItValueParameterGetValue: IrGetValue = irGet(itValueParameter)
                             val copyChainCall: IrCall =
@@ -202,7 +208,7 @@ internal class IrSetOrUpdateCallTransformer(
                                     ?: return null
                             val atomicGetterStoreFunctionCall: IrCall =
                                 expression.createAtomicGetterStoreSetFunctionCall(
-                                    copyChainCall = copyChainCall
+                                    copyChainCall = copyChainCall,
                                 )
                             +atomicGetterStoreFunctionCall
                         }
@@ -212,6 +218,7 @@ internal class IrSetOrUpdateCallTransformer(
         return alsoBlockFunction
     }
 
+    context(context: IrPluginContext)
     private fun IrCall.createCopyChainCall(alsoItValueParameterGetValue: IrGetValue): IrCall? {
         val atomicGetterGetFunctionCall: IrCall = createAtomicGetterGetFunctionCall()
         val atomicRefType: IrSimpleType = atomicGetterGetFunctionCall.type.asIr()
@@ -295,6 +302,7 @@ internal class IrSetOrUpdateCallTransformer(
         extract(extensionReceiver)
     }
 
+    context(context: IrPluginContext)
     private fun IrSymbol.createCopyCall(
         dataClass: IrClassSymbol,
         dispatchReceiver: IrExpression,
@@ -302,7 +310,7 @@ internal class IrSetOrUpdateCallTransformer(
         argumentValue: IrExpression,
     ): IrCall? {
         val copyCall: IrCall? =
-            pluginContext.declarationIrBuilder(this).run {
+            DeclarationIrBuilder(this).run {
                 val kotlinCopyFunctionSymbol: IrSimpleFunctionSymbol =
                     dataClass.owner.functions
                         .firstOrNull {
@@ -323,6 +331,7 @@ internal class IrSetOrUpdateCallTransformer(
         return copyCall
     }
 
+    context(context: IrPluginContext)
     private fun IrCall.createAtomicGetterGetFunctionCall(): IrCall {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
@@ -334,7 +343,7 @@ internal class IrSetOrUpdateCallTransformer(
             dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
 
         val getAtomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
+            DeclarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterFunction).apply {
                     dispatchReceiver = dispatchIrGetValue
                     type = atomicGetterFunction.owner.returnType
@@ -347,7 +356,7 @@ internal class IrSetOrUpdateCallTransformer(
                 ?: error("No function found")
 
         val atomicGetterGetFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
+            DeclarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicReferenceLoadFunction).apply {
                     dispatchReceiver = getAtomicGetterFunctionCall
                     type = dispatchIrGetValue.type
@@ -358,6 +367,7 @@ internal class IrSetOrUpdateCallTransformer(
         return atomicGetterGetFunctionCall
     }
 
+    context(context: IrPluginContext)
     private fun IrCall.createAtomicGetterStoreSetFunctionCall(copyChainCall: IrCall): IrCall {
         val dispatchIrGetValue: IrGetValue =
             dispatchReceiver?.asIrOrNull<IrGetValue>()?.deepCopyWithSymbols()
@@ -369,7 +379,7 @@ internal class IrSetOrUpdateCallTransformer(
             dispatchClass.getPropertyGetter("_atomic") ?: error("No function found")
 
         val atomicGetterFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
+            DeclarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterFunction).apply {
                     dispatchReceiver = dispatchIrGetValue
                     type = atomicGetterFunction.owner.returnType
@@ -382,7 +392,7 @@ internal class IrSetOrUpdateCallTransformer(
                 ?: error("No function found")
 
         val atomicGetterStoreFunctionCall: IrCall =
-            pluginContext.declarationIrBuilder(dispatchIrGetValue.symbol).run {
+            DeclarationIrBuilder(dispatchIrGetValue.symbol).run {
                 irCall(atomicGetterStoreFunction).apply {
                     dispatchReceiver = atomicGetterFunctionCall
                     type = atomicGetterStoreFunction.owner.returnType

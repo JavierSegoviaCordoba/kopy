@@ -41,7 +41,8 @@ fun main() = generateTestGroupSuiteWithJUnit5 {
 
 open class AbstractDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -54,7 +55,8 @@ open class AbstractBoxTest : JvmBoxTest() {
     override val runtimeClasspathProvider: Constructor<MetaRuntimeClasspathProvider> =
         ::GeneratedMetaRuntimeClasspathProvider
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -74,7 +76,8 @@ open class AbstractBoxTest : JvmBoxTest() {
 
 open class AbstractKopy0AutoDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -85,7 +88,8 @@ open class AbstractKopy0AutoDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopy1PublicDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -96,7 +100,8 @@ open class AbstractKopy1PublicDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopy2InternalDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -107,7 +112,8 @@ open class AbstractKopy2InternalDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopy3ProtectedDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -118,7 +124,8 @@ open class AbstractKopy3ProtectedDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopy4PrivateDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -129,7 +136,8 @@ open class AbstractKopy4PrivateDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopyAllDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -140,7 +148,8 @@ open class AbstractKopyAllDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopyCopyDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(
         module: TestModule,
         configuration: CompilerConfiguration,
     ) {
@@ -151,10 +160,8 @@ open class AbstractKopyCopyDiagnosticTest : KopyDiagnosticTest() {
 
 open class AbstractKopyInvokeDiagnosticTest : KopyDiagnosticTest() {
 
-    override fun ExtensionStorage.registerExtensions(
-        module: TestModule,
-        configuration: CompilerConfiguration,
-    ) {
+    context(extensionStorage: ExtensionStorage)
+    override fun registerExtensions(module: TestModule, configuration: CompilerConfiguration) {
         configuration.put(KopyKey.CopyFunctions, listOf(KopyCopyFunctions.Invoke))
         registerAllExtensions(configuration = configuration, onlyDiagnostics = true)
     }
