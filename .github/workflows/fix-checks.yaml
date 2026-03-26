@@ -5,5 +5,5 @@ on:
 
 jobs:
   fix-checks:
-    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/fix-checks.yaml@main
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/fix-checks.yaml@34fd38844e1c27ceddc6f62d257f50a690843c22 # main
     secrets: inherit
