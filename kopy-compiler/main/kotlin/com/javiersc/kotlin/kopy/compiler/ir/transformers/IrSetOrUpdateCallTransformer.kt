@@ -107,8 +107,9 @@ internal class IrSetOrUpdateCallTransformer(
                 context(pluginContext) {
                     createAlsoCall(expressionCall, parent) ?: return original()
                 }
-            val expressionWithAlsoCall: IrCall =
-                alsoCall.also { it.insertExtensionReceiver(expression) }
+            val expressionWithAlsoCall: IrCall = alsoCall.also {
+                it.insertExtensionReceiver(expression)
+            }
             return expressionWithAlsoCall
         }
     }
@@ -131,10 +132,9 @@ internal class IrSetOrUpdateCallTransformer(
                     createAlsoCall(expressionCall, parent) ?: return original()
                 }
             val value: IrExpression = expression.value
-            val expressionWithAlsoCall: IrReturn =
-                expression.also { irReturn ->
-                    irReturn.value = alsoCall.also { it.insertExtensionReceiver(value) }
-                }
+            val expressionWithAlsoCall: IrReturn = expression.also { irReturn ->
+                irReturn.value = alsoCall.also { it.insertExtensionReceiver(value) }
+            }
             return expressionWithAlsoCall
         }
     }
@@ -253,16 +253,15 @@ internal class IrSetOrUpdateCallTransformer(
                 }
                 .reversed()
 
-        val copyChainCall: IrCall =
-            calls.reduce { acc, irCall ->
-                val argumentIndex: Int =
-                    irCall.getArgumentsWithIr().firstNotNullOfOrNull { (valueParameter, _) ->
-                        val index: Int = valueParameter.descriptor.indexOrMinusOne
-                        if (index != -1) index + 1 else null
-                    } ?: return null
-                irCall.arguments[argumentIndex] = acc
-                irCall
-            }
+        val copyChainCall: IrCall = calls.reduce { acc, irCall ->
+            val argumentIndex: Int =
+                irCall.getArgumentsWithIr().firstNotNullOfOrNull { (valueParameter, _) ->
+                    val index: Int = valueParameter.descriptor.indexOrMinusOne
+                    if (index != -1) index + 1 else null
+                } ?: return null
+            irCall.arguments[argumentIndex] = acc
+            irCall
+        }
 
         copyChainCall
             .toIrTreeNode()
