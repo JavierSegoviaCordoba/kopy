@@ -102,90 +102,84 @@ internal class IrFunctionsTransformer(
 
     context(context: IrPluginContext)
     private fun transformSetFunction(declaration: IrSimpleFunction): IrSimpleFunction {
-        val function: IrSimpleFunction =
-            declaration.apply {
-                body =
-                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
-                        val unitClass: IrClassSymbol = context.irBuiltIns.unitClass.owner.symbol
-                        val unitCall: IrGetObjectValue = irGetObject(unitClass)
-                        val irReturn: IrReturn = irReturn(unitCall)
-                        +irReturn
-                    }
-            }
+        val function: IrSimpleFunction = declaration.apply {
+            body =
+                DeclarationIrBuilder(declaration.symbol).irBlockBody {
+                    val unitClass: IrClassSymbol = context.irBuiltIns.unitClass.owner.symbol
+                    val unitCall: IrGetObjectValue = irGetObject(unitClass)
+                    val irReturn: IrReturn = irReturn(unitCall)
+                    +irReturn
+                }
+        }
         return function
     }
 
     context(context: IrPluginContext)
     private fun transformUpdateFunction(declaration: IrSimpleFunction): IrSimpleFunction {
-        val function: IrSimpleFunction =
-            declaration.apply {
-                body =
-                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
-                        val thisGet: IrGetValue = irGet(extensionReceiver!!)
-                        val transformValueParameter: IrValueParameter = regularParameters.first()
-                        val func1Invoke: IrSimpleFunction =
-                            function1Class.findDeclaration<IrSimpleFunction> {
-                                it.name == invokeName
-                            }!!
+        val function: IrSimpleFunction = declaration.apply {
+            body =
+                DeclarationIrBuilder(declaration.symbol).irBlockBody {
+                    val thisGet: IrGetValue = irGet(extensionReceiver!!)
+                    val transformValueParameter: IrValueParameter = regularParameters.first()
+                    val func1Invoke: IrSimpleFunction =
+                        function1Class.findDeclaration<IrSimpleFunction> { it.name == invokeName }!!
 
-                        val transformCallDispatchReceiver: IrGetValue =
-                            irGet(transformValueParameter).apply {
-                                origin = IrStatementOrigin.VARIABLE_AS_FUNCTION
-                            }
+                    val transformCallDispatchReceiver: IrGetValue =
+                        irGet(transformValueParameter).apply {
+                            origin = IrStatementOrigin.VARIABLE_AS_FUNCTION
+                        }
 
-                        val transformCall: IrMemberAccessExpression<*> =
-                            irCallOp(
-                                callee = func1Invoke.symbol,
-                                type = declaration.typeParameters.first().defaultType,
-                                dispatchReceiver = transformCallDispatchReceiver,
-                                argument = thisGet,
-                                origin = IrStatementOrigin.INVOKE,
-                            )
-                        +typeOperator(
-                            resultType = unitType,
-                            argument = transformCall,
-                            typeOperator = IrTypeOperator.IMPLICIT_COERCION_TO_UNIT,
-                            typeOperand = unitType,
+                    val transformCall: IrMemberAccessExpression<*> =
+                        irCallOp(
+                            callee = func1Invoke.symbol,
+                            type = declaration.typeParameters.first().defaultType,
+                            dispatchReceiver = transformCallDispatchReceiver,
+                            argument = thisGet,
+                            origin = IrStatementOrigin.INVOKE,
                         )
-                    }
-            }
+                    +typeOperator(
+                        resultType = unitType,
+                        argument = transformCall,
+                        typeOperator = IrTypeOperator.IMPLICIT_COERCION_TO_UNIT,
+                        typeOperand = unitType,
+                    )
+                }
+        }
         return function
     }
 
     context(context: IrPluginContext)
     private fun transformUpdateEachFunction(declaration: IrSimpleFunction): IrSimpleFunction {
-        val function: IrSimpleFunction =
-            declaration.apply {
-                body =
-                    DeclarationIrBuilder(declaration.symbol).irBlockBody {
-                        val thisGet: IrGetValue = irGet(extensionReceiver!!)
-                        val transformValueParameter: IrValueParameter = regularParameters.first()
-                        val transformParameterIndex: Int =
-                            transformValueParameter.indexInParameters - 1
+        val function: IrSimpleFunction = declaration.apply {
+            body =
+                DeclarationIrBuilder(declaration.symbol).irBlockBody {
+                    val thisGet: IrGetValue = irGet(extensionReceiver!!)
+                    val transformValueParameter: IrValueParameter = regularParameters.first()
+                    val transformParameterIndex: Int = transformValueParameter.indexInParameters - 1
 
-                        val transformCallType: IrSimpleType =
-                            listClass.typeWith(typeParameters.map { it.defaultType })
+                    val transformCallType: IrSimpleType =
+                        listClass.typeWith(typeParameters.map { it.defaultType })
 
-                        val typeParameterType: IrSimpleType =
-                            declaration.typeParameters.map { it.defaultType }.first()
+                    val typeParameterType: IrSimpleType =
+                        declaration.typeParameters.map { it.defaultType }.first()
 
-                        val transformCall: IrCall =
-                            irCall(callee = mapFunction.symbol).apply {
-                                typeArguments[0] = typeParameterType
-                                typeArguments[1] = typeParameterType
-                                insertExtensionReceiver(thisGet)
-                                arguments[transformParameterIndex] = irGet(transformValueParameter)
-                                this.type = transformCallType
-                            }
+                    val transformCall: IrCall =
+                        irCall(callee = mapFunction.symbol).apply {
+                            typeArguments[0] = typeParameterType
+                            typeArguments[1] = typeParameterType
+                            insertExtensionReceiver(thisGet)
+                            arguments[transformParameterIndex] = irGet(transformValueParameter)
+                            this.type = transformCallType
+                        }
 
-                        +typeOperator(
-                            resultType = unitType,
-                            argument = transformCall,
-                            typeOperator = IrTypeOperator.IMPLICIT_COERCION_TO_UNIT,
-                            typeOperand = unitType,
-                        )
-                    }
-            }
+                    +typeOperator(
+                        resultType = unitType,
+                        argument = transformCall,
+                        typeOperator = IrTypeOperator.IMPLICIT_COERCION_TO_UNIT,
+                        typeOperand = unitType,
+                    )
+                }
+        }
         return function
     }
 

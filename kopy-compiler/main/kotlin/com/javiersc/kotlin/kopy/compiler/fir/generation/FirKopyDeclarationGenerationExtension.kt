@@ -345,7 +345,9 @@ internal class FirKopyDeclarationGenerationExtension(
                         visibility = calculateVisibility(owner)
                         this.extensionReceiverType { typeParameters ->
                             val typeParamsAsConeType: List<ConeTypeParameterType> =
-                                typeParameters.map { it.toConeType() }
+                                typeParameters.map {
+                                    it.toConeType()
+                                }
                             session
                                 .substitutor(
                                     fromTypeParameters = iterableClass.typeParameterSymbols,

@@ -74,10 +74,9 @@ internal fun KopyConfig.createReport() {
     val reportPath: String = reportDir.path
     val reportContent: String = buildString {
         var total: Duration = 0.milliseconds
-        val sortedMeasures: List<Measure> =
-            measures.sortedWith { a: Measure, b: Measure ->
-                compareValuesBy(a = a, b = b, { it.key }, { -it.duration })
-            }
+        val sortedMeasures: List<Measure> = measures.sortedWith { a: Measure, b: Measure ->
+            compareValuesBy(a = a, b = b, { it.key }, { -it.duration })
+        }
         for ((key: String, measures: List<Measure>) in sortedMeasures.groupBy { it.key }) {
             val values: Sequence<Pair<String, Duration>> =
                 measures.asSequence().map { measure ->
