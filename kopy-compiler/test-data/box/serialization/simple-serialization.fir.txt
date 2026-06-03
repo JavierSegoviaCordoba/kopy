@@ -1,13 +1,13 @@
 FILE: a.kt
     package kotlinx.serialization
 
-    @R|kotlin/annotation/MustBeDocumented|() @R|kotlin/annotation/Target|(allowedTargets = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.CLASS|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.TYPE|)) public final annotation class Serializable : R|kotlin/Annotation| {
+    @R|kotlin/annotation/MustBeDocumented|() @R|kotlin/annotation/Target|(allowedTargets = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.CLASS|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.TYPE|) [evaluated = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.CLASS|, Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.TYPE|)]) public final annotation class Serializable : R|kotlin/Annotation| {
         public constructor(): R|kotlinx/serialization/Serializable| {
             super<R|kotlin/Any|>()
         }
 
     }
-    @R|kotlin/annotation/MustBeDocumented|() @R|kotlin/annotation/Target|(allowedTargets = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|)) public final annotation class Transient : R|kotlin/Annotation| {
+    @R|kotlin/annotation/MustBeDocumented|() @R|kotlin/annotation/Target|(allowedTargets = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|) [evaluated = vararg(Q|kotlin/annotation/AnnotationTarget|.R|kotlin/annotation/AnnotationTarget.PROPERTY|)]) public final annotation class Transient : R|kotlin/Annotation| {
         public constructor(): R|kotlinx/serialization/Transient| {
             super<R|kotlin/Any|>()
         }

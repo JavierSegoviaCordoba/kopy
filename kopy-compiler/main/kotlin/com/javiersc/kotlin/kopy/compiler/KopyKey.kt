@@ -15,4 +15,4 @@ internal object KopyKey {
     val Visibility = key<KopyVisibility>(KopyVisibility.NAME)
 }
 
-private fun <T> key(name: String) = CompilerConfigurationKey<T>(name)
+private fun <T : Any> key(name: String) = CompilerConfigurationKey.create<T>(name)

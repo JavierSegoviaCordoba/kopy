@@ -15,10 +15,14 @@ import java.util.regex.Pattern;
 @TestMetadata("test-data/diagnostics-kopy-functions/all")
 @TestDataPath("$PROJECT_ROOT")
 public class KopyAllDiagnosticTestGenerated extends AbstractKopyAllDiagnosticTest {
+  private void run(String fileName) {
+    runTest("test-data/diagnostics-kopy-functions/all/" + fileName);
+  }
+
   @Test
   @TestMetadata("all.kt")
   public void testAll() {
-    runTest("test-data/diagnostics-kopy-functions/all/all.kt");
+    run("all.kt");
   }
 
   @Test

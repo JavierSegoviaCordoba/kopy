@@ -29,13 +29,13 @@ internal val IrSimpleFunction.isKopyUpdateEach: Boolean
     get() = hasAnnotation(kopyFunctionUpdateEachFqName)
 
 internal val IrCall.isKopySet: Boolean
-    get() = hasAnnotation(kopyFunctionSetFqName)
+    get() = symbol.owner.hasAnnotation(kopyFunctionSetFqName)
 
 internal val IrCall.isKopyUpdate: Boolean
-    get() = hasAnnotation(kopyFunctionUpdateFqName)
+    get() = symbol.owner.hasAnnotation(kopyFunctionUpdateFqName)
 
 internal val IrCall.isKopySetOrUpdate: Boolean
     get() = isKopySet || isKopyUpdate
 
 internal val IrCall.isKopyUpdateEach: Boolean
-    get() = hasAnnotation(kopyFunctionUpdateEachFqName)
+    get() = symbol.owner.hasAnnotation(kopyFunctionUpdateEachFqName)

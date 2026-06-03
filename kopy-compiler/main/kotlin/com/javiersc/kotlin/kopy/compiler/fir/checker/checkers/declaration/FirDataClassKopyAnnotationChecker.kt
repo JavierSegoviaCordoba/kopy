@@ -18,7 +18,7 @@ import org.jetbrains.kotlin.fir.declarations.hasAnnotation
 import org.jetbrains.kotlin.fir.declarations.utils.isData
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
 import org.jetbrains.kotlin.fir.resolve.fqName
-import org.jetbrains.kotlin.renderer.render
+import org.jetbrains.kotlin.name.render
 
 internal class FirDataClassKopyAnnotationChecker(private val kopyConfig: KopyConfig) :
     FirDeclarationChecker<FirClassLikeDeclaration>(MppCheckerKind.Common) {

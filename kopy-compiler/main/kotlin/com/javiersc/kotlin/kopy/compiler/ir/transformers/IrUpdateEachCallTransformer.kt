@@ -15,6 +15,9 @@ import com.javiersc.kotlin.compiler.extensions.ir.hasAnnotation
 import com.javiersc.kotlin.compiler.extensions.ir.regularArguments
 import com.javiersc.kotlin.compiler.extensions.ir.regularParameters
 import com.javiersc.kotlin.kopy.compiler.ir.utils.findDeclarationParent
+import com.javiersc.kotlin.kopy.compiler.ir.utils.insertDispatchReceiver
+import com.javiersc.kotlin.kopy.compiler.ir.utils.insertExtensionReceiver
+import com.javiersc.kotlin.kopy.compiler.ir.utils.insertFirstRegularParameter
 import com.javiersc.kotlin.kopy.compiler.ir.utils.isKopyUpdateEach
 import com.javiersc.kotlin.kopy.compiler.iterableClassId
 import com.javiersc.kotlin.kopy.compiler.kopyFunctionUpdateFqName
@@ -75,11 +78,12 @@ internal class IrUpdateEachCallTransformer(
             expression.findDeclarationParent(moduleFragment)?.asIrOrNull<IrDeclarationParent>()
                 ?: return null
         val updateCall: IrFunctionAccessExpression =
-            DeclarationIrBuilder(updateFunction.symbol).irCall(updateFunction).also {
-                it.insertDispatchReceiver(expression.dispatchReceiverArgument)
-                it.insertExtensionReceiver(expression.extensionReceiverArgument)
-                it.type = expression.type
-                it.typeArguments[0] = it.extensionReceiverArgument?.type
+            DeclarationIrBuilder(updateFunction.symbol).irCall(updateFunction).also { call ->
+                if (call !is IrCall) return null
+                call.insertDispatchReceiver(expression.dispatchReceiverArgument)
+                call.insertExtensionReceiver(expression.extensionReceiverArgument)
+                call.type = expression.type
+                call.typeArguments[0] = call.extensionReceiverArgument?.type
                 val lambda: IrSimpleFunction = createLambdaIrSimpleFunction {
                     this.parent = expressionParent
                     this.addValueParameter(
@@ -94,10 +98,9 @@ internal class IrUpdateEachCallTransformer(
                         function = lambda,
                         origin = IrStatementOrigin.LAMBDA,
                     )
-                it.arguments[2] = lambdaFunctionExpression
-                val asIrCall: IrCall = it.asIrOrNull<IrCall>() ?: return null
+                call.insertFirstRegularParameter(lambdaFunctionExpression)
                 val mapCall: IrFunctionAccessExpression =
-                    createMapCallToUpdateCall(expression, asIrCall) ?: return null
+                    createMapCallToUpdateCall(expression, call) ?: return null
                 lambda.body = createIrBlockBody {
                     this.statements.add(DeclarationIrBuilder(lambda.symbol).irReturn(mapCall))
                 }
@@ -127,7 +130,7 @@ internal class IrUpdateEachCallTransformer(
                 .irCall(callee = mapFunction.symbol, type = mapCallType)
                 .also {
                     it.insertExtensionReceiver(
-                        DeclarationIrBuilder(it.symbol).irGet(itValueParameterFromUpdate),
+                        DeclarationIrBuilder(it.symbol).irGet(itValueParameterFromUpdate)
                     )
                     val typeArg: IrType = expression.typeArguments.first()!!
                     it.typeArguments[0] = typeArg
@@ -147,7 +150,7 @@ internal class IrUpdateEachCallTransformer(
                             function = expressionLambdaFunction,
                             origin = IrStatementOrigin.LAMBDA,
                         )
-                    it.arguments[1] = funcExp
+                    it.insertFirstRegularParameter(funcExp)
                 }
         return mapCall
     }
