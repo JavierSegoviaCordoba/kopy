@@ -15,6 +15,10 @@ import java.util.regex.Pattern;
 @TestMetadata("test-data/diagnostics-kopy-functions/invoke")
 @TestDataPath("$PROJECT_ROOT")
 public class KopyInvokeDiagnosticTestGenerated extends AbstractKopyInvokeDiagnosticTest {
+  private void run(String fileName) {
+    runTest("test-data/diagnostics-kopy-functions/invoke/" + fileName);
+  }
+
   @Test
   public void testAllFilesPresentInInvoke() {
     KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-functions/invoke"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -23,6 +27,6 @@ public class KopyInvokeDiagnosticTestGenerated extends AbstractKopyInvokeDiagnos
   @Test
   @TestMetadata("invoke.kt")
   public void testInvoke() {
-    runTest("test-data/diagnostics-kopy-functions/invoke/invoke.kt");
+    run("invoke.kt");
   }
 }

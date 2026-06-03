@@ -15,6 +15,10 @@ import java.util.regex.Pattern;
 @TestMetadata("test-data/diagnostics-kopy-visibility/0_auto")
 @TestDataPath("$PROJECT_ROOT")
 public class Kopy0AutoDiagnosticTestGenerated extends AbstractKopy0AutoDiagnosticTest {
+  private void run(String fileName) {
+    runTest("test-data/diagnostics-kopy-visibility/0_auto/" + fileName);
+  }
+
   @Test
   public void testAllFilesPresentIn0_auto() {
     KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-visibility/0_auto"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -23,30 +27,30 @@ public class Kopy0AutoDiagnosticTestGenerated extends AbstractKopy0AutoDiagnosti
   @Test
   @TestMetadata("internal.kt")
   public void testInternal() {
-    runTest("test-data/diagnostics-kopy-visibility/0_auto/internal.kt");
+    run("internal.kt");
   }
 
   @Test
   @TestMetadata("private.kt")
   public void testPrivate() {
-    runTest("test-data/diagnostics-kopy-visibility/0_auto/private.kt");
+    run("private.kt");
   }
 
   @Test
   @TestMetadata("private_2.kt")
   public void testPrivate_2() {
-    runTest("test-data/diagnostics-kopy-visibility/0_auto/private_2.kt");
+    run("private_2.kt");
   }
 
   @Test
   @TestMetadata("protected.kt")
   public void testProtected() {
-    runTest("test-data/diagnostics-kopy-visibility/0_auto/protected.kt");
+    run("protected.kt");
   }
 
   @Test
   @TestMetadata("public.kt")
   public void testPublic() {
-    runTest("test-data/diagnostics-kopy-visibility/0_auto/public.kt");
+    run("public.kt");
   }
 }

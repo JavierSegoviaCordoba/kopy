@@ -16,6 +16,7 @@ import com.javiersc.kotlin.test.assertEquals
 import com.javiersc.kotlin.test.assertFalse
 import com.javiersc.kotlin.test.assertNotNull
 import com.javiersc.kotlin.test.assertTrue
+import org.jetbrains.kotlin.cli.create
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.junit.jupiter.api.Test
@@ -140,7 +141,7 @@ class KopyCommandLineProcessorTest {
         value: String,
         block: (CompilerConfiguration) -> Unit,
     ) {
-        val compilerConfiguration = CompilerConfiguration()
+        val compilerConfiguration = CompilerConfiguration.create()
         processOption(option = option, value = value, configuration = compilerConfiguration)
         block(compilerConfiguration)
     }
@@ -150,7 +151,7 @@ class KopyCommandLineProcessorTest {
         values: List<String>,
         block: (CompilerConfiguration) -> Unit,
     ) {
-        val compilerConfiguration = CompilerConfiguration()
+        val compilerConfiguration = CompilerConfiguration.create()
         for (value in values) {
             processOption(option = option, value = value, configuration = compilerConfiguration)
         }

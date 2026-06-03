@@ -15,6 +15,10 @@ import java.util.regex.Pattern;
 @TestMetadata("test-data/diagnostics-kopy-visibility/3_protected")
 @TestDataPath("$PROJECT_ROOT")
 public class Kopy3ProtectedDiagnosticTestGenerated extends AbstractKopy3ProtectedDiagnosticTest {
+  private void run(String fileName) {
+    runTest("test-data/diagnostics-kopy-visibility/3_protected/" + fileName);
+  }
+
   @Test
   public void testAllFilesPresentIn3_protected() {
     KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics-kopy-visibility/3_protected"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -23,24 +27,24 @@ public class Kopy3ProtectedDiagnosticTestGenerated extends AbstractKopy3Protecte
   @Test
   @TestMetadata("internal.kt")
   public void testInternal() {
-    runTest("test-data/diagnostics-kopy-visibility/3_protected/internal.kt");
+    run("internal.kt");
   }
 
   @Test
   @TestMetadata("private.kt")
   public void testPrivate() {
-    runTest("test-data/diagnostics-kopy-visibility/3_protected/private.kt");
+    run("private.kt");
   }
 
   @Test
   @TestMetadata("protected.kt")
   public void testProtected() {
-    runTest("test-data/diagnostics-kopy-visibility/3_protected/protected.kt");
+    run("protected.kt");
   }
 
   @Test
   @TestMetadata("public.kt")
   public void testPublic() {
-    runTest("test-data/diagnostics-kopy-visibility/3_protected/public.kt");
+    run("public.kt");
   }
 }

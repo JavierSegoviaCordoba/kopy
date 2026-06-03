@@ -3,7 +3,7 @@ FILE fqName:kotlinx.serialization fileName:/a.kt
   CLASS ANNOTATION_CLASS name:Serializable modality:OPEN visibility:public superTypes:[kotlin.Annotation]
     annotations:
       MustBeDocumented
-      Target(allowedTargets = [GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:PROPERTY' type=kotlin.annotation.AnnotationTarget, GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:CLASS' type=kotlin.annotation.AnnotationTarget, GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:TYPE' type=kotlin.annotation.AnnotationTarget] type=kotlin.Array<out kotlin.annotation.AnnotationTarget> varargElementType=kotlin.annotation.AnnotationTarget)
+      Target(allowedTargets = [AnnotationTarget.PROPERTY, AnnotationTarget.CLASS, AnnotationTarget.TYPE] type=kotlin.Array<out kotlin.annotation.AnnotationTarget> varargElementType=kotlin.annotation.AnnotationTarget)
     thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:kotlinx.serialization.Serializable
     CONSTRUCTOR visibility:public returnType:kotlinx.serialization.Serializable [primary]
       BLOCK_BODY
@@ -25,7 +25,7 @@ FILE fqName:kotlinx.serialization fileName:/a.kt
   CLASS ANNOTATION_CLASS name:Transient modality:OPEN visibility:public superTypes:[kotlin.Annotation]
     annotations:
       MustBeDocumented
-      Target(allowedTargets = [GET_ENUM 'ENUM_ENTRY IR_EXTERNAL_DECLARATION_STUB name:PROPERTY' type=kotlin.annotation.AnnotationTarget] type=kotlin.Array<out kotlin.annotation.AnnotationTarget> varargElementType=kotlin.annotation.AnnotationTarget)
+      Target(allowedTargets = [AnnotationTarget.PROPERTY] type=kotlin.Array<out kotlin.annotation.AnnotationTarget> varargElementType=kotlin.annotation.AnnotationTarget)
     thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:kotlinx.serialization.Transient
     CONSTRUCTOR visibility:public returnType:kotlinx.serialization.Transient [primary]
       BLOCK_BODY

@@ -14,6 +14,7 @@ import java.io.File
 import kotlin.io.path.createTempDirectory
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.jetbrains.kotlin.cli.create
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstance
@@ -29,7 +30,7 @@ class KopyCompilerPluginRegistrarTest {
     @Test
     fun `check KopyCompilerPluginRegistrar uses Kopy extensions`() {
         val extensionStorage = CompilerPluginRegistrar.ExtensionStorage()
-        val configuration = CompilerConfiguration()
+        val configuration = CompilerConfiguration.create()
         val kopyCompiler = KopyCompilerPluginRegistrar()
         extensionStorage.run { kopyCompiler.run { registerExtensions(configuration) } }
         val extensions: List<Any> = extensionStorage.registeredExtensions.values.flatten()
@@ -41,7 +42,7 @@ class KopyCompilerPluginRegistrarTest {
     @Test
     fun `check KopyCompilerPluginRegistrar uses Kopy measures`() {
         val extensionStorage = CompilerPluginRegistrar.ExtensionStorage()
-        val configuration = CompilerConfiguration()
+        val configuration = CompilerConfiguration.create()
         val kopyCompiler = KopyCompilerPluginRegistrar()
         extensionStorage.run { kopyCompiler.run { registerExtensions(configuration) } }
         extensionStorage.disposables.firstIsInstance<MeasureStorage>().measures.assertCount(0)
@@ -50,7 +51,7 @@ class KopyCompilerPluginRegistrarTest {
     @Test
     fun `check KopyConfig`() {
         val tempDir: File = createTempDirectory().toFile()
-        val configuration = CompilerConfiguration()
+        val configuration = CompilerConfiguration.create()
         configuration.put(KopyKey.Debug, true)
         configuration.put(KopyKey.ReportPath, tempDir.path)
         val measureStorage = MeasureStorage()

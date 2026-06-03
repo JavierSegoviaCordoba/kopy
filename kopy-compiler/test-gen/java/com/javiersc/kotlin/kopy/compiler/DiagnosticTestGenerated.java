@@ -16,6 +16,10 @@ import java.util.regex.Pattern;
 @TestMetadata("test-data/diagnostics")
 @TestDataPath("$PROJECT_ROOT")
 public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
+  private void run(String fileName) {
+    runTest("test-data/diagnostics/" + fileName);
+  }
+
   @Test
   public void testAllFilesPresentInDiagnostics() {
     KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -25,6 +29,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/inheritance")
   @TestDataPath("$PROJECT_ROOT")
   public class Inheritance {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/inheritance/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInInheritance() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/inheritance"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -33,13 +41,13 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("interface-1.kt")
     public void testInterface_1() {
-      runTest("test-data/diagnostics/inheritance/interface-1.kt");
+      run("interface-1.kt");
     }
 
     @Test
     @TestMetadata("sealed-class-1.kt")
     public void testSealed_class_1() {
-      runTest("test-data/diagnostics/inheritance/sealed-class-1.kt");
+      run("sealed-class-1.kt");
     }
   }
 
@@ -47,6 +55,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/invalid-call-chain")
   @TestDataPath("$PROJECT_ROOT")
   public class Invalid_call_chain {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/invalid-call-chain/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInInvalid_call_chain() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/invalid-call-chain"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -55,19 +67,19 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("simple-deep-invalid-call-chain-deep-set.kt")
     public void testSimple_deep_invalid_call_chain_deep_set() {
-      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-set.kt");
+      run("simple-deep-invalid-call-chain-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-invalid-call-chain-deep-update.kt")
     public void testSimple_deep_invalid_call_chain_deep_update() {
-      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-update.kt");
+      run("simple-deep-invalid-call-chain-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-invalid-call-chain-deep-update-each.kt")
     public void testSimple_deep_invalid_call_chain_deep_update_each() {
-      runTest("test-data/diagnostics/invalid-call-chain/simple-deep-invalid-call-chain-deep-update-each.kt");
+      run("simple-deep-invalid-call-chain-deep-update-each.kt");
     }
   }
 
@@ -75,6 +87,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/missing-data-class")
   @TestDataPath("$PROJECT_ROOT")
   public class Missing_data_class {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/missing-data-class/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInMissing_data_class() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/missing-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -83,73 +99,73 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("multiple-scenarios-in-a-row.kt")
     public void testMultiple_scenarios_in_a_row() {
-      runTest("test-data/diagnostics/missing-data-class/multiple-scenarios-in-a-row.kt");
+      run("multiple-scenarios-in-a-row.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-missing-and-deep-set.kt")
     public void testSimple_1_level_deep_missing_and_deep_set() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-set.kt");
+      run("simple-1-level-deep-missing-and-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-missing-and-deep-set-and-valid-set.kt")
     public void testSimple_1_level_deep_missing_and_deep_set_and_valid_set() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-set-and-valid-set.kt");
+      run("simple-1-level-deep-missing-and-deep-set-and-valid-set.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-missing-and-deep-update.kt")
     public void testSimple_1_level_deep_missing_and_deep_update() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-missing-and-deep-update.kt");
+      run("simple-1-level-deep-missing-and-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-set.kt")
     public void testSimple_1_level_deep_set() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-set.kt");
+      run("simple-1-level-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-update.kt")
     public void testSimple_1_level_deep_update() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-update.kt");
+      run("simple-1-level-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-1-level-deep-update-each.kt")
     public void testSimple_1_level_deep_update_each() {
-      runTest("test-data/diagnostics/missing-data-class/simple-1-level-deep-update-each.kt");
+      run("simple-1-level-deep-update-each.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-set.kt")
     public void testSimple_deep_set() {
-      runTest("test-data/diagnostics/missing-data-class/simple-deep-set.kt");
+      run("simple-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-update.kt")
     public void testSimple_deep_update() {
-      runTest("test-data/diagnostics/missing-data-class/simple-deep-update.kt");
+      run("simple-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-multiple-deep-set.kt")
     public void testSimple_multiple_deep_set() {
-      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-set.kt");
+      run("simple-multiple-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-multiple-deep-update.kt")
     public void testSimple_multiple_deep_update() {
-      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-update.kt");
+      run("simple-multiple-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-multiple-deep-update-each.kt")
     public void testSimple_multiple_deep_update_each() {
-      runTest("test-data/diagnostics/missing-data-class/simple-multiple-deep-update-each.kt");
+      run("simple-multiple-deep-update-each.kt");
     }
   }
 
@@ -157,6 +173,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/no-copy-scope")
   @TestDataPath("$PROJECT_ROOT")
   public class No_copy_scope {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/no-copy-scope/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInNo_copy_scope() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/no-copy-scope"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -165,37 +185,37 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("simple-no-copy-scope-deep-set.kt")
     public void testSimple_no_copy_scope_deep_set() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-set.kt");
+      run("simple-no-copy-scope-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-no-copy-scope-deep-update.kt")
     public void testSimple_no_copy_scope_deep_update() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-update.kt");
+      run("simple-no-copy-scope-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-no-copy-scope-deep-update-each.kt")
     public void testSimple_no_copy_scope_deep_update_each() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-copy-scope-deep-update-each.kt");
+      run("simple-no-copy-scope-deep-update-each.kt");
     }
 
     @Test
     @TestMetadata("simple-no-immediate-copy-scope-deep-set.kt")
     public void testSimple_no_immediate_copy_scope_deep_set() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-set.kt");
+      run("simple-no-immediate-copy-scope-deep-set.kt");
     }
 
     @Test
     @TestMetadata("simple-no-immediate-copy-scope-deep-update.kt")
     public void testSimple_no_immediate_copy_scope_deep_update() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-update.kt");
+      run("simple-no-immediate-copy-scope-deep-update.kt");
     }
 
     @Test
     @TestMetadata("simple-no-immediate-copy-scope-deep-update-each.kt")
     public void testSimple_no_immediate_copy_scope_deep_update_each() {
-      runTest("test-data/diagnostics/no-copy-scope/simple-no-immediate-copy-scope-deep-update-each.kt");
+      run("simple-no-immediate-copy-scope-deep-update-each.kt");
     }
   }
 
@@ -203,6 +223,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/non-data-class")
   @TestDataPath("$PROJECT_ROOT")
   public class Non_data_class {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/non-data-class/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInNon_data_class() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/non-data-class"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -211,7 +235,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("simple.kt")
     public void testSimple() {
-      runTest("test-data/diagnostics/non-data-class/simple.kt");
+      run("simple.kt");
     }
   }
 
@@ -219,6 +243,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/type-error")
   @TestDataPath("$PROJECT_ROOT")
   public class Type_error {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/type-error/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInType_error() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/type-error"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -227,7 +255,7 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("type-error.kt")
     public void testType_error() {
-      runTest("test-data/diagnostics/type-error/type-error.kt");
+      run("type-error.kt");
     }
   }
 
@@ -235,6 +263,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/valid")
   @TestDataPath("$PROJECT_ROOT")
   public class Valid {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/valid/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInValid() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/valid"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -243,55 +275,55 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("multiple-scenarios-in-a-row.kt")
     public void testMultiple_scenarios_in_a_row() {
-      runTest("test-data/diagnostics/valid/multiple-scenarios-in-a-row.kt");
+      run("multiple-scenarios-in-a-row.kt");
     }
 
     @Test
     @TestMetadata("simple-copy.kt")
     public void testSimple_copy() {
-      runTest("test-data/diagnostics/valid/simple-copy.kt");
+      run("simple-copy.kt");
     }
 
     @Test
     @TestMetadata("simple-copy-update-custom-parameter.kt")
     public void testSimple_copy_update_custom_parameter() {
-      runTest("test-data/diagnostics/valid/simple-copy-update-custom-parameter.kt");
+      run("simple-copy-update-custom-parameter.kt");
     }
 
     @Test
     @TestMetadata("simple-copy-update-each-custom-parameter.kt")
     public void testSimple_copy_update_each_custom_parameter() {
-      runTest("test-data/diagnostics/valid/simple-copy-update-each-custom-parameter.kt");
+      run("simple-copy-update-each-custom-parameter.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-copy.kt")
     public void testSimple_deep_copy() {
-      runTest("test-data/diagnostics/valid/simple-deep-copy.kt");
+      run("simple-deep-copy.kt");
     }
 
     @Test
     @TestMetadata("simple-deep-copy-with-multiple-scenarios.kt")
     public void testSimple_deep_copy_with_multiple_scenarios() {
-      runTest("test-data/diagnostics/valid/simple-deep-copy-with-multiple-scenarios.kt");
+      run("simple-deep-copy-with-multiple-scenarios.kt");
     }
 
     @Test
     @TestMetadata("simple-nested-copy.kt")
     public void testSimple_nested_copy() {
-      runTest("test-data/diagnostics/valid/simple-nested-copy.kt");
+      run("simple-nested-copy.kt");
     }
 
     @Test
     @TestMetadata("simple-nested-copy-assign.kt")
     public void testSimple_nested_copy_assign() {
-      runTest("test-data/diagnostics/valid/simple-nested-copy-assign.kt");
+      run("simple-nested-copy-assign.kt");
     }
 
     @Test
     @TestMetadata("simple-no-nest-copy-deep-set.kt")
     public void testSimple_no_nest_copy_deep_set() {
-      runTest("test-data/diagnostics/valid/simple-no-nest-copy-deep-set.kt");
+      run("simple-no-nest-copy-deep-set.kt");
     }
   }
 
@@ -299,6 +331,10 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
   @TestMetadata("test-data/diagnostics/visibility")
   @TestDataPath("$PROJECT_ROOT")
   public class Visibility {
+    private void run(String fileName) {
+      runTest("test-data/diagnostics/visibility/" + fileName);
+    }
+
     @Test
     public void testAllFilesPresentInVisibility() {
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("test-data/diagnostics/visibility"), Pattern.compile("^(.+)\\.kt$"), null, true);
@@ -307,25 +343,25 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
     @Test
     @TestMetadata("internal.kt")
     public void testInternal() {
-      runTest("test-data/diagnostics/visibility/internal.kt");
+      run("internal.kt");
     }
 
     @Test
     @TestMetadata("private.kt")
     public void testPrivate() {
-      runTest("test-data/diagnostics/visibility/private.kt");
+      run("private.kt");
     }
 
     @Test
     @TestMetadata("protected.kt")
     public void testProtected() {
-      runTest("test-data/diagnostics/visibility/protected.kt");
+      run("protected.kt");
     }
 
     @Test
     @TestMetadata("public.kt")
     public void testPublic() {
-      runTest("test-data/diagnostics/visibility/public.kt");
+      run("public.kt");
     }
   }
 }
