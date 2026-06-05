@@ -1,0 +1,9 @@
+name: apply-kotlinUpgradeYarnLock
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply-format:
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/apply-kotlin-upgrade-yarn-lock.yaml@4ec55f3e2975433787c8973b5792a7f6a94a5bcf # main
+    secrets: inherit
