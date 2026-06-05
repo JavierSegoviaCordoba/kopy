@@ -1,0 +1,10 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:kopy-compiler
+com.javiersc.kotlin.kopy.compiler
+module:kopy-gradle-plugin
+com.javiersc.kotlin.kopy.gradle.plugin
+module:kopy-runtime
+com.javiersc.kotlin.kopy
+com.javiersc.kotlin.kopy.runtime
