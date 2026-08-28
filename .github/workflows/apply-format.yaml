@@ -5,5 +5,5 @@ on:
 
 jobs:
   apply-format:
-    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/apply-format.yaml@22c3dce85094790803f899aa8a405b3c186e26b9 # main
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/apply-format.yaml@28cbbb75290c493db804578d91b71776b7eaf8f7 # main
     secrets: inherit
