@@ -1,4 +1,4 @@
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
 
 package com.javiersc.kotlin.kopy.playground
@@ -29,3 +29,7 @@ sealed class Bar {
         }
     }
 }
+
+/* GENERATED_FIR_TAGS: andExpression, classDeclaration, data, functionDeclaration, ifExpression, isExpression,
+lambdaLiteral, localProperty, nestedClass, objectDeclaration, primaryConstructor, propertyDeclaration, sealed,
+stringLiteral */

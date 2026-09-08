@@ -1,5 +1,5 @@
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
 
 package com.javiersc.kotlin.kopy.playground
 
@@ -20,3 +20,6 @@ data class Qux(val number: Int)
 class Baz(val qux: Qux, val text: String)
 data class Bar(val baz: Baz, val isValid: Boolean)
 @Kopy data class Foo(val bar: Bar, val letter: Char)
+
+/* GENERATED_FIR_TAGS: additiveExpression, classDeclaration, data, functionDeclaration, integerLiteral, lambdaLiteral,
+localProperty, primaryConstructor, propertyDeclaration, stringLiteral */

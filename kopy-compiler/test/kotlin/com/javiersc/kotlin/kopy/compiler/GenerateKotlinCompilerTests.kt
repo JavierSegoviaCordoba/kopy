@@ -173,7 +173,7 @@ abstract class KopyDiagnosticTest : JvmDiagnosticTest() {
         ::GeneratedMetaRuntimeClasspathProvider
 
     override fun configure(builder: TestConfigurationBuilder) {
-        builder.configureFirParser(FirParser.Psi)
+        builder.configureFirParser(FirParser.LightTree)
         super.configure(builder)
     }
 

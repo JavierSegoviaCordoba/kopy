@@ -1,4 +1,4 @@
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
 
 package com.javiersc.kotlin.kopy.playground
@@ -23,3 +23,6 @@ fun box(): String {
 }
 
 @Kopy data class House(val street: String, val names: List<String>)
+
+/* GENERATED_FIR_TAGS: classDeclaration, data, functionDeclaration, integerLiteral, intersectionType, lambdaLiteral,
+localProperty, primaryConstructor, propertyDeclaration, stringLiteral */

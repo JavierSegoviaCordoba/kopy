@@ -1,5 +1,5 @@
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
 
 package com.javiersc.kotlin.kopy.playground
 
@@ -17,3 +17,6 @@ fun diagnostics() {
 }
 
 @Kopy data class Foo(val number: Int, val letter: Char)
+
+/* GENERATED_FIR_TAGS: classDeclaration, data, functionDeclaration, integerLiteral, lambdaLiteral, localProperty,
+primaryConstructor, propertyDeclaration */

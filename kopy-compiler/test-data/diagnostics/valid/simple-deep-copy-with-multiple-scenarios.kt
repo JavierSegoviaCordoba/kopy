@@ -1,5 +1,5 @@
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
 
 package com.javiersc.kotlin.kopy.playground
 
@@ -21,3 +21,6 @@ fun diagnostics() {
 @Kopy data class House(val squareMeters: Int, val kitchen: Kitchen)
 @Kopy data class Kitchen(val cat: Cat, val squareMeters: Int)
 @Kopy data class Cat(val name: String, val age: Int)
+
+/* GENERATED_FIR_TAGS: additiveExpression, classDeclaration, data, functionDeclaration, integerLiteral, lambdaLiteral,
+localProperty, primaryConstructor, propertyDeclaration, stringLiteral */
