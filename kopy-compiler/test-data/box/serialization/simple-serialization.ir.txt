@@ -66,7 +66,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
         Transient
       FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> visibility:private [final]
         EXPRESSION_BODY
-          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
             TYPE_ARG (of class) T: com.javiersc.kotlin.kopy.playground.Bar
             ARG value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
       FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar>
@@ -95,7 +95,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
           ARG <this>: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           ARG p1: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar'
-          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
             ARG <this>: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
               ARG <this>: GET_VAR 'val tmp_0: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.copy' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL returnType:com.javiersc.kotlin.kopy.playground.Bar [operator,infix]
@@ -112,7 +112,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
           ARG <this>: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           ARG p1: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Bar, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar'
-          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
             ARG <this>: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> declared in com.javiersc.kotlin.kopy.playground.Bar' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Bar> origin=null
               ARG <this>: GET_VAR 'val tmp_1: com.javiersc.kotlin.kopy.playground.Bar declared in com.javiersc.kotlin.kopy.playground.Bar.invoke' type=com.javiersc.kotlin.kopy.playground.Bar origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL returnType:kotlin.Unit [infix]
@@ -243,7 +243,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
     PROPERTY GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:_atomic visibility:internal modality:FINAL [val]
       FIELD PROPERTY_BACKING_FIELD name:_atomic type:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> visibility:private [final]
         EXPRESSION_BODY
-          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<T of kotlin.concurrent.atomics.AtomicReference> origin=null
+          CONSTRUCTOR_CALL 'public constructor <init> (value: T of kotlin.concurrent.atomics.AtomicReference) declared in kotlin.concurrent.atomics.AtomicReference' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
             TYPE_ARG (of class) T: com.javiersc.kotlin.kopy.playground.Foo
             ARG value: GET_VAR '<this>: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
       FUN DEFAULT_PROPERTY_ACCESSOR name:<get-_atomic> visibility:internal modality:FINAL returnType:kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo>
@@ -272,7 +272,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
           ARG <this>: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           ARG p1: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
         RETURN type=kotlin.Nothing from='public final fun copy (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
-          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
             ARG <this>: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
               ARG <this>: GET_VAR 'val tmp_3: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.copy' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:invoke visibility:public modality:FINAL returnType:com.javiersc.kotlin.kopy.playground.Foo [operator,infix]
@@ -289,7 +289,7 @@ FILE fqName:com.javiersc.kotlin.kopy.playground fileName:/b.kt
           ARG <this>: GET_VAR 'copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=@[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit> origin=VARIABLE_AS_FUNCTION
           ARG p1: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
         RETURN type=kotlin.Nothing from='public final fun invoke (copy: @[ExtensionFunctionType] kotlin.Function1<com.javiersc.kotlin.kopy.playground.Foo, kotlin.Unit>): com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo'
-          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=T of kotlin.concurrent.atomics.AtomicReference origin=null
+          CALL 'public final fun load (): T of kotlin.concurrent.atomics.AtomicReference declared in kotlin.concurrent.atomics.AtomicReference' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
             ARG <this>: CALL 'internal final fun <get-_atomic> (): kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> declared in com.javiersc.kotlin.kopy.playground.Foo' type=kotlin.concurrent.atomics.AtomicReference<com.javiersc.kotlin.kopy.playground.Foo> origin=null
               ARG <this>: GET_VAR 'val tmp_4: com.javiersc.kotlin.kopy.playground.Foo declared in com.javiersc.kotlin.kopy.playground.Foo.invoke' type=com.javiersc.kotlin.kopy.playground.Foo origin=null
     FUN GENERATED[com.javiersc.kotlin.kopy.compiler.fir.Key] name:set visibility:public modality:FINAL returnType:kotlin.Unit [infix]

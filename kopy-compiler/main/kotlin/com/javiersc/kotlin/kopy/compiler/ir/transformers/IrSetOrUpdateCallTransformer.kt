@@ -267,25 +267,24 @@ internal class IrSetOrUpdateCallTransformer(
     private fun List<IrMemberAccessExpression<*>>.createCopyCalls(
         atomicRefType: IrSimpleType,
         alsoItValueParameterGetValue: IrGetValue,
-    ): List<IrCall>? =
-        zipWithNext { current, next ->
-                val dataClass: IrClassSymbol = current.copyReceiverClass(atomicRefType)
-                val propertyGetFunction: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
-                val argumentValue: IrDeclarationReference =
-                    next.copyArgumentValue(
-                        current = current,
-                        isLast = next == last(),
-                        alsoItValueParameterGetValue = alsoItValueParameterGetValue,
-                    ) ?: return null
+    ): List<IrCall>? = zipWithNext { current, next ->
+        val dataClass: IrClassSymbol = current.copyReceiverClass(atomicRefType)
+        val propertyGetFunction: IrSimpleFunction = next.asIr<IrCall>().symbol.owner
+        val argumentValue: IrDeclarationReference =
+            next.copyArgumentValue(
+                current = current,
+                isLast = next == last(),
+                alsoItValueParameterGetValue = alsoItValueParameterGetValue,
+            ) ?: return null
 
-                current.symbol.createCopyCall(
-                    dataClass = dataClass,
-                    dispatchReceiver = current,
-                    propertyGetFunction = propertyGetFunction,
-                    argumentValue = argumentValue,
-                ) ?: return null
-            }
-            .reversed()
+        current.symbol.createCopyCall(
+            dataClass = dataClass,
+            dispatchReceiver = current,
+            propertyGetFunction = propertyGetFunction,
+            argumentValue = argumentValue,
+        ) ?: return null
+    }
+        .reversed()
 
     private fun IrMemberAccessExpression<*>.copyReceiverClass(
         atomicRefType: IrSimpleType
@@ -328,10 +327,10 @@ internal class IrSetOrUpdateCallTransformer(
         List<IrMemberAccessExpression<*>> = buildList {
         val extensionReceiver: IrMemberAccessExpression<*> =
             runCatching {
-                    extensionReceiverArgument
-                        ?.asIrOrNull<IrMemberAccessExpression<*>>()
-                        ?.deepCopyWithSymbols()
-                }
+                extensionReceiverArgument
+                    ?.asIrOrNull<IrMemberAccessExpression<*>>()
+                    ?.deepCopyWithSymbols()
+            }
                 .getOrNull() ?: return@buildList
 
         add(extensionReceiver)

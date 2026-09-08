@@ -45,12 +45,14 @@ internal class IrAtomicPropertyTransformer(
                     val typeArg: IrSimpleType = parentClass.defaultType
                     val thisReceiver: IrValueParameter = parentClass.thisReceiver!!
                     val thisGet: IrGetValue = irGet(thisReceiver)
+                    val declarationType = declaration.backingField?.type ?: return originalProp()
                     val atomicReferenceConstructorCall: IrConstructorCall =
                         irCallConstructor(
                                 callee = atomicReferenceConstructor.symbol,
                                 typeArguments = listOf(typeArg),
                             )
                             .apply {
+                                type = declarationType
                                 val index: Int =
                                     thisReceiver.indexInParameters.takeIf { it >= 0 } ?: 0
                                 arguments[index] = thisGet

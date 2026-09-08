@@ -64,3 +64,8 @@ tasks.register<Task>("deleteAllTextTestFiles") {
         }
     }
 }
+
+tasks.withType<org.gradle.api.tasks.testing.Test>().configureEach {
+    systemProperty("junit.jupiter.execution.parallel.config.strategy", "fixed")
+    systemProperty("junit.jupiter.execution.parallel.config.fixed.parallelism", "2")
+}

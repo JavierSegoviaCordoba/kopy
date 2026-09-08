@@ -43,7 +43,9 @@ internal fun ExtensionStorage.registerAllExtensions(
             onlyDiagnostics = onlyDiagnostics,
         )
     registerDisposable(measureStorage)
-    FirExtensionRegistrarAdapter.registerExtension(FirKopyExtension(kopyConfig))
+    if (get(FirExtensionRegistrarAdapter).none { it is FirKopyExtension }) {
+        FirExtensionRegistrarAdapter.registerExtension(FirKopyExtension(kopyConfig))
+    }
     IrGenerationExtension.registerExtension(IrKopyGenerationExtension(kopyConfig))
     additionalConfig()
 }

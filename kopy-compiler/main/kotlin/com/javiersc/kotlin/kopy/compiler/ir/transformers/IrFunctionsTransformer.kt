@@ -252,7 +252,10 @@ internal class IrFunctionsTransformer(
                 irCall(atomicProperty.getter!!).apply { dispatchReceiver = thisCopyGetValue }
             val atomicReferenceLoadFunction: IrFunction = atomicReferenceLoadFunction()
             val atomicReferenceLoadCall: IrFunctionAccessExpression =
-                irCall(atomicReferenceLoadFunction).apply { dispatchReceiver = getAtomicCall }
+                irCall(atomicReferenceLoadFunction).apply {
+                    dispatchReceiver = getAtomicCall
+                    type = declaration.returnType
+                }
             irReturn(atomicReferenceLoadCall)
         }
 

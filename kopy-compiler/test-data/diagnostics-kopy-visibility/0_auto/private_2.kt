@@ -1,5 +1,5 @@
+// RUN_PIPELINE_TILL: FRONTEND
 // OPT_IN: com.javiersc.kotlin.kopy.KopyOptIn
-// !DIAGNOSTICS: -UNUSED_PARAMETER -UNUSED_VARIABLE -MISSING_DEPENDENCY_CLASS -MISSING_DEPENDENCY_SUPERCLASS
 
 package com.javiersc.kotlin.kopy.playground
 
@@ -22,3 +22,6 @@ data class Foo <!DATA_CLASS_COPY_VISIBILITY_WILL_BE_CHANGED_WARNING!>private<!> 
         val instance = Foo(number = 7, letter = 'W')
     }
 }
+
+/* GENERATED_FIR_TAGS: classDeclaration, companionObject, data, functionDeclaration, integerLiteral, lambdaLiteral,
+localProperty, objectDeclaration, primaryConstructor, propertyDeclaration */
