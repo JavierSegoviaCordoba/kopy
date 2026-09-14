@@ -14,6 +14,10 @@
 
 ### Updated
 
+## [0.26.0+2.4.20] - 2026-09-14
+
+### Updated
+
 - `com.javiersc.hubdle:com.javiersc.hubdle.gradle.plugin -> 0.20.0`
 - `com.javiersc.hubdle:hubdle-version-catalog -> 0.15.0`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.17.0+2.4.20`
@@ -341,7 +345,9 @@
 - `com.javiersc.kotlin:kotlin-compiler-test-extensions -> 0.2.0+2.0.10`
 - `com.javiersc.kotlin:kotlin-compiler-extensions -> 0.2.0+2.0.10`
 
-[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.25.0+2.4.10...HEAD
+[Unreleased]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.26.0+2.4.20...HEAD
+
+[0.26.0+2.4.20]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.25.0+2.4.10...0.26.0+2.4.20
 
 [0.25.0+2.4.10]: https://github.com/JavierSegoviaCordoba/kopy/compare/0.24.0+2.4.0...0.25.0+2.4.10
 
