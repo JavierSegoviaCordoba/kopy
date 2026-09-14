@@ -1,0 +1,13 @@
+code {
+    font-weight: 600;
+}
+
+@media screen and (min-width: 76.1875em) {
+    .md-nav--primary .md-nav__title {
+        display: none;
+    }
+}
+
+.md-nav__link--active {
+    font-weight: bold;
+}
