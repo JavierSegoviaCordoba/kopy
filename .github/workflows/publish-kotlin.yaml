@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/publish-kotlin.yaml@28cbbb75290c493db804578d91b71776b7eaf8f7 # main
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/publish-kotlin.yaml@8d924922af2a2897f5d8bf57e29cdef23a93d64c # main
     with:
       publish-maven-central: true
       publish-gradle-plugin-portal: true
