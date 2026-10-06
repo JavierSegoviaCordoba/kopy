@@ -28,7 +28,7 @@ on:
 
 jobs:
   generate:
-    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/generate-version-tag.yaml@28cbbb75290c493db804578d91b71776b7eaf8f7 # main
+    uses: JavierSegoviaCordoba/reusable-workflows/.github/workflows/generate-version-tag.yaml@8d924922af2a2897f5d8bf57e29cdef23a93d64c # main
     with:
       stage: '${{ github.event.inputs.stage }}'
       scope: '${{ github.event.inputs.scope }}'
