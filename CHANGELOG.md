@@ -14,7 +14,7 @@
 
 ### Updated
 
-- `gradle -> 9.9.1`
+- `gradle -> 9.9.2`
 - `org.jetbrains.kotlin:kotlin-gradle-plugin -> 2.4.21`
 
 ## [0.26.0+2.4.20] - 2026-09-14
